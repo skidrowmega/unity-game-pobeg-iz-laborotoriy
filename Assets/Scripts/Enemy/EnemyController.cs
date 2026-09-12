@@ -1,9 +1,8 @@
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+public class EnemyController : Entity
 {
     private CharacterController player;
-    public float Speed;
     void Start()
     {
         player = FindAnyObjectByType<CharacterController>();
