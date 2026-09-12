@@ -1,13 +1,17 @@
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Accessibility;
+using UnityEngine.Assemblies;
+using System.Collections;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 public class CharacterController : Entity
 {
     public Transform Cursor;
     Vector3 CursorVector;
     Animator animator;
-    WeaponMelee currentweapon;
+    public WeaponMelee currentweapon;
 
 
 
@@ -33,10 +37,14 @@ public class CharacterController : Entity
 
     void Attack()
     {
+        Debug.DrawLine(transform.position, transform.position + transform.forward * 2.982696f);
         if (!Input.GetMouseButtonDown(0)) return;
         if (animator == null) return;
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOBASHLEFT")) return;
         animator.Play("VESLOBASHLEFT");
+        //StartCoroutine(MeleeAttackLoop(.41f));
+        StartCoroutine(MeleeAttackLoop(animator.GetCurrentAnimatorStateInfo(0).length));
+        print("current animation length: " + animator.GetCurrentAnimatorStateInfo(0).length);
     }
     void Move()
     {
@@ -50,6 +58,28 @@ public class CharacterController : Entity
         transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * Mathf.Atan2(-CursorVector.z, CursorVector.x), 0);
     }
 
-
-
+    IEnumerator MeleeAttackLoop(float secondstowait)
+    {
+        float starttime= Time.time;
+        List<Collider> checkedcolliders = new List<Collider>();
+        while (Time.time - starttime < secondstowait)
+        {
+            foreach (Collider collider in Physics.OverlapCapsule(transform.position, transform.position + Vector3.up, 2.482696f))
+            {
+                Entity potentialenemy = collider.GetComponent<Entity>();
+                if (checkedcolliders.Contains(collider)) continue;
+                checkedcolliders.Add(collider);
+                if (potentialenemy && !(potentialenemy.GetComponent<CharacterController>()))
+                {
+                    print("HITTING " + potentialenemy.name + " NOW!!!");
+                    currentweapon.OnHit(potentialenemy, transform.position);
+                }
+            }
+            yield return new WaitForFixedUpdate();
+        }
+    }
+    private void FixedUpdate()
+    {
+        
+    }
 }

@@ -28,7 +28,6 @@ public class Entity : MonoBehaviour
     }
     public void PushPerFrame()
     {
-        print("HI");
         if (IsBeingPushed) {
             if (Time.time - pushstart > PushTime)
             {

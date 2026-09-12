@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 477598330178143761}
+  - component: {fileID: 6488830609201752823}
+  - component: {fileID: 8840069787324954528}
   m_Layer: 0
   m_Name: VESLO
   m_TagString: Untagged
@@ -33,6 +35,46 @@ Transform:
   - {fileID: 4504486931234124369}
   m_Father: {fileID: 567632349645938284}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &6488830609201752823
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2203581245691659192}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c80cef5e07581744f97caff164e58e11, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8840069787324954528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2203581245691659192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1ed184cdf324541829dd161bd421e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OarWeapon
+  WeaponName: Oar
+  Damage: 1
+  Stamina: 100
+  StaminaRecoveryRate: 20
+  StamineDecreaseRate: 20
+  PushTime: 0
 --- !u!1 &2608291847546762080
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,6 +268,7 @@ GameObject:
   - component: {fileID: 6734926168839552918}
   - component: {fileID: 836407827600653964}
   - component: {fileID: 4355926806905475341}
+  - component: {fileID: 5108916912367320086}
   m_Layer: 0
   m_Name: BOBR
   m_TagString: Untagged
@@ -341,4 +384,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b60ae1c27734c4281701068fc9c033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterController
+  healthpoints: 1
   Speed: 0.02
+  IsStunned: 0
+  IsBeingPushed: 0
+  PushTime: 0
+  pushsource: {x: 0, y: 0, z: 0}
+  pushstart: 0
+  Cursor: {fileID: 0}
+  currentweapon: {fileID: 0}
+--- !u!95 &5108916912367320086
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5463933729419849545}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b4e466b20aacc1e41afce383ebd8b5e7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

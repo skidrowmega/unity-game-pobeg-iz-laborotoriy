@@ -11,8 +11,8 @@ public class EnemyController : Entity
     // Update is called once per frame
     void Update()
     {
-        transform.Translate((player.transform.position- transform.position) *Speed);
-
+        if(!IsStunned) transform.Translate((player.transform.position- transform.position) *Speed);
+        PushPerFrame();
     }
 
 }
