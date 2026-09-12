@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Entity : MonoBehaviour
 {
-    public int healthpoints=1;
+    public int healthpoints=100;
     public float Speed = 0.005f;
     public bool IsStunned = false;
     public bool IsBeingPushed = false;
