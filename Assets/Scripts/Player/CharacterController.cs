@@ -7,7 +7,7 @@ public class CharacterController : Entity
     public Transform Cursor;
     Vector3 CursorVector;
     Animator animator;
-
+    WeaponMelee currentweapon;
 
 
 
