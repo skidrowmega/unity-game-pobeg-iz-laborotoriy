@@ -10,6 +10,6 @@ public abstract class WeaponMelee: MonoBehaviour
     public int PushTime=0;
 
     public virtual void Punch() {
-    
+
     }
 }
