@@ -4,6 +4,6 @@ public class OarWeapon : WeaponMelee
 {
     public override void OnHit(Entity entity, Vector3 source)
     {
-        entity.TakeDamage(Damage,source, PushStrength);
+        entity.TakeDamage(Damage, WeaponHolder, PushStrength);
     }
 }

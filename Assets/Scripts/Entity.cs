@@ -15,13 +15,13 @@ public class Entity : MonoBehaviour
     {
 
     }
-    public void TakeDamage(int damage, Vector3 source, float pushstrength)
+    public virtual void TakeDamage(int damage, Entity source, float pushstrength)
     {
         healthpoints -= damage;
         if (healthpoints <= 0) Death();
         if (pushstrength>0)
         {
-            PushEntity(source, pushstrength);
+            PushEntity(source.transform.position, pushstrength);
         }
     }
     public void PushPerFrame()

@@ -8,6 +8,7 @@ public abstract class WeaponRanged: MonoBehaviour
     public int ReloadingTime;
     public int EnergyDecrease;
     public int RicochetCount;
+    public Entity WeaponHolder;
 
     public virtual void Shot()
     {

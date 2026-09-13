@@ -29,18 +29,19 @@ public class CharacterController : Entity
         LookAtCursor();
         Attack();
         PushPerFrame();
-        if (Input.GetMouseButtonUp(1))
+        /*if (Input.GetMouseButtonUp(1))
         {
             PushEntity(new Vector3(5, 1, 7), 0.3f);
-        }
+        }*/
+        Parry();
     }
 
     void Attack()
     {
-        Debug.DrawLine(transform.position, transform.position + transform.forward * 2.982696f);
+        //Debug.DrawLine(transform.position, transform.position + transform.forward * 2.982696f);
         if (!Input.GetMouseButtonDown(0)) return;
         if (animator == null) return;
-        if (animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOBASHLEFT")) return;
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
         animator.Play("VESLOBASHLEFT");
         //StartCoroutine(MeleeAttackLoop(.41f));
         StartCoroutine(MeleeAttackLoop(animator.GetCurrentAnimatorStateInfo(0).length));
@@ -52,6 +53,16 @@ public class CharacterController : Entity
         if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
             transform.position += new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * Speed;
     }
+
+    void Parry()
+    {
+        if (!Input.GetKeyDown("f")) return;
+        if (animator == null) return;
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
+        animator.Play("VESLOPARRY");
+    }
+
+
     void LookAtCursor()
     {
         CursorVector = Cursor.position - transform.position;
@@ -60,7 +71,7 @@ public class CharacterController : Entity
 
     IEnumerator MeleeAttackLoop(float secondstowait)
     {
-        float starttime= Time.time;
+        float starttime = Time.time;
         List<Collider> checkedcolliders = new List<Collider>();
         while (Time.time - starttime < secondstowait)
         {
@@ -73,16 +84,34 @@ public class CharacterController : Entity
                     && Vector3.Dot((potentialenemy.transform.position - transform.position).normalized, transform.right) >= 0.5
                     )
                 {
-                    print("HIT ANGLE DEVIATION: " + Mathf.Acos(Vector3.Dot((potentialenemy.transform.position - transform.position).normalized, transform.right))*Mathf.Rad2Deg);
+                    print("HIT ANGLE DEVIATION: " + Mathf.Acos(Vector3.Dot((potentialenemy.transform.position - transform.position).normalized, transform.right)) * Mathf.Rad2Deg);
                     print("HITTING " + potentialenemy.name + " NOW!!!");
                     currentweapon.OnHit(potentialenemy, transform.position);
                 }
             }
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForEndOfFrame();
         }
     }
-    private void FixedUpdate()
+
+    private bool isparrying()
     {
-        
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOPARRY");
+    }
+
+    public override void TakeDamage(int damage, Entity source, float pushstrength)
+    {
+        if (isparrying())
+        {
+            OnParry(damage,source,pushstrength);
+            return;
+        }
+        else
+        {
+            base.TakeDamage(damage,source, pushstrength);
+        }
+    }
+    private void OnParry(int damage, Entity source, float pushstrength)
+    {
+        source.PushEntity(transform.position, 5);
     }
 }
