@@ -1,62 +1,67 @@
 using JetBrains.Annotations;
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using System.Collections;
 public class Entity : MonoBehaviour
 {
     public int healthpoints=100;
     public float Speed = 0.005f;
     public bool IsStunned = false;
     public bool IsBeingPushed = false;
-    public float PushTime = 0;
-    public Vector3 pushsource = Vector3.zero;
-    public const int GlobalPushStrength = 3;
-    public float pushstart=0;
+    public const float GlobalPushTime = 0.2f;
     public virtual void Death()
     {
 
     }
-    public void TakeDamage(int damage, Vector3 source, float pushtime)
+    public void TakeDamage(int damage, Vector3 source, float pushstrength)
     {
         healthpoints -= damage;
         if (healthpoints <= 0) Death();
-        if (pushtime>0)
+        if (pushstrength>0)
         {
-            PushEntity(source, pushtime);
+            PushEntity(source, pushstrength);
         }
     }
     public void PushPerFrame()
     {
         if (IsBeingPushed) {
-            if (Time.time - pushstart > PushTime)
-            {
-                PushStop();
-            }
-            else
-                //transform.position = Vector3.MoveTowards(transform.position, pushsource, Time.deltaTime * GlobalPushStrength);
-                transform.position += (transform.position- pushsource) * Time.deltaTime * GlobalPushStrength;
+            //if (Time.time - pushstart > PushStrength)
+            //{
+            //    PushStop();
+            //}
+            //else
+            //    //transform.position = Vector3.MoveTowards(transform.position, pushsource, Time.deltaTime * GlobalPushStrength);
+            //    transform.position += (transform.position- pushsource) * Time.deltaTime * GlobalPushStrength;
         }
     }
-    public void PushEntity(Vector3 source, float pushtime)
+    public void PushEntity(Vector3 source, float pushstrength)
     {
         if (IsBeingPushed) return;
         IsBeingPushed= true;
-        pushsource= source;
-        pushsource.y=transform.position.y;
-        PushTime= pushtime;
-        IsStunned= true;
-        pushstart = Time.time;
+        IsStunned = true;
+        StartCoroutine(PushCoroutine(source, pushstrength));
     }
     private void PushStop()
     {
         IsBeingPushed = false;
-        pushsource = Vector3.zero;
-        PushTime = 0;
         IsStunned = false;
-        pushstart = 0;
     }
 
-
+    IEnumerator PushCoroutine(Vector3 source, float pushstrength)
+    {
+        float timewasted = 0;
+        Vector3 pushdirection = (transform.position - source).normalized;
+        Vector3 startposition = transform.position;
+        while (timewasted < GlobalPushTime)
+        {
+            transform.position=Vector3.Lerp(transform.position, pushdirection*pushstrength+startposition, timewasted );
+            timewasted += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        transform.position = pushdirection * pushstrength + startposition;
+        PushStop();
+    }
 
 }
