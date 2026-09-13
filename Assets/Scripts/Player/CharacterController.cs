@@ -12,14 +12,15 @@ public class CharacterController : Entity
     Vector3 CursorVector;
     Animator animator;
     public WeaponMelee currentweapon;
-
-
+    public float parrycooldown=3;
+    float lastparry;
 
 
 
     private void Awake()
     {
         animator= GetComponent<Animator>();
+        lastparry = -parrycooldown;
     }
 
     // Update is called once per frame
@@ -56,9 +57,11 @@ public class CharacterController : Entity
     void Parry()
     {
         if (!Input.GetKeyDown("f")) return;
+        if (Time.time - lastparry <= parrycooldown) return;
         if (animator == null) return;
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
         animator.Play("VESLOPARRY");
+        lastparry= Time.time;
     }
 
 
@@ -74,7 +77,7 @@ public class CharacterController : Entity
         List<Collider> checkedcolliders = new List<Collider>();
         while (Time.time - starttime < secondstowait)
         {
-            foreach (Collider collider in Physics.OverlapCapsule(transform.position, transform.position + Vector3.up, 2.482696f))
+            foreach (Collider collider in Physics.OverlapCapsule(transform.position, transform.position + Vector3.up, 1.5f*1.6f))
             {
                 Entity potentialenemy = collider.GetComponent<Entity>();
                 if (checkedcolliders.Contains(collider)) continue;
@@ -111,6 +114,7 @@ public class CharacterController : Entity
     }
     private void OnParry(int damage, Entity source, float pushstrength)
     {
+        lastparry=-parrycooldown;
         source.PushEntity(transform.position, 5);
     }
 }

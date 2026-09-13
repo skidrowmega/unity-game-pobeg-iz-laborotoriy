@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 477598330178143761}
+  - component: {fileID: -3553986802638785218}
   m_Layer: 0
   m_Name: VESLO
   m_TagString: Untagged
@@ -25,14 +26,32 @@ Transform:
   m_GameObject: {fileID: 2203581245691659192}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -50.86107, y: 0, z: 9.70862}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3682565439584905149}
-  - {fileID: 4504486931234124369}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-3553986802638785218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2203581245691659192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1ed184cdf324541829dd161bd421e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OarWeapon
+  WeaponName: Oar
+  Damage: 1
+  Stamina: 100
+  StaminaRecoveryRate: 20
+  StamineDecreaseRate: 20
+  PushStrength: 5
+  WeaponHolder: {fileID: 0}
 --- !u!1 &2608291847546762080
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,10 +80,11 @@ Transform:
   m_GameObject: {fileID: 2608291847546762080}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.528, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.08, y: 1, z: 0.11}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4504486931234124369}
   m_Father: {fileID: 477598330178143761}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2884820926021602891
@@ -173,11 +193,11 @@ Transform:
   m_GameObject: {fileID: 4393794176718446932}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.2677, z: 0}
-  m_LocalScale: {x: 0.08, y: 0.51531744, z: 0.26}
+  m_LocalPosition: {x: 0, y: 0.75, z: 0}
+  m_LocalScale: {x: 1, y: 0.5, z: 2.3636363}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 477598330178143761}
+  m_Father: {fileID: 3682565439584905149}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8374280711034897699
 MeshFilter:
