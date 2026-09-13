@@ -24,9 +24,10 @@ public class Entity : MonoBehaviour
             PushEntity(source.transform.position, pushstrength);
         }
     }
-    public void PushPerFrame()
+/*    public void PushPerFrame()
     {
-        if (IsBeingPushed) {
+        if (IsBeingPushed)
+        {
             //if (Time.time - pushstart > PushStrength)
             //{
             //    PushStop();
@@ -35,7 +36,7 @@ public class Entity : MonoBehaviour
             //    //transform.position = Vector3.MoveTowards(transform.position, pushsource, Time.deltaTime * GlobalPushStrength);
             //    transform.position += (transform.position- pushsource) * Time.deltaTime * GlobalPushStrength;
         }
-    }
+    }*/
     public void PushEntity(Vector3 source, float pushstrength)
     {
         if (IsBeingPushed) return;

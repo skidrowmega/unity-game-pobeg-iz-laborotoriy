@@ -28,7 +28,6 @@ public class CharacterController : Entity
         Move();
         LookAtCursor();
         Attack();
-        PushPerFrame();
         /*if (Input.GetMouseButtonUp(1))
         {
             PushEntity(new Vector3(5, 1, 7), 0.3f);
