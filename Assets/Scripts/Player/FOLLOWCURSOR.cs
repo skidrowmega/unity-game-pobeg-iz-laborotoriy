@@ -8,6 +8,7 @@ public class FOLLOWCURSOR : MonoBehaviour
     {
         RaycastHit hit;
         Plane.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit,100);
-        transform.position = new Vector3 (hit.point.x, 2.242f, hit.point.z);
+        if (hit.collider)
+            transform.position = new Vector3 (hit.point.x, 2.242f, hit.point.z);
     }
 }
