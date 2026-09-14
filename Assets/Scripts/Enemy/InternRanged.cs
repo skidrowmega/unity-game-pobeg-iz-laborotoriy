@@ -16,7 +16,7 @@ public class InternRanged: EnemyAll
         Move();
     }
 
-    protected override void Punch()
+    public override void Punch()
     {
         base.Punch();
     }

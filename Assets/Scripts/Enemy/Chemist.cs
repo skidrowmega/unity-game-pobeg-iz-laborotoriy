@@ -11,7 +11,7 @@ public class Chemist: EnemyAll
         Reload = 5;
     }
 
-    protected override void Punch()//Кидается колбой (случайный урон)
+    public override void Punch()//Кидается колбой (случайный урон)
     {
         base.Punch();
     }

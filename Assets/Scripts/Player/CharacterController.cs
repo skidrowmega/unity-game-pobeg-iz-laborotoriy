@@ -5,6 +5,7 @@ using UnityEngine.Assemblies;
 using System.Collections;
 using NUnit.Framework;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 
 public class CharacterController : Entity
 {
@@ -15,7 +16,10 @@ public class CharacterController : Entity
     public WeaponRanged currentgun;
     public float parrycooldown=3;
     float lastparry;
-
+    public float dodgecooldown = 3;
+    float lastdodge;
+    public bool IsDodging=false;
+    public float DodgeDistance = 15;
 
 
     private void Awake()
@@ -31,6 +35,7 @@ public class CharacterController : Entity
         LookAtCursor();
         AttackMelee();
         AttemptAttackRanged();
+        CheckDodge();
         /*if (Input.GetMouseButtonUp(1))
         {
             PushEntity(new Vector3(5, 1, 7), 0.3f);
@@ -41,6 +46,7 @@ public class CharacterController : Entity
     void AttackMelee()
     {
         //Debug.DrawLine(transform.position, transform.position + transform.forward * 2.982696f);
+        if(IsStunned) return;
         if (!Input.GetMouseButtonDown(0)) return;
         if (animator == null) return;
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
@@ -52,11 +58,26 @@ public class CharacterController : Entity
 
     void AttemptAttackRanged()
     {
+        if (IsStunned) return;
         if (!Input.GetMouseButtonUp(1)) return;
         if (animator == null) return;
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
         animator.Play("GunShoot");
         currentgun.Shot(transform.right);
+    }
+
+
+    void CheckDodge()
+    {
+        if (IsStunned) return;
+        float MoveX = Input.GetAxis("Horizontal");
+        float MoveZ = Input.GetAxis("Vertical");
+        if (MoveX == 0 && MoveZ == 0) return;
+        if (!Input.GetKeyDown(KeyCode.LeftShift)) return;
+        if (animator == null) return;
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
+        animator.Play("BOBRDODGE");
+        StartCoroutine(DodgeLoop(animator.GetCurrentAnimatorStateInfo(0).length, new Vector2(MoveX, MoveZ)));
     }
 
 
@@ -93,6 +114,11 @@ public class CharacterController : Entity
 
     public override void TakeDamage(int damage, Vector3 source, Entity attacker, float pushstrength)
     {
+        if (IsDodging)
+        {
+            OnDodge();
+            return;
+        }
         if (isparrying())
         {
             OnParry(damage,attacker,pushstrength);
@@ -106,9 +132,13 @@ public class CharacterController : Entity
     private void OnParry(int damage, Entity source, float pushstrength)
     {
         lastparry=-parrycooldown;
-        source.PushEntity(transform.position, 5);
+        source.TakeDamage(0,transform.position,this,5);
     }
 
+    void OnDodge()
+    {
+
+    }
     IEnumerator MeleeAttackLoop(float secondstowait)
     {
         yield return new WaitForSeconds(0.13f);
@@ -132,6 +162,24 @@ public class CharacterController : Entity
             }
             yield return new WaitForFixedUpdate();
         }
+    }
+
+    IEnumerator DodgeLoop (float secondstowait, Vector2 Direction)
+    {
+        IsStunned = true;
+        IsDodging=true;
+        float starttime = Time.time;
+        Vector3 startposition = transform.position;
+        float timewasted = 0;
+        while (Time.time - starttime < secondstowait)
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3 (Direction.x,0,Direction.y)*DodgeDistance+ startposition, timewasted);
+            timewasted += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        IsStunned=false;
+        transform.position = startposition + new Vector3(Direction.x, 0, Direction.y) * DodgeDistance;
+        IsDodging= false;
     }
 
 }
