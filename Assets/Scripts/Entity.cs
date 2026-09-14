@@ -13,15 +13,15 @@ public class Entity : MonoBehaviour
     public const float GlobalPushTime = 0.2f;
     public virtual void Death()
     {
-
+        Destroy(gameObject);
     }
-    public virtual void TakeDamage(int damage, Entity source, float pushstrength)
+    public virtual void TakeDamage(int damage, Vector3 source ,Entity attacker, float pushstrength)
     {
         healthpoints -= damage;
         if (healthpoints <= 0) Death();
         if (pushstrength>0)
         {
-            PushEntity(source.transform.position, pushstrength);
+            PushEntity(source, pushstrength);
         }
     }
 /*    public void PushPerFrame()

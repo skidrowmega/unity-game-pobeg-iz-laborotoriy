@@ -12,6 +12,7 @@ public class CharacterController : Entity
     Vector3 CursorVector;
     Animator animator;
     public WeaponMelee currentweapon;
+    public WeaponRanged currentgun;
     public float parrycooldown=3;
     float lastparry;
 
@@ -28,7 +29,8 @@ public class CharacterController : Entity
     {
         Move();
         LookAtCursor();
-        Attack();
+        AttackMelee();
+        AttemptAttackRanged();
         /*if (Input.GetMouseButtonUp(1))
         {
             PushEntity(new Vector3(5, 1, 7), 0.3f);
@@ -36,7 +38,7 @@ public class CharacterController : Entity
         Parry();
     }
 
-    void Attack()
+    void AttackMelee()
     {
         //Debug.DrawLine(transform.position, transform.position + transform.forward * 2.982696f);
         if (!Input.GetMouseButtonDown(0)) return;
@@ -45,8 +47,19 @@ public class CharacterController : Entity
         animator.Play("VESLOBASHLEFT");
         //StartCoroutine(MeleeAttackLoop(.41f));
         StartCoroutine(MeleeAttackLoop(animator.GetCurrentAnimatorStateInfo(0).length));
-        print("current animation length: " + animator.GetCurrentAnimatorStateInfo(0).length);
     }
+
+
+    void AttemptAttackRanged()
+    {
+        if (!Input.GetMouseButtonUp(1)) return;
+        if (animator == null) return;
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
+        animator.Play("GunShoot");
+        currentgun.Shot(transform.right);
+    }
+
+
     void Move()
     {
         float MoveX = Input.GetAxis("Horizontal");
@@ -73,6 +86,29 @@ public class CharacterController : Entity
         transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * Mathf.Atan2(-CursorVector.z, CursorVector.x), 0);
     }
 
+    private bool isparrying()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOPARRY");
+    }
+
+    public virtual void TakeDamage(int damage, Vector3 source, Entity attacker, float pushstrength)
+    {
+        if (isparrying())
+        {
+            OnParry(damage,attacker,pushstrength);
+            return;
+        }
+        else
+        {
+            base.TakeDamage(damage,source,attacker, pushstrength);
+        }
+    }
+    private void OnParry(int damage, Entity source, float pushstrength)
+    {
+        lastparry=-parrycooldown;
+        source.PushEntity(transform.position, 5);
+    }
+
     IEnumerator MeleeAttackLoop(float secondstowait)
     {
         yield return new WaitForSeconds(0.13f);
@@ -80,7 +116,7 @@ public class CharacterController : Entity
         List<Collider> checkedcolliders = new List<Collider>();
         while (Time.time - starttime < secondstowait)
         {
-            foreach (Collider collider in Physics.OverlapCapsule(transform.position, transform.position + Vector3.up, 1.5f*1.6f))
+            foreach (Collider collider in Physics.OverlapCapsule(transform.position, transform.position + Vector3.up, 1.5f * 1.6f))
             {
                 Entity potentialenemy = collider.GetComponent<Entity>();
                 if (checkedcolliders.Contains(collider)) continue;
@@ -98,26 +134,4 @@ public class CharacterController : Entity
         }
     }
 
-    private bool isparrying()
-    {
-        return animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOPARRY");
-    }
-
-    public override void TakeDamage(int damage, Entity source, float pushstrength)
-    {
-        if (isparrying())
-        {
-            OnParry(damage,source,pushstrength);
-            return;
-        }
-        else
-        {
-            base.TakeDamage(damage,source, pushstrength);
-        }
-    }
-    private void OnParry(int damage, Entity source, float pushstrength)
-    {
-        lastparry=-parrycooldown;
-        source.PushEntity(transform.position, 5);
-    }
 }

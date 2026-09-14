@@ -11,27 +11,52 @@ public abstract class Projectile: MonoBehaviour
     public int Speed = 1;
     public const int LifeTime = 10;
     public int damage = 1;
+    public int PushTime = 0;
     public Vector3 direction;
     public BulletType type;
+    public Entity Shooter;
+    private float timestart;
+
     private void Awake()
     {
-        //direction = transform.forward;
+        timestart=Time.time;
     }
     public virtual void HitEntity(Entity target)
     {
-        Destroy(this);
+        if (target != Shooter)
+        {
+            target.TakeDamage(damage, transform.position, Shooter, PushTime);
+            Destroy(gameObject);
+        }
     }
 
-    public virtual void HitObject()
+    public virtual void HitObject(Collider target)
     {
-        Destroy(this);
+        //Destroy(target);
     }
-    private void OnTriggerEnter(Collider other)
+
+
+    protected virtual void CheckForCollision()
     {
-        Entity target = other.GetComponent<Entity>();
-        if (target)
+        foreach (Collider hit in Physics.OverlapSphere(transform.position, 0.05f))
         {
-            HitEntity(target);
-        } else HitObject();
+            Entity target = hit.gameObject.GetComponent<Entity>();
+            if (target)
+            {
+                HitEntity(target);
+            }
+            else HitObject(hit);
+        }
+    }
+    protected virtual void MoveBullet()
+    {
+        transform.position += direction.normalized * Speed * Time.deltaTime;
+    }
+
+    private void Update()
+    {
+        CheckForCollision();
+        MoveBullet();
+        if (Time.time - timestart > LifeTime) Destroy(gameObject);
     }
 }

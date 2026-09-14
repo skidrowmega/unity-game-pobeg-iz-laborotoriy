@@ -9,8 +9,8 @@ public abstract class WeaponRanged: MonoBehaviour
     public int EnergyDecrease;
     public int RicochetCount;
     public Entity WeaponHolder;
-
-    public virtual void Shot()
+    public GameObject projectileprefab;
+    public virtual void Shot(Vector3 Direction)
     {
 
     }
