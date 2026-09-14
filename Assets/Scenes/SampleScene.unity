@@ -638,8 +638,12 @@ MonoBehaviour:
   Speed: 0.005
   IsStunned: 0
   IsBeingPushed: 0
+  rotationSpeed: 5
   Damage: 5
   Reload: 1
+  attackDistance: 1.5
+  attackCooldown: 1.5
+  stopDistance: 2.5
 --- !u!4 &1054668525
 Transform:
   m_ObjectHideFlags: 0
@@ -655,6 +659,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1144765019 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8271921073395058830, guid: 146bef564653b2f44affdc39009e8161, type: 3}
+  m_PrefabInstance: {fileID: 9141190360209085242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1144765020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1144765019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 067af9e6bb6167341a8be2505e978301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InternMelee
+  healthpoints: 100
+  Speed: 5
+  IsStunned: 0
+  IsBeingPushed: 0
+  rotationSpeed: 5
+  Damage: 5
+  Reload: 1
+  attackDistance: 1.5
+  attackCooldown: 1.5
+  stopDistance: 1.5
 --- !u!1001 &2031361593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1117,7 +1148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1849951954660331211, guid: 146bef564653b2f44affdc39009e8161, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5692452210055660840, guid: 146bef564653b2f44affdc39009e8161, type: 3}
       propertyPath: m_Enabled
@@ -1171,10 +1202,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1849951954660331211, guid: 146bef564653b2f44affdc39009e8161, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8271921073395058830, guid: 146bef564653b2f44affdc39009e8161, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1144765020}
   m_SourcePrefab: {fileID: 100100000, guid: 146bef564653b2f44affdc39009e8161, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

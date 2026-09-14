@@ -11,13 +11,13 @@ public class EnemyAll: Entity
     public float attackDistance = 1.5f;
     public float attackCooldown = 1.5f;
     protected float nextAttackTime = 0f;
-    public float stopDistance = 2.5f;
+    public float stopDistance = 1.0f;
 
     protected virtual void Move()
     {
         Vector3 targetplayer = player.transform.position - transform.position;
         float distanceplayer = targetplayer.magnitude;
-        if (!isAttacking && distanceplayer > stopDistance)
+        if (!isAttacking && distanceplayer >= stopDistance)
         {
             if (IsStunned) return;
             float MoveX = targetplayer.x;
@@ -37,10 +37,15 @@ public class EnemyAll: Entity
         {
             isAttacking = true;
             nextAttackTime = Time.time + attackCooldown;
-            //здесь бить
+            Attack();
             Debug.Log("Игрок атаковал!");
             Invoke(nameof(ResetAttack), 1.0f);
         }
+    }
+
+    protected virtual void Attack()
+    {
+        player.TakeDamage(Damage, Vector3.zero, controller, 0);
     }
         void ResetAttack()
     {
