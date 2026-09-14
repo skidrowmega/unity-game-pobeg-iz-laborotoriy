@@ -91,7 +91,7 @@ public class CharacterController : Entity
         return animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOPARRY");
     }
 
-    public virtual void TakeDamage(int damage, Vector3 source, Entity attacker, float pushstrength)
+    public override void TakeDamage(int damage, Vector3 source, Entity attacker, float pushstrength)
     {
         if (isparrying())
         {
