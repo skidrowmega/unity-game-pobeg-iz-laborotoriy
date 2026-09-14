@@ -816,6 +816,10 @@ PrefabInstance:
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4355926806905475341, guid: 9ad4269418011034d9715bfd7d54769e, type: 3}
+      propertyPath: Speed
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355926806905475341, guid: 9ad4269418011034d9715bfd7d54769e, type: 3}
       propertyPath: Cursor
       value: 
       objectReference: {fileID: 2101901202}
@@ -878,7 +882,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1849951954660331211, guid: 146bef564653b2f44affdc39009e8161, type: 3}
       propertyPath: Speed
-      value: 0.01
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1849951954660331211, guid: 146bef564653b2f44affdc39009e8161, type: 3}
       propertyPath: IsStunned

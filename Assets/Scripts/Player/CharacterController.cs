@@ -49,9 +49,11 @@ public class CharacterController : Entity
     }
     void Move()
     {
+        float MoveX = Input.GetAxis("Horizontal");
+        float MoveZ = Input.GetAxis("Vertical");
         if (IsStunned) return;
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-            transform.position += new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized * Speed;
+        if (MoveX != 0 || MoveZ != 0)
+            transform.position += new Vector3(MoveX, 0, MoveZ).normalized * Speed * Time.deltaTime;
     }
 
     void Parry()
