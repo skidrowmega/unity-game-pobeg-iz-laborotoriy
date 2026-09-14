@@ -57,10 +57,11 @@ public class Entity : MonoBehaviour
         Vector3 startposition = transform.position;
         while (timewasted < GlobalPushTime)
         {
-            transform.position=Vector3.Lerp(startposition, pushdirection*pushstrength+startposition, timewasted);
+            transform.position=Vector3.Lerp(transform.position, pushdirection*pushstrength+startposition, timewasted);
             timewasted += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+        print(timewasted);
         transform.position = pushdirection * pushstrength + startposition;
         PushStop();
     }
