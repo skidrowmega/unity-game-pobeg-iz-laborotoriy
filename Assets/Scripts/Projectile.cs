@@ -25,7 +25,7 @@ public abstract class Projectile: MonoBehaviour
     {
         if (target != Shooter)
         {
-            target.TakeDamage(damage, transform.position, Shooter, PushStrength);
+            target.TakeDamage(damage, target.transform.position-direction, Shooter, PushStrength);
             Destroy(gameObject);
         }
     }

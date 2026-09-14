@@ -160,7 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GunWeapon
   WeaponName: Pistol
   Damage: 5
-  PushTime: 0
+  PushStrength: 1
   ReloadingTime: 1
   EnergyDecrease: 0
   RicochetCount: 0
