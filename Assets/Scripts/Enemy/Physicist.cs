@@ -10,7 +10,7 @@ public class Physicist: EnemyAll
         Reload = 3;
     }
 
-    protected override void Punch()
+    public override void Punch()
     {
         base.Punch();
     }

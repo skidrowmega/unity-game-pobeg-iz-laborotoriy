@@ -9,7 +9,7 @@ public class InternRanged: EnemyAll
         Damage = 10;
     }
 
-    protected override void Punch()
+    public override void Punch()
     {
         base.Punch();
     }
