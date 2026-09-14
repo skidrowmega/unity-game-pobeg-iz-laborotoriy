@@ -136,7 +136,11 @@ MonoBehaviour:
   IsBeingPushed: 0
   Cursor: {fileID: 0}
   currentweapon: {fileID: 0}
+  currentgun: {fileID: 0}
   parrycooldown: 3
+  dodgecooldown: 3
+  IsDodging: 0
+  DodgeDistance: 7
 --- !u!95 &5108916912367320086
 Animator:
   serializedVersion: 7
