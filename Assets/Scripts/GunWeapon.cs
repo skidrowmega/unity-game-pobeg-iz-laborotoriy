@@ -14,7 +14,7 @@ public class GunWeapon : WeaponRanged
     {
         WeaponName = "Pistol";
         Damage = 5;
-        PushTime= 0;
+        PushStrength = 0;
         ReloadingTime = 1;
         RicochetCount = 0;
     }
@@ -38,7 +38,7 @@ public class GunWeapon : WeaponRanged
         bullet.direction = Direction;
         bullet.Shooter = WeaponHolder;
         bullet.damage= Damage;
-        bullet.PushTime = PushTime;
+        bullet.PushStrength = PushStrength;
         bullet = Instantiate<Projectile>(bullet, WeaponHolder.transform.position + WeaponHolder.transform.right * 2, Quaternion.identity);
     }
 

@@ -11,7 +11,7 @@ public abstract class Projectile: MonoBehaviour
     public int Speed = 1;
     public const int LifeTime = 10;
     public int damage = 1;
-    public int PushTime = 0;
+    public int PushStrength = 0;
     public Vector3 direction;
     public BulletType type;
     public Entity Shooter;
@@ -25,7 +25,7 @@ public abstract class Projectile: MonoBehaviour
     {
         if (target != Shooter)
         {
-            target.TakeDamage(damage, transform.position, Shooter, PushTime);
+            target.TakeDamage(damage, transform.position, Shooter, PushStrength);
             Destroy(gameObject);
         }
     }
