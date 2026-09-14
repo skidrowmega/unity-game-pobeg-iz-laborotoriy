@@ -75,6 +75,7 @@ public class CharacterController : Entity
 
     IEnumerator MeleeAttackLoop(float secondstowait)
     {
+        yield return new WaitForSeconds(0.13f);
         float starttime = Time.time;
         List<Collider> checkedcolliders = new List<Collider>();
         while (Time.time - starttime < secondstowait)
