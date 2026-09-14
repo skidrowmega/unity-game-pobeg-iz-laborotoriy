@@ -11,7 +11,7 @@ public class Mathematician: EnemyAll
         Reload = 3;
     }
 
-    public override void Punch()//Кидается синусоидой наверное
+    protected override void Punch()//Кидается синусоидой наверное
     {
         base.Punch();
     }
