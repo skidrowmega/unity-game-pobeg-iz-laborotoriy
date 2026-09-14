@@ -2,15 +2,27 @@ using UnityEngine;
 
 public class InternRanged: EnemyAll
 {
-    public InternRanged()
+    void Start()
     {
-        healthpoints = 10;
-        Speed = 0.005f;
-        Damage = 10;
+        if (player == null)
+        {
+            player = FindAnyObjectByType<CharacterController>();
+        }
+    }
+
+    void Update()
+    {
+        Punch();
+        Move();
     }
 
     protected override void Punch()
     {
         base.Punch();
+    }
+
+    protected override void Move()
+    {
+        base.Move();
     }
 }

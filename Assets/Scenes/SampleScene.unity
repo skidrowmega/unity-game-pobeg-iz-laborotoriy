@@ -1082,6 +1082,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 311935410}
     - target: {fileID: 4355926806905475341, guid: 9ad4269418011034d9715bfd7d54769e, type: 3}
+      propertyPath: healthpoints
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355926806905475341, guid: 9ad4269418011034d9715bfd7d54769e, type: 3}
       propertyPath: currentweapon
       value: 
       objectReference: {fileID: 960014243}
