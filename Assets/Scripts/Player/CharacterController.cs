@@ -1,11 +1,14 @@
+using NUnit.Framework;
+using System.Collections;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.Accessibility;
 using UnityEngine.Assemblies;
-using System.Collections;
-using NUnit.Framework;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+using static UnityEngine.UI.Image;
 
 public class CharacterController : Entity
 {
@@ -86,8 +89,14 @@ public class CharacterController : Entity
         float MoveX = Input.GetAxis("Horizontal");
         float MoveZ = Input.GetAxis("Vertical");
         if (IsStunned) return;
-        if (MoveX != 0 || MoveZ != 0)
-            transform.position += new Vector3(MoveX, 0, MoveZ).normalized * Speed * Time.deltaTime;
+        if (MoveX != 0 || MoveZ != 0) {
+            bool ishitX = Physics.Raycast(transform.position, new Vector3(MoveX, 0, 0).normalized, .5f);
+            bool ishitZ = Physics.Raycast(transform.position, new Vector3(0, 0, MoveZ).normalized, .5f);
+            if (ishitX) MoveX = 0;
+            if (ishitZ) MoveZ = 0;
+            Vector3 newpos = new Vector3(MoveX, 0, MoveZ).normalized * Speed * Time.deltaTime;
+            transform.position += newpos;
+        }
     }
 
     void Parry()
@@ -168,17 +177,29 @@ public class CharacterController : Entity
     {
         IsStunned = true;
         IsDodging=true;
+        float newdodgedistance = DodgeDistance;
         float starttime = Time.time;
         Vector3 startposition = transform.position;
         float timewasted = 0;
+
+        Ray ray = new Ray(startposition, new Vector3(Direction.x,0,Direction.y));
+        RaycastHit hit;
+        bool ishit = Physics.Raycast(ray,out hit,newdodgedistance);
+        
+        if (ishit)
+        {
+            newdodgedistance = ((hit.point - (ray.direction * 0.5f)) - ray.origin).magnitude;
+        }
+
         while (Time.time - starttime < secondstowait)
         {
-            transform.position = Vector3.Lerp(transform.position, new Vector3 (Direction.x,0,Direction.y)*DodgeDistance+ startposition, timewasted);
+            Vector3 newdir = new Vector3(Direction.x, 0, Direction.y).normalized;
+            transform.position = Vector3.Lerp(transform.position, newdir*newdodgedistance+ startposition, timewasted);
             timewasted += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
         IsStunned=false;
-        transform.position = startposition + new Vector3(Direction.x, 0, Direction.y) * DodgeDistance;
+        //transform.position = startposition + new Vector3(Direction.x, 0, Direction.y) * DodgeDistance;
         IsDodging= false;
     }
 
