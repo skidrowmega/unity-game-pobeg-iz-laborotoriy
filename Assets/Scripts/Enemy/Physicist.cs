@@ -10,9 +10,9 @@ public class Physicist: EnemyAll
         Reload = 3;
     }
 
-    protected override void Punch()
+    protected override void TryAttack()
     {
-        base.Punch();
+        base.TryAttack();
     }
 
     public void Inertia()

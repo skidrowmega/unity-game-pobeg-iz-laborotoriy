@@ -3,16 +3,27 @@ using UnityEngine;
 public class EnemyAll: Entity
 {
     protected CharacterController player;
-    protected CharacterController controller;
-    private bool isAttacking = false;
+    protected bool isAttacking = false;
     public float rotationSpeed = 5.0f;
     public int Damage = 5;
-    public int Reload = 1;
+    public float Reload = 1.0f;
     public float attackDistance = 1.5f;
     public float attackCooldown = 1.5f;
     protected float nextAttackTime = 0f;
     public float stopDistance = 1.0f;
+    protected int PushForce = 0;
 
+    protected virtual void Start()
+    {
+        player = FindAnyObjectByType<CharacterController>();
+    }
+
+    protected virtual void Rotation()
+    {
+        Vector3 targetplayer = player.transform.position - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(targetplayer) * Quaternion.Euler(0, -90f, 0);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+    }
     protected virtual void Move()
     {
         Vector3 targetplayer = player.transform.position - transform.position;
@@ -29,25 +40,25 @@ public class EnemyAll: Entity
         }
     }
 
-    protected virtual void Punch()//во время атаки он не может двигаться пока не закончимтся анимация
+    protected virtual void TryAttack()
     {
         float distanceToPlayer = (player.transform.position - transform.position).magnitude;
-
         if (!isAttacking && Time.time >= nextAttackTime && distanceToPlayer <= attackDistance)
         {
             isAttacking = true;
             nextAttackTime = Time.time + attackCooldown;
             Attack();
             Debug.Log("Игрок атаковал!");
-            Invoke(nameof(ResetAttack), 1.0f);
+            Invoke(nameof(ResetAttack), Reload);
         }
     }
 
     protected virtual void Attack()
     {
-        player.TakeDamage(Damage, Vector3.zero, controller, 0);
+        player.TakeDamage(Damage, Vector3.zero, this, 0);
     }
-        void ResetAttack()
+
+    protected void ResetAttack()
     {
         isAttacking = false;
     }

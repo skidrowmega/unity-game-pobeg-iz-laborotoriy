@@ -17,17 +17,8 @@ public class InternMelee : EnemyAll
 
     void Update()
     {
-        Punch();
+        Rotation();
+        TryAttack();
         Move();
-    }
-
-    protected override void Punch()
-    {
-        base.Punch();
-    }
-
-    protected override void Move()
-    {
-        base.Move();
     }
 }
