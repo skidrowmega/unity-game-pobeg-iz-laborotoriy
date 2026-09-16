@@ -7,14 +7,6 @@ using UnityEngine.InputSystem.XR;
 public class InternMelee : EnemyAll
 {  
 
-    void Start()
-    {
-        if (player == null)
-        {
-            player = FindAnyObjectByType<CharacterController>();
-        }
-    }
-
     void Update()
     {
         Rotation();

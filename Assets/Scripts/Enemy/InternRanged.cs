@@ -4,13 +4,6 @@ using UnityEngine;
 public class InternRanged: EnemyAll
 {
     public GameObject projectileprefab;
-    void Start()
-    {
-        if (player == null)
-        {
-            player = FindAnyObjectByType<CharacterController>();
-        }
-    }
 
     void Update()
     {
