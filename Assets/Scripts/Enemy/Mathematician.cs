@@ -46,7 +46,7 @@ public class Mathematician: EnemyAll
 
     private void TryDivisionByZero()//Во время атаки не должен толкаться
     {
-        if (!isAttacking && Time.time >= nextAttackTime && distanceToPlayer <= CriticalDistance)
+        if (!isAttacking && Time.time >= nextAttackTimeDivision && distanceToPlayer <= CriticalDistance)
         {
             isAttacking = true;
             nextAttackTimeDivision = Time.time + ReloadDivisionByZero;
@@ -57,17 +57,17 @@ public class Mathematician: EnemyAll
     }
     private void TryArithmeticProgression()
     {
-        if (!isAttacking && Time.time >= nextAttackTime && distanceToPlayer <= attackDistance)
+        if (!isAttacking && Time.time >= nextAttackTimeAritmetic && distanceToPlayer <= attackDistance)
         {
             isAttacking = true;
-            nextAttackTimeAritmetic = Time.time + ReloadArithmetic;
+            nextAttackTimeAritmetic = Time.time + ReloadArithmetic + 0.6f;
             ArithmeticProgression();
             Invoke(nameof(ArithmeticProgression), 0.2f);
             Invoke(nameof(ArithmeticProgression), 0.4f);
             Invoke(nameof(ArithmeticProgression), 0.6f);
             DamageArithmetic = DamageSave;
             Debug.Log("Игрок атаковал Арифметику!");
-            Invoke(nameof(ResetAttack), Reload);
+            Invoke(nameof(ResetAttack), Reload+0.6f);
         }
     }
 

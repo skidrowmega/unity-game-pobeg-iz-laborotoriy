@@ -768,14 +768,21 @@ MonoBehaviour:
   Damage: 50
   Reload: 2
   attackDistance: 10
-  attackCooldown: 1.5
+  attackCooldown: 1
   stopDistance: 10
   PushForce: 0
+  PushImmune: 0
+  DamageSave: 0
   DamageDivisionByZero: 50
   DamageArithmetic: 40
+  ArithmeticDamageIncrease: 5
+  ReloadArithmetic: 5
+  nextAttackTimeAritmetic: 0
   CriticalDistance: 5
   RadiusDivisionByZero: 5
   DelayBeforeDivisionByZero: 2
+  nextAttackTimeDivision: 0
+  ReloadDivisionByZero: 10
   areaVisual: {fileID: 8631068409102593951, guid: 076d6b1ed4b40f7439e73036f0beb651, type: 3}
   projectileprefab: {fileID: 5669884756835510007, guid: 5542a33396c85ed49adbe1ed38402f9a, type: 3}
 --- !u!1001 &2031361593
