@@ -11,7 +11,8 @@ public class EnemyAll: Entity
     public float attackCooldown = 1.5f;
     protected float nextAttackTime = 0f;
     public float stopDistance = 1.0f;
-    protected int PushForce = 0;
+    public int PushForce = 0;
+    protected float distanceToPlayer;
 
     protected virtual void Start()
     {
@@ -27,8 +28,7 @@ public class EnemyAll: Entity
     protected virtual void Move()
     {
         Vector3 targetplayer = player.transform.position - transform.position;
-        float distanceplayer = targetplayer.magnitude;
-        if (!isAttacking && distanceplayer >= stopDistance)
+        if (!isAttacking && distanceToPlayer >= stopDistance)
         {
             if (IsStunned) return;
             float MoveX = targetplayer.x;
@@ -42,7 +42,6 @@ public class EnemyAll: Entity
 
     protected virtual void TryAttack()
     {
-        float distanceToPlayer = (player.transform.position - transform.position).magnitude;
         if (!isAttacking && Time.time >= nextAttackTime && distanceToPlayer <= attackDistance)
         {
             isAttacking = true;
