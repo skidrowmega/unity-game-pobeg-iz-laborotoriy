@@ -6,28 +6,11 @@ using UnityEngine.InputSystem.XR;
 
 public class InternMelee : EnemyAll
 {  
-
-    void Start()
-    {
-        if (player == null)
-        {
-            player = FindAnyObjectByType<CharacterController>();
-        }
-    }
-
     void Update()
     {
-        Punch();
+        distanceToPlayer = (player.transform.position - transform.position).magnitude;
+        Rotation();
+        TryAttack();
         Move();
-    }
-
-    protected override void Punch()
-    {
-        base.Punch();
-    }
-
-    protected override void Move()
-    {
-        base.Move();
     }
 }

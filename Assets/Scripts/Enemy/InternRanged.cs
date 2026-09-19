@@ -1,28 +1,23 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class InternRanged: EnemyAll
 {
-    void Start()
-    {
-        if (player == null)
-        {
-            player = FindAnyObjectByType<CharacterController>();
-        }
-    }
+    public GameObject projectileprefab;
 
     void Update()
     {
-        Punch();
+        distanceToPlayer = (player.transform.position - transform.position).magnitude;
+        Rotation();
         Move();
+        TryAttack();
     }
-
-    protected override void Punch()
+    protected override void Attack()
     {
-        base.Punch();
-    }
-
-    protected override void Move()
-    {
-        base.Move();
+        Microscope bullet = projectileprefab.GetComponent<Microscope>();
+        bullet.direction = transform.right;
+        bullet.damage = Damage;
+        bullet.PushStrength = 0;
+        bullet = Instantiate<Microscope>(bullet, transform.position + transform.right * 2, Quaternion.identity);
     }
 }

@@ -37,14 +37,14 @@ public class Entity : MonoBehaviour
             //    transform.position += (transform.position- pushsource) * Time.deltaTime * GlobalPushStrength;
         }
     }*/
-    public void PushEntity(Vector3 source, float pushstrength)
+    public virtual void PushEntity(Vector3 source, float pushstrength)
     {
         if (IsBeingPushed) return;
         IsBeingPushed= true;
         IsStunned = true;
         StartCoroutine(PushCoroutine(source, pushstrength));
     }
-    private void PushStop()
+    protected void PushStop()
     {
         IsBeingPushed = false;
         IsStunned = false;
