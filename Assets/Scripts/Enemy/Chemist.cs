@@ -3,17 +3,23 @@ using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class Chemist: EnemyAll
 {
-    public Chemist()
+    public GameObject projectileprefab;
+    private void Update()
     {
-        healthpoints = 150;
-        Speed = 0.005f;
-        Damage = 5;
-        Reload = 5;
+        distanceToPlayer = (player.transform.position - transform.position).magnitude;
+        Rotation();
+        Move();
+        TryAttack();
     }
 
-    protected override void TryAttack()//Кидается колбой (случайный урон)
+    protected override void Attack()
     {
-        base.TryAttack();
+        Sin bullet = projectileprefab.GetComponent<Sin>();
+        bullet.Shooter = this;
+        bullet.direction = transform.right;
+        bullet.damage = Damage;
+        bullet.PushStrength = 0;
+        bullet = Instantiate<Sin>(bullet, transform.position + transform.right * 2, Quaternion.identity);
     }
 
     public void Heal()

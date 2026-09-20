@@ -10,6 +10,8 @@ public class Physicist: EnemyAll
     public float RadiusStan = 5.0f;
     public float StanDistance = 10.0f;
     public float ReloadStan = 5.0f;
+    public int DamageGravitationalPush = 0;
+    public float GravitationalPushStrenght = 5f;
     public GameObject projectileprefab;
     public GameObject areaVisual;
     public GameObject CubeVisual;
@@ -55,7 +57,7 @@ public class Physicist: EnemyAll
 
             if (target != null)
             {
-                target.TakeDamage(0, transform.position, this, 10);
+                target.TakeDamage(DamageGravitationalPush, transform.position, this, GravitationalPushStrenght, DamageType.Unparriable);
                 Debug.Log($"ТОЛЧОК: {hit.name}");
             }
         }
@@ -83,7 +85,7 @@ public class Physicist: EnemyAll
 
             if (target != null)
             {
-                target.TakeDamage(DamageStan, transform.position, this, PushForce);
+                target.TakeDamage(DamageStan, transform.position, this, PushForce, DamageType.Unparriable);
                 if (target == player)
                     player.IsStunned = true;
                 Invoke(nameof(StanStop), StanTime);

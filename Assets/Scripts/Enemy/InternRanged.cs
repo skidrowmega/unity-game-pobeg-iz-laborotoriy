@@ -15,6 +15,7 @@ public class InternRanged: EnemyAll
     protected override void Attack()
     {
         Microscope bullet = projectileprefab.GetComponent<Microscope>();
+        bullet.Shooter = this;
         bullet.direction = transform.right;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
