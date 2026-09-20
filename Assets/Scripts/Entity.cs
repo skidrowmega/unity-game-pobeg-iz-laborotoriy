@@ -72,5 +72,8 @@ public class Entity : MonoBehaviour
         transform.position = pushdirection * pushstrength + startposition;
         PushStop();
     }
-
+    protected virtual void StanStop()
+    {
+        IsStunned = false;
+    }
 }
