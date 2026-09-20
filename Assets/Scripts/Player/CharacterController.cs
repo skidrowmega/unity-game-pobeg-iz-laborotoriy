@@ -120,7 +120,7 @@ public class CharacterController : Entity
             OnDodge();
             return;
         }
-        if (isparrying() && type!=DamageType.Unparriable)
+        if (attacker!=null&&isparrying() && type!=DamageType.Unparriable)
         {
             OnParry(damage,attacker,pushstrength);
             return;
