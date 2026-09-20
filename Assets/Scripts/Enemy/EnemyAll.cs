@@ -23,6 +23,8 @@ public class EnemyAll: Entity
     {
         Vector3 targetplayer = player.transform.position - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(targetplayer) * Quaternion.Euler(0, -90f, 0);
+        targetRotation.x = transform.rotation.x;
+        targetRotation.z = transform.rotation.z;
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
     protected virtual void Move()

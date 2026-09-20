@@ -1,29 +1,32 @@
+using System;
 using System.Collections;
 using Unity.ProjectAuditor.Editor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class Mathematician: EnemyAll
 {
     public bool PushImmune = false;
-    public int DamageSave = 0;
     public int DamageDivisionByZero = 40;
     public int DamageArithmetic = 10;
     public int ArithmeticDamageIncrease = 5;
     public float ReloadArithmetic = 5.0f;
-    public float nextAttackTimeAritmetic = 0f;
+    protected internal bool ArithmeticShotReady = true;
     public float CriticalDistance = 2.0f;
     public float RadiusDivisionByZero = 5.0f;
     public float DelayBeforeDivisionByZero = 1.0f;
-    public float nextAttackTimeDivision = 0f;
     public float ReloadDivisionByZero = 10f;
+    protected internal bool DivisioByZeroReady=true;
     public GameObject areaVisual;
     public GameObject projectileprefab;
+
+    private void Awake()
+    {
+    }
+
     protected override void Start()
     {
         base.Start();
-        DamageSave = DamageArithmetic;
     }
     private void Update()
     {
@@ -38,38 +41,48 @@ public class Mathematician: EnemyAll
     protected override void Attack()
     {
         Sin bullet = projectileprefab.GetComponent<Sin>();
+        bullet.Shooter = this;
         bullet.direction = transform.right;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
         bullet = Instantiate<Sin>(bullet, transform.position + transform.right * 2, Quaternion.identity);
     }
 
+    private void ResetDivisionByZeroCooldown()
+    {
+        DivisioByZeroReady = true;
+    }
+
     private void TryDivisionByZero()//Во время атаки не должен толкаться
     {
-        if (!isAttacking && Time.time >= nextAttackTimeDivision && distanceToPlayer <= CriticalDistance)
+        if (!isAttacking && DivisioByZeroReady && distanceToPlayer <= CriticalDistance)
         {
             isAttacking = true;
-            nextAttackTimeDivision = Time.time + ReloadDivisionByZero;
+            DivisioByZeroReady=false;
             StartCoroutine(DivisionByZeroDelay());
             Debug.Log("Игрок атаковал!");
-            Invoke(nameof(base.ResetAttack), Reload);
+            Invoke(nameof(ResetDivisionByZeroCooldown), ReloadDivisionByZero);
         }
     }
+
+    private void ResetArithmeticShotCooldown()
+    {
+        ArithmeticShotReady = true;
+    }
+
     private void TryArithmeticProgression()
     {
-        if (!isAttacking && Time.time >= nextAttackTimeAritmetic && distanceToPlayer <= attackDistance)
+        if (!isAttacking && ArithmeticShotReady && distanceToPlayer <= attackDistance)
         {
             isAttacking = true;
-            nextAttackTimeAritmetic = Time.time + ReloadArithmetic + 0.6f;
-            ArithmeticProgression();
-            Invoke(nameof(ArithmeticProgression), 0.2f);
-            Invoke(nameof(ArithmeticProgression), 0.4f);
-            Invoke(nameof(ArithmeticProgression), 0.6f);
-            DamageArithmetic = DamageSave;
-            Debug.Log("Игрок атаковал Арифметику!");
-            Invoke(nameof(ResetAttack), Reload+0.6f);
+            ArithmeticShotReady = false;
+            StartCoroutine(ArithmeticProgression(DamageArithmetic, 0.2f,4));
+            Debug.Log("ArithmeticProgression has been fired Fired");
+            
+            Invoke(nameof(ResetArithmeticShotCooldown), ReloadArithmetic);
         }
     }
+
 
     public void DivisionByZero()
     {
@@ -89,14 +102,29 @@ public class Mathematician: EnemyAll
         }
     }
 
-    public void ArithmeticProgression()
+    /*    public void ArithmeticProgression(int Damage)
+        {
+            Sin bullet = projectileprefab.GetComponent<Sin>();
+            bullet.direction = transform.right;
+            bullet.damage = Damage;
+            bullet.PushStrength = 0;
+            bullet = Instantiate<Sin>(bullet, transform.position + transform.right * 2, Quaternion.identity);
+        }*/
+
+    IEnumerator ArithmeticProgression(int Damage, float delay,int numberofshots)
     {
-        DamageArithmetic += ArithmeticDamageIncrease;
-        Sin bullet = projectileprefab.GetComponent<Sin>();
-        bullet.direction = transform.right;
-        bullet.damage = DamageArithmetic;
-        bullet.PushStrength = 0;
-        bullet = Instantiate<Sin>(bullet, transform.position + transform.right * 2, Quaternion.identity);
+        for (int i = 1; i < numberofshots; i++)
+        {
+            Sin bullet = projectileprefab.GetComponent<Sin>();
+            print("Fired " + i + "th Bullet");
+            bullet.Shooter = this;
+            bullet.PushStrength = 0;
+            bullet.direction = transform.right;
+            bullet.damage = Damage + i * ArithmeticDamageIncrease;
+            Instantiate<Sin>(bullet, transform.position + transform.right * 2, Quaternion.identity);
+            yield return new WaitForSeconds(delay);
+        }
+        ResetAttack();
     }
 
     IEnumerator DivisionByZeroDelay()
@@ -104,23 +132,22 @@ public class Mathematician: EnemyAll
         Vector3 AreaPosition = transform.position;
         AreaPosition.y = 2.25f;
         GameObject Area = Instantiate(areaVisual, AreaPosition, Quaternion.identity);
-        Area.transform.localScale = new Vector3(RadiusDivisionByZero, 1f, RadiusDivisionByZero);
+        Area.transform.localScale = new Vector3(RadiusDivisionByZero*2, 1f, RadiusDivisionByZero*2);
         SpriteRenderer AreaColor = Area.GetComponent<SpriteRenderer>();
         float elapsed = 0f;
         Color startColor = AreaColor.color;
-        startColor.a = 0.2f;
         Color targetColor = startColor;
+        startColor.a = 0.2f;
         targetColor.a = 0.8f;
         while (elapsed < DelayBeforeDivisionByZero)
         {
             elapsed += Time.deltaTime;
-            if (areaVisual != null)
-            {
-                AreaColor.color = Color.Lerp(startColor, targetColor, elapsed / DelayBeforeDivisionByZero);
-            }
+            AreaColor.color = Color.Lerp(startColor, targetColor, elapsed / DelayBeforeDivisionByZero);
             yield return null;
         }
         DivisionByZero();
+        ResetAttack();
         Destroy(Area);
     }
-}   
+
+}

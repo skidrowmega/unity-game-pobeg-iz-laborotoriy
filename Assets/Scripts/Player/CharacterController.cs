@@ -23,6 +23,7 @@ public class CharacterController : Entity
     float lastdodge;
     public bool IsDodging=false;
     public float DodgeDistance = 15;
+    public float DodgeTime = 0.2f;
 
 
     private void Awake()
@@ -72,7 +73,7 @@ public class CharacterController : Entity
 
     void CheckDodge()
     {
-        if (IsStunned) return;
+        if (IsDodging) return;
         float MoveX = Input.GetAxis("Horizontal");
         float MoveZ = Input.GetAxis("Vertical");
         if (MoveX == 0 && MoveZ == 0) return;
@@ -80,7 +81,7 @@ public class CharacterController : Entity
         if (animator == null) return;
         if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
         animator.Play("BOBRDODGE");
-        StartCoroutine(DodgeLoop(animator.GetCurrentAnimatorStateInfo(0).length, new Vector2(MoveX, MoveZ)));
+        StartCoroutine(DodgeLoop(DodgeTime, new Vector2(MoveX, MoveZ)));
     }
 
 
@@ -175,7 +176,7 @@ public class CharacterController : Entity
 
     IEnumerator DodgeLoop (float secondstowait, Vector2 Direction)
     {
-        IsStunned = true;
+        IsStunned = false;
         IsDodging=true;
         float newdodgedistance = DodgeDistance;
         float starttime = Time.time;
@@ -190,11 +191,17 @@ public class CharacterController : Entity
         {
             newdodgedistance = ((hit.point - (ray.direction * 0.5f)) - ray.origin).magnitude;
         }
-
-        while (Time.time - starttime < secondstowait)
+        Vector3 newdir = new Vector3(Direction.x, 0, Direction.y).normalized;
+        Vector3 debugprevpos=Vector3.zero;
+        //print(" dodge will last " + secondstowait.ToString() + " seconds");
+        while (timewasted < secondstowait)
         {
-            Vector3 newdir = new Vector3(Direction.x, 0, Direction.y).normalized;
-            transform.position = Vector3.Lerp(transform.position, newdir*newdodgedistance+ startposition, timewasted);
+            transform.position = Vector3.Lerp(transform.position, newdir*newdodgedistance+ startposition, timewasted/secondstowait);
+            if (debugprevpos == transform.position&&timewasted>0)
+            {
+                break;
+            }
+            debugprevpos = transform.position;
             timewasted += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }

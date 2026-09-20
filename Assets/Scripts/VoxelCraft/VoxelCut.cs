@@ -54,26 +54,24 @@ public class VoxelCut : MonoBehaviour
         {
             VoxelsChecked = new bool[dimensions[0], dimensions[1]];
         }
-        if (VoxelsChecked[position[0], position[1]]) return VoxelsChecked;
+        if (VoxelsChecked[position[0], position[1]] || !availablevoxels[position[0], position[1]]) return VoxelsChecked;
         VoxelsChecked[position[0],position[1]] = true;
         int newposx;
         int newposy;
         int[] newposition = new int[2];
-        if (availablevoxels[position[0], position[1]]){
-            for (int i = -1;i < 2; i++)
+        for (int i = -1;i < 2; i++)
+        {
+            for(int j = -1;j < 2; j++)
             {
-                for(int j = -1;j < 2; j++)
+                if (!(i == 0 || j == 0)) continue;
+                newposx = position[0] + i;
+                newposy = position[1] + j;
+                if (newposx>=0 && newposx < dimensions[0] &&
+                    newposy>=0 && newposy < dimensions[1])
                 {
-                    if (!(i == 0 || j == 0)) continue;
-                    newposx = position[0] + i;
-                    newposy = position[1] + j;
-                    if (newposx>=0 && newposx < dimensions[0] &&
-                        newposy>=0 && newposy < dimensions[1])
-                    {
-                        newposition[0]=newposx;
-                        newposition[1]=newposy;
-                        CheckCutoffRecursive(newposition, VoxelsChecked);
-                    }
+                    newposition[0]=newposx;
+                    newposition[1]=newposy;
+                    CheckCutoffRecursive(newposition, VoxelsChecked);
                 }
             }
         }
