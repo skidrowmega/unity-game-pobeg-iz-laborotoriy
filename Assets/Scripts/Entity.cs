@@ -4,6 +4,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections;
+
+public enum DamageType
+{
+    Normal,
+    Projectile,
+    Unparriable
+}
 public class Entity : MonoBehaviour
 {
     public int healthpoints=100;
@@ -15,7 +22,7 @@ public class Entity : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    public virtual void TakeDamage(int damage, Vector3 source ,Entity attacker, float pushstrength)
+    public virtual void TakeDamage(int damage, Vector3 source ,Entity attacker, float pushstrength,DamageType damageType)
     {
         healthpoints -= damage;
         if (healthpoints <= 0) Death();

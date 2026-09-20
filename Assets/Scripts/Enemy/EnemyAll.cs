@@ -56,7 +56,7 @@ public class EnemyAll: Entity
 
     protected virtual void Attack()
     {
-        player.TakeDamage(Damage, Vector3.zero, this, 0);
+        player.TakeDamage(Damage, Vector3.zero, this, 0, DamageType.Normal);
     }
 
     protected void ResetAttack()

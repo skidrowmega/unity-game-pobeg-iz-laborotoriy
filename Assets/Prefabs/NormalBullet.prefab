@@ -297,7 +297,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -42.66029, y: 0.05211, z: 3.00864}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8065994560127015808}
@@ -318,7 +318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NormalBullet
   Speed: 20
-  damage: 15
-  direction: {x: 0, y: 0, z: 0}
-  type: 0
+  damage: 5
+  PushStrength: 1
+  direction: {x: -0.21928084, y: 0, z: 0.9756618}
+  type: 1
   Shooter: {fileID: 0}

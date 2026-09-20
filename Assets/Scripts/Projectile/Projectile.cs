@@ -14,6 +14,7 @@ public abstract class Projectile: MonoBehaviour
     public int PushStrength = 0;
     public Vector3 direction;
     public BulletType type;
+    public DamageType damageType=DamageType.Normal;
     public Entity Shooter;
     private float timestart;
 
@@ -25,7 +26,7 @@ public abstract class Projectile: MonoBehaviour
     {
         if (target != Shooter)
         {
-            target.TakeDamage(damage, target.transform.position-direction, Shooter, PushStrength);
+            target.TakeDamage(damage, target.transform.position-direction, Shooter, PushStrength,damageType);
             Destroy(gameObject);
         }
     }
@@ -38,20 +39,27 @@ public abstract class Projectile: MonoBehaviour
 
     protected virtual void CheckForCollision()
     {
-        foreach (Collider hit in Physics.OverlapSphere(transform.position, 0.05f))
+        Ray ray = new Ray(transform.position, direction);
+        RaycastHit hit;
+        if (!Physics.Raycast(ray, out hit, Time.deltaTime * Speed + .5f)) return;
+        Entity target = hit.transform.GetComponent<Entity>();
+        if (target)
+        HitEntity(target);
+        else
         {
-            Entity target = hit.gameObject.GetComponent<Entity>();
-            if (target)
-            {
-                HitEntity(target);
-            }
-            else HitObject(hit);
+
+            HitObject(hit.collider);
+        }
+        if (type == BulletType.Ricochet)
+        {
+            direction = Vector3.Reflect(direction, hit.normal);
         }
     }
     protected virtual void MoveBullet()
     {
         transform.position += direction.normalized * Speed * Time.deltaTime;
     }
+
 
     private void Update()
     {

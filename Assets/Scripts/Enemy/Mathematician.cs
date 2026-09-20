@@ -20,9 +20,6 @@ public class Mathematician: EnemyAll
     public GameObject areaVisual;
     public GameObject projectileprefab;
 
-    private void Awake()
-    {
-    }
 
     protected override void Start()
     {
@@ -95,7 +92,7 @@ public class Mathematician: EnemyAll
 
             if (target != null)
             {
-                target.TakeDamage(DamageDivisionByZero, transform.position, this, PushForce);
+                target.TakeDamage(DamageDivisionByZero, transform.position, this, PushForce, DamageType.Unparriable);
 
                 Debug.Log($"Взрывом задето: {hit.name}");
             }
@@ -116,7 +113,6 @@ public class Mathematician: EnemyAll
         for (int i = 1; i < numberofshots; i++)
         {
             Sin bullet = projectileprefab.GetComponent<Sin>();
-            print("Fired " + i + "th Bullet");
             bullet.Shooter = this;
             bullet.PushStrength = 0;
             bullet.direction = transform.right;

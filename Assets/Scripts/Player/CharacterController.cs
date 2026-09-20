@@ -1,15 +1,6 @@
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.PackageManager;
 using UnityEngine;
-using UnityEngine.Accessibility;
-using UnityEngine.Assemblies;
-using static UnityEngine.UI.Image;
-
 public class CharacterController : Entity
 {
     public Transform Cursor;
@@ -122,27 +113,27 @@ public class CharacterController : Entity
         return animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOPARRY");
     }
 
-    public override void TakeDamage(int damage, Vector3 source, Entity attacker, float pushstrength)
+    public override void TakeDamage(int damage, Vector3 source, Entity attacker, float pushstrength, DamageType type)
     {
         if (IsDodging)
         {
             OnDodge();
             return;
         }
-        if (isparrying())
+        if (isparrying() && type!=DamageType.Unparriable)
         {
             OnParry(damage,attacker,pushstrength);
             return;
         }
         else
         {
-            base.TakeDamage(damage,source,attacker, pushstrength);
+            base.TakeDamage(damage,source,attacker, pushstrength,type);
         }
     }
     private void OnParry(int damage, Entity source, float pushstrength)
     {
         lastparry=-parrycooldown;
-        source.TakeDamage(0,transform.position,this,5);
+        source.TakeDamage(0,transform.position,this,5,DamageType.Normal);
     }
 
     void OnDodge()
