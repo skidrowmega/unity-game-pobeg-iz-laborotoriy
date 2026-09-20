@@ -57,7 +57,6 @@ public class Mathematician: EnemyAll
             isAttacking = true;
             DivisioByZeroReady=false;
             StartCoroutine(DivisionByZeroDelay());
-            Debug.Log("Игрок атаковал!");
             Invoke(nameof(ResetDivisionByZeroCooldown), ReloadDivisionByZero);
         }
     }

@@ -35,8 +35,6 @@ public class EnemyAll: Entity
             if (IsStunned) return;
             float MoveX = targetplayer.x;
             float MoveZ = targetplayer.z;
-            Quaternion targetRotation = Quaternion.LookRotation(targetplayer) * Quaternion.Euler(0, -90f, 0);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             if (MoveX != 0 || MoveZ != 0)
                 transform.position += new Vector3(MoveX, 0, MoveZ).normalized * Speed * Time.deltaTime;
         }
