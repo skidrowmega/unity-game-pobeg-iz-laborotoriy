@@ -18,7 +18,7 @@ public abstract class Projectile: MonoBehaviour
     public Entity Shooter;
     private float timestart;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         timestart=Time.time;
     }
