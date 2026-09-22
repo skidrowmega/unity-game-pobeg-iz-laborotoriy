@@ -1,17 +1,26 @@
-using UnityEngine;
 using System.Collections;
+using Unity.ProjectAuditor.Editor;
+using UnityEngine;
 
 public class Physicist: EnemyAll
 {
     public int DamageStan = 0;
     public float StanTime = 1.0f;
-    public float DelayBeforeStan = 1.0f;
+    public float StanFollowTime = 1f;
+    public float StanFireTime = 0.3f;
     public float nextAttackStanTime = 0f;
-    public float RadiusStan = 5.0f;
+    public float RadiusStan = 10f;
     public float StanDistance = 10.0f;
-    public float ReloadStan = 5.0f;
-    public int DamageGravitationalPush = 0;
-    public float GravitationalPushStrenght = 5f;
+    public float ReloadStan = 2.5f;
+
+    public int DmgGravPush = 0;
+    public float GravPushStrength = 5f;
+    public float GravPushDistance = 5f;
+    public float GravPushFollowTime = 1f;
+    public float GravPushFireTime = 0.5f;
+    public float nextAttackGravTime = 0f;
+    public float ReloadGrav = 5f;
+
     public GameObject projectileprefab;
     public GameObject areaVisual;
     public GameObject CubeVisual;
@@ -21,6 +30,7 @@ public class Physicist: EnemyAll
         Rotation();
         Move();
         TryGravitationalPush();
+        TryStan();
         //TryStan();
         //TryAttack();
     }
@@ -37,28 +47,22 @@ public class Physicist: EnemyAll
 
     public void TryGravitationalPush()
     {
-        if (!isAttacking && Time.time >= nextAttackStanTime && distanceToPlayer <= StanDistance)
+        if (!isAttacking && Time.time >= nextAttackGravTime && distanceToPlayer <= StanDistance)
         {
+            print("Firing off GravPush");
             isAttacking = true;
-            nextAttackStanTime = Time.time + ReloadStan;
+            nextAttackGravTime = Time.time + ReloadGrav;
             StartCoroutine(GravitationalPushTimer());
-            Debug.Log("Игрок атаковал!");
-            Invoke(nameof(base.ResetAttack), Reload);
         }
     }
-    public void GravitationalPush()//Толстая линия от физика в сторону игрока на далеко, когда время всё на ней сдвигается в сторону от физика
+    public void GravitationalPush(Vector3 center,Vector3 BoxDimensions,Quaternion BoxRotation)//Толстая линия от физика в сторону игрока на далеко, когда время всё на ней сдвигается в сторону от физика
     {
-        Collider[] hitColliders = Physics.OverlapBox(transform.position, new Vector3(10f, 1f, 5f), transform.rotation);
+        Collider[] hitColliders = Physics.OverlapBox(center, BoxDimensions, BoxRotation);
         foreach (Collider hit in hitColliders)
         {
-            if (hit.gameObject == gameObject) continue;
-
-            Entity target = hit.GetComponent<Entity>();
-
-            if (target != null)
+            if (hit.GetComponent<CharacterController>())
             {
-                target.TakeDamage(DamageGravitationalPush, transform.position, this, GravitationalPushStrenght, DamageType.Unparriable);
-                Debug.Log($"ТОЛЧОК: {hit.name}");
+                player.TakeDamage(DmgGravPush, transform.position, this, GravPushStrength, DamageType.Unparriable);
             }
         }
     }
@@ -67,84 +71,97 @@ public class Physicist: EnemyAll
     {
         if (!isAttacking && Time.time >= nextAttackStanTime && distanceToPlayer <= StanDistance)
         {
+            print("Firing off stan");
             isAttacking = true;
             nextAttackStanTime = Time.time + ReloadStan;
             StartCoroutine(StanTimer());
-            Debug.Log("Игрок атаковал!");
-            Invoke(nameof(base.ResetAttack), Reload);
         }
     }
-    public void Stan()//Под игроком появляется круг и если не убежит стан (вроде легко)
+    public void Stan(Vector3 stunposition)//Под игроком появляется круг и если не убежит стан (вроде легко)
     {
-        Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, RadiusStan);
-        foreach (Collider hit in hitColliders)
+        if ((player.transform.position-stunposition).magnitude<=RadiusStan)
+        player.TakeDamage(DamageStan, stunposition, this, PushForce, DamageType.Unparriable,StanTime);
+    }
+    protected void StanStop()
+    {
+        player.UnStun();
+    }
+
+    IEnumerator GravitationalPushTimer()
+    {
+        float BoxLength = 50f;
+        float BoxWidth = 3f;
+        Vector3 lookingatplayer = (player.transform.position - transform.position).normalized;
+        Vector3 BoxPosition = Vector3.Lerp( (lookingatplayer)*BoxLength/2+transform.position,transform.position,0.5f);
+        BoxPosition.y = transform.position.y-transform.localScale.y/2+.1f;
+        GameObject Box = Instantiate(CubeVisual, BoxPosition, Quaternion.LookRotation(lookingatplayer));
+        Vector3 newboxscale = Box.transform.localScale;
+        newboxscale.z = BoxLength;
+        newboxscale.x = BoxWidth; 
+        Box.transform.localScale = newboxscale;
+        SpriteRenderer BoxColor = Box.GetComponentInChildren<SpriteRenderer>();
+        print(BoxColor.gameObject.name);
+        float elapsed = 0f;
+        Color startColor = BoxColor.color;
+        startColor.a = 0;
+        startColor.r = 0;
+        Color targetColor = startColor;
+        targetColor.a = 0.8f;
+        targetColor.r = 0.5f;
+        while (elapsed < GravPushFollowTime)
         {
-            if (hit.gameObject == gameObject) continue;
-
-            Entity target = hit.GetComponent<Entity>();
-
-            if (target != null)
+            elapsed += Time.deltaTime;
+            if (areaVisual != null)
             {
-                target.TakeDamage(DamageStan, transform.position, this, PushForce, DamageType.Unparriable);
-                if (target == player)
-                    player.IsStunned = true;
-                Invoke(nameof(StanStop), StanTime);
-                Debug.Log($"СТАН: {hit.name}");
+                lookingatplayer = (player.transform.position - transform.position).normalized;
+                BoxColor.color = Color.Lerp(startColor, targetColor, elapsed / GravPushFollowTime);
+
+                BoxPosition = Vector3.Lerp((lookingatplayer) * BoxLength + transform.position, transform.position, 0.5f);
+                BoxPosition.y = transform.position.y - transform.localScale.y / 2 + .1f;
+
+                Box.transform.position = BoxPosition;
+                Box.transform.rotation = Quaternion.LookRotation(lookingatplayer);
             }
+            yield return null;
         }
-    }
-    protected override void StanStop()
-    {
-        player.IsStunned = false;
+        targetColor.a = 1;
+        targetColor.r = 1;
+        BoxColor.color = Color.Lerp(startColor, targetColor, 1);
+        yield return new WaitForSeconds(GravPushFireTime);
+        GravitationalPush(BoxPosition,Box.transform.localScale,Box.transform.rotation);
+        Invoke(nameof(ResetAttack), Reload);
+        Destroy(Box);
     }
 
     IEnumerator StanTimer()
     {
         Vector3 AreaPosition = player.transform.position;
-        AreaPosition.y = 2.25f;
-        GameObject Area = Instantiate(areaVisual, AreaPosition, Quaternion.identity);
-        Area.transform.localScale = new Vector3(RadiusStan * 2, 1f, RadiusStan * 2);
-        SpriteRenderer AreaColor = Area.GetComponent<SpriteRenderer>();
+        AreaPosition.y = transform.position.y - transform.localScale.y / 2 + .1f;
+        GameObject Area = Instantiate(areaVisual, AreaPosition, transform.rotation);
+        Area.transform.localScale = new Vector3(RadiusStan*2, 1f, RadiusStan*2);
+        SpriteRenderer AreaColor = Area.GetComponentInChildren<SpriteRenderer>();
         float elapsed = 0f;
         Color startColor = AreaColor.color;
-        startColor.a = 0.2f;
+        startColor.a = 0;
+        startColor.r = 0;
         Color targetColor = startColor;
         targetColor.a = 0.8f;
-        while (elapsed < DelayBeforeStan)
+        targetColor.r = 0.5f;
+        while (elapsed < StanFollowTime)
         {
             elapsed += Time.deltaTime;
             if (areaVisual != null)
             {
-                AreaColor.color = Color.Lerp(startColor, targetColor, elapsed / DelayBeforeStan);
+                AreaColor.color = Color.Lerp(startColor, targetColor, elapsed / StanFollowTime);
             }
             yield return null;
         }
-        Stan();
-        Destroy(Area);
-    }
-
-    IEnumerator GravitationalPushTimer()
-    {
-        Vector3 AreaPosition = transform.position;
-        AreaPosition.y = 2.25f;
-        GameObject Area = Instantiate(CubeVisual, AreaPosition, transform.rotation);
-        Area.transform.localScale = new Vector3(10f, 1f, 5f);
-        SpriteRenderer AreaColor = Area.GetComponent<SpriteRenderer>();
-        float elapsed = 0f;
-        Color startColor = AreaColor.color;
-        startColor.a = 0.2f;
-        Color targetColor = startColor;
-        targetColor.a = 0.8f;
-        while (elapsed < DelayBeforeStan)
-        {
-            elapsed += Time.deltaTime;
-            if (areaVisual != null)
-            {
-                AreaColor.color = Color.Lerp(startColor, targetColor, elapsed / DelayBeforeStan);
-            }
-            yield return null;
-        }
-        GravitationalPush();
+        targetColor.a = 1;
+        targetColor.r = 1;
+        AreaColor.color = Color.Lerp(startColor, targetColor, 1);
+        yield return new WaitForSeconds(StanFireTime);
+        Stan(AreaPosition);
+        Invoke(nameof(ResetAttack),Reload);
         Destroy(Area);
     }
 }

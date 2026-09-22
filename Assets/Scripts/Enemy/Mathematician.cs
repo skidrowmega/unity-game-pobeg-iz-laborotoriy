@@ -128,7 +128,7 @@ public class Mathematician: EnemyAll
         AreaPosition.y = 2.25f;
         GameObject Area = Instantiate(areaVisual, AreaPosition, Quaternion.identity);
         Area.transform.localScale = new Vector3(RadiusDivisionByZero*2, 1f, RadiusDivisionByZero*2);
-        SpriteRenderer AreaColor = Area.GetComponent<SpriteRenderer>();
+        SpriteRenderer AreaColor = Area.GetComponentInChildren<SpriteRenderer>();
         float elapsed = 0f;
         Color startColor = AreaColor.color;
         Color targetColor = startColor;

@@ -108,12 +108,12 @@ public class CharacterController : Entity
         transform.rotation = Quaternion.Euler(0, Mathf.Rad2Deg * Mathf.Atan2(-CursorVector.z, CursorVector.x), 0);
     }
 
-    private bool isparrying()
+    public bool isparrying()
     {
         return animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOPARRY");
     }
 
-    public override void TakeDamage(int damage, Vector3 source, Entity attacker, float pushstrength, DamageType type)
+    public override void TakeDamage(int damage, Vector3 source, Entity attacker, float pushstrength, DamageType type, float StunTime=0)
     {
         if (IsDodging)
         {
@@ -122,18 +122,19 @@ public class CharacterController : Entity
         }
         if (attacker!=null&&isparrying() && type!=DamageType.Unparriable)
         {
-            OnParry(damage,attacker,pushstrength);
+            if (type == DamageType.Projectile) return;
+            OnParry(damage,attacker,pushstrength, StunTime);
             return;
         }
         else
         {
-            base.TakeDamage(damage,source,attacker, pushstrength,type);
+            base.TakeDamage(damage,source,attacker, pushstrength,type, StunTime);
         }
     }
-    private void OnParry(int damage, Entity source, float pushstrength)
+    private void OnParry(int damage, Entity source, float pushstrength,float StunTime)
     {
         lastparry=-parrycooldown;
-        source.TakeDamage(0,transform.position,this,5,DamageType.Normal);
+        source.TakeDamage(0,transform.position,this,5,DamageType.Normal,StunTime);
     }
 
     void OnDodge()

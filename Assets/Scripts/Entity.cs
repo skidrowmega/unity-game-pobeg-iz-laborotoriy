@@ -22,7 +22,7 @@ public class Entity : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    public virtual void TakeDamage(int damage, Vector3 source ,Entity attacker, float pushstrength,DamageType damageType)
+    public virtual void TakeDamage(int damage, Vector3 source ,Entity attacker, float pushstrength,DamageType damageType,float StunTime=0)
     {
         healthpoints -= damage;
         if (healthpoints <= 0) Death();
@@ -30,20 +30,16 @@ public class Entity : MonoBehaviour
         {
             PushEntity(source, pushstrength);
         }
-    }
-    /*    public void PushPerFrame()
+        if (pushstrength > 0)
         {
-            if (IsBeingPushed)
-            {
-                //if (Time.time - pushstart > PushStrength)
-                //{
-                //    PushStop();
-                //}
-                //else
-                //    //transform.position = Vector3.MoveTowards(transform.position, pushsource, Time.deltaTime * GlobalPushStrength);
-                //    transform.position += (transform.position- pushsource) * Time.deltaTime * GlobalPushStrength;
-            }
-        }*/
+            StunTime = GlobalPushTime;
+        }
+        if (StunTime > 0)
+        {
+            IsStunned = true;
+            Invoke(nameof(UnStun), StunTime);
+        }
+    }
     public virtual void PushEntity(Vector3 source, float pushstrength)
     {
         if (IsBeingPushed) return;
@@ -74,7 +70,7 @@ public class Entity : MonoBehaviour
         transform.position = destination;
         PushStop();
     }
-    protected virtual void StanStop()
+    public virtual void UnStun()
     {
         IsStunned = false;
     }

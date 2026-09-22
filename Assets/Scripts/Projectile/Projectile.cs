@@ -1,3 +1,4 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public enum BulletType
@@ -6,7 +7,7 @@ public enum BulletType
     Ricochet
 }
 
-public abstract class Projectile: MonoBehaviour
+public abstract class Projectile : MonoBehaviour
 {
     public int Speed = 1;
     public const int LifeTime = 10;
@@ -14,19 +15,19 @@ public abstract class Projectile: MonoBehaviour
     public int PushStrength = 0;
     public Vector3 direction;
     public BulletType type;
-    public DamageType damageType=DamageType.Normal;
+    public DamageType damageType = DamageType.Normal;
     public Entity Shooter;
     private float timestart;
 
     protected virtual void Awake()
     {
-        timestart=Time.time;
+        timestart = Time.time;
     }
     public virtual void HitEntity(Entity target)
     {
         if (target != Shooter)
         {
-            target.TakeDamage(damage, target.transform.position-direction, Shooter, PushStrength,damageType);
+            target.TakeDamage(damage, target.transform.position - direction, Shooter, PushStrength, damageType);
             Destroy(gameObject);
         }
     }
@@ -44,15 +45,26 @@ public abstract class Projectile: MonoBehaviour
         if (!Physics.Raycast(ray, out hit, Time.deltaTime * Speed + .5f)) return;
         Entity target = hit.transform.GetComponent<Entity>();
         if (target)
-        HitEntity(target);
+        {
+            CharacterController player = target.GetComponent<CharacterController>();
+            if (player)
+            {
+                if (player.isparrying())
+                {
+                    direction *= -1;
+                    Shooter = player;
+                }else HitEntity(player);
+            }
+            else
+                HitEntity(target);
+        }
         else
         {
-
             HitObject(hit.collider);
         }
         if (type == BulletType.Ricochet)
         {
-            direction = Vector3.Reflect(direction, hit.normal);
+            ReflectBullet(hit.normal);
         }
     }
     protected virtual void MoveBullet()
@@ -60,6 +72,10 @@ public abstract class Projectile: MonoBehaviour
         transform.position += direction.normalized * Speed * Time.deltaTime;
     }
 
+    protected virtual void ReflectBullet(Vector3 normal)
+    {
+        direction = Vector3.Reflect(direction, normal);
+    }
 
     private void Update()
     {
