@@ -16,7 +16,7 @@ public class EnemyAll: Entity
 
     protected virtual void Start()
     {
-        player = FindAnyObjectByType<CharacterController>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
     }
 
     protected virtual void Rotation()
@@ -47,7 +47,6 @@ public class EnemyAll: Entity
             isAttacking = true;
             nextAttackTime = Time.time + attackCooldown;
             Attack();
-            Debug.Log("Игрок атаковал!");
             Invoke(nameof(ResetAttack), Reload);
         }
     }
