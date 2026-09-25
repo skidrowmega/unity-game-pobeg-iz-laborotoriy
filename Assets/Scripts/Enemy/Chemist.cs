@@ -41,7 +41,6 @@ public class Chemist: EnemyAll
     }
     protected override void Attack()//стреляет бутылочками которые наносят рандомный урон
     {
-        print("Attacked");
         Projectile bullet = projectileprefab.GetComponent<Projectile>();
         bullet.Shooter = this;
         bullet.direction = transform.right;
