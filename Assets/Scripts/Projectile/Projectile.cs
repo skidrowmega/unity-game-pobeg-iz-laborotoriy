@@ -17,11 +17,10 @@ public abstract class Projectile : MonoBehaviour
     public BulletType type;
     public DamageType damageType = DamageType.Normal;
     public Entity Shooter;
-    private float timestart;
 
     protected virtual void Awake()
     {
-        timestart = Time.time;
+        Destroy(gameObject, LifeTime);
     }
     public virtual void HitEntity(Entity target)
     {
@@ -81,6 +80,5 @@ public abstract class Projectile : MonoBehaviour
     {
         CheckForCollision();
         MoveBullet();
-        if (Time.time - timestart > LifeTime) Destroy(gameObject);
     }
 }
