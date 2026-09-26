@@ -19,7 +19,7 @@ public class CharacterController : Entity
 
     private void Awake()
     {
-        animator= GetComponent<Animator>();
+        animator= GetComponentInChildren<Animator>();
         lastparry = -parrycooldown;
     }
 
