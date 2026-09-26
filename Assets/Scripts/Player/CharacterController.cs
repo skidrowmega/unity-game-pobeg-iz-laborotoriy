@@ -40,25 +40,42 @@ public class CharacterController : Entity
 
     void AttackMelee()
     {
-        //Debug.DrawLine(transform.position, transform.position + transform.forward * 2.982696f);
-        if(IsStunned) return;
-        if (!Input.GetMouseButtonDown(0)) return;
+        if (IsStunned) return;
         if (animator == null) return;
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
-        animator.Play("VESLOBASHLEFT");
-        //StartCoroutine(MeleeAttackLoop(.41f));
-        StartCoroutine(MeleeAttackLoop(animator.GetCurrentAnimatorStateInfo(0).length));
+        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Udar"))
+        {
+            animator.SetBool("Attack", false);
+        }
+        if (!Input.GetMouseButtonDown(0)) return;
+        if (Input.GetMouseButtonDown(0)) 
+        {
+            if (animator.GetCurrentAnimatorStateInfo(1).IsName("Default")) 
+            {
+                animator.SetBool("Attack", true);
+                StartCoroutine(MeleeAttackLoop(animator.GetCurrentAnimatorStateInfo(1).length));
+            }
+        }
+        
     }
 
 
     void AttemptAttackRanged()
     {
         if (IsStunned) return;
-        if (!Input.GetMouseButtonUp(1)) return;
         if (animator == null) return;
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
-        animator.Play("GunShoot");
-        currentgun.Shot(transform.right);
+        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Shoot"))
+        {
+            animator.SetBool("Shoot", false);
+        }
+        if (!Input.GetMouseButtonUp(1)) return;
+        if (Input.GetMouseButtonUp(1))
+        {
+            if (animator.GetCurrentAnimatorStateInfo(1).IsName("Default"))
+            {
+                animator.SetBool("Shoot", true);
+                //currentgun.Shot(transform.right);
+            }
+        }
     }
 
 
