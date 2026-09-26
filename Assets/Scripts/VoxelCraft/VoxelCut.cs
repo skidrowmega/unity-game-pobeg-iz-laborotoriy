@@ -26,7 +26,7 @@ public class VoxelCut : MonoBehaviour
         rootpoint[0]  = dimensions[0]-1;
         rootpoint[1] = dimensions[1] / 2-1;
         rootvoxel = voxels[rootpoint[0], rootpoint[1]];
-        rootvoxel.GetComponent<MeshRenderer>().material.color = Color.red;
+        rootvoxel.GetComponent<SpriteRenderer>().color = Color.red;
         availablevoxels = new bool[dimensions[0], dimensions[1]];
         for (int i = 0; i < dimensions[0]; i++)
         {
@@ -81,6 +81,7 @@ public class VoxelCut : MonoBehaviour
     void DestroyVoxelOnPosition(Vector3 position)
     {
         position.z = transform.position.z;
+        position += new Vector3(-voxelGrid.gap/2,-voxelGrid.gap/2);
         if (PointInRangeCheck(position, transform.position - new Vector3(voxelGrid.gap / 2, voxelGrid.gap / 2), transform.position + new Vector3(dimensions[0] * voxelGrid.gap, dimensions[1] * voxelGrid.gap, 0)))
         {
             Vector3 localpos = position - transform.position;
