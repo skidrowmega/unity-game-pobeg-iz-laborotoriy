@@ -81,13 +81,22 @@ public class CharacterController : Entity
         float MoveX = Input.GetAxis("Horizontal");
         float MoveZ = Input.GetAxis("Vertical");
         if (IsStunned) {
+            animator.SetBool("isWalking", false);
+            return;
+        }
+        
         if (MoveX != 0 || MoveZ != 0) {
+            animator.SetBool("isWalking", true);
             bool ishitX = Physics.Raycast(transform.position, new Vector3(MoveX, 0, 0).normalized, .5f);
             bool ishitZ = Physics.Raycast(transform.position, new Vector3(0, 0, MoveZ).normalized, .5f);
             if (ishitX) MoveX = 0;
             if (ishitZ) MoveZ = 0;
             Vector3 newpos = new Vector3(MoveX, 0, MoveZ).normalized * Speed * Time.deltaTime;
             transform.position += newpos;
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
         }
     }
 
