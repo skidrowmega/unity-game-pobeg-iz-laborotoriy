@@ -458,7 +458,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5362883033918717864}
-  - component: {fileID: 7444305657493571356}
+  - component: {fileID: -6620369496556030544}
   m_Layer: 0
   m_Name: LiftRoom
   m_TagString: Untagged
@@ -485,7 +485,7 @@ Transform:
   - {fileID: 2243748037088588478}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7444305657493571356
+--- !u!114 &-6620369496556030544
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -494,6 +494,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 9087049211835755371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80745cbd3f3bc5c46a4b8d848156f279, type: 3}
+  m_Script: {fileID: 11500000, guid: 0a5751dc5729a0646b46663170b21e81, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LiftRoom
+  m_EditorClassIdentifier: Assembly-CSharp::Room
+  WallU: {fileID: 0}
+  WallR: {fileID: 0}
+  WallD: {fileID: 0}
+  WallL: {fileID: 0}

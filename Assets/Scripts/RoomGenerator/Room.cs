@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Corridor : MonoBehaviour
+public class Room : MonoBehaviour
 {
     public GameObject WallU;
     public GameObject WallR;
