@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3060626475356920823}
+  - component: {fileID: 4958319989181731071}
   m_Layer: 0
   m_Name: VORTEXOFDEATH
   m_TagString: Untagged
@@ -32,6 +33,23 @@ Transform:
   - {fileID: 5155510474071128019}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4958319989181731071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1568080186804927961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 399fcfa6850196f4484f07bd5d7ecf8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VortexSpin
+  RotationSpeed: 1
+  damage_radius: 1
+  Damage: 1000
+  DamageToPlayer: 30
+  pushstrength: 0
 --- !u!1 &4578563065841146820
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,7 +60,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5155510474071128019}
   - component: {fileID: 7467303304461792897}
-  - component: {fileID: 727895225120919686}
   m_Layer: 0
   m_Name: Triangle
   m_TagString: Untagged
@@ -124,15 +141,3 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!114 &727895225120919686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4578563065841146820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 399fcfa6850196f4484f07bd5d7ecf8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VortexSpin
