@@ -92,7 +92,7 @@ public class CharacterController : Entity
         if (animator == null) return;
         if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Default")) return;
         //animator.Play("BOBRDODGE");
-        StartCoroutine(DodgeLoop(DodgeTime, new Vector2(MoveX, MoveZ)));
+        DodgeStart(DodgeTime, new Vector2(MoveX, MoveZ));
     }
 
 
@@ -146,6 +146,12 @@ public class CharacterController : Entity
     {
         if (IsDodging)
         {
+            if (type==DamageType.Unparriable)
+            {
+                DodgeStop();
+                return;
+
+            }
             OnDodge();
             return;
         }
@@ -196,7 +202,6 @@ public class CharacterController : Entity
 
     IEnumerator DodgeLoop (float secondstowait, Vector2 Direction)
     {
-        IsStunned = false;
         IsDodging=true;
         float newdodgedistance = DodgeDistance;
         float starttime = Time.time;
@@ -225,15 +230,30 @@ public class CharacterController : Entity
             timewasted += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-        IsStunned=false;
         //transform.position = startposition + new Vector3(Direction.x, 0, Direction.y) * DodgeDistance;
-        IsDodging= false;
-        DodgeReady=false;
-        Invoke(nameof(ReloadDodge), DodgeCooldown);
+        EndDodge();
     }
     void ReloadDodge()
     {
         DodgeReady=true;
+    }
+
+    void DodgeStart(float secondstowait, Vector2 Direction)
+    {
+        StartCoroutine(DodgeLoop(DodgeTime, Direction));
+    }
+
+    void DodgeStop()
+    {
+        StopCoroutine("DodgeLoop");
+        EndDodge();
+    }
+    
+    public void EndDodge()
+    {
+        IsDodging = false;
+        DodgeReady = false;
+        Invoke(nameof(ReloadDodge), DodgeCooldown);
     }
 
 }
