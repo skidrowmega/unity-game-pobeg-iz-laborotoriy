@@ -321,5 +321,7 @@ MonoBehaviour:
   damage: 5
   PushStrength: 1
   direction: {x: -0.21928084, y: 0, z: 0.9756618}
-  type: 1
+  type: 0
+  damageType: 0
   Shooter: {fileID: 0}
+  MaxRicochetCount: 3
