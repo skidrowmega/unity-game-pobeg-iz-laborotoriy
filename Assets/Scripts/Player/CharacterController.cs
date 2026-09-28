@@ -73,7 +73,7 @@ public class CharacterController : Entity
             if (animator.GetCurrentAnimatorStateInfo(1).IsName("Default"))
             {
                 animator.SetBool("Shoot", true);
-                //currentgun.Shot(transform.right);
+                currentgun.Shot(transform.right);
             }
         }
     }
@@ -87,8 +87,8 @@ public class CharacterController : Entity
         if (MoveX == 0 && MoveZ == 0) return;
         if (!Input.GetKeyDown(KeyCode.LeftShift)) return;
         if (animator == null) return;
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
-        animator.Play("BOBRDODGE");
+        if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Default")) return;
+        //animator.Play("BOBRDODGE");
         StartCoroutine(DodgeLoop(DodgeTime, new Vector2(MoveX, MoveZ)));
     }
 
