@@ -498,6 +498,10 @@ PrefabInstance:
       propertyPath: Cursor
       value: 
       objectReference: {fileID: 2101901202}
+    - target: {fileID: 7545022252984657773, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
+      propertyPath: DodgeTime
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8985279394942567250, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.311393
@@ -1042,6 +1046,10 @@ PrefabInstance:
     - target: {fileID: 2085493303264609629, guid: d5aa3af7084142f4d9850290ecf8e491, type: 3}
       propertyPath: m_Name
       value: Spawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 2085493303264609629, guid: d5aa3af7084142f4d9850290ecf8e491, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3752069784046363224, guid: d5aa3af7084142f4d9850290ecf8e491, type: 3}
       propertyPath: m_LocalPosition.x
