@@ -26,7 +26,8 @@ public class VoxelCut : MonoBehaviour
         rootpoint[0]  = dimensions[0]-1;
         rootpoint[1] = dimensions[1] / 2-1;
         rootvoxel = voxels[rootpoint[0], rootpoint[1]];
-        rootvoxel.GetComponent<SpriteRenderer>().color = Color.red;
+        //rootvoxel.GetComponent<SpriteRenderer>().color = Color.red;
+        rootvoxel.GetComponent<MeshRenderer>().material.color = Color.red;
         availablevoxels = new bool[dimensions[0], dimensions[1]];
         for (int i = 0; i < dimensions[0]; i++)
         {

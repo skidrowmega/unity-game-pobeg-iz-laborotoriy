@@ -34,23 +34,24 @@ public class GenerateVoxelGrid : MonoBehaviour
         {
             for (int j = 0; j < dimensions[1]; j++)
             {
-                int x = i *XSizeOffset;
-                int y = j*YSizeOffset;
-                print(x + " :  " + y);
-                pixels = texture.GetPixels(x, y, width, height, 0);
-/*                foreach (Color p in pixels)
-                {
-                    print(p.ToString());
-                }*/
+                /*                int x = i *XSizeOffset;
+                                int y = j*YSizeOffset;
+                                print(x + " :  " + y);
+                                pixels = texture.GetPixels(x, y, width, height, 0);
+                *//*                foreach (Color p in pixels)
+                                {
+                                    print(p.ToString());
+                                }*//*
 
-                destTexture = new Texture2D(XSizeOffset, YSizeOffset);
-                destTexture.SetPixels(pixels);
-                destTexture.Apply();
+                                destTexture = new Texture2D(XSizeOffset, YSizeOffset);
+                                destTexture.SetPixels(pixels);
+                                destTexture.Apply();
 
-                sprite = Sprite.Create(destTexture, new Rect(0, 0,XSizeOffset,YSizeOffset), Vector2.zero, XSizeOffset);
-                gameobjectarray[i, j] = Instantiate<GameObject>(voxel, transform.position + new Vector3(i, j) * gap,Quaternion.identity);
+                                sprite = Sprite.Create(destTexture, new Rect(0, 0,XSizeOffset,YSizeOffset), Vector2.zero, XSizeOffset);
+                               
+                                gameobjectarray[i, j].GetComponent<SpriteRenderer>().sprite = sprite;*/
+                gameobjectarray[i, j] = Instantiate<GameObject>(voxel, transform.position + new Vector3(i, j) * gap, Quaternion.identity);
                 gameobjectarray[i, j].transform.parent = transform;
-                gameobjectarray[i, j].GetComponent<SpriteRenderer>().sprite = sprite;
             }
         }
         transform.position = transform.position - new Vector3(dimensions[0] * gap/2, dimensions[0] * gap/2, 0); 
