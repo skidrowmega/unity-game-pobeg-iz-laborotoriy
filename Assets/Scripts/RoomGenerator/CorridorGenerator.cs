@@ -54,7 +54,7 @@ public class CorridorGenerator: MonoBehaviour
                 if (y < maxY && spawnedRooms[x, y + 1] == null) vacantPlaces.Add(1);
 
                 Vector2Int position = Vector2Int.zero;
-                float direction = ChooseDirectionCorridor(new Vector2Int(x,y), vacantPlaces);
+                float direction = ChooseDirectionCorridor(vacantPlaces);
 
                 if (direction == 0) continue;
                 else if (direction == 1)
@@ -117,10 +117,9 @@ public class CorridorGenerator: MonoBehaviour
         }
     }
 
-    private float ChooseDirectionCorridor(Vector2Int xy, List<float> vacPlaces)//тут или не тут выбирать куда спавнить комнату
+    private float ChooseDirectionCorridor(List<float> vacPlaces)//тут или не тут выбирать куда спавнить комнату
     {
         float[,] probs = new float[5, 2] { {1, 0f}, {2, 0f} , {3, 0f} , {4, 0f} , {0, 2f} };
-        Vector2Int currentRoom = xy;
         if (vacPlaces.Count == 4)
         {
             probs[0, 1] = 0.25f;
