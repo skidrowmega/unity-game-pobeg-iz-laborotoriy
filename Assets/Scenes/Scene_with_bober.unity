@@ -793,6 +793,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3854599668483568526, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
+      propertyPath: m_Height
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 5527802281580728736, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
       propertyPath: m_Name
       value: Bober (1)
@@ -803,7 +807,7 @@ PrefabInstance:
       objectReference: {fileID: 653049916}
     - target: {fileID: 7545022252984657773, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
       propertyPath: DodgeTime
-      value: 0.4
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 8985279394942567250, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
       propertyPath: m_LocalPosition.x
