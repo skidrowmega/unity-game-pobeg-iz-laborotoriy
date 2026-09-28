@@ -13,6 +13,8 @@ public class CharacterController : Entity
     public float dodgecooldown = 3;
     float lastdodge;
     public bool IsDodging=false;
+    bool DodgeReady = true;
+    [SerializeField] float DodgeCooldown=.7f;
     public float DodgeDistance = 15;
     public float DodgeTime = 0.2f;
 
@@ -81,6 +83,7 @@ public class CharacterController : Entity
 
     void CheckDodge()
     {
+        if (!DodgeReady) return;
         if (IsDodging) return;
         float MoveX = Input.GetAxis("Horizontal");
         float MoveZ = Input.GetAxis("Vertical");
@@ -165,7 +168,6 @@ public class CharacterController : Entity
 
     void OnDodge()
     {
-
     }
     IEnumerator MeleeAttackLoop(float secondstowait)
     {
@@ -226,6 +228,12 @@ public class CharacterController : Entity
         IsStunned=false;
         //transform.position = startposition + new Vector3(Direction.x, 0, Direction.y) * DodgeDistance;
         IsDodging= false;
+        DodgeReady=false;
+        Invoke(nameof(ReloadDodge), DodgeCooldown);
+    }
+    void ReloadDodge()
+    {
+        DodgeReady=true;
     }
 
 }

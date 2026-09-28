@@ -48,18 +48,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b60ae1c27734c4281701068fc9c033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterController
-  healthpoints: 100
+  healthpoints: 7232
   Speed: 1.5
   IsStunned: 0
   IsBeingPushed: 0
   Cursor: {fileID: 0}
-  currentweapon: {fileID: 0}
-  currentgun: {fileID: 0}
+  currentweapon: {fileID: 9169369046277672402}
+  currentgun: {fileID: 89958014049442596}
   parrycooldown: 3
   dodgecooldown: 3
   IsDodging: 0
-  DodgeDistance: 15
-  DodgeTime: 0.2
+  DodgeCooldown: 0.7
+  DodgeDistance: 7
+  DodgeTime: 0.4
 --- !u!136 &3854599668483568526
 CapsuleCollider:
   m_ObjectHideFlags: 0
