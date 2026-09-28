@@ -62,7 +62,7 @@ public class Entity : MonoBehaviour
         destination.y=startposition.y;
         while (timewasted < GlobalPushTime)
         {
-            transform.position=Vector3.Lerp(transform.position,destination, timewasted/GlobalPushTime);
+            transform.position=Vector3.Lerp(startposition,destination, timewasted/GlobalPushTime);
             timewasted += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
