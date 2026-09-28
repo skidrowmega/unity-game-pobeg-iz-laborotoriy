@@ -241,11 +241,14 @@ public class CharacterController : Entity
 
     void DodgeStart(float secondstowait, Vector2 Direction)
     {
+        animator.SetBool("isDodging", true);
         StartCoroutine(DodgeLoop(DodgeTime, Direction));
     }
 
     void DodgeStop()
     {
+        IsDodging = false;
+        animator.SetBool("isDodging", false);
         StopCoroutine("DodgeLoop");
         EndDodge();
     }
@@ -253,6 +256,7 @@ public class CharacterController : Entity
     public void EndDodge()
     {
         IsDodging = false;
+        animator.SetBool("isDodging", false);
         DodgeReady = false;
         Invoke(nameof(ReloadDodge), DodgeCooldown);
     }
