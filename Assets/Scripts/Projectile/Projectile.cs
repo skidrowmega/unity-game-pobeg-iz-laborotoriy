@@ -9,14 +9,17 @@ public enum BulletType
 
 public abstract class Projectile : MonoBehaviour
 {
-    public int Speed = 1;
-    public const int LifeTime = 10;
+    [SerializeField] int Speed = 1;
+    [SerializeField] const int LifeTime = 10;
     public int damage = 1;
     public int PushStrength = 0;
     public Vector3 direction;
     public BulletType type;
     public DamageType damageType = DamageType.Normal;
     public Entity Shooter;
+    [SerializeField] int MaxRicochetCount=3;
+    int RicochetCount;
+
 
     protected virtual void Awake()
     {
@@ -63,6 +66,8 @@ public abstract class Projectile : MonoBehaviour
         }
         if (type == BulletType.Ricochet)
         {
+            if (RicochetCount>MaxRicochetCount) Destroy(gameObject);
+            RicochetCount++;
             ReflectBullet(hit.normal);
         }
     }
