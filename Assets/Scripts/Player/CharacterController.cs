@@ -242,6 +242,7 @@ public class CharacterController : Entity
     void DodgeStart(float secondstowait, Vector2 Direction)
     {
         animator.SetBool("isDodging", true);
+        animator.SetFloat("dodgeSpeedMultiplier", 1/DodgeTime);
         StartCoroutine(DodgeLoop(DodgeTime, Direction));
     }
 
