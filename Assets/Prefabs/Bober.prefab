@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 8985279394942567250}
   - component: {fileID: 7545022252984657773}
   - component: {fileID: 3854599668483568526}
+  - component: {fileID: 9169369046277672402}
+  - component: {fileID: 89958014049442596}
   m_Layer: 0
   m_Name: Bober
   m_TagString: Untagged
@@ -81,6 +83,45 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: -0.14, y: 1.07, z: 0}
+--- !u!114 &9169369046277672402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5527802281580728736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c1ed184cdf324541829dd161bd421e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OarWeapon
+  WeaponName: Oar
+  Damage: 10
+  Stamina: 100
+  StaminaRecoveryRate: 20
+  StamineDecreaseRate: 20
+  PushStrength: 5
+  WeaponHolder: {fileID: 7545022252984657773}
+--- !u!114 &89958014049442596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5527802281580728736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b336a01c2dd8bdd4d937740ad7b6bd6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunWeapon
+  WeaponName: Pistol
+  Damage: 5
+  PushStrength: 0
+  ReloadingTime: 1
+  EnergyDecrease: 0
+  RicochetCount: 0
+  WeaponHolder: {fileID: 7545022252984657773}
+  projectileprefab: {fileID: 7912194456775248160, guid: 6a25993a9bc099a468f9939afcc1607d, type: 3}
 --- !u!1001 &1650804548531518737
 PrefabInstance:
   m_ObjectHideFlags: 0

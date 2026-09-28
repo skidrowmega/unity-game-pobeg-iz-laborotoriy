@@ -21,7 +21,7 @@ public abstract class WeaponRanged: MonoBehaviour
     }
     private void Awake()
     {
-        WeaponHolder = transform.parent.GetComponent<Entity>();
+        WeaponHolder = transform.GetComponent<Entity>();
     }
 
 }

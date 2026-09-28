@@ -15,6 +15,6 @@ public abstract class WeaponMelee: MonoBehaviour
     }
     private void Awake()
     {
-        WeaponHolder = transform.parent.GetComponent<Entity>();
+        WeaponHolder = transform.GetComponent<Entity>();
     }
 }
