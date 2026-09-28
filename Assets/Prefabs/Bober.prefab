@@ -80,7 +80,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: -0.14, y: 0.97, z: 0}
+  m_Center: {x: -0.14, y: 1.07, z: 0}
 --- !u!1001 &1650804548531518737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -140,6 +140,16 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 6aa15a30394331a499eb3d164ea3eab3, type: 3}
       propertyPath: m_CullingMode
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 6aa15a30394331a499eb3d164ea3eab3, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'spine'\n\tTransform 'thigh.L'\n\tTransform
+        'upper_arm.L'\n\tTransform 'spine'\n\tTransform 'spine.001'\n\tTransform
+        'upper_arm.R'\n\tTransform 'forearm.R'\n\tTransform 'shoulder.R'\n\tTransform
+        'thigh.L'\n\tTransform 'upper_arm.L'\n\tand more ...\n\tFrom animation clip
+        'Scene'"
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 6aa15a30394331a499eb3d164ea3eab3, type: 3}
       propertyPath: m_ApplyRootMotion
