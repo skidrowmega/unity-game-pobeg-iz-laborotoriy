@@ -91,7 +91,10 @@ public class Physicist: EnemyAll
     {
         float BoxLength = 50f;
         float BoxWidth = 3f;
-        Vector3 lookingatplayer = (player.transform.position - transform.position).normalized;
+        Vector3 levelposplayer = player.transform.position;
+        Vector3 levelposenemy = transform.position;
+        levelposplayer.y = levelposenemy.y;
+        Vector3 lookingatplayer = (levelposplayer - levelposenemy).normalized;
         Vector3 BoxPosition = Vector3.Lerp( (lookingatplayer)*BoxLength/2+transform.position,transform.position,0.5f);
         BoxPosition.y = transform.position.y-transform.localScale.y/2+.1f;
         GameObject Box = Instantiate(CubeVisual, BoxPosition, Quaternion.LookRotation(lookingatplayer));
@@ -113,7 +116,10 @@ public class Physicist: EnemyAll
             elapsed += Time.deltaTime;
             if (areaVisual != null)
             {
-                lookingatplayer = (player.transform.position - transform.position).normalized;
+                levelposplayer = player.transform.position;
+                levelposenemy = transform.position;
+                levelposplayer.y = levelposenemy.y;
+                lookingatplayer = (levelposplayer - levelposenemy).normalized;
                 BoxColor.color = Color.Lerp(startColor, targetColor, elapsed / GravPushFollowTime);
 
                 BoxPosition = Vector3.Lerp((lookingatplayer) * BoxLength + transform.position, transform.position, 0.5f);
