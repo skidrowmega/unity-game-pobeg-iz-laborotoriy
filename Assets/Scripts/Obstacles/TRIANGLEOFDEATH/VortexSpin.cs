@@ -35,8 +35,8 @@ public class VortexSpin : MonoBehaviour
         Vector3 newpos = player.transform.position;
         newpos.x = randomvortex.transform.position.x;
         newpos.z = randomvortex.transform.position.z;
-        player.transform.position = newpos;
         player.TakeDamage(DamageToPlayer, transform.position, null, 0, DamageType.Unparriable);
+        player.transform.position = newpos;
         DestroyBothVortices(randomvortex);
 
     }

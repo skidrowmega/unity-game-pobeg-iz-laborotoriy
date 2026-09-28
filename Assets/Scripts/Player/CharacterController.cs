@@ -221,6 +221,7 @@ public class CharacterController : Entity
         //print(" dodge will last " + secondstowait.ToString() + " seconds");
         while (timewasted < secondstowait)
         {
+            if (!IsDodging) break;
             transform.position = Vector3.Lerp(transform.position, newdir*newdodgedistance+ startposition, timewasted/secondstowait);
             if (debugprevpos == transform.position&&timewasted>0)
             {
