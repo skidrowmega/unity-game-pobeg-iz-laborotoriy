@@ -49,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterController
   healthpoints: 7232
-  Speed: 1.5
+  Speed: 3
   IsStunned: 0
   IsBeingPushed: 0
   Cursor: {fileID: 0}
