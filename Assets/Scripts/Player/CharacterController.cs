@@ -222,12 +222,12 @@ public class CharacterController : Entity
         while (timewasted < secondstowait)
         {
             if (!IsDodging) break;
-            transform.position = Vector3.Lerp(transform.position, newdir*newdodgedistance+ startposition, timewasted/secondstowait);
-            if (debugprevpos == transform.position&&timewasted>0)
+            transform.position = Vector3.Lerp(startposition, newdir*newdodgedistance+ startposition, timewasted/secondstowait);
+/*            if (debugprevpos == transform.position && timewasted > 0)
             {
                 break;
             }
-            debugprevpos = transform.position;
+            debugprevpos = transform.position;*/
             timewasted += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
