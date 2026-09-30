@@ -15,11 +15,14 @@ public class CorridorGenerator: MonoBehaviour
     private int maxY;
 
     private Room[,] spawnedRooms;
+    private Room[,] spawnedNotOnlyCorridors;
     private HashSet<Vector2Int> CheckedRooms = new HashSet<Vector2Int>();
+
     private void Start()
     {
         spawnedRooms = new Room[11, 11];
-        Room startingCorridor = Instantiate(roomPrefabs[1]);
+        spawnedNotOnlyCorridors = new Room[11, 11];
+        Room startingCorridor = Instantiate(roomPrefabs[0]);
         startingCorridor.transform.position = new Vector3(0, 2.24f, 0);//высота должнга быть ноль
         spawnedRooms[5, 5] = startingCorridor;
 
@@ -59,8 +62,62 @@ public class CorridorGenerator: MonoBehaviour
         {
             PlaceRooms();
         }
+        for (int i = 1; i < 4; i++)
+        {
+            PlaceNotOnlyCorridors(roomPrefabs[i]);
+        }
     }
 
+    private void PlaceNotOnlyCorridors(Room prefab)
+    {
+        HashSet<Vector2Int> vacantPlacesRooms = new HashSet<Vector2Int>();
+        for (int x = 0; x < spawnedRooms.GetLength(0); x++)
+        {
+            for (int y = 0; y < spawnedRooms.GetLength(1); y++)
+            {
+                if (spawnedRooms[x, y] == null) continue;
+                if (spawnedNotOnlyCorridors[x, y] != null) continue;
+
+                if (x > 0 && spawnedRooms[x - 1, y] == null) vacantPlacesRooms.Add(new Vector2Int(x - 1, y));
+                if (y > 0 && spawnedRooms[x, y - 1] == null) vacantPlacesRooms.Add(new Vector2Int(x, y - 1));
+                if (x < maxX && spawnedRooms[x + 1, y] == null) vacantPlacesRooms.Add(new Vector2Int(x + 1, y));
+                if (y < maxY && spawnedRooms[x, y + 1] == null) vacantPlacesRooms.Add(new Vector2Int(x, y + 1));
+            }
+        }
+
+        Room newRoom = Instantiate(prefab);
+        Vector2Int position = vacantPlacesRooms.ElementAt(UnityEngine.Random.Range(0, vacantPlacesRooms.Count));
+        newRoom.transform.position = new Vector3(position.x - 5, 2.24f / 40, position.y - 5) * 40;//высота должна быть ноль
+        ConnectRoom(newRoom, position);
+        spawnedRooms[position.x, position.y] = newRoom;
+    }
+
+    private void ConnectRoom(Room room, Vector2Int pos)
+    {
+        if (room.WallR != null && pos.x < maxX && spawnedRooms[pos.x + 1, pos.y]?.WallL != null)
+        {
+            room.WallR.SetActive(false);
+            spawnedRooms[pos.x + 1, pos.y].WallL.SetActive(false);
+        }
+        else if (room.WallR != null && pos.y > 0 && spawnedRooms[pos.x, pos.y - 1]?.WallU != null)
+        {
+            room.transform.Rotate(0, 90, 0);
+            room.WallR.SetActive(false);
+            spawnedRooms[pos.x, pos.y - 1].WallU.SetActive(false);
+        }
+        else if (room.WallR != null && pos.x > 0 && spawnedRooms[pos.x - 1, pos.y]?.WallR != null)
+        {
+            room.transform.Rotate(0, 180, 0);
+            room.WallR.SetActive(false);
+            spawnedRooms[pos.x - 1, pos.y].WallR.SetActive(false);
+        }
+        else if (room.WallR != null && pos.y < maxY && spawnedRooms[pos.x, pos.y + 1]?.WallD != null)
+        {
+            room.transform.Rotate(0, 270, 0);
+            room.WallR.SetActive(false);
+            spawnedRooms[pos.x, pos.y + 1].WallD.SetActive(false);
+        }
+    }
     private void PlaceRooms()//(поменять название) выбрать комнату из существующих, рядом с ней заспавнить и продолжить ветку вероятности зависят от того какие комнаты рядом, если ветка расходится (я пока не придумал что делать, пусть она не расходится)
     {
         for (int x = 0; x < spawnedRooms.GetLength(0); x++)
@@ -83,23 +140,23 @@ public class CorridorGenerator: MonoBehaviour
                 if (direction == 0) continue;
                 else if (direction == 1)
                 {
-                    newCorridor = Instantiate(roomPrefabs[1]);
+                    newCorridor = Instantiate(roomPrefabs[0]);
                     position = new Vector2Int(x, y + 1);
                 }
                 else if (direction == 2)
                 {
-                    newCorridor = Instantiate(roomPrefabs[1]);
+                    newCorridor = Instantiate(roomPrefabs[0]);
                     position = new Vector2Int(x + 1, y);
                     
                 }
                 else if (direction == 3)
                 {
-                    newCorridor = Instantiate(roomPrefabs[1]);
+                    newCorridor = Instantiate(roomPrefabs[0]);
                     position = new Vector2Int(x, y - 1);
                 }
                 else
                 {
-                    newCorridor = Instantiate(roomPrefabs[1]);
+                    newCorridor = Instantiate(roomPrefabs[0]);
                     position = new Vector2Int(x - 1, y);
                 }
                 spawnedRooms[position.x, position.y] = newCorridor;
