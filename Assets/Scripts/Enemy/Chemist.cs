@@ -34,7 +34,7 @@ public class Chemist: EnemyAll
     private void Update()
     {
         distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
-        Rotation();
+        //Rotation();
         Move();
         TryMolotovСocktail();
         TryAttack();

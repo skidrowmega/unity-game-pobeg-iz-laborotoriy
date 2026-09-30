@@ -124,7 +124,9 @@ GameObject:
   - component: {fileID: 4996490182676921029}
   - component: {fileID: 4862305263746543051}
   - component: {fileID: 5692452210055660840}
+  - component: {fileID: 5178485491278627434}
   - component: {fileID: 1849951954660331211}
+  - component: {fileID: 7377786720720902799}
   m_Layer: 0
   m_Name: CTAJOR
   m_TagString: Untagged
@@ -228,6 +230,28 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &5178485491278627434
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271921073395058830}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5000002
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 2
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!114 &1849951954660331211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,7 +264,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ecc56f2a0a93c24da188c7fca530142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  healthpoints: 100
+  HealthPoints: 100
+  MaxHealthpoints: 100
   Speed: 0.005
   IsStunned: 0
   IsBeingPushed: 0
+--- !u!114 &7377786720720902799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8271921073395058830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 067af9e6bb6167341a8be2505e978301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InternMelee
+  HealthPoints: 100
+  MaxHealthpoints: 100
+  Speed: 4
+  IsStunned: 0
+  IsBeingPushed: 0
+  rotationSpeed: 5
+  Damage: 5
+  Reload: 1
+  attackDistance: 1.5
+  attackCooldown: 1.5
+  stopDistance: 1
+  PushForce: 0

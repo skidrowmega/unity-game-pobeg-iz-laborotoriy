@@ -28,7 +28,6 @@ public class HealthBarScript : MonoBehaviour
         Vector3 savedpos = startingposition;
         savedpos.x+= xOffset;
         greenhealth.transform.localPosition = savedpos;
-        print(savedpos);
     }
 
 

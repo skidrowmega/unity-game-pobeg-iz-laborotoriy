@@ -27,7 +27,7 @@ public class Physicist: EnemyAll
     private void Update()
     {
         distanceToPlayer = (player.transform.position - transform.position).magnitude;
-        Rotation();
+        //Rotation();
         Move();
         TryGravitationalPush();
         TryStan();

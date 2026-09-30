@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
 
 public enum DamageType
 {
@@ -19,6 +20,14 @@ public class Entity : MonoBehaviour
     public bool IsStunned = false;
     public bool IsBeingPushed = false;
     public const float GlobalPushTime = 0.2f;
+
+    NavMeshAgent agent;
+
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+    }
+
     public virtual void Death()
     {
         Destroy(gameObject);
@@ -46,10 +55,18 @@ public class Entity : MonoBehaviour
         if (IsBeingPushed) return;
         IsBeingPushed= true;
         IsStunned = true;
+        if (agent)
+        {
+            agent.speed = 0;
+        }
         StartCoroutine(PushCoroutine(source, pushstrength));
     }
     protected void PushStop()
     {
+        if (agent)
+        {
+            agent.speed = Speed;
+        }
         IsBeingPushed = false;
         IsStunned = false;
     }
