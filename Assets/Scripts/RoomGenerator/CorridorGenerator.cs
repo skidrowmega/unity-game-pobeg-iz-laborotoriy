@@ -23,7 +23,7 @@ public class CorridorGenerator: MonoBehaviour
         spawnedRooms = new Room[11, 11];
         spawnedNotOnlyCorridors = new Room[11, 11];
         Room startingCorridor = Instantiate(roomPrefabs[0]);
-        startingCorridor.transform.position = new Vector3(0, 2.24f, 0);//высота должнга быть ноль
+        startingCorridor.transform.position = new Vector3(0, 0, 0);//высота должнга быть ноль
         spawnedRooms[5, 5] = startingCorridor;
 
         maxX = spawnedRooms.GetLength(0) - 1;
@@ -46,7 +46,7 @@ public class CorridorGenerator: MonoBehaviour
                 if (x < maxX && spawnedRooms[x + 1, y] == null) vacantPlaces.Add(2);
                 if (y < maxY && spawnedRooms[x, y + 1] == null) vacantPlaces.Add(1);
 
-                if (vacantPlaces.Count < 3) CheckedRooms.Add(new Vector2Int(x, y));
+                if (vacantPlaces.Count < 3) ;
             }
         }
         if (CheckedRooms.Count < 3)
@@ -87,7 +87,7 @@ public class CorridorGenerator: MonoBehaviour
 
         Room newRoom = Instantiate(prefab);
         Vector2Int position = vacantPlacesRooms.ElementAt(UnityEngine.Random.Range(0, vacantPlacesRooms.Count));
-        newRoom.transform.position = new Vector3(position.x - 5, 2.24f / 40, position.y - 5) * 40;//высота должна быть ноль
+        newRoom.transform.position = new Vector3(position.x - 5, 0f / 40, position.y - 5) * 40;//высота должна быть ноль
         ConnectRoom(newRoom, position);
         spawnedRooms[position.x, position.y] = newRoom;
     }
@@ -128,7 +128,7 @@ public class CorridorGenerator: MonoBehaviour
                 if (CheckedRooms.Contains(new Vector2Int(x, y))) continue;
                 List<float> vacantPlaces = new List<float>();
 
-                if (x > 0 && spawnedRooms[x - 1, y] == null) vacantPlaces.Add(4);
+                if (x > 0 && spawnedRooms[x - 1, y] == null) vacantPlaces.Add(4);// Заменить проверку spawnedRooms на метод
                 if (y > 0 && spawnedRooms[x, y - 1] == null) vacantPlaces.Add(3);
                 if (x < maxX && spawnedRooms[x + 1, y] == null) vacantPlaces.Add(2);
                 if (y < maxY && spawnedRooms[x, y + 1] == null) vacantPlaces.Add(1);
@@ -137,7 +137,7 @@ public class CorridorGenerator: MonoBehaviour
                 Room newCorridor;
                 float direction = ChooseDirectionCorridor(vacantPlaces);
 
-                if (direction == 0) continue;
+                if (direction == 0) continue;//Изменить хуйню на Switch
                 else if (direction == 1)
                 {
                     newCorridor = Instantiate(roomPrefabs[0]);
@@ -160,7 +160,7 @@ public class CorridorGenerator: MonoBehaviour
                     position = new Vector2Int(x - 1, y);
                 }
                 spawnedRooms[position.x, position.y] = newCorridor;
-                newCorridor.transform.position = new Vector3(position.x - 5, 2.24f / 40, position.y - 5) * 40;//высота должна быть ноль
+                newCorridor.transform.position = new Vector3(position.x - 5, 0f / 40, position.y - 5) * 40;//волшебство цифор
                 ConnectCorridor(newCorridor, position);
                 CheckedRooms.Add(new Vector2Int(x, y));
             }
@@ -191,9 +191,9 @@ public class CorridorGenerator: MonoBehaviour
         }
     }
 
-    private float ChooseDirectionCorridor(List<float> vacPlaces)//тут или не тут выбирать куда спавнить комнату
+/*    private float ChooseDirectionCorridor(List<float> vacPlaces)//тут или не тут выбирать куда спавнить комнату
     {
-        float[,] probs = new float[5, 2] { {1, 0f}, {2, 0f} , {3, 0f} , {4, 0f} , {0, 2f} };
+        float[,] probs = new float[5, 2] { { 1, 0f }, { 2, 0f }, { 3, 0f }, { 4, 0f }, { 0, 2f } };
         if (vacPlaces.Count == 4)
         {
             probs[0, 1] = 0.25f;
@@ -305,7 +305,7 @@ public class CorridorGenerator: MonoBehaviour
         {
             if (randomPoint < probs[i, 1])
             {
-                return probs[i,0];
+                return probs[i, 0];
             }
             else
             {
@@ -314,6 +314,6 @@ public class CorridorGenerator: MonoBehaviour
         }
 
         return 0f;
-    }
+    */}
 }
 

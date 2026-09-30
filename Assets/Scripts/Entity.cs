@@ -57,7 +57,7 @@ public class Entity : MonoBehaviour
         IsStunned = true;
         if (agent)
         {
-            agent.speed = 0;
+            agent.isStopped = true;
         }
         StartCoroutine(PushCoroutine(source, pushstrength));
     }
@@ -65,7 +65,7 @@ public class Entity : MonoBehaviour
     {
         if (agent)
         {
-            agent.speed = Speed;
+            agent.isStopped = false;
         }
         IsBeingPushed = false;
         IsStunned = false;
