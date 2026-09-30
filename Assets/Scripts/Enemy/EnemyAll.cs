@@ -53,8 +53,22 @@ public class EnemyAll: Entity
 
     protected virtual void Move()
     {
-        
         agent.SetDestination(player.transform.position);
+        bool walking = false;
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+
+            if (!agent.hasPath || Mathf.Abs(agent.velocity.sqrMagnitude) < float.Epsilon)
+
+                walking = false;
+
+        }
+        else
+        {
+
+            walking = true;
+        }
+        animator.SetBool("isWalking", walking);
     }
 
     protected virtual void TryAttack()
