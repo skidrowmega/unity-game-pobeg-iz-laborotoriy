@@ -148,10 +148,11 @@ public class CharacterController : Entity
             if (type==DamageType.Unparriable)
             {
                 DodgeStop();
-                return;
+                base.TakeDamage(damage, source, attacker, pushstrength, type, StunTime);
 
             }
-            OnDodge();
+            else
+                OnDodge();
             return;
         }
         if (attacker!=null&&isparrying() && type!=DamageType.Unparriable)
@@ -161,9 +162,7 @@ public class CharacterController : Entity
             return;
         }
         else
-        {
             base.TakeDamage(damage,source,attacker, pushstrength,type, StunTime);
-        }
     }
     private void OnParry(int damage, Entity source, float pushstrength,float StunTime)
     {
