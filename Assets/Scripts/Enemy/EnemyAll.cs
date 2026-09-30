@@ -16,7 +16,7 @@ public class EnemyAll: Entity
 
     protected virtual void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+        player = PlayerHandler.GetPlayer();
     }
 
     protected virtual void Rotation()

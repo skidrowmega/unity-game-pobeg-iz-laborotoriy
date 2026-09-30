@@ -17,7 +17,7 @@ public class VortexSpin : MonoBehaviour
     CharacterController player;
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+        player = PlayerHandler.GetPlayer();
     }
 
     // Update is called once per frame
