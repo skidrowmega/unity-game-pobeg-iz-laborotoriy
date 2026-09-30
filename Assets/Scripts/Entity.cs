@@ -68,7 +68,7 @@ public class Entity : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
         print(timewasted);
-        transform.position = destination;
+        //transform.position = destination;
         PushStop();
     }
     public virtual void UnStun()
