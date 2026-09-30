@@ -6,10 +6,12 @@ public class HealthBarScript : MonoBehaviour
 
     CharacterController player;
     [SerializeField] RectTransform greenhealth;
+    Vector3 startingposition;
 
     void Awake()
     {
         //greenhealth = GameObject.Find("/Green").GetComponent<RectTransform>();
+        startingposition = greenhealth.transform.localPosition;
         player=GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
     }
 
@@ -22,10 +24,11 @@ public class HealthBarScript : MonoBehaviour
     void MatchSize()
     {
         greenhealth.transform.localScale = new Vector3(player.HealthPoints / 1f / player.MaxHealthpoints / 1f, .25f, 1);
-/*        float changedXpos = -greenhealth.rect.width * (1/greenhealth.transform.localScale.x) / 4;
-        Vector3 savedpos= greenhealth.rect.position;
-        savedpos.x = changedXpos;
-        greenhealth.transform.position=savedpos;*/
+        float xOffset = greenhealth.rect.width/2*greenhealth.transform.localScale.x-greenhealth.rect.width/2;
+        Vector3 savedpos = startingposition;
+        savedpos.x+= xOffset;
+        greenhealth.transform.localPosition = savedpos;
+        print(savedpos);
     }
 
 
