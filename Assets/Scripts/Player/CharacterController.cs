@@ -121,12 +121,22 @@ public class CharacterController : Entity
 
     void TryParry()
     {
-        if (!Input.GetKeyDown("f")) return;
+        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Parry"))
+        {
+            animator.SetBool("isParry", false);
+        }
         if (Time.time - lastparry <= parrycooldown) return;
         if (animator == null) return;
-        if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Default")) return;
-        //animator.Play("VESLOPARRY");
-        lastparry= Time.time;
+        if (!Input.GetKeyDown("f")) return;
+        if (Input.GetKeyDown("f"))
+        {
+            if (animator.GetCurrentAnimatorStateInfo(1).IsName("Default"))
+            {
+                animator.SetBool("isParry", true);
+                lastparry = Time.time;
+            }
+        }
+        
     }
 
 
