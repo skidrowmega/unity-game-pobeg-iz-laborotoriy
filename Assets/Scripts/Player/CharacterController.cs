@@ -36,7 +36,7 @@ public class CharacterController : Entity
         {
             PushEntity(new Vector3(5, 1, 7), 0.3f);
         }*/
-        Parry();
+        TryParry();
     }
 
     void AttackMelee()
@@ -119,13 +119,13 @@ public class CharacterController : Entity
         }
     }
 
-    void Parry()
+    void TryParry()
     {
         if (!Input.GetKeyDown("f")) return;
         if (Time.time - lastparry <= parrycooldown) return;
         if (animator == null) return;
-        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOSTILLRIGHT")) return;
-        animator.Play("VESLOPARRY");
+        if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Default")) return;
+        //animator.Play("VESLOPARRY");
         lastparry= Time.time;
     }
 
@@ -148,10 +148,11 @@ public class CharacterController : Entity
             if (type==DamageType.Unparriable)
             {
                 DodgeStop();
-                return;
+                base.TakeDamage(damage, source, attacker, pushstrength, type, StunTime);
 
             }
-            OnDodge();
+            else
+                OnDodge();
             return;
         }
         if (attacker!=null&&isparrying() && type!=DamageType.Unparriable)
@@ -161,9 +162,7 @@ public class CharacterController : Entity
             return;
         }
         else
-        {
             base.TakeDamage(damage,source,attacker, pushstrength,type, StunTime);
-        }
     }
     private void OnParry(int damage, Entity source, float pushstrength,float StunTime)
     {

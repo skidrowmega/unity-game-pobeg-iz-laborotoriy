@@ -31,6 +31,12 @@ public class VortexSpin : MonoBehaviour
     void DamagePlayer()
     {
         VortexSpin[] vortices = GetVortices();
+        if (vortices.Length == 0)
+        {
+            player.TakeDamage(DamageToPlayer, transform.position, null, 0, DamageType.Unparriable);
+            Destroy(gameObject);
+            return;
+        }
         VortexSpin randomvortex=vortices[Random.Range(0, vortices.Length)];
         Vector3 newpos = player.transform.position;
         newpos.x = randomvortex.transform.position.x;

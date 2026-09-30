@@ -8,7 +8,7 @@ public class InternRanged: EnemyAll
     void Update()
     {
         distanceToPlayer = (player.transform.position - transform.position).magnitude;
-        Rotation();
+        //Rotation();
         Move();
         TryAttack();
     }

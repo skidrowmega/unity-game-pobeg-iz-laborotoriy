@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyAll: Entity
 {
@@ -15,34 +16,45 @@ public class EnemyAll: Entity
     public int PushForce = 0;
     protected float distanceToPlayer;
 
-    protected virtual void Start()
+    NavMeshAgent agent;
+
+    protected virtual void Awake()
     {
         player = PlayerHandler.GetPlayer();
         animator = GetComponentInChildren<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+    }
+    protected virtual void Start()
+    {
+        agent.stoppingDistance = stopDistance;
+        agent.speed = Speed;
     }
 
-    protected virtual void Rotation()
-    {
-        Vector3 targetplayer = player.transform.position - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(targetplayer) * Quaternion.Euler(0, -90f, 0);
-        targetRotation.x = transform.rotation.x;
-        targetRotation.z = transform.rotation.z;
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-    }
+    /*    protected virtual void Rotation()
+        {
+            Vector3 targetplayer = player.transform.position - transform.position;
+            Quaternion targetRotation = Quaternion.LookRotation(targetplayer) * Quaternion.Euler(0, -90f, 0);
+            targetRotation.x = transform.rotation.x;
+            targetRotation.z = transform.rotation.z;
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
+        protected virtual void Move()
+        {
+            Vector3 targetplayer = player.transform.position - transform.position;
+            if (!isAttacking && distanceToPlayer >= stopDistance)
+            {
+                if (IsStunned) return;
+                float MoveX = targetplayer.x;
+                float MoveZ = targetplayer.z;
+                if (MoveX != 0 || MoveZ != 0)
+                    transform.position += new Vector3(MoveX, 0, MoveZ).normalized * Speed * Time.deltaTime;
+            }
+        }*/
+
     protected virtual void Move()
     {
-        Vector3 targetplayer = player.transform.position - transform.position;
-        bool walk = false;
-        if (!isAttacking && distanceToPlayer >= stopDistance)
-        {
-            if (IsStunned) return;
-            float MoveX = targetplayer.x;
-            float MoveZ = targetplayer.z;
-            if (MoveX != 0 || MoveZ != 0)
-                transform.position += new Vector3(MoveX, 0, MoveZ).normalized * Speed * Time.deltaTime;
-            walk = true;
-        }
-        animator.SetBool("isWalking", walk);
+        
+        agent.SetDestination(player.transform.position);
     }
 
     protected virtual void TryAttack()
