@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.XR;
 
 public class InternMelee : EnemyAll
 {  
+
     void Update()
     {
         distanceToPlayer = (player.transform.position - transform.position).magnitude;

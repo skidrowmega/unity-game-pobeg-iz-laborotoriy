@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class EnemyAll: Entity
 {
+    Animator animator;
     protected CharacterController player;
     protected bool isAttacking = false;
     public float rotationSpeed = 5.0f;
@@ -17,6 +18,7 @@ public class EnemyAll: Entity
     protected virtual void Start()
     {
         player = PlayerHandler.GetPlayer();
+        animator = GetComponentInChildren<Animator>();
     }
 
     protected virtual void Rotation()
@@ -30,6 +32,7 @@ public class EnemyAll: Entity
     protected virtual void Move()
     {
         Vector3 targetplayer = player.transform.position - transform.position;
+        bool walk = false;
         if (!isAttacking && distanceToPlayer >= stopDistance)
         {
             if (IsStunned) return;
@@ -37,7 +40,9 @@ public class EnemyAll: Entity
             float MoveZ = targetplayer.z;
             if (MoveX != 0 || MoveZ != 0)
                 transform.position += new Vector3(MoveX, 0, MoveZ).normalized * Speed * Time.deltaTime;
+            walk = true;
         }
+        animator.SetBool("isWalking", walk);
     }
 
     protected virtual void TryAttack()
@@ -46,8 +51,10 @@ public class EnemyAll: Entity
         {
             isAttacking = true;
             nextAttackTime = Time.time + attackCooldown;
+            animator.SetBool("isAttacking", true);
             Attack();
             Invoke(nameof(ResetAttack), Reload);
+            
         }
     }
 
@@ -59,5 +66,6 @@ public class EnemyAll: Entity
     protected void ResetAttack()
     {
         isAttacking = false;
+        animator.SetBool("isAttacking", false);
     }
 }
