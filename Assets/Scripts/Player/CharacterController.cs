@@ -18,7 +18,6 @@ public class CharacterController : Entity
     public float DodgeDistance = 15;
     public float DodgeTime = 0.2f;
 
-
     private void Awake()
     {
         animator= GetComponentInChildren<Animator>();
