@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyAll: Entity
 {
+    Animator animator;
     protected CharacterController player;
     protected bool isAttacking = false;
     public float rotationSpeed = 5.0f;
@@ -20,6 +21,7 @@ public class EnemyAll: Entity
     protected virtual void Awake()
     {
         player = PlayerHandler.GetPlayer();
+        animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }
     protected virtual void Start()
@@ -61,8 +63,10 @@ public class EnemyAll: Entity
         {
             isAttacking = true;
             nextAttackTime = Time.time + attackCooldown;
+            animator.SetBool("isAttacking", true);
             Attack();
             Invoke(nameof(ResetAttack), Reload);
+            
         }
     }
 
@@ -74,5 +78,6 @@ public class EnemyAll: Entity
     protected void ResetAttack()
     {
         isAttacking = false;
+        animator.SetBool("isAttacking", false);
     }
 }
