@@ -12,7 +12,7 @@ public class HealthBarScript : MonoBehaviour
     {
         //greenhealth = GameObject.Find("/Green").GetComponent<RectTransform>();
         startingposition = greenhealth.transform.localPosition;
-        player=PlayerHandler.GetPlayer();
+        player=PlayerHandler.player;
     }
 
     // Update is called once per frame

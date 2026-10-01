@@ -9,7 +9,7 @@ public class MolotovLinger : MonoBehaviour
     [SerializeField] CharacterController player;
     private void Awake()
     {
-        player = PlayerHandler.GetPlayer();
+        player = PlayerHandler.player;
         Radius = transform.localScale.x/2;
     }
     void Update()

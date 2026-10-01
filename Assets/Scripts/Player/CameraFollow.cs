@@ -9,7 +9,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] float Speed = 10;
     void Awake()
     {
-        player = PlayerHandler.GetPlayer();
+        player = PlayerHandler.player;
     }
 
     // Update is called once per frame

@@ -20,7 +20,7 @@ public class EnemyAll: Entity
 
     protected virtual void Awake()
     {
-        player = PlayerHandler.GetPlayer();
+        player = PlayerHandler.player;
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }

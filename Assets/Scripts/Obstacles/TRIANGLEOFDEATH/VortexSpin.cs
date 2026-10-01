@@ -17,7 +17,7 @@ public class VortexSpin : MonoBehaviour
     CharacterController player;
     void Awake()
     {
-        player = PlayerHandler.GetPlayer();
+        player = PlayerHandler.player;
     }
 
     // Update is called once per frame
