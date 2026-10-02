@@ -7,7 +7,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] bool Repeat = false;
     [SerializeField] Vector3 Offset = Vector3.zero;
     float TimeUntilSpawnBuffer;
-    float lastspawntime;
+    float lastspawntime = 0;
     [SerializeField] GameObject[] enemyprefab;
 
     // Update is called once per frame
