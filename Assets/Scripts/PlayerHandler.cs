@@ -3,6 +3,11 @@ using UnityEngine;
 
 public static class PlayerHandler
 {
-
-    public static CharacterController player= GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+    public static CharacterController player
+    {
+        get
+        {
+            return GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterController>();
+        }
+    }
 }
