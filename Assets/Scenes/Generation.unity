@@ -416,9 +416,8 @@ MonoBehaviour:
   maxRooms: 20
   roomPrefabs:
   - {fileID: 6322770502826254590, guid: 70407daa9cc0f414c85c643f110fa22f, type: 3}
-  - {fileID: -6620369496556030544, guid: d77522ba480baf349bafd8e5ca8a5e9d, type: 3}
-  - {fileID: 3302489473150907281, guid: 49cfe22de3174994abc9ec1b6ed354c9, type: 3}
-  - {fileID: -3247416619864488373, guid: 36c6002372b4ec248900b203f58201a0, type: 3}
+  - {fileID: 6402058631189862566, guid: d77522ba480baf349bafd8e5ca8a5e9d, type: 3}
+  - {fileID: 6402058631189862566, guid: 7d2f90685a5c45c45a0b1bf0538bbfb7, type: 3}
 --- !u!4 &977656519
 Transform:
   m_ObjectHideFlags: 0
