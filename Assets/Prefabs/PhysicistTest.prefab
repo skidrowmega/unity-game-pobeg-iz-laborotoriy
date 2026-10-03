@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 1460835436326201772}
   - component: {fileID: 5842647957976652242}
   - component: {fileID: 671710078101186446}
+  - component: {fileID: 5202158393573640836}
   m_Layer: 0
   m_Name: PhysicistTest
   m_TagString: Untagged
@@ -244,7 +245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067af9e6bb6167341a8be2505e978301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InternMelee
-  healthpoints: 100
+  HealthPoints: 100
+  MaxHealthpoints: 100
   Speed: 5
   IsStunned: 0
   IsBeingPushed: 0
@@ -267,7 +269,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d70a4f12eb3df241918b13155de7e38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InternRanged
-  healthpoints: 100
+  HealthPoints: 100
+  MaxHealthpoints: 100
   Speed: 5
   IsStunned: 0
   IsBeingPushed: 0
@@ -291,7 +294,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf3de11a075146349a73299700c5b82b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mathematician
-  healthpoints: 100
+  HealthPoints: 100
+  MaxHealthpoints: 100
   Speed: 15
   IsStunned: 0
   IsBeingPushed: 0
@@ -325,8 +329,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 840fefc0120fdc04986d66af124e8862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Physicist
-  healthpoints: 100
-  Speed: 0.005
+  HealthPoints: 100
+  MaxHealthpoints: 100
+  Speed: 5
   IsStunned: 0
   IsBeingPushed: 0
   rotationSpeed: 5
@@ -366,7 +371,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb36d452530943346badd625c6fead65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Chemist
-  healthpoints: 100
+  HealthPoints: 100
+  MaxHealthpoints: 100
   Speed: 0.005
   IsStunned: 0
   IsBeingPushed: 0
@@ -386,3 +392,25 @@ MonoBehaviour:
   MolotovLinger: 3
   MolotovHitTimer: 0.5
   MolotovArcHeight: 3.5
+--- !u!195 &5202158393573640836
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7490749510866399380}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 1
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
