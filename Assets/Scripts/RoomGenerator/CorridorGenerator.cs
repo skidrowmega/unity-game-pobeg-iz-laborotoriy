@@ -43,7 +43,7 @@ public class CorridorGenerator : MonoBehaviour
         StartRoomGenerationFromRoom(initialroom);
     }
 
-    private void Update()
+    private void Update()//Потом надо убрать из Update()
     {
         if (roomQueue.Count > 0 && roomcount < maxRooms && !isFinished)
         {
