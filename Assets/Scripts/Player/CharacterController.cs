@@ -53,7 +53,7 @@ public class CharacterController : Entity
             if (animator.GetCurrentAnimatorStateInfo(1).IsName("Default")) 
             {
                 animator.SetBool("Attack", true);
-                StartCoroutine(MeleeAttackLoop(animator.GetCurrentAnimatorStateInfo(1).length));
+                StartCoroutine(MeleeAttackLoop(animator.GetCurrentAnimatorStateInfo(1).length));// сделать чтобы время когда бить стало меньше
             }
         }
         
