@@ -15,6 +15,15 @@ public class RoomPopulator : EnemySpawner
         player = PlayerHandler.player;
         base.Awake();
     }
+
+    protected override void Update()
+    {
+        if (Time.time - lastspawntime > TimeUntilSpawn)
+        {
+            SpawnForPoints();
+        }
+    }
+
     protected void SpawnForPoints()
     {
         if (Vector3.Distance(PlayerHandler.player.transform.position, transform.position) <= spawnTriggerrange)
