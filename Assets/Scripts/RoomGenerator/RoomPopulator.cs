@@ -26,7 +26,7 @@ public class RoomPopulator : EnemySpawner
 
     protected void SpawnForPoints()
     {
-        if (Vector3.Distance(PlayerHandler.player.transform.position, transform.position) <= spawnTriggerrange)
+        if (Vector3.Distance(PlayerHandler.player.transform.position, transform.position) >= spawnTriggerrange)
         {
             int ObstacleIndex = GetRandomObstacleIndex();
             GameObject Obstacle = objectprefabs[ObstacleIndex];
