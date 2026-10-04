@@ -3,33 +3,33 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is create
-    [SerializeField] float TimeUntilSpawn = 0;
-    [SerializeField] bool Repeat = false;
-    [SerializeField] Vector3 Offset = Vector3.zero;
-    float TimeUntilSpawnBuffer;
-    float lastspawntime = 0;
-    [SerializeField] GameObject[] enemyprefab;
+    [SerializeField] protected float TimeUntilSpawn = 0;
+    [SerializeField] protected bool Repeat = false;
+    [SerializeField] private Vector3 Offset = Vector3.zero;
+    protected float TimeUntilSpawnBuffer;
+    protected float lastspawntime = 0;
+    [SerializeField] protected GameObject[] objectprefabs;
 
     // Update is called once per frame
-    private void Awake()
+    protected virtual void Awake()
     {
         TimeUntilSpawnBuffer = TimeUntilSpawn;
     }
-    void Update()
+    protected virtual void Update()
     {
         if (Time.time - lastspawntime > TimeUntilSpawn)
         {
-            Spawn();
+            Spawn(GetRandomObstacle(),Offset);
         }
     }
 
-    void Spawn()
+    protected virtual void Spawn(GameObject prefab, Vector3 offset)
     {
-        GameObject enemy =  enemyprefab[Random.Range(0, enemyprefab.Length)];
-        Instantiate(enemy,transform.position+Offset,transform.rotation);
+        Instantiate(prefab,transform.position+offset,transform.rotation);
         if (Repeat) TimeUntilSpawn = TimeUntilSpawnBuffer;
         else Destroy(gameObject);
         lastspawntime = Time.time;
     }
-
+    protected GameObject GetRandomObstacle()
+    { return objectprefabs[Random.Range(0, objectprefabs.Length)]; }
 }
