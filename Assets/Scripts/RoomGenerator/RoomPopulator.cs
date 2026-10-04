@@ -31,7 +31,7 @@ public class RoomPopulator : EnemySpawner
             int ObstacleIndex = GetRandomObstacleIndex();
             GameObject Obstacle = objectprefabs[ObstacleIndex];
             int PointsToSubstract = PrefabPoints[ObstacleIndex];
-            if (PointPool - PointsToSubstract > 0)
+            if (PointPool - PointsToSubstract > 0 && Time.time - lastspawntime > TimeUntilSpawn)
             {
                 PointPool -= PointsToSubstract;
                 Vector3 newOffset = new Vector3(Random.Range(-MaxOffset.x, MaxOffset.x), 0, Random.Range(-MaxOffset.y, MaxOffset.y));
