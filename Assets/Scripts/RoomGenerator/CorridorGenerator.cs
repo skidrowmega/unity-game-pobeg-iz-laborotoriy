@@ -20,8 +20,8 @@ public class CorridorGenerator : MonoBehaviour
     int maxY;
 
 
-    int roomWidth = 40;
-    int roomHeight = 40;
+    int roomWidth = 20;
+    int roomHeight = 20;
 
     List<Room> rooms = new List<Room>();
     int roomcount;
