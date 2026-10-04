@@ -20,8 +20,8 @@ public class CorridorGenerator : MonoBehaviour
     int maxY;
 
 
-    int roomWidth = 40;
-    int roomHeight = 40;
+    int roomWidth = 20;
+    int roomHeight = 20;
 
     List<Room> rooms = new List<Room>();
     int roomcount;
@@ -43,7 +43,7 @@ public class CorridorGenerator : MonoBehaviour
         StartRoomGenerationFromRoom(initialroom);
     }
 
-    private void Update()
+    private void Update()//Потом надо убрать из Update()
     {
         if (roomQueue.Count > 0 && roomcount < maxRooms && !isFinished)
         {

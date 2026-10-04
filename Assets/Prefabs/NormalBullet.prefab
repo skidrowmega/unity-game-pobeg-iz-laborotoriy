@@ -320,8 +320,8 @@ MonoBehaviour:
   Speed: 20
   damage: 5
   PushStrength: 0
-  direction: {x: -0.9695252, y: 0, z: 0.24499163}
-  type: 0
+  direction: {x: 0.9998522, y: 0, z: 0.01719387}
+  type: 1
   damageType: 0
   Shooter: {fileID: 0}
   MaxRicochetCount: 3

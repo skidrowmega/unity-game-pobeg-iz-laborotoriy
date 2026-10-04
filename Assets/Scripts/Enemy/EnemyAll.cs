@@ -54,6 +54,7 @@ public class EnemyAll: Entity
     protected virtual void Move()
     {
         agent.SetDestination(player.transform.position);
+        agent.enabled = !IsStunned;
         bool walking = false;
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
