@@ -31,5 +31,5 @@ public class EnemySpawner : MonoBehaviour
         lastspawntime = Time.time;
     }
     protected int GetRandomObstacleIndex()
-    { return Random.Range(0, objectprefabs.Length); }
+    { return Random.Range(0, objectprefabs.Length-1); }
 }
