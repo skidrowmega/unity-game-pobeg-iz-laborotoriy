@@ -19,8 +19,9 @@ public class RoomPopulator : EnemySpawner
     {
         if (Vector3.Distance(PlayerHandler.player.transform.position, transform.position) <= spawnTriggerrange)
         {
-            GameObject Obstacle = GetRandomObstacle();
-            int PointsToSubstract = PrefabPoints[objectprefabs.ToList().IndexOf(Obstacle)];
+            int ObstacleIndex = GetRandomObstacleIndex();
+            GameObject Obstacle = objectprefabs[ObstacleIndex];
+            int PointsToSubstract = PrefabPoints[ObstacleIndex];
             if (PointPool - PointsToSubstract > 0)
             {
                 PointPool -= PointsToSubstract;

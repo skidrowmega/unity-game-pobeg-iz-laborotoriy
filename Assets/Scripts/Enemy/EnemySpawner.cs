@@ -19,7 +19,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (Time.time - lastspawntime > TimeUntilSpawn)
         {
-            Spawn(GetRandomObstacle(),Offset);
+            Spawn(objectprefabs[GetRandomObstacleIndex()],Offset);
         }
     }
 
@@ -30,6 +30,6 @@ public class EnemySpawner : MonoBehaviour
         else Destroy(gameObject);
         lastspawntime = Time.time;
     }
-    protected GameObject GetRandomObstacle()
-    { return objectprefabs[Random.Range(0, objectprefabs.Length)]; }
+    protected int GetRandomObstacleIndex()
+    { return Random.Range(0, objectprefabs.Length); }
 }
