@@ -4,7 +4,7 @@ using System.Collections;
 
 public static class PlayerHandler
 {
-    public static CharacterController subplayer;
+    private static CharacterController subplayer;
     public static CharacterController player
     {
         get
