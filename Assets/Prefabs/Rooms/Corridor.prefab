@@ -1213,6 +1213,34 @@ PrefabInstance:
     m_TransformParent: {fileID: 9044243963206313744}
     m_Modifications:
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: Repeat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: PointPool
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: MaxOffset.x
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: MaxOffset.y
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: basePointPool
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: TimeUntilSpawn
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: WeakEnemiesAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: PrefabPoints.Array.size
       value: 2
       objectReference: {fileID: 0}
