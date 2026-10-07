@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemySpawner : MonoBehaviour
+public class EnemySpawner : MonoBehaviour 
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is create
     [SerializeField] protected float TimeUntilSpawn = 0;
@@ -30,6 +30,8 @@ public class EnemySpawner : MonoBehaviour
         else Destroy(gameObject);
         lastspawntime = Time.time;
     }
-    protected int GetRandomObstacleIndex()
-    { return Random.Range(0, objectprefabs.Length); }
+    protected virtual int GetRandomObstacleIndex()
+    {
+        return Random.Range(0, objectprefabs.Length); 
+    }
 }
