@@ -383,8 +383,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GenerateVoxelGrid
   voxel: {fileID: 3182797992579168137, guid: f491d9480bb96c54a8c84a22b4d5b7aa, type: 3}
-  dimensions: 2800000028000000
+  dimensions: 6c0000003d000000
   gap: 0.025
+  sprites: []
 --- !u!4 &1498099669
 Transform:
   m_ObjectHideFlags: 0
@@ -394,7 +395,7 @@ Transform:
   m_GameObject: {fileID: 1498099667}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.027260128, y: 1.03805, z: -9.285}
+  m_LocalPosition: {x: -0.027260128, y: 1.56805, z: -9.285}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -433,6 +434,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6502665142f7b46459e1a7ec96f0340b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VoxelCut
+  BrushSize: 3
+  ShakeCameraOnDestroy: 1
+  ShakeIntensity: 0.01
+  ShakeMagnitude: 0.01
+  ShakeDuration: 0.4
 --- !u!1 &1632585430
 GameObject:
   m_ObjectHideFlags: 0
@@ -646,7 +652,7 @@ Transform:
   m_GameObject: {fileID: 1709929781}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10.29}
+  m_LocalPosition: {x: 0, y: 1, z: -11.16}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
