@@ -148,7 +148,7 @@ public class CharacterController : Entity
 
     public bool isparrying()
     {
-        return animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOPARRY");
+        return animator.GetCurrentAnimatorStateInfo(1).IsName("Parry");
     }
 
     public override void TakeDamage(float damage, Vector3 source, Entity attacker, float pushstrength, DamageType type, float StunTime=0)
@@ -219,11 +219,15 @@ public class CharacterController : Entity
         Ray ray = new Ray(startposition, new Vector3(Direction.x,0,Direction.y));
         RaycastHit hit;
         bool ishit = Physics.Raycast(ray,out hit,newdodgedistance);
-        
         if (ishit)
         {
-            newdodgedistance = ((hit.point - (ray.direction * 0.5f)) - ray.origin).magnitude;
+            //newdodgedistance = ((hit.point - (ray.direction * 0.5f)) - ray.origin).magnitude;
+            if (hit.distance < 0.5) newdodgedistance = 0;
+            else
+                newdodgedistance = ((hit.point - (ray.direction*.7f)) - ray.origin).magnitude;
         }
+        animator.SetFloat("dodgeSpeedMultiplier", 1/(DodgeTime*newdodgedistance/DodgeDistance));
+        secondstowait = secondstowait * newdodgedistance / DodgeDistance;
         Vector3 newdir = new Vector3(Direction.x, 0, Direction.y).normalized;
         Vector3 debugprevpos=Vector3.zero;
         //print(" dodge will last " + secondstowait.ToString() + " seconds");
@@ -249,8 +253,10 @@ public class CharacterController : Entity
 
     void DodgeStart(float secondstowait, Vector2 Direction)
     {
+        animator.SetBool("IsWalking", false);
+        animator.Play("Dodge");
         animator.SetBool("isDodging", true);
-        animator.SetFloat("dodgeSpeedMultiplier", 1/DodgeTime);
+        
         StartCoroutine(DodgeLoop(DodgeTime, Direction));
     }
 
