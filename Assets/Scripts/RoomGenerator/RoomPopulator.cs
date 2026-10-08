@@ -2,40 +2,46 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class RoomPopulator : EnemySpawner //Сделать чтобы враги со временем усилялись статами
+public class RoomPopulator : MonoBehaviour //чтобы потом не только нижняя граница но и верхняя граница префабов смещалась
 {
+    [SerializeField] private EnemyStats enemyStats;
+    [SerializeField] protected float TimeUntilSpawn = 5f;
+    float time;
+    float lastspawntime = 0;
+    [SerializeField] protected GameObject[] objectprefabs;
     [SerializeField] int[] PrefabPoints;
     [SerializeField] float spawnTriggerrangeMax = 30;
     [SerializeField] float spawnTriggerrangeMin = 10;
     int minPoint;
     [SerializeField] float basePointPool = 30f;
     int currentPointPool;
-    [SerializeField] float difficultyMulPointPool = 0.5f;
-    [SerializeField] Vector2 MaxOffset = new Vector2(9,9);
+    float difficultyMulPointPool;
+    [SerializeField] Vector2 MaxOffset = new Vector2(9, 9);
     CharacterController player;
     private bool isLateGame = false;
     [SerializeField] float TimeDeleteWeakEnemies = 30f;
-    [SerializeField] int WeakEnemiesAmount= 1;
+    [SerializeField] int WeakEnemiesAmount = 1;
 
-    protected override void Awake()
+    protected void Awake()
     {
         minPoint = PrefabPoints.Min();
         player = PlayerHandler.player;
         currentPointPool = (int)(basePointPool);
-        base.Awake();
     }
 
-    protected override void Update()
+    protected void Update()
     {
-        if (!isLateGame && Time.time >= TimeDeleteWeakEnemies)
+        time = DifficultyTimer.Instance.GameTime;
+        if (!isLateGame && time >= TimeDeleteWeakEnemies)
         {
             isLateGame = true;
             minPoint = PrefabPoints[WeakEnemiesAmount..].Min();
         }
-        if (Time.time - lastspawntime > TimeUntilSpawn)
+        if (time - lastspawntime > TimeUntilSpawn)
         {
+            difficultyMulPointPool = DifficultyTimer.Instance.DifficultyFactor;
             SpawnForPoints();
-            currentPointPool = (int)(basePointPool + (Time.time * difficultyMulPointPool));
+            currentPointPool = (int)(basePointPool + difficultyMulPointPool);
         }
     }
 
@@ -43,22 +49,27 @@ public class RoomPopulator : EnemySpawner //Сделать чтобы враги
     {
         if (Vector3.Distance(PlayerHandler.player.transform.position, transform.position) <= spawnTriggerrangeMax && Vector3.Distance(PlayerHandler.player.transform.position, transform.position) >= spawnTriggerrangeMin)
         {
-            while (currentPointPool > minPoint)
+            while (currentPointPool >= minPoint)
             {
                 int ObstacleIndex = GetRandomObstacleIndex();
                 int PointsToSubstract = PrefabPoints[ObstacleIndex];
                 if (currentPointPool - PointsToSubstract > 0)
                 {
                     GameObject Obstacle = objectprefabs[ObstacleIndex];
-                    currentPointPool -= PointsToSubstract;
                     Vector3 newOffset = new Vector3(Random.Range(-MaxOffset.x, MaxOffset.x), 0, Random.Range(-MaxOffset.y, MaxOffset.y));
-                    Spawn(Obstacle, newOffset);
+                    GameObject spawnedEnemy = Instantiate(Obstacle, newOffset, Quaternion.identity);
+                    if (spawnedEnemy.TryGetComponent<EnemyAll>(out EnemyAll enemyScript))
+                    {
+                        enemyScript.Initialize(enemyStats);
+                    }
+                    currentPointPool -= PointsToSubstract;
+                    lastspawntime = time;
                 }
             }
-            
+
         }
     }
-    protected override int GetRandomObstacleIndex()
+    protected int GetRandomObstacleIndex()
     {
         if (isLateGame)
         {

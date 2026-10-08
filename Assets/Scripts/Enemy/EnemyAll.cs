@@ -3,7 +3,6 @@ using UnityEngine.AI;
 
 public class EnemyAll: Entity
 {
-    EnemyStats enemyStats;
     Animator animator;
     protected CharacterController player;
     protected bool isAttacking = false;

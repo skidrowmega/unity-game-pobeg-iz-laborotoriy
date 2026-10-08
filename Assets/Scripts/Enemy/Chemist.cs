@@ -71,8 +71,6 @@ public class Chemist: EnemyAll
             Invoke(nameof(ResetAttack), Reload);
         }
     }
-    
-    
 
     private void ResetMolotovAttack()
     {

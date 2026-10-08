@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "NewEnemyStats", menuName = "Roguelike/Enemy Stats")]
 public class EnemyStats: ScriptableObject
 {
     public float baseHP = 100f;
