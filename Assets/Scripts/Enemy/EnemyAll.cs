@@ -15,12 +15,13 @@ public class EnemyAll: Entity
     public float stopDistance = 1.0f;
     public float PushForce;
     protected float distanceToPlayer;
+    protected float DifficultyScale;
 
     NavMeshAgent agent;
 
     public virtual void Initialize(EnemyStats data)
     {
-        float globalDifficulty = DifficultyTimer.Instance.DifficultyFactor;
+        DifficultyScale = DifficultyTimer.Instance.DifficultyFactor;
     }
     protected virtual void Awake()
     {

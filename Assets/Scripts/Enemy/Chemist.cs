@@ -22,10 +22,14 @@ public class Chemist: EnemyAll
     
     private bool MolotovReady = true;
 
+    [SerializeField] float MainScale = 1f;
+    [SerializeField] float SpeedScale = 1f;
+    [SerializeField] float DistanceScale = 10f;
+    [SerializeField] float PushForceScale = 0f;
 
-    [SerializeField] private float MolotovReload = 5f;
+    private float MolotovReload;
+    private float MolotovDamage;
 
-    [SerializeField] private int MolotovDamage = 15;
     [SerializeField] private float BasicFlightTime=1f;
     [SerializeField] private float MolotovLinger=3f;
     [SerializeField] private float MolotovHitTimer = 0.5f;
@@ -33,14 +37,16 @@ public class Chemist: EnemyAll
     public override void Initialize(EnemyStats data)
     {
         base.Initialize(data);
-        MaxHealthpoints = data.baseHP;
-        Damage = data.baseDamage;
-        Speed = data.baseSpeed;
-        Reload = data.baseReload;
-        attackDistance = data.baseAttackDistance;
-        stopDistance = data.baseStopDistance;
-        PushForce = data.basePushForce;
-        attackCooldown = data.baseAttackCooldown;
+        MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
+        Damage = data.baseDamage * MainScale * DifficultyScale;
+        MolotovDamage = data.baseDamage * MainScale * DifficultyScale * 0.1f;
+        Speed = data.baseSpeed * SpeedScale;
+        Reload = data.baseReload * SpeedScale;
+        MolotovReload = data.baseReload * SpeedScale * 3f;
+        attackCooldown = data.baseAttackCooldown * SpeedScale;
+        attackDistance = data.baseAttackDistance * DistanceScale;
+        stopDistance = data.baseStopDistance * DistanceScale;
+        PushForce = data.basePushForce + PushForceScale;
     }
 
     private void Update()
@@ -81,7 +87,7 @@ public class Chemist: EnemyAll
     {
         GameObject area=Instantiate(lingerPrefab, Position, Quaternion.identity);
         MolotovLinger molotovLinger = area.GetComponent<MolotovLinger>();
-        molotovLinger.Damage = MolotovDamage;
+        molotovLinger.Damage = (int)(MolotovDamage);
         molotovLinger.HitTimer = MolotovHitTimer;
         Destroy(area, MolotovLinger);
         Invoke(nameof(ResetMolotovAttack), MolotovReload);

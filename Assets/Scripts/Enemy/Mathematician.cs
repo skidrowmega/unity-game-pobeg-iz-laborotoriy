@@ -6,16 +6,22 @@ using UnityEngine;
 
 public class Mathematician: EnemyAll
 {
-    public bool PushImmune = false;
-    public int DamageDivisionByZero = 40;
-    public int DamageArithmetic = 10;
-    public int ArithmeticDamageIncrease = 5;
-    public float ReloadArithmetic = 5.0f;
+    [SerializeField] float MainScale = 0.8f;
+    [SerializeField] float SpeedScale = 1.2f;
+    [SerializeField] float DistanceScale = 12f;
+    [SerializeField] float PushForceScale = 0f;
+    //public bool PushImmune = false;
+
+    float DamageDivisionByZero;
+    //float DamageArithmetic;
+    float ArithmeticDamageIncrease;
+    float ReloadArithmetic;
+    [SerializeField] float CriticalDistance = 2.0f;
+    [SerializeField] float RadiusDivisionByZero = 5.0f;
+    float DelayBeforeDivisionByZero;
+    float ReloadDivisionByZero;
+
     protected internal bool ArithmeticShotReady = true;
-    public float CriticalDistance = 2.0f;
-    public float RadiusDivisionByZero = 5.0f;
-    public float DelayBeforeDivisionByZero = 1.0f;
-    public float ReloadDivisionByZero = 10f;
     protected internal bool DivisioByZeroReady=true;
     public GameObject areaVisual;
     public GameObject projectileprefab;
@@ -23,14 +29,19 @@ public class Mathematician: EnemyAll
     public override void Initialize(EnemyStats data)
     {
         base.Initialize(data);
-        MaxHealthpoints = data.baseHP;
-        Damage = data.baseDamage;
-        Speed = data.baseSpeed;
-        Reload = data.baseReload;
-        attackDistance = data.baseAttackDistance;
-        stopDistance = data.baseStopDistance;
-        PushForce = data.basePushForce;
-        attackCooldown = data.baseAttackCooldown;
+        MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
+        Damage = data.baseDamage * MainScale * DifficultyScale;
+        DamageDivisionByZero = data.baseDamage * MainScale * DifficultyScale * 3f;
+        ArithmeticDamageIncrease = data.baseDamage * MainScale * DifficultyScale * 0.2f;
+        Speed = data.baseSpeed * SpeedScale;
+        Reload = data.baseReload * SpeedScale;
+        ReloadArithmetic = data.baseReload * SpeedScale * 3f;
+        DelayBeforeDivisionByZero = data.baseReload * SpeedScale * 0.3f;
+        ReloadDivisionByZero = data.baseReload * SpeedScale * 10f;
+        attackCooldown = data.baseAttackCooldown * SpeedScale;
+        attackDistance = data.baseAttackDistance * DistanceScale;
+        stopDistance = data.baseStopDistance * DistanceScale;
+        PushForce = data.basePushForce + PushForceScale;
     }
     protected override void Start()
     {
@@ -83,7 +94,7 @@ public class Mathematician: EnemyAll
         {
             isAttacking = true;
             ArithmeticShotReady = false;
-            StartCoroutine(ArithmeticProgression(DamageArithmetic, 0.2f,4));
+            StartCoroutine(ArithmeticProgression(Damage, 0.2f,4));
             Debug.Log("ArithmeticProgression has been fired Fired");
             
             Invoke(nameof(ResetArithmeticShotCooldown), ReloadArithmetic);
@@ -118,7 +129,7 @@ public class Mathematician: EnemyAll
             bullet = Instantiate<Sin>(bullet, transform.position + transform.right * 2, Quaternion.identity);
         }*/
 
-    IEnumerator ArithmeticProgression(int Damage, float delay,int numberofshots)
+    IEnumerator ArithmeticProgression(float Damage, float delay,int numberofshots)
     {
         for (int i = 1; i < numberofshots; i++)
         {

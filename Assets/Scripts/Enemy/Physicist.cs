@@ -1,10 +1,15 @@
 using System.Collections;
 using Unity.ProjectAuditor.Editor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Physicist: EnemyAll
 {
-    public int DamageStan = 0;
+    [SerializeField] float MainScale = 1f;
+    [SerializeField] float SpeedScale = 1f;
+    [SerializeField] float DistanceScale = 10f;
+    [SerializeField] float PushForceScale = 0f;
+    [SerializeField] float DamageStan = 0;
     public float StanTime = 1.0f;
     public float StanFollowTime = 1f;
     public float StanFireTime = 0.3f;
@@ -27,14 +32,14 @@ public class Physicist: EnemyAll
     public override void Initialize(EnemyStats data)
     {
         base.Initialize(data);
-        MaxHealthpoints = data.baseHP;
-        Damage = data.baseDamage;
-        Speed = data.baseSpeed;
-        Reload = data.baseReload;
-        attackDistance = data.baseAttackDistance;
-        stopDistance = data.baseStopDistance;
-        PushForce = data.basePushForce;
-        attackCooldown = data.baseAttackCooldown;
+        MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
+        Damage = data.baseDamage * MainScale * DifficultyScale;
+        Speed = data.baseSpeed * SpeedScale;
+        Reload = data.baseReload * SpeedScale;
+        attackCooldown = data.baseAttackCooldown * SpeedScale;
+        attackDistance = data.baseAttackDistance * DistanceScale;
+        stopDistance = data.baseStopDistance * DistanceScale;
+        PushForce = data.basePushForce + PushForceScale;
     }
     private void Update()
     {
