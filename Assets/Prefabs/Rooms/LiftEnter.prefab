@@ -466,6 +466,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Corridor
       objectReference: {fileID: 0}
+    - target: {fileID: 5745722167525028905, guid: 70407daa9cc0f414c85c643f110fa22f, type: 3}
+      propertyPath: m_Color.b
+      value: 0.49855667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745722167525028905, guid: 70407daa9cc0f414c85c643f110fa22f, type: 3}
+      propertyPath: m_Color.g
+      value: 0.04538981
+      objectReference: {fileID: 0}
+    - target: {fileID: 5745722167525028905, guid: 70407daa9cc0f414c85c643f110fa22f, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6415094
+      objectReference: {fileID: 0}
     - target: {fileID: 9044243963206313744, guid: 70407daa9cc0f414c85c643f110fa22f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
