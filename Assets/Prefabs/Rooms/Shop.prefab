@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9044243963206313744}
-  - component: {fileID: 6322770502826254590}
+  - component: {fileID: -5420422933583884634}
   m_Layer: 0
   m_Name: Shop
   m_TagString: Untagged
@@ -44,7 +44,7 @@ Transform:
   - {fileID: 6749219075172696019}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6322770502826254590
+--- !u!114 &-5420422933583884634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -53,14 +53,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 284157706985457931}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a5751dc5729a0646b46663170b21e81, type: 3}
+  m_Script: {fileID: 11500000, guid: cd463d3157ccedf4fb0ef1469306e470, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Corridor
+  m_EditorClassIdentifier: Assembly-CSharp::SpecialRoom
   WallU: {fileID: 3521361317106884131}
   WallR: {fileID: 8096558431090616823}
   WallD: {fileID: 8913976419611604610}
   WallL: {fileID: 4825922669806372007}
   position: {x: 0, y: 0}
+  TransformToRotate: {fileID: 0}
 --- !u!1 &1055928449434944456
 GameObject:
   m_ObjectHideFlags: 0

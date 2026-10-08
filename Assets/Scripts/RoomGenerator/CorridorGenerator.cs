@@ -174,11 +174,34 @@ public class CorridorGenerator : MonoBehaviour
         int x = index.x;
         int y = index.y;
         int count = 0;
-        if (x > 0 && Grid[x - 1, y]) count++;
-        if (x < gridsizeX-1 && Grid[x + 1, y]) count++;
-        if (y > 0 && Grid[x, y - 1]) count++;
-        if (y < gridsizeY-1 && Grid[x, y + 1]) count++;
+        //if (x > 0 && Grid[x - 1, y]) count++;
+        //if (x < gridsizeX-1 && Grid[x + 1, y]) count++;
+        //if (y > 0 && Grid[x, y - 1]) count++;
+        //if (y < gridsizeY-1 && Grid[x, y + 1]) count++;
+        Room leftroom = GetRoomAt(new Vector2Int(x - 1, y));
+        Room rightroom = GetRoomAt(new Vector2Int(x + 1, y));
+        Room uproom = GetRoomAt(new Vector2Int(x, y + 1));
+        Room downroom = GetRoomAt(new Vector2Int(x, y - 1));
+
+
+
+
+        if (leftroom&&!IsSpecial(leftroom)) count++;
+        if (rightroom && !IsSpecial(rightroom)) count++;
+        if (uproom && !IsSpecial(uproom)) count++;
+        if (downroom && !IsSpecial(downroom)) count++;
         return count;
+    }
+
+    private bool IsSpecial(Vector2Int index)
+    {
+        Room room=GetRoomAt(index);
+        return room&&room.GetComponent<SpecialRoom>()!=null;
+    }
+
+    private bool IsSpecial(Room room)
+    {
+        return room&&room.GetComponent<SpecialRoom>() != null;
     }
 
     void RemoveWalls(Room room)
@@ -190,22 +213,22 @@ public class CorridorGenerator : MonoBehaviour
         Room uproom = GetRoomAt(new Vector2Int(x, y + 1));
         Room downroom = GetRoomAt(new Vector2Int(x, y -1 ));
 
-        if (leftroom)
+        if (leftroom&&!IsSpecial(leftroom))
         {
             room.RemoveWall(Vector2Int.left);
             leftroom.RemoveWall(Vector2Int.right);
         }
-        if (rightroom)
+        if (rightroom&&!IsSpecial(rightroom))
         {
             room.RemoveWall(Vector2Int.right);
             rightroom.RemoveWall(Vector2Int.left);
         }
-        if (uproom)
+        if (uproom&&!IsSpecial(uproom))
         {
             room.RemoveWall(Vector2Int.up);
             uproom.RemoveWall(Vector2Int.down);
         }
-        if (downroom)
+        if (downroom && !IsSpecial(downroom))
         {
             room.RemoveWall(Vector2Int.down);
             downroom.RemoveWall(Vector2Int.up);
@@ -215,7 +238,7 @@ public class CorridorGenerator : MonoBehaviour
     
     Room GetRoomAt(Vector2Int index)
     {
-        Room room = rooms.Find(x => x.GetComponent<Room>().position == index);
+        Room room = rooms.Find(x => x.GetComponent<Room>().position == index); // Special Rooms should not count for the adjacent rooms
         if (room == null) return null;
         return room;
     }
