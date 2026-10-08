@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 7941967966600559088}
   - component: {fileID: 8797101930663643372}
   - component: {fileID: 2033279742181690664}
+  - component: {fileID: 8692496154111067623}
   m_Layer: 0
   m_Name: voxel
   m_TagString: Untagged
@@ -204,3 +205,15 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8692496154111067623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3182797992579168137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cdf0c90d050f194a977094705a91beb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VoxelBlank

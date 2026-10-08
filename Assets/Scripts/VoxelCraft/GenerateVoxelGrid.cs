@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEditor.AdaptivePerformance.Editor;
 using UnityEngine;
+using UnityEngine.AdaptivePerformance.Provider;
 using UnityEngine.Rendering;
 
 public class GenerateVoxelGrid : MonoBehaviour
@@ -17,12 +19,40 @@ public class GenerateVoxelGrid : MonoBehaviour
     {
         voxel.transform.localScale=new Vector3(gap, gap, gap);
         sprites=Resources.LoadAll<Sprite>("");
-
-/*        for (int i = 0; i < 20; i++)
+        voxels= new GameObject[dimensions[0], dimensions[1]];
+        VoxelBlank[] potentialchildren = gameObject.GetComponentsInChildren<VoxelBlank>();
+        Sprite sprite;
+        Texture2D texture;
+        Color[] pixels;
+        if (potentialchildren.Length > 0)
         {
-            print(sprites[i].name);
-        }*/
-        voxels = GenerateGrid(voxel, dimensions);
+            int count = 0;
+            for (int j = dimensions[1] - 1; j > -1; j--)
+            {
+                for (int i = 0; i < dimensions[0]; i++)
+                {
+                    voxels[i, j] = potentialchildren[count].gameObject;
+                    
+                    MeshRenderer[] meshRenderer = voxels[i, j].GetComponentsInChildren<MeshRenderer>();
+                    sprite = sprites[count];
+                    texture = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
+
+                    pixels = sprite.texture.GetPixels((int)sprite.textureRect.x,
+                                                            (int)sprite.textureRect.y,
+                                                            (int)sprite.textureRect.width,
+                                                            (int)sprite.textureRect.height);
+                    texture.SetPixels(pixels);
+                    texture.Apply();
+                    foreach (MeshRenderer renderer in meshRenderer)
+                    {
+                        renderer.material.mainTexture = texture;
+                    }
+                    count++;
+                }
+            }
+        }
+        else
+            voxels = GenerateGrid(voxel, dimensions);
     }
 
     GameObject[,] GenerateGrid(GameObject voxel,int[] dimensions)
@@ -54,27 +84,6 @@ public class GenerateVoxelGrid : MonoBehaviour
                     renderer.material.mainTexture = texture;
                 }
                 
-                //MeshFilter filter = gameobjectarray[i,j].GetComponent<MeshFilter>();
-                //Mesh mesh = filter.mesh;
-
-                //for (int k=0; k < 24; k++)
-                //{
-                //    mesh.uv2[k] = new Vector2(0, 0);
-                //}
-
-                //mesh.uv2[23] = new Vector2(0, 1);
-                //mesh.uv2[21] = new Vector2(1, 1);
-                //mesh.uv2[20] = new Vector2(0, 0);
-                //mesh.uv2[22] = new Vector2(1, 0);
-
-                //// 2 3 0 1 Front
-                //// 6 7 10 11 Back
-                //// 19 17 16 18 Left
-                //// 23 21 20 22 Right
-                //// 4 5 8 9 Top
-                //// 15 13 12 14 Bottom
-
-                //filter.mesh = mesh;
 
                 gameobjectarray[i, j].transform.parent = transform;
                 count++;
