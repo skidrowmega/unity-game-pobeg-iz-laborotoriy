@@ -4,18 +4,21 @@ using UnityEngine;
 public class InternRanged: EnemyAll
 {
     public GameObject projectileprefab;
-
+    [SerializeField] float MainScale = 0.2f;
+    [SerializeField] float SpeedScale = 0.9f;
+    [SerializeField] float DistanceScale = 10f;
+    [SerializeField] float PushForceScale = 0f;
     public override void Initialize(EnemyStats data)
     {
         base.Initialize(data);
-        MaxHealthpoints = data.baseHP;
-        Damage = data.baseDamage;
-        Speed = data.baseSpeed;
-        Reload = data.baseReload;
-        attackDistance = data.baseAttackDistance;
-        stopDistance = data.baseStopDistance;
-        PushForce = data.basePushForce;
-        attackCooldown = data.baseAttackCooldown;
+        MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
+        Damage = data.baseDamage * MainScale * DifficultyScale;
+        Speed = data.baseSpeed * SpeedScale;
+        Reload = data.baseReload * SpeedScale;
+        attackCooldown = data.baseAttackCooldown * SpeedScale;
+        attackDistance = data.baseAttackDistance * DistanceScale;
+        stopDistance = data.baseStopDistance * DistanceScale;
+        PushForce = data.basePushForce + PushForceScale;
     }
 
     void Update()
