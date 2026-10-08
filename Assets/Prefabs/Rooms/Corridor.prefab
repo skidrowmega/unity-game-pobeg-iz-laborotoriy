@@ -1221,6 +1221,14 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: dataTimer
+      value: 
+      objectReference: {fileID: -3959932193251603588, guid: 7421a434a21cb374fae6f8c4610f1f89, type: 3}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: enemyStats
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f615ec15a5610e4f8628e1c5d6f8812, type: 2}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: MaxOffset.x
       value: 9
       objectReference: {fileID: 0}
