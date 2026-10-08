@@ -41,38 +41,40 @@ public class CorridorGenerator : MonoBehaviour
 
         Vector2Int initialroom = new Vector2Int(gridsizeX/2,gridsizeY/2);
         StartRoomGenerationFromRoom(initialroom);
+        while (!isFinished)
+        {
+            if (roomQueue.Count > 0 && roomcount < maxRooms && !isFinished)
+            {
+                Vector2Int roomIndex = roomQueue.Dequeue();
+                int gridX = roomIndex.x;
+                int gridY = roomIndex.y;
+
+                TryGenerateRoom(new Vector2Int(gridX - 1, gridY));
+                TryGenerateRoom(new Vector2Int(gridX + 1, gridY));
+                TryGenerateRoom(new Vector2Int(gridX, gridY + 1));
+                TryGenerateRoom(new Vector2Int(gridX, gridY - 1));
+            }
+            else if (roomcount < minRooms)
+            {
+                Debug.Log("regenerating rooms");
+                RegenerateRooms();
+            }
+            else if (!isFinished)
+            {
+                print($"Finished Generation, generated {roomcount} rooms");
+                isFinished = true;
+                GenerateRoomPrefabs();
+                if (roomcount >= minRooms && roomPrefabs.Length > 1)
+                    for (int i = 1; i < roomPrefabs.Length; i++)
+                    {
+                        GenerateSpecialRoom(roomPrefabs[i]);
+                    }
+            }
+        }
+
     }
 
-    private void Update()//Потом надо убрать из Update()
-    {
-        if (roomQueue.Count > 0 && roomcount < maxRooms && !isFinished)
-        {
-            Vector2Int roomIndex = roomQueue.Dequeue();
-            int gridX = roomIndex.x;
-            int gridY = roomIndex.y;
 
-            TryGenerateRoom(new Vector2Int(gridX - 1, gridY));
-            TryGenerateRoom(new Vector2Int(gridX + 1, gridY));
-            TryGenerateRoom(new Vector2Int(gridX, gridY + 1));
-            TryGenerateRoom(new Vector2Int(gridX, gridY - 1));
-        }
-        else if (roomcount < minRooms)
-        {
-            Debug.Log("regenerating rooms");
-            RegenerateRooms();
-        }
-        else if (!isFinished)
-        {
-            print($"Finished Generation, generated {roomcount} rooms");
-            isFinished = true;
-            if (roomcount >= minRooms && roomPrefabs.Length > 1)
-                for (int i = 1; i < roomPrefabs.Length; i++)
-                {
-                    GenerateSpecialRoom(roomPrefabs[i]);
-                }
-        }
-
-    }
 
     void RegenerateRooms()
     {
@@ -88,6 +90,36 @@ public class CorridorGenerator : MonoBehaviour
 
         Vector2Int initialroom = new Vector2Int(gridsizeX / 2, gridsizeY / 2);
         StartRoomGenerationFromRoom(initialroom);
+    }
+
+
+    void GenerateRoomPrefabs()
+    {
+        Vector2Int index;
+        Room newroom;
+        for (int x = 0; x < gridsizeX; x++)
+        {
+            for (int y = 0; y < gridsizeY; y++)
+            {
+                if (Grid[x, y]) 
+                {
+                    index=new Vector2Int(x, y);
+                    newroom = Instantiate(roomPrefabs[0], GetPosFromIndex(index), Quaternion.identity);
+                    newroom.name = $"Room-{roomcount}";
+                    newroom.position = index;
+                    rooms.Add(newroom);
+                }
+            }
+        }
+        for (int x = 0; x < gridsizeX; x++)
+        {
+            for (int y = 0; y < gridsizeY; y++)
+            {
+                if ((x + y) % 2 != 0) return;
+                index = new Vector2Int(x, y);
+                if (Grid[x,y]) RemoveWalls(GetRoomAt(index));
+            }
+        }
     }
 
     private void StartRoomGenerationFromRoom(Vector2Int index)
@@ -130,12 +162,7 @@ public class CorridorGenerator : MonoBehaviour
         roomQueue.Enqueue(index);
         Grid[x, y] = true;
         roomcount++;
-        
-        Room newroom= Instantiate(roomPrefabs[0],GetPosFromIndex(index), Quaternion.identity);
-        newroom.name = $"Room-{roomcount}";
-        newroom.GetComponent<Room>().position = index;
-        rooms.Add(newroom);
-        RemoveWalls(newroom);
+
         return true;
     }
 
@@ -238,6 +265,7 @@ public class CorridorGenerator : MonoBehaviour
     
     Room GetRoomAt(Vector2Int index)
     {
+        print($"x: {index.x};;; y: {index.y}");
         Room room = rooms.Find(x => x.GetComponent<Room>().position == index); // Special Rooms should not count for the adjacent rooms
         if (room == null) return null;
         return room;
