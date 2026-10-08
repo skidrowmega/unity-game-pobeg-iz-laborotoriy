@@ -11,8 +11,8 @@ public abstract class Projectile : MonoBehaviour
 {
     [SerializeField] int Speed = 1;
     [SerializeField] const int LifeTime = 10;
-    public int damage = 1;
-    public int PushStrength = 0;
+    public float damage = 1;
+    public float PushStrength = 0;
     public Vector3 direction;
     public BulletType type;
     public DamageType damageType = DamageType.Normal;

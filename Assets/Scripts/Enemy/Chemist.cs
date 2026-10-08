@@ -30,6 +30,18 @@ public class Chemist: EnemyAll
     [SerializeField] private float MolotovLinger=3f;
     [SerializeField] private float MolotovHitTimer = 0.5f;
     [SerializeField] private float MolotovArcHeight = 3.5f;
+    public override void Initialize(EnemyStats data)
+    {
+        base.Initialize(data);
+        MaxHealthpoints = data.baseHP;
+        Damage = data.baseDamage;
+        Speed = data.baseSpeed;
+        Reload = data.baseReload;
+        attackDistance = data.baseAttackDistance;
+        stopDistance = data.baseStopDistance;
+        PushForce = data.basePushForce;
+        attackCooldown = data.baseAttackCooldown;
+    }
 
     private void Update()
     {

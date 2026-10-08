@@ -24,6 +24,18 @@ public class Physicist: EnemyAll
     public GameObject projectileprefab;
     public GameObject areaVisual;
     public GameObject CubeVisual;
+    public override void Initialize(EnemyStats data)
+    {
+        base.Initialize(data);
+        MaxHealthpoints = data.baseHP;
+        Damage = data.baseDamage;
+        Speed = data.baseSpeed;
+        Reload = data.baseReload;
+        attackDistance = data.baseAttackDistance;
+        stopDistance = data.baseStopDistance;
+        PushForce = data.basePushForce;
+        attackCooldown = data.baseAttackCooldown;
+    }
     private void Update()
     {
         distanceToPlayer = (player.transform.position - transform.position).magnitude;

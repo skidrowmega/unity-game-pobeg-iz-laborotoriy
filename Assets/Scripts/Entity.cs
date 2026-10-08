@@ -14,8 +14,8 @@ public enum DamageType
 }
 public class Entity : MonoBehaviour
 {
-    public int HealthPoints=100;
-    public int MaxHealthpoints = 100;
+    public float HealthPoints=100;
+    public float MaxHealthpoints = 100;
     public float Speed = 0.005f;
     public bool IsStunned = false;
     public bool IsBeingPushed = false;
@@ -32,7 +32,7 @@ public class Entity : MonoBehaviour
     {
         Destroy(gameObject);
     }
-    public virtual void TakeDamage(int damage, Vector3 source ,Entity attacker, float pushstrength,DamageType damageType,float StunTime=0)
+    public virtual void TakeDamage(float damage, Vector3 source ,Entity attacker, float pushstrength,DamageType damageType,float StunTime=0)
     {
         HealthPoints -= damage;
         if (HealthPoints <= 0) Death();

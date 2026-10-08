@@ -3,21 +3,26 @@ using UnityEngine.AI;
 
 public class EnemyAll: Entity
 {
+    EnemyStats enemyStats;
     Animator animator;
     protected CharacterController player;
     protected bool isAttacking = false;
     public float rotationSpeed = 5.0f;
-    public int Damage = 5;
-    public float Reload = 1.0f;
-    public float attackDistance = 1.5f;
-    public float attackCooldown = 1.5f;
+    public float Damage;
+    public float Reload;
+    public float attackDistance;
+    public float attackCooldown;
     protected float nextAttackTime = 0f;
     public float stopDistance = 1.0f;
-    public int PushForce = 0;
+    public float PushForce;
     protected float distanceToPlayer;
 
     NavMeshAgent agent;
 
+    public virtual void Initialize(EnemyStats data)
+    {
+        float globalDifficulty = DifficultyTimer.Instance.DifficultyFactor;
+    }
     protected virtual void Awake()
     {
         player = PlayerHandler.player;

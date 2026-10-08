@@ -20,7 +20,18 @@ public class Mathematician: EnemyAll
     public GameObject areaVisual;
     public GameObject projectileprefab;
 
-
+    public override void Initialize(EnemyStats data)
+    {
+        base.Initialize(data);
+        MaxHealthpoints = data.baseHP;
+        Damage = data.baseDamage;
+        Speed = data.baseSpeed;
+        Reload = data.baseReload;
+        attackDistance = data.baseAttackDistance;
+        stopDistance = data.baseStopDistance;
+        PushForce = data.basePushForce;
+        attackCooldown = data.baseAttackCooldown;
+    }
     protected override void Start()
     {
         base.Start();

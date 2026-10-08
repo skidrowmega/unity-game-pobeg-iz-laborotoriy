@@ -151,7 +151,7 @@ public class CharacterController : Entity
         return animator.GetCurrentAnimatorStateInfo(0).IsName("VESLOPARRY");
     }
 
-    public override void TakeDamage(int damage, Vector3 source, Entity attacker, float pushstrength, DamageType type, float StunTime=0)
+    public override void TakeDamage(float damage, Vector3 source, Entity attacker, float pushstrength, DamageType type, float StunTime=0)
     {
         if (IsDodging)
         {
@@ -174,7 +174,7 @@ public class CharacterController : Entity
         else
             base.TakeDamage(damage,source,attacker, pushstrength,type, StunTime);
     }
-    private void OnParry(int damage, Entity source, float pushstrength,float StunTime)
+    private void OnParry(float damage, Entity source, float pushstrength,float StunTime)
     {
         lastparry=-parrycooldown;
         source.TakeDamage(0,transform.position,this,5,DamageType.Normal,StunTime);
