@@ -97,6 +97,7 @@ public class CorridorGenerator : MonoBehaviour
     {
         Vector2Int index;
         Room newroom;
+        int count = 0;
         for (int x = 0; x < gridsizeX; x++)
         {
             for (int y = 0; y < gridsizeY; y++)
@@ -105,9 +106,10 @@ public class CorridorGenerator : MonoBehaviour
                 {
                     index=new Vector2Int(x, y);
                     newroom = Instantiate(roomPrefabs[0], GetPosFromIndex(index), Quaternion.identity);
-                    newroom.name = $"Room-{roomcount}";
+                    newroom.name = $"Room-{count+1}";
                     newroom.position = index;
                     rooms.Add(newroom);
+                    count++;
                 }
             }
         }
@@ -115,9 +117,11 @@ public class CorridorGenerator : MonoBehaviour
         {
             for (int y = 0; y < gridsizeY; y++)
             {
-                if ((x + y) % 2 != 0) return;
-                index = new Vector2Int(x, y);
-                if (Grid[x,y]) RemoveWalls(GetRoomAt(index));
+                if ((x + y) % 2 == 0)
+                {
+                    index = new Vector2Int(x, y);
+                    if (Grid[x, y]) RemoveWalls(GetRoomAt(index));
+                }
             }
         }
     }
@@ -129,10 +133,10 @@ public class CorridorGenerator : MonoBehaviour
         int y = index.y;
         Grid[x, y] = true;
         roomcount++;
-        var initialRoom = Instantiate(roomPrefabs[0], GetPosFromIndex(index), Quaternion.identity);
-        initialRoom.name = $"Room-{roomcount}";
-        initialRoom.GetComponent<Room>().position = index;
-        rooms.Add(initialRoom);
+        //var initialRoom = Instantiate(roomPrefabs[0], GetPosFromIndex(index), Quaternion.identity);
+        //initialRoom.name = $"Room-{roomcount}";
+        //initialRoom.GetComponent<Room>().position = index;
+        //rooms.Add(initialRoom);
     }
 
     private bool TryGenerateRoom(Vector2Int index)
@@ -242,6 +246,7 @@ public class CorridorGenerator : MonoBehaviour
 
         if (leftroom&&!IsSpecial(leftroom))
         {
+
             room.RemoveWall(Vector2Int.left);
             leftroom.RemoveWall(Vector2Int.right);
         }
@@ -265,7 +270,7 @@ public class CorridorGenerator : MonoBehaviour
     
     Room GetRoomAt(Vector2Int index)
     {
-        print($"x: {index.x};;; y: {index.y}");
+        //print($"x: {index.x};;; y: {index.y}");
         Room room = rooms.Find(x => x.GetComponent<Room>().position == index); // Special Rooms should not count for the adjacent rooms
         if (room == null) return null;
         return room;
