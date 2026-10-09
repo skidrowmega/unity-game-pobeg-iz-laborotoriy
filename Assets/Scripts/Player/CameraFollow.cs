@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] CharacterController player;
+    [SerializeField] Player player;
     [SerializeField] Vector2 offset = new Vector2(0,-12);
     [SerializeField] Vector3 RotationalOffset = new Vector3();
     [SerializeField] float Speed = 10;
     void Awake()
     {
-        player = PlayerHandler.player;
+        player = Player.player;
         print(player);
     }
 

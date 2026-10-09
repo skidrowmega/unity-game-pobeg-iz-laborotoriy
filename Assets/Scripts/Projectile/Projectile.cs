@@ -48,7 +48,7 @@ public abstract class Projectile : MonoBehaviour
         Entity target = hit.transform.GetComponent<Entity>();
         if (target)
         {
-            CharacterController player = target.GetComponent<CharacterController>();
+            Player player = target.GetComponent<Player>();
             if (player)
             {
                 if (player.isparrying())

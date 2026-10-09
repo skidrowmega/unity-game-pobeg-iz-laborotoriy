@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bottle: Projectile
 {
     private Vector3 playerPosition;
-    protected CharacterController player;
+    protected Player player;
     protected override void Awake()
     {
         base.Awake();

@@ -4,7 +4,7 @@ public class HealthBarScript : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    CharacterController player;
+    Player player;
     [SerializeField] RectTransform greenhealth;
     Vector3 startingposition;
 
@@ -12,7 +12,7 @@ public class HealthBarScript : MonoBehaviour
     {
         //greenhealth = GameObject.Find("/Green").GetComponent<RectTransform>();
         startingposition = greenhealth.transform.localPosition;
-        player=PlayerHandler.player;
+        player=Player.player;
     }
 
     // Update is called once per frame

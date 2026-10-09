@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-public class CharacterController : Entity
+public class Player : Entity
 {
     public Transform Cursor;
     Vector3 CursorVector;
@@ -18,8 +19,11 @@ public class CharacterController : Entity
     public float DodgeDistance = 15;
     public float DodgeTime = 0.2f;
 
+    public static Player player { get; private set; }
+
     private void Awake()
     {
+        player = this;
         animator= GetComponentInChildren<Animator>();
         lastparry = -parrycooldown;
     }
@@ -195,7 +199,7 @@ public class CharacterController : Entity
                 Entity potentialenemy = collider.GetComponent<Entity>();
                 if (checkedcolliders.Contains(collider)) continue;
                 checkedcolliders.Add(collider);
-                if (potentialenemy && !(potentialenemy.GetComponent<CharacterController>())
+                if (potentialenemy && !(potentialenemy.GetComponent<Player>())
                     && Vector3.Dot((potentialenemy.transform.position - transform.position).normalized, transform.right) >= 0.5
                     )
                 {

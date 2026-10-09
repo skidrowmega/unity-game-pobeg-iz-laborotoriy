@@ -17,7 +17,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
     int currentPointPool;
     float difficultyMulPointPool;
     [SerializeField] Vector2 MaxOffset = new Vector2(9, 9);
-    CharacterController player;
+    Player player;
     private bool isLateGame = false;
     [SerializeField] float TimeDeleteWeakEnemies = 30f;
     [SerializeField] int WeakEnemiesAmount = 1;
@@ -25,7 +25,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
     protected void Awake()
     {
         minPoint = PrefabPoints.Min();
-        player = PlayerHandler.player;
+        player = Player.player;
         currentPointPool = (int)(basePointPool);
     }
 
@@ -47,7 +47,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
 
     protected void SpawnForPoints()
     {
-        if (Vector3.Distance(PlayerHandler.player.transform.position, transform.position) <= spawnTriggerrangeMax && Vector3.Distance(PlayerHandler.player.transform.position, transform.position) >= spawnTriggerrangeMin)
+        if (Vector3.Distance(Player.player.transform.position, transform.position) <= spawnTriggerrangeMax && Vector3.Distance(Player.player.transform.position, transform.position) >= spawnTriggerrangeMin)
         {
             while (currentPointPool >= minPoint)
             {

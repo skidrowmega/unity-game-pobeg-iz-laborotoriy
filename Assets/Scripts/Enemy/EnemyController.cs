@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class EnemyController : Entity
 {
-    private CharacterController player;
+    private Player player;
     void Start()
     {
-        player = FindAnyObjectByType<CharacterController>();
+        player = FindAnyObjectByType<Player>();
     }
 
     // Update is called once per frame

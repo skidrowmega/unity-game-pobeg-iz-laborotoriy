@@ -14,10 +14,10 @@ public class VortexSpin : MonoBehaviour
     [SerializeField] int Damage = 1000;
     [SerializeField] int DamageToPlayer = 30;
     [SerializeField] float pushstrength;
-    CharacterController player;
+    Player player;
     void Awake()
     {
-        player = PlayerHandler.player;
+        player = Player.player;
     }
 
     // Update is called once per frame
@@ -66,7 +66,7 @@ public class VortexSpin : MonoBehaviour
         {
             Entity target = collider.GetComponent<Entity>();
             if (!target) return;
-            if (target is CharacterController)
+            if (target is Player)
             {
                 DamagePlayer();
             }

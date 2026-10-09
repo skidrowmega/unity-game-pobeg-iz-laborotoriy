@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class EnemyAll: Entity
 {
     Animator animator;
-    protected CharacterController player;
+    protected Player player;
     protected bool isAttacking = false;
     public float rotationSpeed = 5.0f;
     public float Damage;
@@ -25,7 +25,7 @@ public class EnemyAll: Entity
     }
     protected virtual void Awake()
     {
-        player = PlayerHandler.player;
+        player = Player.player;
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
     }

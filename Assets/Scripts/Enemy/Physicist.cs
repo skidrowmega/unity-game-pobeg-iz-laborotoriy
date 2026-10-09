@@ -77,7 +77,7 @@ public class Physicist: EnemyAll
         Collider[] hitColliders = Physics.OverlapBox(center, BoxDimensions, BoxRotation);
         foreach (Collider hit in hitColliders)
         {
-            if (hit.GetComponent<CharacterController>())
+            if (hit.GetComponent<Player>())
             {
                 player.TakeDamage(DmgGravPush, transform.position, this, GravPushStrength, DamageType.Unparriable);
             }
