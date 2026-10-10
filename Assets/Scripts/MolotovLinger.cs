@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MolotovLinger : MonoBehaviour
 {
-    [SerializeField] public int Damage = 3;
+    [SerializeField] public float Damage = 3;
     [SerializeField] private float Radius = 1f;
     private float lasthittime = 0;
     [SerializeField] public float HitTimer = 2f;
