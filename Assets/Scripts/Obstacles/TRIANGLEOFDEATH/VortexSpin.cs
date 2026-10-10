@@ -15,7 +15,7 @@ public class VortexSpin : MonoBehaviour
     [SerializeField] int DamageToPlayer = 30;
     [SerializeField] float pushstrength;
     Player player;
-    void Awake()
+    void Start()
     {
         player = Player.player;
     }
