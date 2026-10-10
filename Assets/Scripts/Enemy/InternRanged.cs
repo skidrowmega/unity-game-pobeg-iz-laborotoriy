@@ -17,7 +17,6 @@ public class InternRanged: EnemyAll
         Reload = data.baseReload * SpeedScale;
         attackCooldown = data.baseAttackCooldown * SpeedScale;
         attackDistance = data.baseAttackDistance * DistanceScale;
-        stopDistance = data.baseStopDistance * DistanceScale;
         PushForce = data.basePushForce + PushForceScale;
     }
 

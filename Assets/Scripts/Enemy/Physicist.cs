@@ -29,6 +29,7 @@ public class Physicist: EnemyAll
     public GameObject projectileprefab;
     public GameObject areaVisual;
     public GameObject CubeVisual;
+
     public override void Initialize(EnemyStats data)
     {
         base.Initialize(data);
@@ -40,8 +41,6 @@ public class Physicist: EnemyAll
         Reload = data.baseReload * SpeedScale;
         attackCooldown = data.baseAttackCooldown * SpeedScale;
         attackDistance = data.baseAttackDistance * DistanceScale;
-        stopDistance = data.baseStopDistance * DistanceScale;
-        PushForce = data.basePushForce + PushForceScale;
     }
     private void Update()
     {
@@ -51,7 +50,7 @@ public class Physicist: EnemyAll
         TryGravitationalPush();
         TryStan();
         //TryStan();
-        //TryAttack();
+        TryAttack();
     }
     
     protected override void Attack()
@@ -68,6 +67,7 @@ public class Physicist: EnemyAll
     {
         if (!isAttacking && Time.time >= nextAttackGravTime && distanceToPlayer <= StanDistance)
         {
+            animator.SetBool("isGravitationalPush", true);
             print("Firing off GravPush");
             isAttacking = true;
             nextAttackGravTime = Time.time + ReloadGrav;

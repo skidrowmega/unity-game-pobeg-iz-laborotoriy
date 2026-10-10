@@ -45,7 +45,6 @@ public class Chemist: EnemyAll
         MolotovReload = data.baseReload * SpeedScale * 3f;
         attackCooldown = data.baseAttackCooldown * SpeedScale;
         attackDistance = data.baseAttackDistance * DistanceScale;
-        stopDistance = data.baseStopDistance * DistanceScale;
         PushForce = data.basePushForce + PushForceScale;
     }
 

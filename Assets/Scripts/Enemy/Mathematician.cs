@@ -40,7 +40,6 @@ public class Mathematician: EnemyAll
         ReloadDivisionByZero = data.baseReload * SpeedScale * 10f;
         attackCooldown = data.baseAttackCooldown * SpeedScale;
         attackDistance = data.baseAttackDistance * DistanceScale;
-        stopDistance = data.baseStopDistance * DistanceScale;
         PushForce = data.basePushForce + PushForceScale;
     }
     protected override void Start()

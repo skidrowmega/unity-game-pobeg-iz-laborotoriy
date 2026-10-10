@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class EnemyAll: Entity
 {
-    Animator animator;
+    public Animator animator;
     protected Player player;
     protected bool isAttacking = false;
     public float rotationSpeed = 5.0f;
@@ -12,7 +12,6 @@ public class EnemyAll: Entity
     public float attackDistance;
     public float attackCooldown;
     protected float nextAttackTime = 0f;
-    public float stopDistance = 1.0f;
     public float PushForce;
     protected float distanceToPlayer;
     protected float DifficultyScale;
@@ -28,7 +27,6 @@ public class EnemyAll: Entity
         player = Player.player;
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        agent.stoppingDistance = stopDistance;
         agent.speed = Speed;
     }
 
@@ -71,7 +69,7 @@ public class EnemyAll: Entity
 
             walking = true;
         }
-        //animator.SetBool("isWalking", walking);
+        animator.SetBool("isWalking", walking);
     }
 
     protected virtual void TryAttack()
