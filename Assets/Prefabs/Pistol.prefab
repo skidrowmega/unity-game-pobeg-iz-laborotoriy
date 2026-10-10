@@ -1,5 +1,107 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &716947190288901073
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5619558058367536944}
+  - component: {fileID: 6201802128998606805}
+  - component: {fileID: 3035196641356100351}
+  m_Layer: 0
+  m_Name: Pistol (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5619558058367536944
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716947190288901073}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7821360744901260559}
+  - {fileID: 6383958199632157454}
+  m_Father: {fileID: 4016250300583931761}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6201802128998606805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716947190288901073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b336a01c2dd8bdd4d937740ad7b6bd6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GunWeapon
+  WeaponName: Pistol
+  Damage: 5
+  PushStrength: 0
+  WeaponHolder: {fileID: 0}
+  weaponReference: {fileID: 0}
+  MeleeHandReference: {fileID: 0}
+  MaxDurability: 100
+  Durability: 100
+  DurabilityDecrease: 5
+  ReloadingTime: 1
+  RicochetCount: 0
+  projectileprefab: {fileID: 0}
+  IsUsable: 1
+  statsonbreak:
+    WeaponName: 
+    Damage: 0
+    PushStrength: 0
+    maxDurability: 0
+    durability: 0
+    durabilityDecrease: 0
+    RicochetCount: 0
+    IsUsable: 0
+  tempNewWeapon: {fileID: 0}
+  tempstats:
+    WeaponName: 
+    Damage: 0
+    PushStrength: 0
+    maxDurability: 0
+    durability: 0
+    durabilityDecrease: 0
+    RicochetCount: 0
+    IsUsable: 0
+--- !u!136 &3035196641356100351
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716947190288901073}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.16538489
+  m_Height: 0.48838663
+  m_Direction: 1
+  m_Center: {x: -0.34176183, y: 1.0138338, z: -0.13285315}
 --- !u!1 &1368875957359709972
 GameObject:
   m_ObjectHideFlags: 0
@@ -26,15 +128,16 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1368875957359709972}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.5781884, y: 0.2273216, z: -0.7794061, w: 0.08092801}
+  m_LocalPosition: {x: 0.154, y: 0.799, z: 0.817}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5619558058367536944}
   - {fileID: 3066341257703788889}
   - {fileID: 1178290146238081604}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 15.116, y: 76.336, z: -156.236}
 --- !u!114 &7242636738773100310
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50,11 +153,35 @@ MonoBehaviour:
   WeaponName: Pistol
   Damage: 5
   PushStrength: 0
-  ReloadingTime: 1
-  EnergyDecrease: 0
-  RicochetCount: 0
   WeaponHolder: {fileID: 0}
+  weaponReference: {fileID: 0}
+  MeleeHandReference: {fileID: 0}
+  MaxDurability: 100
+  Durability: 100
+  DurabilityDecrease: 5
+  ReloadingTime: 1
+  RicochetCount: 0
   projectileprefab: {fileID: 0}
+  IsUsable: 1
+  statsonbreak:
+    WeaponName: 
+    Damage: 0
+    PushStrength: 0
+    maxDurability: 0
+    durability: 0
+    durabilityDecrease: 0
+    RicochetCount: 0
+    IsUsable: 0
+  tempNewWeapon: {fileID: 0}
+  tempstats:
+    WeaponName: 
+    Damage: 0
+    PushStrength: 0
+    maxDurability: 0
+    durability: 0
+    durabilityDecrease: 0
+    RicochetCount: 0
+    IsUsable: 0
 --- !u!136 &8115164743613089235
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -78,6 +205,37 @@ CapsuleCollider:
   m_Height: 0.48838663
   m_Direction: 1
   m_Center: {x: -0.34176183, y: 1.0138338, z: -0.13285315}
+--- !u!1 &4639467855655351097
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6383958199632157454}
+  m_Layer: 0
+  m_Name: Dulo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6383958199632157454
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4639467855655351097}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.05771099, y: 0, z: -0, w: 0.9983334}
+  m_LocalPosition: {x: -0.2671, y: 0.7962, z: -0.1445}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5619558058367536944}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6826169088173404295
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,4 +340,78 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
   m_PrefabInstance: {fileID: 3244681206707680946}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7710645612780933860
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 5619558058367536944}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4.3548274
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.1848352
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 11.116584
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.358
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.076
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.154
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.44395784
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.5046602
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.5930878
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.44324526
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -4.455
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 102.328
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 84.376
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+      propertyPath: m_Name
+      value: Pistol
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+--- !u!4 &7821360744901260559 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 88dc0deb804187f4eb515aba89f6d5b5, type: 3}
+  m_PrefabInstance: {fileID: 7710645612780933860}
   m_PrefabAsset: {fileID: 0}

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7696147644352370070}
-  - component: {fileID: 7166718766185340230}
   m_Layer: 0
   m_Name: Veslo 1
   m_TagString: Untagged
@@ -26,32 +25,13 @@ Transform:
   m_GameObject: {fileID: 6417986015810170417}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.25815105, y: -0.026133567, z: 0.081701905}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2531955262213331669}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7166718766185340230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6417986015810170417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c1ed184cdf324541829dd161bd421e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::OarWeapon
-  WeaponName: Oar
-  Damage: 10
-  Stamina: 100
-  StaminaRecoveryRate: 20
-  StamineDecreaseRate: 20
-  PushStrength: 5
-  WeaponHolder: {fileID: 0}
 --- !u!1001 &2641913789558390078
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66,15 +46,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d8362b88dc29ee141ae56b8e293e6ee9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.378
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d8362b88dc29ee141ae56b8e293e6ee9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.624
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d8362b88dc29ee141ae56b8e293e6ee9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.028
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d8362b88dc29ee141ae56b8e293e6ee9, type: 3}
       propertyPath: m_LocalRotation.w
