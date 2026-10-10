@@ -35,7 +35,7 @@ public class Chemist: EnemyAll
         base.Initialize(data);
         MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
         Damage = data.baseDamage * MainScale * DifficultyScale;
-        MolotovDamage = data.baseChemistMolotovDamage * MainScale * DifficultyScale;
+        MolotovDamage = data.baseChemistMolotovDamage * DifficultyScale;
         Speed = data.baseSpeed * SpeedScale;
         AttackDuration = data.baseAttackDuration * SpeedScale;
         MolotovReload = data.baseChemistMolotovReload * SpeedScale;
@@ -64,7 +64,7 @@ public class Chemist: EnemyAll
 
     public void TryMolotovСocktail()
     {
-        if (!isAttacking && MolotovReady)
+        if (!isAttacking && MolotovReady && distanceToPlayer <= attackDistance)
         {
             isAttacking= true;
             StartCoroutine(MolotovBehavior());
