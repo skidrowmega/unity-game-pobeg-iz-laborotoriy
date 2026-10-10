@@ -66,7 +66,8 @@ public class Chemist: EnemyAll
     {
         if (!isAttacking && MolotovReady && distanceToPlayer <= attackDistance)
         {
-            isAttacking= true;
+            animator.SetBool("Molotov", true);
+            isAttacking = true;
             StartCoroutine(MolotovBehavior());
             Invoke(nameof(ResetAttack), AttackDuration);
         }
@@ -75,6 +76,7 @@ public class Chemist: EnemyAll
     private void ResetMolotovAttack()
     {
         MolotovReady = true;
+        animator.SetBool("Molotov", false);
     }
 
     private void MolotovBurst(Vector3 Position)
