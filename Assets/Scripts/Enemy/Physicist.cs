@@ -16,13 +16,12 @@ public class Physicist: EnemyAll
     [SerializeField] float DistanceScale = 8f;
 
     [Header("Стан")]
-    [SerializeField] float StanTime = 1.0f;
     [SerializeField] float StanFollowTime = 1f;
     [SerializeField] float StanFireTime = 0.3f;
     [SerializeField] float nextAttackStanTime = 0f;
     [SerializeField] float RadiusStan = 10f;
 
-    float StanDistance;
+    float StanTime;
     float ReloadStan;
     float DamageStan;
     float DmgGravPush;
@@ -39,12 +38,16 @@ public class Physicist: EnemyAll
         base.Initialize(data);
         MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
         Damage = data.baseDamage * MainScale * DifficultyScale;
-        DamageStan = data.baseDamage * MainScale * DifficultyScale * 0.1f;
-        DmgGravPush = data.baseDamage * MainScale * DifficultyScale * 0.4f;
+        DamageStan = data.baseDamage * DifficultyScale;
+        DmgGravPush = data.baseDamage * DifficultyScale;
         Speed = data.baseSpeed * SpeedScale;
         AttackDuration = data.baseAttackDuration * SpeedScale;
         attackCooldown = data.baseAttackCooldown * SpeedScale;
+        ReloadStan = data.basePhysicistStanReload * SpeedScale;
+        ReloadGrav = data.basePhysicistPushReload * SpeedScale;
         attackDistance = data.baseAttackDistance * DistanceScale;
+        GravPushStrength = data.basePhysicistPushPushForce;
+        StanTime = data.basePhysicistStanStanTime;
     }
 
     private void Update()
@@ -68,7 +71,7 @@ public class Physicist: EnemyAll
 
     public void TryGravitationalPush()
     {
-        if (!isAttacking && Time.time >= nextAttackGravTime && distanceToPlayer <= StanDistance)
+        if (!isAttacking && Time.time >= nextAttackGravTime && distanceToPlayer <= attackDistance)
         {
             animator.SetBool("isGravitationalPush", true);
             print("Firing off GravPush");
@@ -91,7 +94,7 @@ public class Physicist: EnemyAll
 
     protected void TryStan()
     {
-        if (!isAttacking && Time.time >= nextAttackStanTime && distanceToPlayer <= StanDistance)
+        if (!isAttacking && Time.time >= nextAttackStanTime && distanceToPlayer <= attackDistance)
         {
             print("Firing off stan");
             isAttacking = true;
