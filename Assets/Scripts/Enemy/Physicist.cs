@@ -5,51 +5,57 @@ using UnityEngine;
 
 public class Physicist: EnemyAll
 {
+    [Header("Все Префабы")]
+    public GameObject projectileprefab;
+    public GameObject areaVisual;
+    public GameObject CubeVisual;
+
+    [Header("Увеличение статов по сравнению с базовыми")]
     [SerializeField] float MainScale = 1f;
     [SerializeField] float SpeedScale = 0.9f;
     [SerializeField] float DistanceScale = 8f;
 
-    float DamageStan;
-    [SerializeField] float StanTime = 1.0f;
+    [Header("Стан")]
     [SerializeField] float StanFollowTime = 1f;
     [SerializeField] float StanFireTime = 0.3f;
     [SerializeField] float nextAttackStanTime = 0f;
     [SerializeField] float RadiusStan = 10f;
-    float StanDistance;
-    float ReloadStan;
 
+    float StanTime;
+    float ReloadStan;
+    float DamageStan;
     float DmgGravPush;
     float GravPushStrength;
-    float GravPushDistance;
+    float ReloadGrav;
+
+    [Header("Толчок")]
     [SerializeField] float GravPushFollowTime = 1f;
     [SerializeField] float GravPushFireTime = 0.5f;
     [SerializeField] float nextAttackGravTime = 0f;
-    float ReloadGrav;
-
-    public GameObject projectileprefab;
-    public GameObject areaVisual;
-    public GameObject CubeVisual;
 
     public override void Initialize(EnemyStats data)
     {
         base.Initialize(data);
         MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
         Damage = data.baseDamage * MainScale * DifficultyScale;
-        DamageStan = data.baseDamage * MainScale * DifficultyScale * 0.1f;
-        DmgGravPush = data.baseDamage * MainScale * DifficultyScale * 0.4f;
+        DamageStan = data.baseDamage * DifficultyScale;
+        DmgGravPush = data.baseDamage * DifficultyScale;
         Speed = data.baseSpeed * SpeedScale;
-        Reload = data.baseReload * SpeedScale;
+        AttackDuration = data.baseAttackDuration * SpeedScale;
         attackCooldown = data.baseAttackCooldown * SpeedScale;
+        ReloadStan = data.basePhysicistStanReload * SpeedScale;
+        ReloadGrav = data.basePhysicistPushReload * SpeedScale;
         attackDistance = data.baseAttackDistance * DistanceScale;
+        GravPushStrength = data.basePhysicistPushPushForce;
+        StanTime = data.basePhysicistStanStanTime;
     }
+
     private void Update()
     {
         distanceToPlayer = (player.transform.position - transform.position).magnitude;
-        //Rotation();
         Move();
         TryGravitationalPush();
         TryStan();
-        //TryStan();
         TryAttack();
     }
     
@@ -65,7 +71,7 @@ public class Physicist: EnemyAll
 
     public void TryGravitationalPush()
     {
-        if (!isAttacking && Time.time >= nextAttackGravTime && distanceToPlayer <= StanDistance)
+        if (!isAttacking && Time.time >= nextAttackGravTime && distanceToPlayer <= attackDistance)
         {
             animator.SetBool("isGravitationalPush", true);
             print("Firing off GravPush");
@@ -74,7 +80,7 @@ public class Physicist: EnemyAll
             StartCoroutine(GravitationalPushTimer());
         }
     }
-    public void GravitationalPush(Vector3 center,Vector3 BoxDimensions,Quaternion BoxRotation)//Толстая линия от физика в сторону игрока на далеко, когда время всё на ней сдвигается в сторону от физика
+    public void GravitationalPush(Vector3 center,Vector3 BoxDimensions,Quaternion BoxRotation)
     {
         Collider[] hitColliders = Physics.OverlapBox(center, BoxDimensions, BoxRotation);
         foreach (Collider hit in hitColliders)
@@ -88,7 +94,7 @@ public class Physicist: EnemyAll
 
     protected void TryStan()
     {
-        if (!isAttacking && Time.time >= nextAttackStanTime && distanceToPlayer <= StanDistance)
+        if (!isAttacking && Time.time >= nextAttackStanTime && distanceToPlayer <= attackDistance)
         {
             print("Firing off stan");
             isAttacking = true;
@@ -96,7 +102,7 @@ public class Physicist: EnemyAll
             StartCoroutine(StanTimer());
         }
     }
-    public void Stan(Vector3 stunposition)//Под игроком появляется круг и если не убежит стан (вроде легко)
+    public void Stan(Vector3 stunposition)
     {
         if ((player.transform.position-stunposition).magnitude<=RadiusStan)
         player.TakeDamage(DamageStan, stunposition, this, PushForce, DamageType.Unparriable,StanTime);
@@ -154,7 +160,7 @@ public class Physicist: EnemyAll
         BoxColor.color = Color.Lerp(startColor, targetColor, 1);
         yield return new WaitForSeconds(GravPushFireTime);
         GravitationalPush(BoxPosition,Box.transform.localScale,Box.transform.rotation);
-        Invoke(nameof(ResetAttack), Reload);
+        Invoke(nameof(ResetAttack), AttackDuration);
         Destroy(Box);
     }
 
@@ -186,7 +192,7 @@ public class Physicist: EnemyAll
         AreaColor.color = Color.Lerp(startColor, targetColor, 1);
         yield return new WaitForSeconds(StanFireTime);
         Stan(AreaPosition);
-        Invoke(nameof(ResetAttack),Reload);
+        Invoke(nameof(ResetAttack),AttackDuration);
         Destroy(Area);
     }
 }

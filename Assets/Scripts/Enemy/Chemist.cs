@@ -10,53 +10,48 @@ using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 
 public class Chemist: EnemyAll
 {
-
-    Chemist()
-    {
-        attackDistance = 10;
-    }
-
+    [Header("Все Префабы")]
     public GameObject projectileprefab;
     public GameObject lingerPrefab;
     public GameObject molotovprefab;
-    
-    private bool MolotovReady = true;
-
-    [SerializeField] float MainScale = 1f;
-    [SerializeField] float SpeedScale = 1f;
-    [SerializeField] float DistanceScale = 10f;
-    [SerializeField] float PushForceScale = 0f;
 
     private float MolotovReload;
     private float MolotovDamage;
+    private bool MolotovReady = true;
 
+    [Header("Увеличение статов по сравнению с базовыми")]
+    [SerializeField] float MainScale = 1f;
+    [SerializeField] float SpeedScale = 1f;
+    [SerializeField] float DistanceScale = 10f;
+
+    [Header("Молотов")]
     [SerializeField] private float BasicFlightTime=1f;
     [SerializeField] private float MolotovLinger=3f;
     [SerializeField] private float MolotovHitTimer = 0.5f;
     [SerializeField] private float MolotovArcHeight = 3.5f;
+
     public override void Initialize(EnemyStats data)
     {
         base.Initialize(data);
         MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
         Damage = data.baseDamage * MainScale * DifficultyScale;
-        MolotovDamage = data.baseDamage * MainScale * DifficultyScale * 0.1f;
+        MolotovDamage = data.baseChemistMolotovDamage * DifficultyScale;
         Speed = data.baseSpeed * SpeedScale;
-        Reload = data.baseReload * SpeedScale;
-        MolotovReload = data.baseReload * SpeedScale * 3f;
+        AttackDuration = data.baseAttackDuration * SpeedScale;
+        MolotovReload = data.baseChemistMolotovReload * SpeedScale;
         attackCooldown = data.baseAttackCooldown * SpeedScale;
         attackDistance = data.baseAttackDistance * DistanceScale;
-        PushForce = data.basePushForce + PushForceScale;
+        PushForce = data.basePushForce;
     }
 
     private void Update()
     {
         distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
-        //Rotation();
         Move();
         TryMolotovСocktail();
         TryAttack();
     }
-    protected override void Attack()//стреляет бутылочками которые наносят рандомный урон
+    protected override void Attack()
     {
         Projectile bullet = projectileprefab.GetComponent<Projectile>();
         bullet.Shooter = this;
@@ -67,19 +62,21 @@ public class Chemist: EnemyAll
     }
 
 
-    public void TryMolotovСocktail()//стреляет бутылочками которые по параболе летят и оставляют лужу которая наносит урон если наступить
+    public void TryMolotovСocktail()
     {
-        if (!isAttacking && MolotovReady)
+        if (!isAttacking && MolotovReady && distanceToPlayer <= attackDistance)
         {
-            isAttacking= true;
+            animator.SetBool("Molotov", true);
+            isAttacking = true;
             StartCoroutine(MolotovBehavior());
-            Invoke(nameof(ResetAttack), Reload);
+            Invoke(nameof(ResetAttack), AttackDuration);
         }
     }
 
     private void ResetMolotovAttack()
     {
         MolotovReady = true;
+        animator.SetBool("Molotov", false);
     }
 
     private void MolotovBurst(Vector3 Position)
@@ -113,13 +110,6 @@ public class Chemist: EnemyAll
         MolotovReady = false;
         while (elapsed < timeforflight)
         {
-            /*            //arc = MolotovArcHeight * (nextX - startPos.x) * (nextX - targetPos.x) / (-0.25f * dist * dist);
-                        nextPos = Vector3.Lerp(startPos, targetPos, elapsed / timeforflight);
-                        nextPos.y = starty +;
-                        molotov.transform.position = nextPos;
-                        elapsed += Time.deltaTime;
-                        yield return new WaitForEndOfFrame();*/
-
             molotov.transform.position = MathParabola.Parabola(startPos, targetPos, MolotovArcHeight, elapsed / timeforflight);
             elapsed += Time.deltaTime;
                 yield return new WaitForEndOfFrame();

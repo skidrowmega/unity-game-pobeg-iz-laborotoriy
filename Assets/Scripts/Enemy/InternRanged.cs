@@ -3,30 +3,33 @@ using UnityEngine;
 
 public class InternRanged: EnemyAll
 {
+    [Header("Все Префабы")]
     public GameObject projectileprefab;
+
+    [Header("Увеличение статов по сравнению с базовыми")]
     [SerializeField] float MainScale = 0.2f;
     [SerializeField] float SpeedScale = 0.9f;
     [SerializeField] float DistanceScale = 10f;
-    [SerializeField] float PushForceScale = 0f;
+
     public override void Initialize(EnemyStats data)
     {
         base.Initialize(data);
         MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
         Damage = data.baseDamage * MainScale * DifficultyScale;
         Speed = data.baseSpeed * SpeedScale;
-        Reload = data.baseReload * SpeedScale;
+        AttackDuration = data.baseAttackDuration * SpeedScale;
         attackCooldown = data.baseAttackCooldown * SpeedScale;
         attackDistance = data.baseAttackDistance * DistanceScale;
-        PushForce = data.basePushForce + PushForceScale;
+        PushForce = data.basePushForce;
     }
 
     void Update()
     {
         distanceToPlayer = (player.transform.position - transform.position).magnitude;
-        //Rotation();
         Move();
         TryAttack();
     }
+
     protected override void Attack()
     {
         Microscope bullet = projectileprefab.GetComponent<Microscope>();
