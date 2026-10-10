@@ -1,10 +1,21 @@
 using System;
 using UnityEngine;
 using UnityEngine.SocialPlatforms;
+using UnityEngine.UIElements;
+
+
+
+
 
 public class VoxelCut : MonoBehaviour
 {
     // Update is called once per frame
+
+
+    //[SerializeField] public DrawingPatternData pattern;
+
+    [SerializeField] Pattern patterntomake;
+
     GameObject[,] voxels;
     bool[,] availablevoxels;
     int[] dimensions;
@@ -58,6 +69,19 @@ public class VoxelCut : MonoBehaviour
             DestroyVoxelOnPosition(hit.point);
 
         }
+        if (Input.GetMouseButton(1))
+        {
+            RaycastHit hit;
+            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100);
+
+            AddPointToPattern(hit.point);
+        }
+        foreach (Vector2Int point in patterntomake.points)
+        {
+            GameObject voxel = GetVoxelOnIndex(point.x + rootpoint[0], point.y + rootpoint[1]);
+            if (voxel)voxel.GetComponent<MeshRenderer>().material.color = Color.black;
+
+        }
     }
     bool[,] CheckCutoffRecursive(int[] position,bool[,] VoxelsChecked = null)
     {
@@ -96,13 +120,15 @@ public class VoxelCut : MonoBehaviour
         //position += new Vector3(-voxelGrid.gap/2,-voxelGrid.gap/2);
         if (BrushSize==1&&PointInRangeCheck(position, transform.position - new Vector3(voxelGrid.gap / 2, voxelGrid.gap / 2), transform.position + new Vector3(dimensions[0] * voxelGrid.gap, dimensions[1] * voxelGrid.gap, 0)))
         {
-            Vector3 localpos = position - transform.position;
-            //print("X: " + localpos.x / voxelGrid.gap + " Y: " + localpos.y / voxelGrid.gap);
-            //print("Targetting voxel: " + Mathf.RoundToInt(localpos.x / voxelGrid.gap) + "   " + Mathf.RoundToInt(localpos.y / voxelGrid.gap));
-            //print(new Vector2(Mathf.RoundToInt(localpos.x / voxelGrid.gap), Mathf.RoundToInt(localpos.y / voxelGrid.gap)));
-            int localx = Mathf.RoundToInt(localpos.x / voxelGrid.gap);
-            int localy = Mathf.RoundToInt(localpos.y / voxelGrid.gap);
-            DestroyVoxelByIndex(localx, localy);
+            /*            Vector3 localpos = position - transform.position;
+                        //print("X: " + localpos.x / voxelGrid.gap + " Y: " + localpos.y / voxelGrid.gap);
+                        //print("Targetting voxel: " + Mathf.RoundToInt(localpos.x / voxelGrid.gap) + "   " + Mathf.RoundToInt(localpos.y / voxelGrid.gap));
+                        //print(new Vector2(Mathf.RoundToInt(localpos.x / voxelGrid.gap), Mathf.RoundToInt(localpos.y / voxelGrid.gap)));
+                        int localx = Mathf.RoundToInt(localpos.x / voxelGrid.gap);
+                        int localy = Mathf.RoundToInt(localpos.y / voxelGrid.gap);
+            */
+            Vector2Int index=GetIndexOnWorldPosition(position);
+            DestroyVoxelByIndex(index.x, index.y);
             DestroyCuttoffs();
             ShakeCamera();
         }
@@ -113,9 +139,9 @@ public class VoxelCut : MonoBehaviour
             {
                 for (int j = -BrushSize/2; j < BrushSize/2+1; j++)
                 {
-                    Vector3 localpos = position - transform.position + new Vector3(i*voxelGrid.gap, j* voxelGrid.gap, 0);
-                    int localx = Mathf.RoundToInt(localpos.x / voxelGrid.gap);
-                    int localy = Mathf.RoundToInt(localpos.y / voxelGrid.gap);
+                    Vector2Int localpos = GetIndexOnWorldPosition(position + new Vector3(i * voxelGrid.gap, j * voxelGrid.gap, 0));
+                    int localx = localpos.x;
+                    int localy = localpos.y;
                     if (PointInRangeCheck(new Vector2(localx, localy), new Vector2(0, 0), new Vector2(dimensions[0] - 1, dimensions[1] - 1)))
                     {
                         if (DestroyVoxelByIndex(localx, localy)) DestroyedSomething = true;
@@ -126,10 +152,44 @@ public class VoxelCut : MonoBehaviour
             DestroyCuttoffs();
         }
     }
+    
+    void AddPointToPattern(Vector3 position)
+    {
+        position.z = transform.position.z;
+        if (PointInRangeCheck(position, transform.position - new Vector3(voxelGrid.gap / 2, voxelGrid.gap / 2), transform.position + new Vector3(dimensions[0] * voxelGrid.gap, dimensions[1] * voxelGrid.gap, 0)))
+        {
+            Vector2Int index = GetIndexOnWorldPosition(position);
+            if (!patterntomake.points.Contains(new Vector2Int(index.x - rootpoint[0], index.y - rootpoint[1])))
+                patterntomake.points.Add(new Vector2Int(index.x - rootpoint[0], index.y - rootpoint[1]));
+        }
+    }
+
+    Vector2Int GetIndexOnWorldPosition(Vector3 position)
+    {
+        position.z = transform.position.z;
+        Vector3 localpos = position - transform.position;
+        int localx = Mathf.RoundToInt(localpos.x / voxelGrid.gap);
+        int localy = Mathf.RoundToInt(localpos.y / voxelGrid.gap);
+        return new Vector2Int(localx, localy);
+    }
+
+
+    GameObject GetVoxelOnIndex(Vector2Int index)
+    {
+        if(PointInRangeCheck(index, new Vector2(0, 0), new Vector2(dimensions[0] - 1, dimensions[1] - 1)))
+        return voxels[index.x, index.y];
+        return null;
+    }
+    GameObject GetVoxelOnIndex(int indX,int indY)
+    {
+        return GetVoxelOnIndex(new  Vector2Int(indX,indY));
+    }
 
     bool DestroyVoxelByIndex(int indX,int indY)
     {
-        GameObject voxel; voxel = voxels[indX, indY];
+        /*GameObject voxel;
+        voxel = voxels[indX, indY];*/
+        GameObject voxel = GetVoxelOnIndex(indX, indY);
         if (voxel == rootvoxel) return false;
         if (availablevoxels[indX, indY])
         {
