@@ -34,10 +34,10 @@ public class Mathematician: EnemyAll
         DamageDivisionByZero = data.baseDamage * MainScale * DifficultyScale * 3f;
         ArithmeticDamageIncrease = data.baseDamage * MainScale * DifficultyScale * 0.2f;
         Speed = data.baseSpeed * SpeedScale;
-        Reload = data.baseReload * SpeedScale;
-        ReloadArithmetic = data.baseReload * SpeedScale * 3f;
-        DelayBeforeDivisionByZero = data.baseReload * SpeedScale * 0.3f;
-        ReloadDivisionByZero = data.baseReload * SpeedScale * 10f;
+        AttackDuration = data.baseAttackDuration * SpeedScale;
+        ReloadArithmetic = data.baseAttackDuration * SpeedScale * 3f;
+        DelayBeforeDivisionByZero = data.baseAttackDuration * SpeedScale * 0.3f;
+        ReloadDivisionByZero = data.baseAttackDuration * SpeedScale * 10f;
         attackCooldown = data.baseAttackCooldown * SpeedScale;
         attackDistance = data.baseAttackDistance * DistanceScale;
         PushForce = data.basePushForce + PushForceScale;

@@ -6,13 +6,13 @@ public class EnemyAll: Entity
     public Animator animator;
     protected Player player;
     protected bool isAttacking = false;
-    public float rotationSpeed = 5.0f;
-    public float Damage;
-    public float Reload;
-    public float attackDistance;
-    public float attackCooldown;
+    public float rotationSpeed;
+    protected float Damage;
+    protected float AttackDuration;//переименовать везде
+    protected float attackDistance;
+    protected float attackCooldown;
     protected float nextAttackTime = 0f;
-    public float PushForce;
+    protected float PushForce;
     protected float distanceToPlayer;
     protected float DifficultyScale;
 
@@ -29,27 +29,6 @@ public class EnemyAll: Entity
         agent = GetComponent<NavMeshAgent>();
         agent.speed = Speed;
     }
-
-    /*    protected virtual void Rotation()
-        {
-            Vector3 targetplayer = player.transform.position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(targetplayer) * Quaternion.Euler(0, -90f, 0);
-            targetRotation.x = transform.rotation.x;
-            targetRotation.z = transform.rotation.z;
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-        }
-        protected virtual void Move()
-        {
-            Vector3 targetplayer = player.transform.position - transform.position;
-            if (!isAttacking && distanceToPlayer >= stopDistance)
-            {
-                if (IsStunned) return;
-                float MoveX = targetplayer.x;
-                float MoveZ = targetplayer.z;
-                if (MoveX != 0 || MoveZ != 0)
-                    transform.position += new Vector3(MoveX, 0, MoveZ).normalized * Speed * Time.deltaTime;
-            }
-        }*/
 
     protected virtual void Move()
     {
@@ -80,8 +59,7 @@ public class EnemyAll: Entity
             nextAttackTime = Time.time + attackCooldown;
             animator.SetBool("isAttacking", true);
             Attack();
-            Invoke(nameof(ResetAttack), Reload);
-            
+            Invoke(nameof(ResetAttack), AttackDuration);
         }
     }
 
