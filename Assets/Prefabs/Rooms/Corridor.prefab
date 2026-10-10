@@ -2551,6 +2551,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: TimeDeleteWeakEnemies
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: PrefabPoints.Array.size
       value: 2
       objectReference: {fileID: 0}

@@ -53,7 +53,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
             {
                 int ObstacleIndex = GetRandomObstacleIndex();
                 int PointsToSubstract = PrefabPoints[ObstacleIndex];
-                if (currentPointPool - PointsToSubstract > 0)
+                if (currentPointPool - PointsToSubstract >= 0)
                 {
                     GameObject Obstacle = objectprefabs[ObstacleIndex];
                     Vector3 newOffset = new Vector3(Random.Range(-MaxOffset.x, MaxOffset.x), 0, Random.Range(-MaxOffset.y, MaxOffset.y));
