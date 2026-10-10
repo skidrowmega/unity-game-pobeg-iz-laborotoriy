@@ -10,7 +10,6 @@ public class CameraFollow : MonoBehaviour
     void Start()
     {
         player = Player.player;
-        print(player);
     }
 
     // Update is called once per frame

@@ -2,13 +2,9 @@ using UnityEngine;
 
 public class GunWeapon : WeaponRanged
 {
-    /*    public int Speed = 1;
-        public const int LifeTime = 10;
-        public int damage = 1;
-        public Vector3 direction;
-        public BulletType type;
-    */
-
+    [SerializeField] WeaponRangedStats statsonbreak;
+    [SerializeField] GameObject tempNewWeapon;
+    [SerializeField] WeaponRangedStats tempstats;
 
     public GunWeapon()
     {
@@ -19,21 +15,39 @@ public class GunWeapon : WeaponRanged
         RicochetCount = 0;
     }
 
+    
 
 
-
-
-    // Update is called once per frame
-    void Update()
+    void BreakWeapon()
     {
-
+        tempstats = new WeaponRangedStats(this);
+        SwapStats(statsonbreak);
+        OnBreak();
+    }
+    void OnBreak()
+    {
+        Destroy(weaponReference);
+        weaponReference = null;
     }
 
-
-
-
-    public override void Shot(Vector3 Direction)
+    private void Update()
     {
-        base.Shot(Direction);
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            BreakWeapon();
+        }
+
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            PlaceWeapon(tempNewWeapon, tempstats);
+        }
+    }
+
+    GameObject PlaceWeapon(GameObject weapontoPlace, WeaponRangedStats newstats)
+    {
+        if (weaponReference != null) return null;
+        weaponReference = Instantiate(weapontoPlace, MeleeHandReference.transform);
+        SwapStats(newstats);
+        return weaponReference;
     }
 }

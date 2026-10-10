@@ -257,7 +257,7 @@ public class Player : Entity
 
     void DodgeStart(float secondstowait, Vector2 Direction)
     {
-        animator.SetBool("IsWalking", false);
+        animator.SetBool("isWalking", false);
         animator.Play("Dodge");
         animator.SetBool("isDodging", true);
         
