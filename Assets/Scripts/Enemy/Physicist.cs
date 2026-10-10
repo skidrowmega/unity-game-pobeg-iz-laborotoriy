@@ -6,25 +6,25 @@ using UnityEngine;
 public class Physicist: EnemyAll
 {
     [SerializeField] float MainScale = 1f;
-    [SerializeField] float SpeedScale = 1f;
-    [SerializeField] float DistanceScale = 10f;
-    [SerializeField] float PushForceScale = 0f;
-    [SerializeField] float DamageStan = 0;
-    public float StanTime = 1.0f;
-    public float StanFollowTime = 1f;
-    public float StanFireTime = 0.3f;
-    public float nextAttackStanTime = 0f;
-    public float RadiusStan = 10f;
-    public float StanDistance = 10.0f;
-    public float ReloadStan = 2.5f;
+    [SerializeField] float SpeedScale = 0.9f;
+    [SerializeField] float DistanceScale = 8f;
 
-    public int DmgGravPush = 0;
-    public float GravPushStrength = 5f;
-    public float GravPushDistance = 5f;
-    public float GravPushFollowTime = 1f;
-    public float GravPushFireTime = 0.5f;
-    public float nextAttackGravTime = 0f;
-    public float ReloadGrav = 5f;
+    float DamageStan;
+    [SerializeField] float StanTime = 1.0f;
+    [SerializeField] float StanFollowTime = 1f;
+    [SerializeField] float StanFireTime = 0.3f;
+    [SerializeField] float nextAttackStanTime = 0f;
+    [SerializeField] float RadiusStan = 10f;
+    float StanDistance;
+    float ReloadStan;
+
+    float DmgGravPush;
+    float GravPushStrength;
+    float GravPushDistance;
+    [SerializeField] float GravPushFollowTime = 1f;
+    [SerializeField] float GravPushFireTime = 0.5f;
+    [SerializeField] float nextAttackGravTime = 0f;
+    float ReloadGrav;
 
     public GameObject projectileprefab;
     public GameObject areaVisual;
@@ -34,6 +34,8 @@ public class Physicist: EnemyAll
         base.Initialize(data);
         MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
         Damage = data.baseDamage * MainScale * DifficultyScale;
+        DamageStan = data.baseDamage * MainScale * DifficultyScale * 0.1f;
+        DmgGravPush = data.baseDamage * MainScale * DifficultyScale * 0.4f;
         Speed = data.baseSpeed * SpeedScale;
         Reload = data.baseReload * SpeedScale;
         attackCooldown = data.baseAttackCooldown * SpeedScale;
