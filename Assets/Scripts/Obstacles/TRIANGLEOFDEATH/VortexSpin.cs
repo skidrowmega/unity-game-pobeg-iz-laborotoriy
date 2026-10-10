@@ -11,8 +11,8 @@ public class VortexSpin : MonoBehaviour
 
     [SerializeField] float RotationSpeed = 1;
     [SerializeField] float damage_radius = 1;
-    [SerializeField] int Damage = 1000;
-    [SerializeField] int DamageToPlayer = 30;
+    [SerializeField] float Damage = 1000;
+    [SerializeField] float DamageToPlayer = 30;
     [SerializeField] float pushstrength;
     Player player;
     void Start()

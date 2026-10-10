@@ -123,14 +123,6 @@ public class Mathematician: EnemyAll
         }
     }
 
-    /*    public void ArithmeticProgression(int Damage)
-        {
-            Sin bullet = projectileprefab.GetComponent<Sin>();
-            bullet.direction = transform.right;
-            bullet.damage = Damage;
-            bullet.PushStrength = 0;
-            bullet = Instantiate<Sin>(bullet, transform.position + transform.right * 2, Quaternion.identity);
-        }*/
 
     IEnumerator ArithmeticProgression(float Damage, float delay,int numberofshots)
     {
