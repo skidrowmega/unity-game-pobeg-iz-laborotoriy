@@ -69,12 +69,14 @@ public class Mathematician: EnemyAll
     private void ResetDivisionByZeroCooldown()
     {
         DivisioByZeroReady = true;
+        animator.SetBool("boitsa", false);
     }
 
     private void TryDivisionByZero()//Во время атаки не должен толкаться
     {
         if (!isAttacking && DivisioByZeroReady && distanceToPlayer <= CriticalDistance)
         {
+            animator.SetBool("boitsa", true);
             isAttacking = true;
             DivisioByZeroReady=false;
             StartCoroutine(DivisionByZeroDelay());
@@ -85,12 +87,14 @@ public class Mathematician: EnemyAll
     private void ResetArithmeticShotCooldown()
     {
         ArithmeticShotReady = true;
+        animator.SetBool("Sin", false);
     }
 
     private void TryArithmeticProgression()
     {
         if (!isAttacking && ArithmeticShotReady && distanceToPlayer <= attackDistance)
         {
+            animator.SetBool("Sin", true);
             isAttacking = true;
             ArithmeticShotReady = false;
             StartCoroutine(ArithmeticProgression(Damage, 0.2f,4));
