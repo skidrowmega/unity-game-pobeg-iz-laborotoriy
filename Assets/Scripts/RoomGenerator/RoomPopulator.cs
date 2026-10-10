@@ -22,7 +22,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
     [SerializeField] float TimeDeleteWeakEnemies = 30f;
     [SerializeField] int WeakEnemiesAmount = 1;
 
-    protected void Awake()
+    protected void Start()
     {
         minPoint = PrefabPoints.Min();
         player = Player.player;

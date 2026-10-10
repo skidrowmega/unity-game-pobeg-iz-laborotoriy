@@ -7,7 +7,7 @@ public class CameraFollow : MonoBehaviour
     [SerializeField] Vector2 offset = new Vector2(0,-12);
     [SerializeField] Vector3 RotationalOffset = new Vector3();
     [SerializeField] float Speed = 10;
-    void Awake()
+    void Start()
     {
         player = Player.player;
         print(player);

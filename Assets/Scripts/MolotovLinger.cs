@@ -7,7 +7,7 @@ public class MolotovLinger : MonoBehaviour
     private float lasthittime = 0;
     [SerializeField] public float HitTimer = 2f;
     [SerializeField] Player player;
-    private void Awake()
+    private void Start()
     {
         player = Player.player;
         Radius = transform.localScale.x/2;

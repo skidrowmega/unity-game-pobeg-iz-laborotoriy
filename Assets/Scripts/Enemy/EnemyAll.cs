@@ -23,14 +23,11 @@ public class EnemyAll: Entity
     {
         DifficultyScale = DifficultyTimer.Instance.DifficultyFactor;
     }
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         player = Player.player;
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
-    }
-    protected virtual void Start()
-    {
         agent.stoppingDistance = stopDistance;
         agent.speed = Speed;
     }
