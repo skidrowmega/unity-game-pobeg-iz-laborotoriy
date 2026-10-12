@@ -18,7 +18,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
     float difficultyMulPointPool;
     [SerializeField] Vector2 MaxOffset = new Vector2(9, 9);
     Player player;
-    private bool isLateGame = false;
+    private bool isLateGame = false;//Это плохо надо будет исправить
     [SerializeField] float TimeDeleteWeakEnemies = 30f;
     [SerializeField] int WeakEnemiesAmount = 1;
 
@@ -27,11 +27,12 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
         minPoint = PrefabPoints.Min();
         player = Player.player;
         currentPointPool = (int)(basePointPool);
+        SpawnForPoints();
     }
 
     protected void Update()
     {
-        time = DifficultyTimer.Instance.GameTime;
+        time = DifficultyTimer.Instance.GameTime;//это тоже плохо надо поменять
         if (!isLateGame && time >= TimeDeleteWeakEnemies)
         {
             isLateGame = true;

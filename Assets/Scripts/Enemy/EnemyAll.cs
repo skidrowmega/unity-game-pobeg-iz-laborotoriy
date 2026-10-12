@@ -8,7 +8,7 @@ public class EnemyAll: Entity
     protected bool isAttacking = false;
     public float rotationSpeed;
     protected float Damage;
-    protected float AttackDuration;//переименовать везде
+    protected float AttackDuration;
     protected float attackDistance;
     protected float attackCooldown;
     protected float nextAttackTime = 0f;
@@ -16,7 +16,7 @@ public class EnemyAll: Entity
     protected float distanceToPlayer;
     protected float DifficultyScale;
 
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
 
     public virtual void Initialize(EnemyStats data)
     {
@@ -53,7 +53,8 @@ public class EnemyAll: Entity
 
     protected virtual void TryAttack()
     {
-        if (!isAttacking && Time.time >= nextAttackTime && distanceToPlayer <= attackDistance)
+        bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
+        if (!isAttacking && !isMoving && Time.time >= nextAttackTime && distanceToPlayer <= attackDistance)
         {
             isAttacking = true;
             nextAttackTime = Time.time + attackCooldown;
@@ -68,7 +69,7 @@ public class EnemyAll: Entity
         player.TakeDamage(Damage, Vector3.zero, this, 0, DamageType.Normal);
     }
 
-    protected void ResetAttack()
+    protected virtual void ResetAttack()
     {
         isAttacking = false;
         animator.SetBool("isAttacking", false);
