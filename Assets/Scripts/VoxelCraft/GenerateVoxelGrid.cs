@@ -9,7 +9,7 @@ using UnityEngine.Rendering;
 
 public class GenerateVoxelGrid : MonoBehaviour
 {
-    [SerializeField] GameObject voxel;
+    [SerializeField] public GameObject voxel;
     [SerializeField] public int[] dimensions;
     [SerializeField] public float gap;
     [SerializeField] public GameObject[,] voxels;
