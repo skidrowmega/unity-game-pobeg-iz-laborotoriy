@@ -49,7 +49,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 1.2e+28
-  m_StoppingDistance: 0
+  m_StoppingDistance: 10
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -97,17 +97,15 @@ MonoBehaviour:
   Speed: 5
   IsStunned: 0
   IsBeingPushed: 0
+  animator: {fileID: 0}
   rotationSpeed: 5
-  Damage: 5
-  Reload: 1
-  attackDistance: 10
-  attackCooldown: 1.5
-  stopDistance: 10
-  PushForce: 0
+  agent: {fileID: 0}
+  projectileprefab: {fileID: 5669884756835510007, guid: 5542a33396c85ed49adbe1ed38402f9a, type: 3}
+  areaVisual: {fileID: 8631068409102593951, guid: 076d6b1ed4b40f7439e73036f0beb651, type: 3}
+  CubeVisual: {fileID: 7832439558275054108, guid: 50629b8148c51e94aa2c32bd9234a9b9, type: 3}
   MainScale: 1
   SpeedScale: 0.9
   DistanceScale: 8
-  StanTime: 1
   StanFollowTime: 1
   StanFireTime: 0.3
   nextAttackStanTime: 0
@@ -115,9 +113,6 @@ MonoBehaviour:
   GravPushFollowTime: 1
   GravPushFireTime: 0.5
   nextAttackGravTime: 0
-  projectileprefab: {fileID: 7912194456775248160, guid: 6a25993a9bc099a468f9939afcc1607d, type: 3}
-  areaVisual: {fileID: 8631068409102593951, guid: 076d6b1ed4b40f7439e73036f0beb651, type: 3}
-  CubeVisual: {fileID: 7832439558275054108, guid: 50629b8148c51e94aa2c32bd9234a9b9, type: 3}
 --- !u!1001 &497360557746999713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -173,7 +168,7 @@ PrefabInstance:
     - target: {fileID: 5866666021909216657, guid: 2306c9b61fb693b41a730c101b93d527, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 22100000, guid: 00143b75b310cb64a8b9654553efd715, type: 2}
+      objectReference: {fileID: 9100000, guid: 277e9fbddaa7b6c448084f9901364535, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
