@@ -4,7 +4,7 @@ using Unity.ProjectAuditor.Editor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-public class Mathematician: EnemyAll
+public class Mathematician : EnemyAll
 {
     [Header("Все Префабы")]
     public GameObject areaVisual;
@@ -27,8 +27,8 @@ public class Mathematician: EnemyAll
     [SerializeField] float RadiusDivisionByZero = 5.0f;
 
     protected internal bool ArithmeticShotReady = true;
-    protected internal bool DivisioByZeroReady=true;
-    
+    protected internal bool DivisioByZeroReady = true;
+
 
     public override void Initialize(EnemyStats data)
     {
@@ -41,8 +41,8 @@ public class Mathematician: EnemyAll
         Speed = data.baseSpeed * SpeedScale;
         AttackDuration = data.baseAttackDuration * SpeedScale;
         ReloadArithmetic = data.baseMathematicianArithmeticReload * SpeedScale;
-        DelayBeforeDivisionByZero = data.baseMathematicianDivisionReload * SpeedScale;
-        ReloadDivisionByZero = data.baseAttackDuration * SpeedScale;
+        DelayBeforeDivisionByZero = data.baseMathematicianDivisionDelay * SpeedScale;
+        ReloadDivisionByZero = data.baseMathematicianDivisionReload * SpeedScale;
         attackCooldown = data.baseAttackCooldown * SpeedScale;
         attackDistance = data.baseAttackDistance * DistanceScale;
         PushForce = data.basePushForce;
@@ -65,25 +65,31 @@ public class Mathematician: EnemyAll
     {
         Sin bullet = projectileprefab.GetComponent<Sin>();
         bullet.Shooter = this;
-        bullet.direction = transform.right;
+        bullet.direction = transform.forward;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
-        bullet = Instantiate<Sin>(bullet, transform.position + transform.right * 2, Quaternion.identity);
+        bullet = Instantiate<Sin>(bullet, transform.position + transform.forward * 2, Quaternion.identity);
     }
 
     private void ResetDivisionByZeroCooldown()
     {
         DivisioByZeroReady = true;
+    }
+    protected override void ResetAttack()
+    {
+        base.ResetAttack();
+        animator.SetBool("Sin", false);
         animator.SetBool("boitsa", false);
     }
 
     private void TryDivisionByZero()//Во время атаки не должен толкаться
     {
-        if (!isAttacking && DivisioByZeroReady && distanceToPlayer <= CriticalDistance)
+        bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
+        if (!isAttacking && !isMoving && DivisioByZeroReady && distanceToPlayer <= CriticalDistance)
         {
             animator.SetBool("boitsa", true);
             isAttacking = true;
-            DivisioByZeroReady=false;
+            DivisioByZeroReady = false;
             StartCoroutine(DivisionByZeroDelay());
             Invoke(nameof(ResetDivisionByZeroCooldown), ReloadDivisionByZero);
         }
@@ -92,19 +98,19 @@ public class Mathematician: EnemyAll
     private void ResetArithmeticShotCooldown()
     {
         ArithmeticShotReady = true;
-        animator.SetBool("Sin", false);
     }
 
     private void TryArithmeticProgression()
     {
-        if (!isAttacking && ArithmeticShotReady && distanceToPlayer <= attackDistance)
+        bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
+        if (!isAttacking && !isMoving && ArithmeticShotReady && distanceToPlayer <= attackDistance)
         {
             animator.SetBool("Sin", true);
             isAttacking = true;
             ArithmeticShotReady = false;
-            StartCoroutine(ArithmeticProgression(ArithmeticDamage, 0.2f,4));
+            StartCoroutine(ArithmeticProgression(ArithmeticDamage, 0.2f, 4));
             Debug.Log("ArithmeticProgression has been fired Fired");
-            
+
             Invoke(nameof(ResetArithmeticShotCooldown), ReloadArithmetic);
         }
     }
@@ -129,16 +135,16 @@ public class Mathematician: EnemyAll
     }
 
 
-    IEnumerator ArithmeticProgression(float Damage, float delay,int numberofshots)
+    IEnumerator ArithmeticProgression(float Damage, float delay, int numberofshots)
     {
         for (int i = 1; i < numberofshots; i++)
         {
             Sin bullet = projectileprefab.GetComponent<Sin>();
             bullet.Shooter = this;
             bullet.PushStrength = 0;
-            bullet.direction = transform.right;
+            bullet.direction = transform.forward;
             bullet.damage = Damage + i * ArithmeticDamageIncrease;
-            Instantiate<Sin>(bullet, transform.position + transform.right * 2, Quaternion.identity);
+            Instantiate<Sin>(bullet, transform.position + transform.forward * 2, Quaternion.identity);
             yield return new WaitForSeconds(delay);
         }
         ResetAttack();
@@ -149,7 +155,7 @@ public class Mathematician: EnemyAll
         Vector3 AreaPosition = transform.position;
         AreaPosition.y = 2.25f;
         GameObject Area = Instantiate(areaVisual, AreaPosition, Quaternion.identity);
-        Area.transform.localScale = new Vector3(RadiusDivisionByZero*2, 1f, RadiusDivisionByZero*2);
+        Area.transform.localScale = new Vector3(RadiusDivisionByZero * 2, 1f, RadiusDivisionByZero * 2);
         SpriteRenderer AreaColor = Area.GetComponentInChildren<SpriteRenderer>();
         float elapsed = 0f;
         Color startColor = AreaColor.color;
