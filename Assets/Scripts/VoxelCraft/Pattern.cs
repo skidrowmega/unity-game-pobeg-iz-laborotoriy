@@ -12,4 +12,5 @@ public class Pattern : ScriptableObject
     }
     [SerializeField] public List<Vector2Int> points;
     public int Size { get {return points.Count; } }
+    [SerializeField] public Vector3 fabricationoffset;
 }

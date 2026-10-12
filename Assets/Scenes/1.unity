@@ -473,6 +473,10 @@ PrefabInstance:
       value: Cuttingboard3 1
       objectReference: {fileID: 0}
     - target: {fileID: 1701724691345449789, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
+      propertyPath: BrushSize
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1701724691345449789, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
       propertyPath: patterntomake
       value: 
       objectReference: {fileID: 11400000, guid: d74041ee71553d04abf7ca658c455417, type: 2}
