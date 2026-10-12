@@ -63,21 +63,23 @@ public class Physicist: EnemyAll
     {
         Sin bullet = projectileprefab.GetComponent<Sin>();
         bullet.Shooter = this;
-        bullet.direction = transform.right;
+        bullet.direction = transform.forward;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
-        bullet = Instantiate<Sin>(bullet, transform.position + transform.right * 2, Quaternion.identity);
+        bullet = Instantiate<Sin>(bullet, transform.position + transform.forward * 2, Quaternion.identity);
     }
 
     public void TryGravitationalPush()
     {
-        if (!isAttacking && Time.time >= nextAttackGravTime && distanceToPlayer <= attackDistance)
+        bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
+        if (!isAttacking && !isMoving && Time.time >= nextAttackGravTime && distanceToPlayer <= attackDistance)
         {
             animator.SetBool("isGravitationalPush", true);
             print("Firing off GravPush");
             isAttacking = true;
             nextAttackGravTime = Time.time + ReloadGrav;
             StartCoroutine(GravitationalPushTimer());
+
         }
     }
     public void GravitationalPush(Vector3 center,Vector3 BoxDimensions,Quaternion BoxRotation)
@@ -94,7 +96,8 @@ public class Physicist: EnemyAll
 
     protected void TryStan()
     {
-        if (!isAttacking && Time.time >= nextAttackStanTime && distanceToPlayer <= attackDistance)
+        bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
+        if (!isAttacking && isMoving && Time.time >= nextAttackStanTime && distanceToPlayer <= attackDistance)
         {
             print("Firing off stan");
             isAttacking = true;
@@ -154,7 +157,9 @@ public class Physicist: EnemyAll
                 Box.transform.rotation = Quaternion.LookRotation(lookingatplayer);
             }
             yield return null;
+
         }
+        animator.SetBool("isGravitationalPush", true);
         targetColor.a = 1;
         targetColor.r = 1;
         BoxColor.color = Color.Lerp(startColor, targetColor, 1);
@@ -162,6 +167,7 @@ public class Physicist: EnemyAll
         GravitationalPush(BoxPosition,Box.transform.localScale,Box.transform.rotation);
         Invoke(nameof(ResetAttack), AttackDuration);
         Destroy(Box);
+
     }
 
     IEnumerator StanTimer()
