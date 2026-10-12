@@ -292,6 +292,7 @@ public class VoxelCut : MonoBehaviour
                 mesh = meshFilter.sharedMesh,
                 transform = meshFilter.transform.localToWorldMatrix,
                 
+                
             };
 
             meshFilter.gameObject.SetActive(false);
@@ -303,7 +304,27 @@ public class VoxelCut : MonoBehaviour
         actualweapon.GetComponent<MeshFilter>().sharedMesh = combinedMesh;
         actualweapon.GetComponent<MeshRenderer>().material = materialforprefab;
         actualweapon.SetActive(true);
+        Vector3[] objectVerts = actualweapon.GetComponent<MeshFilter>().sharedMesh.vertices;
+        Vector3 offset = Vector3.zero;
+        print(objectVerts);
+        for (int i = 0; i < objectVerts.Length; i++)
+        {
+            offset += objectVerts[i];
+        }
+        offset = offset / objectVerts.Length;
 
+
+        //for (int i = 0; i < objectVerts.Length; i++)
+        //{
+        //    objectVerts[i] -= offset/2;
+        //}
+
+        print(offset);
+
+        actualweapon.GetComponent<MeshFilter>().mesh.vertices = objectVerts;
+        actualweapon.transform.position -= offset/2;
+        empty.transform.Rotate(0, 180, 0);
+        empty.transform.position = patterntomake.fabricationoffset;
         return empty;
     }
 

@@ -657,4 +657,4 @@ MonoBehaviour:
   - {x: -103, y: -3}
   - {x: -100, y: -3}
   - {x: -100, y: 1}
-  Size: 0
+  fabricationoffset: {x: 0.66, y: -0.06, z: 0.03}
