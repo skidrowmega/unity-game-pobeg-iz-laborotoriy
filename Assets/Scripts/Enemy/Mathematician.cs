@@ -137,7 +137,7 @@ public class Mathematician : EnemyAll
 
     IEnumerator ArithmeticProgression(float Damage, float delay, int numberofshots)
     {
-        for (int i = 1; i < numberofshots; i++)
+        for (int i = 1; i <= numberofshots; i++)
         {
             Sin bullet = projectileprefab.GetComponent<Sin>();
             bullet.Shooter = this;
