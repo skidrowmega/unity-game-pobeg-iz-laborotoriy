@@ -48,34 +48,44 @@ public class Chemist: EnemyAll
     {
         distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
         Move();
-        TryMolotovСocktail();
         TryAttack();
+        TryMolotovСocktail();
     }
     protected override void Attack()
     {
         Projectile bullet = projectileprefab.GetComponent<Projectile>();
         bullet.Shooter = this;
-        bullet.direction = transform.right;
+        bullet.direction = transform.forward;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
-        bullet = Instantiate<Projectile>(bullet, transform.position + transform.right * 2, Quaternion.identity);
+        bullet = Instantiate<Projectile>(bullet, transform.position + transform.forward * 2, Quaternion.identity);
     }
 
-
+    public void DoMolotovCocktail() 
+    {
+        MolotovReady = false;
+        StartCoroutine(MolotovBehavior());
+        Invoke(nameof(ResetAttack), AttackDuration);
+    }
     public void TryMolotovСocktail()
     {
-        if (!isAttacking && MolotovReady && distanceToPlayer <= attackDistance)
+        bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
+        if (!isAttacking && !isMoving && MolotovReady && distanceToPlayer <= attackDistance)
         {
-            animator.SetBool("Molotov", true);
             isAttacking = true;
-            StartCoroutine(MolotovBehavior());
-            Invoke(nameof(ResetAttack), AttackDuration);
+            animator.SetBool("Molotov", true);
+            Invoke(nameof(DoMolotovCocktail), 1f);
         }
     }
 
     private void ResetMolotovAttack()
     {
         MolotovReady = true;
+        animator.SetBool("Molotov", false);
+    }
+    protected override void ResetAttack()
+    {
+        base.ResetAttack();
         animator.SetBool("Molotov", false);
     }
 

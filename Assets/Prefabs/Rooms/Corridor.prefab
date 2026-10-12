@@ -2544,7 +2544,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: TimeUntilSpawn
-      value: 10
+      value: 1e+10
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: WeakEnemiesAmount
@@ -2552,7 +2552,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: TimeDeleteWeakEnemies
-      value: 30
+      value: 30000000
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: PrefabPoints.Array.size
@@ -2560,7 +2560,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: objectprefabs.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: 'PrefabPoints.Array.data[0]'
@@ -2573,11 +2573,11 @@ PrefabInstance:
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: 'objectprefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 1568080186804927961, guid: 27de0b69c52ac9047941f19b2080c682, type: 3}
+      objectReference: {fileID: 2864184068542060344, guid: 6648eeea52b0f114dbcc80fc2502f869, type: 3}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: 'objectprefabs.Array.data[1]'
       value: 
-      objectReference: {fileID: 2864184068542060344, guid: 6648eeea52b0f114dbcc80fc2502f869, type: 3}
+      objectReference: {fileID: 1568080186804927961, guid: 27de0b69c52ac9047941f19b2080c682, type: 3}
     - target: {fileID: 2085493303264609629, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: m_Name
       value: LevelPopulator
