@@ -9,8 +9,7 @@ public class Pattern : ScriptableObject
     Pattern()
     {
         points= new List<Vector2Int>();
-        Size = 0;
     }
     [SerializeField] public List<Vector2Int> points;
-    [SerializeField] public int Size;
+    public int Size { get {return points.Count; } }
 }
