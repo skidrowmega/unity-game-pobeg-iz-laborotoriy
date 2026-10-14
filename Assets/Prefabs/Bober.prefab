@@ -199,9 +199,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b60ae1c27734c4281701068fc9c033, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CharacterController
-  HealthPoints: 100
-  MaxHealthpoints: 100
-  Speed: 3
+  HealthPoints: 200
+  MaxHealthpoints: 200
+  Speed: 6
   IsStunned: 0
   IsBeingPushed: 0
   Cursor: {fileID: 0}
@@ -252,8 +252,9 @@ MonoBehaviour:
   Damage: 10
   PushStrength: 5
   WeaponHolder: {fileID: 7545022252984657773}
-  weaponReference: {fileID: 0}
-  MeleeHandReference: {fileID: 0}
+  weaponReference: {fileID: 7091200702301350528}
+  HandReference: {fileID: 1121327681848325804}
+  AssociatedUI: {fileID: 0}
   MaxDurability: 100
   Durability: 100
   DurabilityDecrease: 5
@@ -263,16 +264,16 @@ MonoBehaviour:
   StaminaRecoveryRate: 20
   StaminaDecreaseRate: 20
   statsonbreak:
-    WeaponName: 
+    WeaponName: Fists
     Damage: 0
-    PushStrength: 0
-    maxDurability: 0
-    durability: 0
+    PushStrength: 5
+    maxDurability: 100
+    durability: 100
     durabilityDecrease: 0
-    Maxstamina: 0
-    stamina: 0
-    staminaRecoveryRate: 0
-    staminaDecreaseRate: 0
+    Maxstamina: 100
+    stamina: 10
+    staminaRecoveryRate: 20
+    staminaDecreaseRate: 20
   tempNewWeapon: {fileID: 0}
   tempstats:
     WeaponName: 
@@ -301,17 +302,35 @@ MonoBehaviour:
   Damage: 5
   PushStrength: 0
   WeaponHolder: {fileID: 7545022252984657773}
-  weaponReference: {fileID: 0}
-  MeleeHandReference: {fileID: 0}
+  weaponReference: {fileID: 4710698896318439555}
+  HandReference: {fileID: 4710698896318439555}
+  AssociatedUI: {fileID: 0}
   MaxDurability: 100
   Durability: 100
   DurabilityDecrease: 5
   ReloadingTime: 1
   RicochetCount: 0
   projectileprefab: {fileID: 7912194456775248160, guid: 6a25993a9bc099a468f9939afcc1607d, type: 3}
-  statsonbreak: {fileID: 0}
+  IsUsable: 1
+  statsonbreak:
+    WeaponName: 
+    Damage: 0
+    PushStrength: 0
+    maxDurability: 0
+    durability: 0
+    durabilityDecrease: 0
+    RicochetCount: 0
+    IsUsable: 0
   tempNewWeapon: {fileID: 0}
-  tempstats: {fileID: 0}
+  tempstats:
+    WeaponName: 
+    Damage: 0
+    PushStrength: 0
+    maxDurability: 0
+    durability: 0
+    durabilityDecrease: 0
+    RicochetCount: 0
+    IsUsable: 0
 --- !u!1 &8932434406672478098
 GameObject:
   m_ObjectHideFlags: 0
@@ -570,6 +589,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7696147644352370070, guid: f38cf0fa676853c4580190f1ab622fe2, type: 3}
   m_PrefabInstance: {fileID: 4285251121366566065}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7091200702301350528 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6417986015810170417, guid: f38cf0fa676853c4580190f1ab622fe2, type: 3}
+  m_PrefabInstance: {fileID: 4285251121366566065}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6026092133568294807
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -622,11 +646,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -156.236
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7242636738773100310, guid: 45d3ad27407e11e4e8f0b60ab16be3f1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45d3ad27407e11e4e8f0b60ab16be3f1, type: 3}
+--- !u!1 &4710698896318439555 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1368875957359709972, guid: 45d3ad27407e11e4e8f0b60ab16be3f1, type: 3}
+  m_PrefabInstance: {fileID: 6026092133568294807}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7213760002874491110 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4016250300583931761, guid: 45d3ad27407e11e4e8f0b60ab16be3f1, type: 3}
