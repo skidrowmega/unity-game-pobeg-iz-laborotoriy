@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Weapon : MonoBehaviour
 {
@@ -7,12 +8,20 @@ public class Weapon : MonoBehaviour
     public float PushStrength;
     public Player WeaponHolder;
     public GameObject weaponReference;
-    public GameObject MeleeHandReference;
+    public GameObject HandReference;
+    public WeaponDurabilityBar AssociatedUI;
     [SerializeField] public int MaxDurability = 100;
     [SerializeField] public int Durability = 100;
     [SerializeField] public int DurabilityDecrease = 5;
     private void Start()
     {
         WeaponHolder = Player.player;
+    }
+    protected virtual void OnBreak()
+    {
+        if (AssociatedUI != null)
+        {
+            AssociatedUI.transform.parent.GetComponent<Image>().sprite = null;
+        }
     }
 }

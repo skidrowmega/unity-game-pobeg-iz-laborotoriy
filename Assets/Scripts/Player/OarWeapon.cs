@@ -23,10 +23,11 @@ public class OarWeapon : WeaponMelee
         SwapStats(statsonbreak);
         OnBreak();
     }
-    void OnBreak()
+    protected override void OnBreak()
     {
         Destroy(weaponReference);
         weaponReference= null;
+        base.OnBreak();
     }
 
     private void Update()
@@ -45,7 +46,7 @@ public class OarWeapon : WeaponMelee
     GameObject PlaceWeapon(GameObject weapontoPlace,WeaponMeleeStats newstats)
     {
         if (weaponReference != null)return null;
-        weaponReference = Instantiate(weapontoPlace, MeleeHandReference.transform);
+        weaponReference = Instantiate(weapontoPlace, HandReference.transform);
         SwapStats(newstats);
         return weaponReference;
     }

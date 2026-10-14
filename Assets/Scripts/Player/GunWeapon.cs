@@ -24,10 +24,11 @@ public class GunWeapon : WeaponRanged
         SwapStats(statsonbreak);
         OnBreak();
     }
-    void OnBreak()
+    protected override void OnBreak()
     {
         Destroy(weaponReference);
         weaponReference = null;
+        base.OnBreak();
     }
 
     private void Update()
@@ -42,11 +43,26 @@ public class GunWeapon : WeaponRanged
             PlaceWeapon(tempNewWeapon, tempstats);
         }
     }
-
+    public override void Shot(Vector3 Direction)
+    {
+        if (!IsUsable) return;
+        Durability -= DurabilityDecrease;
+        if (Durability <= 0)
+        {
+            IsUsable = false;
+            BreakWeapon();
+        }
+        Projectile bullet = projectileprefab.GetComponent<Projectile>();
+        bullet.direction = Direction;
+        bullet.Shooter = WeaponHolder;
+        bullet.damage = Damage;
+        bullet.PushStrength = PushStrength;
+        bullet = Instantiate<Projectile>(bullet, WeaponHolder.transform.position + WeaponHolder.transform.right * 2, Quaternion.identity);
+    }
     GameObject PlaceWeapon(GameObject weapontoPlace, WeaponRangedStats newstats)
     {
         if (weaponReference != null) return null;
-        weaponReference = Instantiate(weapontoPlace, MeleeHandReference.transform);
+        weaponReference = Instantiate(weapontoPlace, HandReference.transform);
         SwapStats(newstats);
         return weaponReference;
     }

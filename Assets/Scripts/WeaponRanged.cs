@@ -42,13 +42,7 @@ public class WeaponRanged: Weapon
     public bool IsUsable = true;
     public virtual void Shot(Vector3 Direction)
     {
-        if (!IsUsable) return;
-        Projectile bullet = projectileprefab.GetComponent<Projectile>();
-        bullet.direction = Direction;
-        bullet.Shooter = WeaponHolder;
-        bullet.damage = Damage;
-        bullet.PushStrength = PushStrength;
-        bullet = Instantiate<Projectile>(bullet, WeaponHolder.transform.position + WeaponHolder.transform.right * 2, Quaternion.identity);
+
     }
 
     public void SwapStats(WeaponRangedStats stats)
