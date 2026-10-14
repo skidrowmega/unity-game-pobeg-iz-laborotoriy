@@ -111,7 +111,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4016250300583931761}
-  - component: {fileID: 7242636738773100310}
   - component: {fileID: 8115164743613089235}
   m_Layer: 0
   m_Name: Pistol
@@ -138,50 +137,6 @@ Transform:
   - {fileID: 1178290146238081604}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 15.116, y: 76.336, z: -156.236}
---- !u!114 &7242636738773100310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1368875957359709972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b336a01c2dd8bdd4d937740ad7b6bd6c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GunWeapon
-  WeaponName: Pistol
-  Damage: 5
-  PushStrength: 0
-  WeaponHolder: {fileID: 0}
-  weaponReference: {fileID: 0}
-  MeleeHandReference: {fileID: 0}
-  MaxDurability: 100
-  Durability: 100
-  DurabilityDecrease: 5
-  ReloadingTime: 1
-  RicochetCount: 0
-  projectileprefab: {fileID: 0}
-  IsUsable: 1
-  statsonbreak:
-    WeaponName: 
-    Damage: 0
-    PushStrength: 0
-    maxDurability: 0
-    durability: 0
-    durabilityDecrease: 0
-    RicochetCount: 0
-    IsUsable: 0
-  tempNewWeapon: {fileID: 0}
-  tempstats:
-    WeaponName: 
-    Damage: 0
-    PushStrength: 0
-    maxDurability: 0
-    durability: 0
-    durabilityDecrease: 0
-    RicochetCount: 0
-    IsUsable: 0
 --- !u!136 &8115164743613089235
 CapsuleCollider:
   m_ObjectHideFlags: 0
