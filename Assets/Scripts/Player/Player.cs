@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -21,6 +22,16 @@ public class Player : Entity
 
     public static Player player { get; private set; }
 
+    public int MaxGrenades = 3;
+    public int GrenadesAvailable = 3;
+    [SerializeField] private GameObject grenadeprefab;
+    [SerializeField] private float BasicFlightTime= 1f;
+    [SerializeField] private float GrenadeArcHeight = 3.5f;
+    [SerializeField] private float GrenadeExplosionRadius = 3f;
+    [SerializeField] private float GrenadeDamage = 50f;
+    [SerializeField] private float GrenadePushStrength = 5f;
+    [SerializeField] private float GrenadeStunTime = 0;
+
     private void Awake()
     {
         player = this;
@@ -41,7 +52,12 @@ public class Player : Entity
             PushEntity(new Vector3(5, 1, 7), 0.3f);
         }*/
         TryParry();
+
+        TryGrenadeAttack();
+
     }
+
+
 
     void AttackMelee()
     {
@@ -187,7 +203,69 @@ public class Player : Entity
     void OnDodge()
     {
     }
-    IEnumerator MeleeAttackLoop(float secondstowait)
+    private void TryGrenadeAttack()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (GrenadesAvailable > 0)
+            {
+                DoGrenadeThrow();
+            }
+            
+        }
+    }
+
+    public void DoGrenadeThrow()
+    {
+        GrenadesAvailable--;
+        StartCoroutine(GrenadeBehavior());
+    }
+
+    private void GrenadeExplosion(Vector3 Position)
+    {
+        foreach (Collider item in Physics.OverlapSphere(Position, GrenadeExplosionRadius))
+        {
+            Entity entity = item.GetComponent<Entity>();
+            if (entity != null)
+            {
+                entity.TakeDamage(GrenadeDamage, Position, this, GrenadePushStrength, DamageType.Unparriable, GrenadeStunTime);
+            }
+        }
+    }
+    IEnumerator GrenadeBehavior()
+    {
+        /*
+         * всяки переменные
+         * цикл полета - чем дальше летит тем дольше (арбитрарное время умножается на расстояние)
+         * обозначение назначения, чем ближе - тем ярче
+         * оставленная зона отчуждения после удара (там звук разбивающегося стекла)
+         */
+
+        Vector3 targetPos = Cursor.transform.position;
+        Vector3 startPos = transform.position;
+        startPos.y -= player.transform.localScale.y / 2;
+        float starty = startPos.y;
+        GameObject grenade = Instantiate(grenadeprefab, transform.position, Quaternion.identity);
+        float dist = Vector3.Distance(startPos, targetPos);
+
+        float timeforflight = BasicFlightTime + (dist / 50);
+        float elapsed = 0;
+        while (elapsed < timeforflight)
+        {
+            grenade.transform.position = MathParabola.Parabola(startPos, targetPos, GrenadeArcHeight, elapsed / timeforflight);
+            elapsed += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+
+
+        }
+        Destroy(grenade);
+        GrenadeExplosion(targetPos);
+
+    }
+
+
+
+        IEnumerator MeleeAttackLoop(float secondstowait)
     {
         yield return new WaitForSeconds(0.13f);
         float starttime = Time.time;
