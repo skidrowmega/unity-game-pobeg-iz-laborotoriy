@@ -416,7 +416,7 @@ PrefabInstance:
     - target: {fileID: 3031727805961372285, guid: eb9ada470ca60624586e17bb277760ec, type: 3}
       propertyPath: m_NavMeshData
       value: 
-      objectReference: {fileID: 23800000, guid: d22ca40c1e7201f48a97931385f1829d, type: 2}
+      objectReference: {fileID: 23800000, guid: d9fcc7b46defa6d4f95ba447503eb01d, type: 2}
     - target: {fileID: 6828657601945562232, guid: eb9ada470ca60624586e17bb277760ec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -474,6 +474,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4663409280549301075, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 11.85
+      objectReference: {fileID: 0}
     - target: {fileID: 5527802281580728736, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
       propertyPath: m_Name
       value: Bober
@@ -490,13 +494,17 @@ PrefabInstance:
       propertyPath: IsStunned
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7545022252984657773, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
+      propertyPath: HealthPoints
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 8985279394942567250, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.50194
       objectReference: {fileID: 0}
     - target: {fileID: 8985279394942567250, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.54
       objectReference: {fileID: 0}
     - target: {fileID: 8985279394942567250, guid: 889b5855f3f017c4491927ee68b119a1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -625,8 +633,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ea56ce0228eafa4cbf598e6f01ddd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CorridorGenerator
-  minRooms: 20
-  maxRooms: 30
+  minRooms: 1
+  maxRooms: 1
   roomPrefabs:
   - {fileID: 6322770502826254590, guid: 70407daa9cc0f414c85c643f110fa22f, type: 3}
   - {fileID: 6402058631189862566, guid: d77522ba480baf349bafd8e5ca8a5e9d, type: 3}

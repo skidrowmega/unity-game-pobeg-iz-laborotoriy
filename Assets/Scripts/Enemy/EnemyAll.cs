@@ -58,7 +58,7 @@ public class EnemyAll: Entity
         {
             isAttacking = true;
             nextAttackTime = Time.time + attackCooldown;
-            animator.SetBool("isAttacking", true);
+            animator.Play("Udar");
             Attack();
             Invoke(nameof(ResetAttack), AttackDuration);
         }
@@ -72,6 +72,5 @@ public class EnemyAll: Entity
     protected virtual void ResetAttack()
     {
         isAttacking = false;
-        animator.SetBool("isAttacking", false);
     }
 }

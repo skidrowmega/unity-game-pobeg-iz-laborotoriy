@@ -75,21 +75,16 @@ public class Mathematician : EnemyAll
     {
         DivisioByZeroReady = true;
     }
-    protected override void ResetAttack()
-    {
-        base.ResetAttack();
-        animator.SetBool("Sin", false);
-        animator.SetBool("boitsa", false);
-    }
-
     private void TryDivisionByZero()//Во время атаки не должен толкаться
     {
         bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
         if (!isAttacking && !isMoving && DivisioByZeroReady && distanceToPlayer <= CriticalDistance)
         {
-            animator.SetBool("boitsa", true);
             isAttacking = true;
             DivisioByZeroReady = false;
+            if (agent.isActiveAndEnabled && agent.isOnNavMesh)
+                agent.ResetPath();
+            animator.Play("Boitsa");
             StartCoroutine(DivisionByZeroDelay());
             Invoke(nameof(ResetDivisionByZeroCooldown), ReloadDivisionByZero);
         }
@@ -105,12 +100,13 @@ public class Mathematician : EnemyAll
         bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
         if (!isAttacking && !isMoving && ArithmeticShotReady && distanceToPlayer <= attackDistance)
         {
-            animator.SetBool("Sin", true);
             isAttacking = true;
             ArithmeticShotReady = false;
+            if (agent.isActiveAndEnabled && agent.isOnNavMesh)
+                agent.ResetPath();
+            animator.Play("Sin");
             StartCoroutine(ArithmeticProgression(ArithmeticDamage, 0.2f, 4));
             Debug.Log("ArithmeticProgression has been fired Fired");
-
             Invoke(nameof(ResetArithmeticShotCooldown), ReloadArithmetic);
         }
     }

@@ -11,7 +11,7 @@ public class EnemyStats: ScriptableObject
     public float baseAttackDistance = 1f;
     public float baseStopDistance = 1f;
     public float basePushForce = 0f;
-    public float baseAttackCooldown = 1f;
+    public float baseAttackCooldown = 1.5f;
     [Header("Статы Физика")]
     public float basePhysicistPushDamage = 5f;
     public float basePhysicistStanDamage = 10f;

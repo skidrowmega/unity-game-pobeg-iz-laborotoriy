@@ -73,7 +73,9 @@ public class Chemist: EnemyAll
         if (!isAttacking && !isMoving && MolotovReady && distanceToPlayer <= attackDistance)
         {
             isAttacking = true;
-            animator.SetBool("Molotov", true);
+            if (agent.isActiveAndEnabled && agent.isOnNavMesh)
+                agent.ResetPath();
+            animator.Play("Molotov");
             Invoke(nameof(DoMolotovCocktail), 1f);
         }
     }
@@ -81,12 +83,6 @@ public class Chemist: EnemyAll
     private void ResetMolotovAttack()
     {
         MolotovReady = true;
-        animator.SetBool("Molotov", false);
-    }
-    protected override void ResetAttack()
-    {
-        base.ResetAttack();
-        animator.SetBool("Molotov", false);
     }
 
     private void MolotovBurst(Vector3 Position)

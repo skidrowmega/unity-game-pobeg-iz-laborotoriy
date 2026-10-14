@@ -34,9 +34,9 @@ public class InternRanged: EnemyAll
     {
         Microscope bullet = projectileprefab.GetComponent<Microscope>();
         bullet.Shooter = this;
-        bullet.direction = transform.right;
+        bullet.direction = transform.forward;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
-        bullet = Instantiate<Microscope>(bullet, transform.position + transform.right * 2, Quaternion.identity);
+        bullet = Instantiate<Microscope>(bullet, transform.position + transform.forward * 2, Quaternion.identity);
     }
 }
