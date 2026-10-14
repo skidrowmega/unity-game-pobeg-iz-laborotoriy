@@ -15,8 +15,22 @@ MonoBehaviour:
   baseHP: 100
   baseDamage: 100
   baseSpeed: 1
-  baseReload: 1
+  baseAttackDuration: 1
   baseAttackDistance: 1
   baseStopDistance: 1
   basePushForce: 1
   baseAttackCooldown: 1
+  basePhysicistPushDamage: 5
+  basePhysicistStanDamage: 10
+  basePhysicistPushReload: 5
+  basePhysicistStanReload: 7
+  basePhysicistPushPushForce: 1
+  basePhysicistStanStanTime: 0.5
+  baseChemistMolotovReload: 4
+  baseChemistMolotovDamage: 3
+  baseMathematicianArithmeticDamage: 2
+  baseMathematicianDivisionDamage: 20
+  baseMathematicianArithmeticReload: 3
+  baseMathematicianDivisionReload: 10
+  baseMathematicianArithmeticDamageIncrease: 3
+  baseMathematicianDivisionDelay: 1.5
