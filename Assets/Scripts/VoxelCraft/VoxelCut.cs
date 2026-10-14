@@ -256,9 +256,13 @@ public class VoxelCut : MonoBehaviour
 
     GameObject FabricatePrefab()
     {
-        GameObject empty = new GameObject();
+        GameObject MainEmpty = new GameObject("MainEmpty");
+        GameObject offsetempty = new GameObject("OffsetEmpty");
+        GameObject meshoffsetempty = new GameObject("MeshOffsetEmpty");
+        offsetempty.transform.parent = MainEmpty.transform;
+        meshoffsetempty.transform.parent= offsetempty.transform;
         
-        Transform emptytransform=empty.transform;
+        Transform emptytransform=meshoffsetempty.transform;
         GameObject actualweapon = Instantiate(voxelforprefab, emptytransform);
         actualweapon.transform.localScale = new Vector3(.5f,.5f,.5f);
         Mesh patternmesh = voxelforprefab.GetComponent<MeshFilter>().sharedMesh;
@@ -306,7 +310,6 @@ public class VoxelCut : MonoBehaviour
         actualweapon.SetActive(true);
         Vector3[] objectVerts = actualweapon.GetComponent<MeshFilter>().sharedMesh.vertices;
         Vector3 offset = Vector3.zero;
-        print(objectVerts);
         for (int i = 0; i < objectVerts.Length; i++)
         {
             offset += objectVerts[i];
@@ -321,11 +324,15 @@ public class VoxelCut : MonoBehaviour
 
         print(offset);
 
-        actualweapon.GetComponent<MeshFilter>().mesh.vertices = objectVerts;
-        actualweapon.transform.position -= offset/2;
-        empty.transform.Rotate(0, 180, 0);
-        empty.transform.position = patterntomake.fabricationoffset;
-        return empty;
+        offsetempty.transform.Rotate(0, 0, 180);
+        offsetempty.transform.localPosition = new Vector3(0, 0.38f, 0);
+
+        emptytransform.Rotate(0, 0, 90);
+        actualweapon.transform.localPosition = -offset / 2;
+        actualweapon.transform.localRotation= Quaternion.identity;
+
+        //offsetempty.transform.localPosition = new Vector3(0, -0.5f, 0);
+        return meshoffsetempty;
     }
 
     Vector2Int GetIndexOnWorldPosition(Vector3 position)
