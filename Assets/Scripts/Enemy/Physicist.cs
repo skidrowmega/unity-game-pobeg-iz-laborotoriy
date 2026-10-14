@@ -71,13 +71,13 @@ public class Physicist: EnemyAll
 
     public void TryGravitationalPush()
     {
-        bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
-        if (!isAttacking && !isMoving && Time.time >= nextAttackGravTime && distanceToPlayer <= attackDistance)
+        if (!isAttacking && Time.time >= nextAttackGravTime && distanceToPlayer <= attackDistance)
         {
-            animator.SetBool("isGravitationalPush", true);
             print("Firing off GravPush");
             isAttacking = true;
             nextAttackGravTime = Time.time + ReloadGrav;
+
+            animator.Play("GravitationalPush");
             StartCoroutine(GravitationalPushTimer());
 
         }
@@ -96,11 +96,13 @@ public class Physicist: EnemyAll
 
     protected void TryStan()
     {
-        bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
-        if (!isAttacking && isMoving && Time.time >= nextAttackStanTime && distanceToPlayer <= attackDistance)
+        if (!isAttacking && Time.time >= nextAttackStanTime && distanceToPlayer <= attackDistance)
         {
             print("Firing off stan");
             isAttacking = true;
+            if (agent.isActiveAndEnabled && agent.isOnNavMesh)
+                agent.ResetPath();
+            animator.Play("Stan");
             nextAttackStanTime = Time.time + ReloadStan;
             StartCoroutine(StanTimer());
         }
@@ -159,7 +161,6 @@ public class Physicist: EnemyAll
             yield return null;
 
         }
-        animator.SetBool("isGravitationalPush", true);
         targetColor.a = 1;
         targetColor.r = 1;
         BoxColor.color = Color.Lerp(startColor, targetColor, 1);
