@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class RoomPopulator : MonoBehaviour //чтобы потом не только нижняя граница но и верхняя граница префабов смещалась
 {
-    [SerializeField] private EnemyStats enemyStats;
     [SerializeField] protected float TimeUntilSpawn = 5f;
     float time;
     float lastspawntime = 0;
@@ -15,11 +14,19 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
     int minPoint;
     [SerializeField] float basePointPool = 30f;
     int currentPointPool;
+
+    private int minEnemyIndex = 0;
+    private int maxEnemyIndex = 2;
+    private float lastDeleteWeakEnemy = 0f;
+    private float lastCreateStrongEnemy = 0f;
+    private bool cantDeleteWeakEnemy = false;
+    private bool cantCanCreateStrongEnemy = false;
+    [SerializeField] float timeToDeleteWeakEnemy = 20f;
+    [SerializeField] float timeToCreateMoreDifficultEnemy = 20f;
+
     float difficultyMulPointPool;
     [SerializeField] Vector2 MaxOffset = new Vector2(9, 9);
     Player player;
-    private bool isLateGame = false;//Это плохо надо будет исправить
-    [SerializeField] float TimeDeleteWeakEnemies = 30f;
     [SerializeField] int WeakEnemiesAmount = 1;
 
     protected void Start()
@@ -32,13 +39,20 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
 
     protected void Update()
     {
-        time = DifficultyTimer.Instance.GameTime;//это тоже плохо надо поменять
-        if (!isLateGame && time >= TimeDeleteWeakEnemies)
+        time = DifficultyTimer.Instance.GameTime;
+
+        if (!cantDeleteWeakEnemy && time - lastDeleteWeakEnemy >= timeToDeleteWeakEnemy)
         {
-            isLateGame = true;
-            minPoint = PrefabPoints[WeakEnemiesAmount..].Min();
+            DeleteWeakEnemy();
+            lastDeleteWeakEnemy += time;
         }
-        if (time - lastspawntime > TimeUntilSpawn)
+        if (!cantCanCreateStrongEnemy && time - lastCreateStrongEnemy >= timeToCreateMoreDifficultEnemy)
+        {
+            CreateStrongEnemy();
+            lastCreateStrongEnemy += time;
+        }
+
+        if (Time.time - lastspawntime > TimeUntilSpawn)
         {
             difficultyMulPointPool = DifficultyTimer.Instance.DifficultyFactor;
             SpawnForPoints();
@@ -64,21 +78,36 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
                         enemyScript.Initialize();
                     }
                     currentPointPool -= PointsToSubstract;
-                    lastspawntime = time;
+                    lastspawntime = Time.time;
                 }
             }
 
         }
     }
+
     protected int GetRandomObstacleIndex()
     {
-        if (isLateGame)
+        return Random.Range(minEnemyIndex, maxEnemyIndex);
+    }
+
+    private void DeleteWeakEnemy()
+    {
+        minEnemyIndex++;
+        minEnemyIndex = Mathf.Clamp(minEnemyIndex, 0, maxEnemyIndex - 2);
+        minPoint = PrefabPoints[minEnemyIndex..maxEnemyIndex].Min();
+        if (minEnemyIndex == objectprefabs.Length - 2)
         {
-            return Random.Range(WeakEnemiesAmount, objectprefabs.Length);
+            cantDeleteWeakEnemy = true;
         }
-        else
+    }
+
+    private void CreateStrongEnemy()
+    {
+        maxEnemyIndex++;
+        maxEnemyIndex = Mathf.Clamp(maxEnemyIndex, minEnemyIndex + 1, objectprefabs.Length);
+        if (maxEnemyIndex == objectprefabs.Length)
         {
-            return Random.Range(0, objectprefabs.Length);
+            cantCanCreateStrongEnemy = true;
         }
     }
 }
