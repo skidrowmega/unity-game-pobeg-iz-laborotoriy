@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.ConstrainedExecution;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SocialPlatforms;
@@ -34,6 +35,11 @@ public class VoxelCut : MonoBehaviour
     [SerializeField] float ShakeMagnitude = 0.1f;
     [SerializeField] float ShakeDuration = 0.4f;
     private Vector3 ShakeoriginalPosition;
+
+    
+    
+    //œŒ“ŒÃ ”¡–¿“‹ Õ¿’*…
+    private Mesh fabricatedprefabmesh;
     
 
     private void Awake()
@@ -305,32 +311,26 @@ public class VoxelCut : MonoBehaviour
         Mesh combinedMesh = new Mesh();
         combinedMesh.indexFormat = IndexFormat.UInt32;
         combinedMesh.CombineMeshes(instances);
+        combinedMesh.RecalculateBounds();
+        combinedMesh.OptimizeIndexBuffers();
         actualweapon.GetComponent<MeshFilter>().sharedMesh = combinedMesh;
         actualweapon.GetComponent<MeshRenderer>().material = materialforprefab;
         actualweapon.SetActive(true);
         Vector3[] objectVerts = actualweapon.GetComponent<MeshFilter>().sharedMesh.vertices;
         Vector3 offset = Vector3.zero;
-        for (int i = 0; i < objectVerts.Length; i++)
-        {
-            offset += objectVerts[i];
-        }
-        offset = offset / objectVerts.Length;
 
+        offset = actualweapon.transform.position - actualweapon.transform.TransformPoint(combinedMesh.bounds.center);
 
-        //for (int i = 0; i < objectVerts.Length; i++)
-        //{
-        //    objectVerts[i] -= offset/2;
-        //}
-
+        actualweapon.transform.position = Vector3.zero;
         print(offset);
-
         offsetempty.transform.Rotate(0, 0, 180);
-        offsetempty.transform.localPosition = new Vector3(0, 0.38f, 0);
+        offsetempty.transform.localPosition = new Vector3(0, combinedMesh.bounds.extents.x/2, 0);
 
         emptytransform.Rotate(0, 0, 90);
-        actualweapon.transform.localPosition = -offset / 2;
+        actualweapon.transform.localPosition = offset;
+        
         actualweapon.transform.localRotation= Quaternion.identity;
-
+        fabricatedprefabmesh = combinedMesh;
         //offsetempty.transform.localPosition = new Vector3(0, -0.5f, 0);
         return meshoffsetempty;
     }
