@@ -11,9 +11,10 @@ using static UnityEngine.InputSystem.LowLevel.InputStateHistory;
 public class Chemist: EnemyAll
 {
     [Header("Все Префабы")]
-    public GameObject projectileprefab;
-    public GameObject lingerPrefab;
-    public GameObject molotovprefab;
+    [SerializeField] GameObject projectileprefab;
+    [SerializeField] GameObject lingerPrefab;
+    [SerializeField] GameObject molotovprefab;
+    [SerializeField] ChemistStats stats;
 
     private float MolotovReload;
     private float MolotovDamage;
@@ -30,18 +31,18 @@ public class Chemist: EnemyAll
     [SerializeField] private float MolotovHitTimer = 0.5f;
     [SerializeField] private float MolotovArcHeight = 3.5f;
 
-    public override void Initialize(EnemyStats data)
+    public override void Initialize()
     {
-        base.Initialize(data);
-        MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
-        Damage = data.baseDamage * MainScale * DifficultyScale;
-        MolotovDamage = data.baseChemistMolotovDamage * DifficultyScale;
-        Speed = data.baseSpeed * SpeedScale;
-        AttackDuration = data.baseAttackDuration * SpeedScale;
-        MolotovReload = data.baseChemistMolotovReload * SpeedScale;
-        attackCooldown = data.baseAttackCooldown * SpeedScale;
-        attackDistance = data.baseAttackDistance * DistanceScale;
-        PushForce = data.basePushForce;
+        base.Initialize();
+        MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
+        Damage = stats.baseDamage * MainScale * DifficultyScale;
+        MolotovDamage = stats.baseChemistMolotovDamage * DifficultyScale;
+        Speed = stats.baseSpeed * SpeedScale;
+        AttackDuration = stats.baseAttackDuration * SpeedScale;
+        MolotovReload = stats.baseChemistMolotovReload * SpeedScale;
+        attackCooldown = stats.baseAttackCooldown * SpeedScale;
+        attackDistance = stats.baseAttackDistance * DistanceScale;
+        PushForce = stats.basePushForce;
     }
 
     private void Update()

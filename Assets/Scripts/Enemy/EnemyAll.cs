@@ -18,7 +18,7 @@ public class EnemyAll: Entity
 
     public NavMeshAgent agent;
 
-    public virtual void Initialize(EnemyStats data)
+    public virtual void Initialize()
     {
         DifficultyScale = DifficultyTimer.Instance.DifficultyFactor;
     }

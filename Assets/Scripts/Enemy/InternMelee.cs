@@ -10,17 +10,18 @@ public class InternMelee : EnemyAll
     [SerializeField] float MainScale = 0.1f;
     [SerializeField] float SpeedScale = 1.1f;
     [SerializeField] float DistanceScale = 1f;
+    [SerializeField] EnemyStats stats;
 
-    public override void Initialize(EnemyStats data)
+    public override void Initialize()
     {
-        base.Initialize(data);
-        MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
-        Damage = data.baseDamage * MainScale * DifficultyScale;
-        Speed = data.baseSpeed * SpeedScale;
-        AttackDuration = data.baseAttackDuration * SpeedScale;
-        attackCooldown = data.baseAttackCooldown * SpeedScale;
-        attackDistance = data.baseAttackDistance * DistanceScale;
-        PushForce = data.basePushForce;
+        base.Initialize();
+        MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
+        Damage = stats.baseDamage * MainScale * DifficultyScale;
+        Speed = stats.baseSpeed * SpeedScale;
+        AttackDuration = stats.baseAttackDuration * SpeedScale;
+        attackCooldown = stats.baseAttackCooldown * SpeedScale;
+        attackDistance = stats.baseAttackDistance * DistanceScale;
+        PushForce = stats.basePushForce;
     }
 
     void Update()

@@ -7,8 +7,9 @@ using UnityEngine;
 public class Mathematician : EnemyAll
 {
     [Header("Все Префабы")]
-    public GameObject areaVisual;
-    public GameObject projectileprefab;
+    [SerializeField] GameObject areaVisual;
+    [SerializeField] GameObject projectileprefab;
+    [SerializeField] MathematicianStats stats;
 
     [Header("Увеличение статов по сравнению с базовыми")]
     [SerializeField] float MainScale = 0.8f;
@@ -30,22 +31,22 @@ public class Mathematician : EnemyAll
     protected internal bool DivisioByZeroReady = true;
 
 
-    public override void Initialize(EnemyStats data)
+    public override void Initialize()
     {
-        base.Initialize(data);
-        MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
-        Damage = data.baseDamage * MainScale * DifficultyScale;
-        DamageDivisionByZero = data.baseMathematicianDivisionDamage * DifficultyScale;
-        ArithmeticDamage = data.baseMathematicianArithmeticDamage * DifficultyScale;
-        ArithmeticDamageIncrease = data.baseMathematicianArithmeticDamageIncrease * DifficultyScale;
-        Speed = data.baseSpeed * SpeedScale;
-        AttackDuration = data.baseAttackDuration * SpeedScale;
-        ReloadArithmetic = data.baseMathematicianArithmeticReload * SpeedScale;
-        DelayBeforeDivisionByZero = data.baseMathematicianDivisionDelay * SpeedScale;
-        ReloadDivisionByZero = data.baseMathematicianDivisionReload * SpeedScale;
-        attackCooldown = data.baseAttackCooldown * SpeedScale;
-        attackDistance = data.baseAttackDistance * DistanceScale;
-        PushForce = data.basePushForce;
+        base.Initialize();
+        MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
+        Damage = stats.baseDamage * MainScale * DifficultyScale;
+        DamageDivisionByZero = stats.baseMathematicianDivisionDamage * DifficultyScale;
+        ArithmeticDamage = stats.baseMathematicianArithmeticDamage * DifficultyScale;
+        ArithmeticDamageIncrease = stats.baseMathematicianArithmeticDamageIncrease * DifficultyScale;
+        Speed = stats.baseSpeed * SpeedScale;
+        AttackDuration = stats.baseAttackDuration * SpeedScale;
+        ReloadArithmetic = stats.baseMathematicianArithmeticReload * SpeedScale;
+        DelayBeforeDivisionByZero = stats.baseMathematicianDivisionDelay * SpeedScale;
+        ReloadDivisionByZero = stats.baseMathematicianDivisionReload * SpeedScale;
+        attackCooldown = stats.baseAttackCooldown * SpeedScale;
+        attackDistance = stats.baseAttackDistance * DistanceScale;
+        PushForce = stats.basePushForce;
     }
     protected override void Start()
     {

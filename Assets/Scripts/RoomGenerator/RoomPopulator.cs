@@ -61,7 +61,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
                     GameObject spawnedEnemy = Instantiate(Obstacle, newOffset, Quaternion.identity);
                     if (spawnedEnemy.TryGetComponent<EnemyAll>(out EnemyAll enemyScript))
                     {
-                        enemyScript.Initialize(enemyStats);
+                        enemyScript.Initialize();
                     }
                     currentPointPool -= PointsToSubstract;
                     lastspawntime = time;
