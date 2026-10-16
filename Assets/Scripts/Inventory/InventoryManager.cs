@@ -1,74 +1,42 @@
+using NUnit.Framework.Interfaces;
+using NUnit.Framework.Internal.Execution;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryManager: MonoBehaviour
 {
-    [Header("UI Panels")]
-    public Transform inventoryPanel;
-    public GameObject uiPanel; 
 
     [Header("Inventory Logic")]
-    public List<InventorySlot> slots = new List<InventorySlot>();
-
-    private bool isOpen = false;
-
-    private void Awake()
-    {
-        for (int i = 0; i < inventoryPanel.childCount; i++)
-        {
-            InventorySlot slot = inventoryPanel.GetChild(i).GetComponent<InventorySlot>();
-            if (slot != null)
-            {
-                slots.Add(slot);
-            }
-        }
-
-        uiPanel.SetActive(false);
-    }
+    public int numberOfSlots = 10;
+    private List<InventorySlot> slots = new List<InventorySlot>();
+    public float pickupRadius = 1f;
+    public LayerMask itemLayer;
+    public float checkInteval = 0.2f;
+    private float nextCheckTime = 0f;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Time.time >= nextCheckTime)
         {
-            isOpen = !isOpen;
-            uiPanel.SetActive(isOpen);
+            nextCheckTime = Time.time + checkInteval;
+            Collider[] itemsCount = Physics.OverlapSphere(transform.position, pickupRadius, itemLayer);
+
+            foreach (Collider item in itemsCount)
+            {
+                if (item.TryGetComponent<Item>(out var pickupableItem))
+                {
+                    AddItem(pickupableItem.itemData);
+                    Destroy(pickupableItem.gameObject);
+                }
+            }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void AddItem(ItemScriptableObject _item)
     {
-        Item itemScript = other.GetComponent<Item>();
-
-        if (itemScript != null)
+        if (slots.Count < numberOfSlots)
         {
-            AddItem(itemScript.item, itemScript.amount);
-
-            Destroy(other.gameObject);
-
-            Debug.Log("Предмет успешно автоподобран: " + itemScript.item.itemName);
-        }
-    }
-    private void AddItem(ItemScriptableObject _item, int _amount)
-    {
-        foreach (InventorySlot slot in slots)
-        {
-            if (slot.item == _item)
-            {
-                slot.amount += _amount;
-                return;
-            }
-        }
-
-        foreach (InventorySlot slot in slots)
-        {
-            if (slot.isEmpty)
-            {
-                slot.item = _item;
-                slot.amount = _amount;
-                slot.isEmpty = false;
-
-                return;
-            }
+            slots.Add(new InventorySlot(_item));
         }
     }
 }
