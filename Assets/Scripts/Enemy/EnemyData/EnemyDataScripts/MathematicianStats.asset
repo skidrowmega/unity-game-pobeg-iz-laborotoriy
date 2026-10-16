@@ -9,25 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c0deec181cb0c94eb78c7b5e5891483, type: 3}
-  m_Name: EnemyStats
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyStats
-  baseHP: 100
-  baseDamage: 100
-  baseSpeed: 1
+  m_Script: {fileID: 11500000, guid: 3bde84367d261d54aa0c940ca38191b1, type: 3}
+  m_Name: MathematicianStats
+  m_EditorClassIdentifier: Assembly-CSharp::MathematicianStats
+  baseHP: 10
+  baseDamage: 10
+  baseSpeed: 5
   baseAttackDuration: 1
   baseAttackDistance: 1
   baseStopDistance: 1
-  basePushForce: 1
-  baseAttackCooldown: 1
-  basePhysicistPushDamage: 5
-  basePhysicistStanDamage: 10
-  basePhysicistPushReload: 5
-  basePhysicistStanReload: 7
-  basePhysicistPushPushForce: 1
-  basePhysicistStanStanTime: 0.5
-  baseChemistMolotovReload: 4
-  baseChemistMolotovDamage: 3
+  basePushForce: 0
+  baseAttackCooldown: 1.5
   baseMathematicianArithmeticDamage: 2
   baseMathematicianDivisionDamage: 20
   baseMathematicianArithmeticReload: 3

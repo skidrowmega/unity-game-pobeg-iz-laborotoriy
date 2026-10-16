@@ -6,9 +6,10 @@ using UnityEngine;
 public class Physicist: EnemyAll
 {
     [Header("Все Префабы")]
-    public GameObject projectileprefab;
-    public GameObject areaVisual;
-    public GameObject CubeVisual;
+    [SerializeField] GameObject projectileprefab;
+    [SerializeField] GameObject areaVisual;
+    [SerializeField] GameObject CubeVisual;
+    [SerializeField] PhysicistStats stats;
 
     [Header("Увеличение статов по сравнению с базовыми")]
     [SerializeField] float MainScale = 1f;
@@ -33,21 +34,21 @@ public class Physicist: EnemyAll
     [SerializeField] float GravPushFireTime = 0.5f;
     [SerializeField] float nextAttackGravTime = 0f;
 
-    public override void Initialize(EnemyStats data)
+    public override void Initialize()
     {
-        base.Initialize(data);
-        MaxHealthpoints = data.baseHP * MainScale * DifficultyScale;
-        Damage = data.baseDamage * MainScale * DifficultyScale;
-        DamageStan = data.baseDamage * DifficultyScale;
-        DmgGravPush = data.baseDamage * DifficultyScale;
-        Speed = data.baseSpeed * SpeedScale;
-        AttackDuration = data.baseAttackDuration * SpeedScale;
-        attackCooldown = data.baseAttackCooldown * SpeedScale;
-        ReloadStan = data.basePhysicistStanReload * SpeedScale;
-        ReloadGrav = data.basePhysicistPushReload * SpeedScale;
-        attackDistance = data.baseAttackDistance * DistanceScale;
-        GravPushStrength = data.basePhysicistPushPushForce;
-        StanTime = data.basePhysicistStanStanTime;
+        base.Initialize();
+        MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
+        Damage = stats.baseDamage * MainScale * DifficultyScale;
+        DamageStan = stats.baseDamage * DifficultyScale;
+        DmgGravPush = stats.baseDamage * DifficultyScale;
+        Speed = stats.baseSpeed * SpeedScale;
+        AttackDuration = stats.baseAttackDuration * SpeedScale;
+        attackCooldown = stats.baseAttackCooldown * SpeedScale;
+        ReloadStan = stats.basePhysicistStanReload * SpeedScale;
+        ReloadGrav = stats.basePhysicistPushReload * SpeedScale;
+        attackDistance = stats.baseAttackDistance * DistanceScale;
+        GravPushStrength = stats.basePhysicistPushPushForce;
+        StanTime = stats.basePhysicistStanStanTime;
     }
 
     private void Update()

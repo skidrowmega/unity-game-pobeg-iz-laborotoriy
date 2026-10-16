@@ -625,13 +625,13 @@ MonoBehaviour:
   Speed: 5
   IsStunned: 0
   IsBeingPushed: 0
+  animator: {fileID: 0}
   rotationSpeed: 500
-  Damage: 5
-  Reload: 1
-  attackDistance: 1.5
-  attackCooldown: 1.5
-  stopDistance: 1
-  PushForce: 0
+  agent: {fileID: 0}
+  MainScale: 0.1
+  SpeedScale: 1.1
+  DistanceScale: 1
+  stats: {fileID: 11400000, guid: be5615d9fcac65d45a5cdfd0aac21e10, type: 2}
 --- !u!195 &3746250145154325500
 NavMeshAgent:
   m_ObjectHideFlags: 0

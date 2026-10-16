@@ -103,6 +103,7 @@ MonoBehaviour:
   projectileprefab: {fileID: 5669884756835510007, guid: 5542a33396c85ed49adbe1ed38402f9a, type: 3}
   areaVisual: {fileID: 8631068409102593951, guid: 076d6b1ed4b40f7439e73036f0beb651, type: 3}
   CubeVisual: {fileID: 7832439558275054108, guid: 50629b8148c51e94aa2c32bd9234a9b9, type: 3}
+  stats: {fileID: 11400000, guid: bb4880838933322448f8a22883abdf38, type: 2}
   MainScale: 1
   SpeedScale: 0.9
   DistanceScale: 8

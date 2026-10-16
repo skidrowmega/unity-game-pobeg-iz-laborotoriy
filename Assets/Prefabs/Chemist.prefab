@@ -76,9 +76,11 @@ MonoBehaviour:
   IsBeingPushed: 0
   animator: {fileID: 0}
   rotationSpeed: 5
+  agent: {fileID: 0}
   projectileprefab: {fileID: 5669884756835510007, guid: 5542a33396c85ed49adbe1ed38402f9a, type: 3}
   lingerPrefab: {fileID: 8631068409102593951, guid: e2de406876a5b1b419056a0dd229828f, type: 3}
   molotovprefab: {fileID: 7677711044062466734, guid: 3d349b1472ee23a48844c44e3c64b747, type: 3}
+  stats: {fileID: 11400000, guid: d8d2ade4543d8dc4e81fa1b1de01fff3, type: 2}
   MainScale: 1
   SpeedScale: 1
   DistanceScale: 10
