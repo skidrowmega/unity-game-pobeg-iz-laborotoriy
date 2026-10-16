@@ -5,7 +5,7 @@ public class GunWeapon : WeaponRanged
     [SerializeField] WeaponRangedStats statsonbreak;
     [SerializeField] GameObject tempNewWeapon;
     [SerializeField] WeaponRangedStats tempstats;
-
+    public gunsound gunsound;
     public GunWeapon()
     {
         WeaponName = "Pistol";
@@ -51,6 +51,18 @@ public class GunWeapon : WeaponRanged
         {
             IsUsable = false;
             BreakWeapon();
+        }
+        if (gunsound)
+        {
+            gunsound.PlaySound();
+        }
+        else
+        {
+            gunsound = GetComponentInChildren<gunsound>();
+            if (gunsound)
+            {
+                gunsound.PlaySound();
+            }
         }
         Projectile bullet = projectileprefab.GetComponent<Projectile>();
         bullet.direction = Direction;
