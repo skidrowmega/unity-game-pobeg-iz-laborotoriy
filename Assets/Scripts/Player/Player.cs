@@ -308,6 +308,12 @@ public class Player : Entity
             else
                 newdodgedistance = ((hit.point - (ray.direction*.7f)) - ray.origin).magnitude;
         }
+        print(newdodgedistance);
+        if (newdodgedistance == 0)
+        {
+            DodgeStop();
+            yield break;
+        }
         animator.SetFloat("dodgeSpeedMultiplier", 1/(DodgeTime*newdodgedistance/DodgeDistance));
         secondstowait = secondstowait * newdodgedistance / DodgeDistance;
         Vector3 newdir = new Vector3(Direction.x, 0, Direction.y).normalized;
@@ -346,6 +352,7 @@ public class Player : Entity
     {
         IsDodging = false;
         animator.SetBool("isDodging", false);
+        animator.Play("Bober_stand");
         StopCoroutine("DodgeLoop");
         EndDodge();
     }
@@ -354,6 +361,7 @@ public class Player : Entity
     {
         IsDodging = false;
         animator.SetBool("isDodging", false);
+        animator.Play("Bober_stand");
         DodgeReady = false;
         Invoke(nameof(ReloadDodge), DodgeCooldown);
     }
