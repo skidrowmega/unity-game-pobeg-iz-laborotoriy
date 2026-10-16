@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.AI;
+using UnityEditor;
 
 public enum DamageType
 {
@@ -74,17 +75,42 @@ public class Entity : MonoBehaviour
     IEnumerator PushCoroutine(Vector3 source, float pushstrength)
     {
         float timewasted = 0;
-        Vector3 pushdirection = (transform.position - source).normalized;
+
         Vector3 startposition = transform.position;
+
+        source.y = startposition.y;
+
+        Vector3 pushdirection = (startposition - source).normalized;
+        
+
+
+
+
+        Ray ray = new Ray(startposition, pushdirection);
+        RaycastHit hit;
+        bool ishit = Physics.Raycast(ray, out hit, pushstrength);
+        Debug.DrawRay(startposition, pushdirection*pushstrength);
+        
+        float newpushstrength = 0;
+
+        if (ishit)
+        {
+            //newdodgedistance = ((hit.point - (ray.direction * 0.5f)) - ray.origin).magnitude;
+            if (hit.distance < 0.5) newpushstrength = 0;
+            else
+                newpushstrength = ((hit.point - (ray.direction * .7f)) - ray.origin).magnitude;
+        }
+        if (newpushstrength>0) pushstrength = newpushstrength;
         Vector3 destination = pushdirection * pushstrength + startposition;
-        destination.y=startposition.y;
+
+
         while (timewasted < GlobalPushTime)
         {
             transform.position=Vector3.Lerp(startposition,destination, timewasted/GlobalPushTime);
             timewasted += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
-        print(timewasted);
+        //print(timewasted);
         //transform.position = destination;
         PushStop();
     }
