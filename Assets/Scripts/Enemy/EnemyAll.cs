@@ -20,7 +20,9 @@ public class EnemyAll: Entity
 
     public virtual void Initialize()
     {
-        DifficultyScale = DifficultyTimer.Instance.DifficultyFactor;
+        if (DifficultyTimer.Instance != null)
+            DifficultyScale = DifficultyTimer.Instance.DifficultyFactor;
+        else DifficultyScale = 1;
     }
     protected virtual void Start()
     {
