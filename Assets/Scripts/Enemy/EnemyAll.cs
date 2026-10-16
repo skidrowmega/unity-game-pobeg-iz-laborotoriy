@@ -26,6 +26,7 @@ public class EnemyAll: Entity
     }
     protected virtual void Start()
     {
+        Initialize();
         player = Player.player;
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();

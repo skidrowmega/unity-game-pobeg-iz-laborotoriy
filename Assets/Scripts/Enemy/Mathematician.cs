@@ -48,10 +48,7 @@ public class Mathematician : EnemyAll
         attackDistance = stats.baseAttackDistance * DistanceScale;
         PushForce = stats.basePushForce;
     }
-    protected override void Start()
-    {
-        base.Start();
-    }
+
     private void Update()
     {
         distanceToPlayer = (player.transform.position - transform.position).magnitude;
