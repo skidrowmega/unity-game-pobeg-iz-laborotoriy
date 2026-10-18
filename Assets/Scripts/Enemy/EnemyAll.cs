@@ -16,8 +16,6 @@ public class EnemyAll: Entity
     protected float distanceToPlayer;
     protected float DifficultyScale;
 
-    public NavMeshAgent agent;
-
     public virtual void Initialize()
     {
         if (DifficultyTimer.Instance != null)
