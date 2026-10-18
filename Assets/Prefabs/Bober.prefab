@@ -279,7 +279,7 @@ MonoBehaviour:
   DodgeTime: 0.4
   MaxGrenades: 3
   GrenadesAvailable: 3
-  grenadeprefab: {fileID: 0}
+  grenadeprefab: {fileID: 7677711044062466734, guid: 3d349b1472ee23a48844c44e3c64b747, type: 3}
   BasicFlightTime: 1
   GrenadeArcHeight: 3.5
   GrenadeExplosionRadius: 3
