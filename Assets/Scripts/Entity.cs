@@ -20,7 +20,7 @@ public class Entity : MonoBehaviour
     public float Speed = 0.005f;
     public bool IsStunned = false;
     public bool IsBeingPushed = false;
-    public const float GlobalPushTime = 0.2f;
+    public static readonly float GlobalPushTime = 0.2f;
 
     NavMeshAgent agent;
 
@@ -43,7 +43,7 @@ public class Entity : MonoBehaviour
         }
         if (pushstrength > 0)
         {
-            StunTime = GlobalPushTime;
+            StunTime = Entity.GlobalPushTime;
         }
         if (StunTime > 0)
         {
@@ -104,9 +104,9 @@ public class Entity : MonoBehaviour
         Vector3 destination = pushdirection * pushstrength + startposition;
 
 
-        while (timewasted < GlobalPushTime)
+        while (timewasted < Entity.GlobalPushTime)
         {
-            transform.position=Vector3.Lerp(startposition,destination, timewasted/GlobalPushTime);
+            transform.position=Vector3.Lerp(startposition,destination, timewasted/(Entity.GlobalPushTime));
             timewasted += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
