@@ -218,6 +218,13 @@ public class Player : Entity
     public void DoGrenadeThrow()
     {
         GrenadesAvailable--;
+        animator.Play("Granade");
+        Invoke(nameof(SpawnGranade), 1f);
+    }
+
+    private void SpawnGranade() 
+    {
+        if (IsStunned) return;
         StartCoroutine(GrenadeBehavior());
     }
 
