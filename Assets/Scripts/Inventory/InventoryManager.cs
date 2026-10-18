@@ -51,13 +51,18 @@ public class InventoryManager: MonoBehaviour
             GameObject slotObject = slotImage.gameObject;
             EventTrigger trigger = slotObject.GetComponent<EventTrigger>();
 
-            EventTrigger.Entry entry = new EventTrigger.Entry();
+            EventTrigger.Entry entryDrag = new EventTrigger.Entry();
 
-            entry.eventID = EventTriggerType.Drag;
+            entryDrag.eventID = EventTriggerType.Drag;
 
-            entry.callback.AddListener((data) => OnDrag((PointerEventData)data));
+            entryDrag.callback.AddListener((data) => OnDrag((PointerEventData)data));
 
-            trigger.triggers.Add(entry);
+            EventTrigger.Entry entryPointerDown = new EventTrigger.Entry();
+            entryPointerDown.eventID= EventTriggerType.PointerDown;
+            entryPointerDown.callback.AddListener((data) => OnPointerDown((PointerEventData)data));
+
+            trigger.triggers.Add(entryDrag);
+            trigger.triggers.Add(entryPointerDown);
         }
     }
 
@@ -90,13 +95,29 @@ public class InventoryManager: MonoBehaviour
     }
 
 
+
+    bool isDragging = false;
+    Vector2Int dragStartIndex;
+
+    public void OnPointerDown(PointerEventData data)
+    {
+        if (data.button == PointerEventData.InputButton.Left)
+        {
+
+        }
+        if (data.button == PointerEventData.InputButton.Right)
+        {
+            isDragging = true;
+
+        }
+    }
+
+
     public void OnDrag(PointerEventData data)
     {
-        if (data.button != PointerEventData.InputButton.Right) return;
-        Vector2Int index = ObjectToIndex(data.pointerCurrentRaycast.gameObject);
+        if (!isDragging && data.button != PointerEventData.InputButton.Right&& !data.pointerCurrentRaycast.gameObject) return;
+        Vector2Int index = SlotObjectToSlotIndex(data.pointerCurrentRaycast.gameObject);
         print(index);
-
-
     }
 
     public void ThrowItem(Vector2Int itemIndex,Vector3 position)
@@ -107,9 +128,12 @@ public class InventoryManager: MonoBehaviour
         UpdateImages();
     }
 
-    private Vector2Int ObjectToIndex(GameObject gameObject)
+    private Vector2Int SlotObjectToSlotIndex(GameObject gameObject)
     {
-        Image image = gameObject.GetComponent<Image>();
+        Image image=null;
+        if(gameObject != null)
+            image = gameObject.GetComponent<Image>();
+        if (image == null) return new Vector2Int(-1, -1);
         for (int y = 0; y < inventorydimensions.y; y++)
         {
             for (int x = 0; x < inventorydimensions.x; x++)
@@ -117,7 +141,7 @@ public class InventoryManager: MonoBehaviour
                 if (image == inventoryImageSlots[x, y]) return new Vector2Int(x, y);
             }
         }
-        return new Vector2Int();
+        return new Vector2Int(-1,-1);
     }
 
 
