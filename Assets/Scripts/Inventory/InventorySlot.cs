@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
-public class InventorySlot: MonoBehaviour
+[Serializable]
+public class InventorySlot
 {
-    public ItemScriptableObject itemDataSlot;
-    //public int amount;
-    //public bool isEmpty = true;
-
-    public InventorySlot(ItemScriptableObject _item)
-    {
-        itemDataSlot = _item;
-    }
+    [SerializeField] public ItemScriptableObject itemDataSlot;
+    [SerializeField] public bool isEmpty = true;
 }
