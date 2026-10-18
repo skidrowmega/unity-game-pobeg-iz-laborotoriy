@@ -22,7 +22,7 @@ public class Entity : MonoBehaviour
     public bool IsBeingPushed = false;
     public static readonly float GlobalPushTime = 0.2f;
 
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
 
     private void Awake()
     {
