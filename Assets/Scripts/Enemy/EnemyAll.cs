@@ -18,9 +18,7 @@ public class EnemyAll: Entity
 
     public virtual void Initialize()
     {
-        if (DifficultyTimer.Instance != null)
-            DifficultyScale = DifficultyTimer.Instance.DifficultyFactor;
-        else DifficultyScale = 1;
+        DifficultyScale = GameManager.Instance.DifficultyFactor;
     }
     protected virtual void Start()
     {

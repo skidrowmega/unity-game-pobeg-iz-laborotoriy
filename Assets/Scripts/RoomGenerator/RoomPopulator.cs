@@ -39,7 +39,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
 
     protected void Update()
     {
-        time = DifficultyTimer.Instance.GameTime;
+        time = GameManager.Instance.GameTime;
 
         if (!cantDeleteWeakEnemy && time - lastDeleteWeakEnemy >= timeToDeleteWeakEnemy)
         {
@@ -54,7 +54,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
 
         if (Time.time - lastspawntime > TimeUntilSpawn)
         {
-            difficultyMulPointPool = DifficultyTimer.Instance.DifficultyFactor;
+            difficultyMulPointPool = GameManager.Instance.DifficultyFactor;
             SpawnForPoints();
             currentPointPool = (int)(basePointPool + difficultyMulPointPool);
         }
