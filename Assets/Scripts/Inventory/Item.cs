@@ -45,6 +45,7 @@ public class Item: MonoBehaviour
     public static Item SpawnItem(ItemScriptableObject itemData, Vector3 position)
     {
         Item _item = Instantiate(itemData.itemprefab,position,Quaternion.identity).GetComponent<Item>();
+        print(_item.name);
         _item.itemData=itemData;
         return _item;
     }

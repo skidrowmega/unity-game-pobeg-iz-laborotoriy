@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569d2c9a0eb6a69449a20d6d03cb93c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemData: {fileID: 11400000, guid: 5a19e2576ab87b340b08d9d795679a11, type: 2}
+  itemData: {fileID: 11400000, guid: c13358c8978085048803375719eac9f0, type: 2}
 --- !u!33 &331892508079378717
 MeshFilter:
   m_ObjectHideFlags: 0

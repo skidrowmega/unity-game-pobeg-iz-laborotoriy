@@ -13,6 +13,7 @@ public class InventoryManager: MonoBehaviour
     //public int numberOfSlots = 10;
     private InventorySlot[,] inventorySlots;
     [SerializeField] private GameObject slotsParent;
+
     Image[,] inventoryImageSlots;
 
     [SerializeField] private Vector2Int inventorydimensions=new Vector2Int(5,2);
@@ -20,7 +21,7 @@ public class InventoryManager: MonoBehaviour
 
     
     //public LayerMask itemLayer;
-    public static float pickupRadius = 3f;
+    public static float pickupRadius = 1f;
     //public float checkInteval = 0.2f;
     //private float nextCheckTime = 0f;
 
@@ -33,11 +34,8 @@ public class InventoryManager: MonoBehaviour
     float slotwidth=-1;
 
 
-    Canvas canvas;
-
     private void Awake()
     {
-        canvas =gameObject.transform.parent.GetComponent<Canvas>();
         instance = this;
         inventorySlots = new InventorySlot[inventorydimensions.x, inventorydimensions.y];
         Image[] tempimage = slotsParent.GetComponentsInChildren<Image>();
@@ -88,6 +86,7 @@ public class InventoryManager: MonoBehaviour
     private void Update()
     {
         DoDrag();
+        ShowInventory();
     }
 
     public void AddItem(ItemScriptableObject _item)
@@ -147,17 +146,24 @@ public class InventoryManager: MonoBehaviour
             {
 
                 Vector2Int swapindex = PosToSlotObject(data.position);
-                
+                if(swapindex==new Vector2Int(-1, -1))
+                {
+                    ThrowItem(dragStartIndex, Player.player.transform.position +Player.player.transform.right*pickupRadius*1.5f);
+                    isDragging = false;
+                    beingdragged.position = startposition;
+                }
+                else
                 if (swapindex != dragStartIndex)
                 {
                     isDragging = false;
                     beingdragged.position = startposition;
-                    swapitems(dragStartIndex,swapindex);
+                    swapitems(dragStartIndex, swapindex);
                 }
-                else if(swapindex==dragStartIndex)
+                else
+                if (swapindex == dragStartIndex)
                 {
-                    isDragging =false;
-                    beingdragged.position =startposition;
+                    isDragging = false;
+                    beingdragged.position = startposition;
                 }
             }
             
@@ -184,8 +190,8 @@ public class InventoryManager: MonoBehaviour
     public void ThrowItem(Vector2Int itemIndex,Vector3 position)
     {
         InventorySlot item = inventorySlots[itemIndex.x,itemIndex.y];
-        inventorySlots[itemIndex.x, itemIndex.y] = new InventorySlot();
         Item.SpawnItem(item.itemDataSlot, position);
+        inventorySlots[itemIndex.x, itemIndex.y] = new InventorySlot();
         UpdateImages();
     }
 
@@ -193,6 +199,19 @@ public class InventoryManager: MonoBehaviour
     {
         inventorySlots[index.x,index.y].itemDataSlot=null;
         inventorySlots[index.x, index.y].isEmpty = true;
+    }
+
+    void ShowInventory()
+    {
+        if (Input.GetKey(KeyCode.Tab)&&!slotsParent.transform.parent.gameObject.activeSelf)
+        {
+            slotsParent.transform.parent.gameObject.SetActive(true);
+
+        }else if (!Input.GetKey(KeyCode.Tab)&&slotsParent.transform.parent.gameObject.activeSelf)
+        {
+            slotsParent.transform.parent.gameObject.SetActive(false);
+
+        }
     }
 
     public void RemoveItem(string item_name)
@@ -228,6 +247,10 @@ public class InventoryManager: MonoBehaviour
         Vector2 pointrange1 = new Vector2(-slotwidth/2,-slotheight/2);
         Vector2 pointrange2 = new Vector2(slotwidth/2,slotheight/2);
         int count = 0;
+        if(PointInRangeCheck(position, (Vector2)DropButton.position+pointrange1, (Vector2)DropButton.position + pointrange2))
+        {
+            return new Vector2Int(10, 10);
+        }
         for (int y = 0; y < inventorydimensions.y; y++)
         {
             for (int x = 0; x < inventorydimensions.x; x++)
