@@ -16,8 +16,14 @@ public class GameManager: MonoBehaviour
 
     public static event Action<GameState> OnStateChanged;
 
+    [SerializeField] private float difficultyScale = 0.1f;
+    public float GameTime { get; private set; }
+    public float DifficultyFactor => GameTime * difficultyScale;
+
     private void Awake()
     {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -35,6 +41,7 @@ public class GameManager: MonoBehaviour
 
     void Update()
     {
+        GameTime += Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (CurrentState == GameState.Playing)
@@ -100,11 +107,13 @@ public class GameManager: MonoBehaviour
 
     private void HandleVictory()
     {
+        Time.timeScale = 0f;
         Debug.Log("Победа!");
     }
 
     private void HandleMainMenu()
     {
+        Time.timeScale = 0f;
     }
 
     private void HandleLoading()
