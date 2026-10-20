@@ -35,6 +35,7 @@ public class Player : Entity
         player = this;
         animator= GetComponentInChildren<Animator>();
         lastparry = -parrycooldown;
+        DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
