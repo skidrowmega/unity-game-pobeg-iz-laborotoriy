@@ -16,7 +16,7 @@ public class UIManager: MonoBehaviour
         spawnedCanvas.SetActive(true);
 
         mainMenuPanel = spawnedCanvas.transform.Find("Canvas/MainMenuPanel").gameObject;
-        //gameHUDPanel = spawnedCanvas.transform.Find("GameHUDPanel").gameObject;
+        gameHUDPanel = spawnedCanvas.transform.Find("Canvas/gameHUDPanel").gameObject;
         pausePanel = spawnedCanvas.transform.Find("Canvas/PausePanel").gameObject;
 
         Button playBtn = mainMenuPanel.transform.Find("PlayButton").GetComponent<Button>();
@@ -41,7 +41,7 @@ public class UIManager: MonoBehaviour
     {
         Debug.Log("Оно живое");
         mainMenuPanel.SetActive(false);
-        //gameHUDPanel.SetActive(false);
+        gameHUDPanel.SetActive(false);
         pausePanel.SetActive(false);
 
         switch (state)
@@ -49,9 +49,9 @@ public class UIManager: MonoBehaviour
             case GameManager.GameState.MainMenu:
                 mainMenuPanel.SetActive(true);
                 break;
-            /*case GameManager.GameState.Playing:
+            case GameManager.GameState.Playing:
                 gameHUDPanel.SetActive(true);
-                break;*/
+                break;
             case GameManager.GameState.Paused:
                 pausePanel.SetActive(true);
                 break;
