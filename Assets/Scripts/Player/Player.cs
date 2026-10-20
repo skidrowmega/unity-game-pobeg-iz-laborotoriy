@@ -22,8 +22,6 @@ public class Player : Entity
 
     public static Player player { get; private set; }
 
-    public int MaxGrenades = 3;
-    public int GrenadesAvailable = 3;
     [SerializeField] private GameObject grenadeprefab;
     [SerializeField] private float BasicFlightTime= 1f;
     [SerializeField] private float GrenadeArcHeight = 3.5f;
@@ -207,9 +205,10 @@ public class Player : Entity
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (GrenadesAvailable > 0)
+            if (InventoryManager.instance.ContainsItem("Grenade"))
             {
                 DoGrenadeThrow();
+                InventoryManager.instance.RemoveItem("Grenade");
             }
             
         }
