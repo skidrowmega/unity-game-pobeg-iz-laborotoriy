@@ -189,6 +189,39 @@ public class InventoryManager: MonoBehaviour
         UpdateImages();
     }
 
+    public void RemoveItem(Vector2Int index)
+    {
+        inventorySlots[index.x,index.y].itemDataSlot=null;
+        inventorySlots[index.x, index.y].isEmpty = true;
+    }
+
+    public void RemoveItem(string item_name)
+    {
+        for (int y = 0; y < inventorydimensions.y; y++)
+        {
+            for (int x = 0; x < inventorydimensions.x; x++)
+            {
+                if (inventorySlots[x,y].itemDataSlot.name == item_name)
+                {
+                    RemoveItem(new Vector2Int(x,y));
+                    return;
+                }
+            }
+        }
+    }
+
+    public bool ContainsItem(string item_name)
+    {
+        for (int y = 0; y < inventorydimensions.y; y++)
+        {
+            for (int x = 0; x < inventorydimensions.x; x++)
+            {
+                if (inventorySlots[x, y].itemDataSlot.itemName == item_name) return true;
+            }
+        }
+        return false;
+    }
+
     private Vector2Int PosToSlotObject(Vector3 position)
     {
         int slotsnumber = inventorydimensions.x * inventorydimensions.y;
@@ -244,11 +277,12 @@ public class InventoryManager: MonoBehaviour
                 if (!slot.isEmpty)
                 {
                     inventoryImageSlots[x, y].sprite = inventorySlots[x, y].itemDataSlot.ItemImage;
+                    inventoryImageSlots[x, y].color = new Color(1,1,1, 1);
                 }
                 else
                 {
                     inventoryImageSlots[x, y].sprite = emptybackground;
-                    //inventoryImageSlots[x, y].color = new Color(0,0,0, 0.3921569f);
+                    inventoryImageSlots[x, y].color = new Color(0,0,0, 0.3921569f);
                 }
             }
         }
