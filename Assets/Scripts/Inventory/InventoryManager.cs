@@ -167,12 +167,12 @@ public class InventoryManager: MonoBehaviour
         }
         if (data.button == PointerEventData.InputButton.Right)
         {
-            Vector2Int index = SlotObjectToSlotIndex(beingdragged.gameObject);
+            Vector2Int index = PosToSlotObject(data.position);
             if (index == new Vector2Int(-1, -1)) return;
             InventorySlot pressedslot = inventorySlots[index.x,index.y];
-
+            if (pressedslot.itemDataSlot.Consumedonuse) RemoveItem(index);
             pressedslot.itemDataSlot.OnUse();
-            RemoveItem(index);
+            
 
 
         }

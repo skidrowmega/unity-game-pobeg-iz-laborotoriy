@@ -15,6 +15,9 @@ public class ItemScriptableObject: ScriptableObject
 
     public virtual void OnUse()
     {
-
+        if (itemName == "Grenade")
+        {
+            Debug.Log("clicked RMB on grenade");
+        }
     }
 }
