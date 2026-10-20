@@ -1,14 +1,18 @@
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 using static UnityEngine.CullingGroup;
+
+
 
 public class GameManager: MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public enum GameState { MainMenu, Playing, Paused, GameOver, Victory, StartGame}
     public GameState CurrentState { get; private set; }
+
+    public enum GameState { MainMenu, Playing, Paused, GameOver, Victory, Loading, Inventory, Craft }
 
     public static event Action<GameState> OnStateChanged;
 
@@ -26,7 +30,7 @@ public class GameManager: MonoBehaviour
 
     private void Start()
     {
-        ChangeState(GameState.MainMenu);
+        LoadScene("MainMenuScene", GameState.MainMenu);
     }
 
     void Update()
@@ -47,7 +51,7 @@ public class GameManager: MonoBehaviour
     {
         CurrentState = newState;
 
-        switch (newState)
+        switch (CurrentState)
         {
             case GameState.MainMenu:
                 HandleMainMenu();
@@ -64,19 +68,20 @@ public class GameManager: MonoBehaviour
             case GameState.Victory:
                 HandleVictory();
                 break;
-            case GameState.StartGame:
-                HandleStartGame();
+            case GameState.Loading:
+                HandleLoading();
+                break;
+            case GameState.Inventory:
+                //HandleStartGame();
+                break;
+            case GameState.Craft:
+                //HandleStartGame();
                 break;
         }
 
-        OnStateChanged?.Invoke(newState);
+        OnStateChanged?.Invoke(CurrentState);
     }
 
-    private void HandleStartGame()
-    {
-        SceneManager.LoadScene("MainGeneration");
-        ChangeState(GameState.Playing);
-    }
     private void HandlePlaying()
     {
         Time.timeScale = 1f;
@@ -89,7 +94,8 @@ public class GameManager: MonoBehaviour
 
     private void HandleGameOver()
     {
-        Debug.Log("Игра окончена! Вы проиграли.");
+        Time.timeScale = 0f;
+        LoadScene("MainMenuScene", GameState.MainMenu, 5f);
     }
 
     private void HandleVictory()
@@ -99,13 +105,49 @@ public class GameManager: MonoBehaviour
 
     private void HandleMainMenu()
     {
-        SceneManager.LoadScene("MainMenuScene");
     }
 
-    public void RestartLevel()
+    private void HandleLoading()
     {
-        Scene currentScene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(currentScene.name);
-        ChangeState(GameState.Playing);
+        Time.timeScale = 0f;
+    }
+
+    private void HandleInventory()
+    {
+        Time.timeScale = 1f;
+    }
+
+    private void HandleCraft()
+    {
+        Time.timeScale = 1f;
+    }
+
+
+    /*    public void RestartLevel()
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.name);
+            ChangeState(GameState.Playing);
+        }*/
+
+    public void LoadScene(string sceneName, GameState scenestate, float delayInSeconds = 0f)
+    {
+        StartCoroutine(LoadSceneAsync(sceneName, scenestate, delayInSeconds));
+    }
+
+    private IEnumerator LoadSceneAsync(string sceneName, GameState scenestate, float delayInSeconds)
+    {
+        yield return new WaitForSecondsRealtime(delayInSeconds);
+        Instance.ChangeState(GameState.Loading);
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+
+        while (!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+            yield return null;
+        }
+        Instance.ChangeState(scenestate);
     }
 }
+

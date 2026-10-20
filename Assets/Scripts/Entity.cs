@@ -33,6 +33,7 @@ public class Entity : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
     public virtual void TakeDamage(float damage, Vector3 source ,Entity attacker, float pushstrength,DamageType damageType,float StunTime=0)
     {
         HealthPoints -= damage;

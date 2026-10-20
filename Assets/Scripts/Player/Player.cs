@@ -373,4 +373,9 @@ public class Player : Entity
         Invoke(nameof(ReloadDodge), DodgeCooldown);
     }
 
+    public override void Death()
+    {
+        base.Death();
+        GameManager.Instance.ChangeState(GameManager.GameState.GameOver);
+    }
 }
