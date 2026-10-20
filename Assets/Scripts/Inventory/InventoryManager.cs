@@ -235,7 +235,7 @@ public class InventoryManager: MonoBehaviour
         {
             for (int x = 0; x < inventorydimensions.x; x++)
             {
-                if (inventorySlots[x, y].itemDataSlot.itemName == item_name) return true;
+                if (!inventorySlots[x, y].isEmpty && inventorySlots[x, y].itemDataSlot.itemName == item_name) return true;
             }
         }
         return false;

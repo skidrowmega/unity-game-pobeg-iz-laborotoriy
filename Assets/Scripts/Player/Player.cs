@@ -208,7 +208,7 @@ public class Player : Entity
             if (InventoryManager.instance.ContainsItem("Grenade"))
             {
                 DoGrenadeThrow();
-                InventoryManager.instance.RemoveItem("Grenade");
+                
             }
             
         }
@@ -216,7 +216,7 @@ public class Player : Entity
 
     public void DoGrenadeThrow()
     {
-        GrenadesAvailable--;
+        InventoryManager.instance.RemoveItem("Grenade");
         animator.Play("Granade");
         Invoke(nameof(SpawnGranade), 1f);
     }
