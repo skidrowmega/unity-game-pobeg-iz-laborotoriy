@@ -247,10 +247,6 @@ public class InventoryManager: MonoBehaviour
         Vector2 pointrange1 = new Vector2(-slotwidth/2,-slotheight/2);
         Vector2 pointrange2 = new Vector2(slotwidth/2,slotheight/2);
         int count = 0;
-        if(PointInRangeCheck(position, (Vector2)DropButton.position+pointrange1, (Vector2)DropButton.position + pointrange2))
-        {
-            return new Vector2Int(10, 10);
-        }
         for (int y = 0; y < inventorydimensions.y; y++)
         {
             for (int x = 0; x < inventorydimensions.x; x++)
