@@ -5,7 +5,7 @@ public class ItemScriptableObject: ScriptableObject
 {
     public string itemName;
     public GameObject itemprefab;
-
+    public Sprite ItemImage;
 
     public virtual void OnPickup()
     {

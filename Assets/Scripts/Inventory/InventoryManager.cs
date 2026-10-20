@@ -3,6 +3,7 @@ using NUnit.Framework.Internal.Execution;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 
 public class InventoryManager: MonoBehaviour
@@ -25,11 +26,23 @@ public class InventoryManager: MonoBehaviour
 
     public static InventoryManager instance;
 
+
+
+    Vector3[] slotpositions;
+    float slotheight=-1;
+    float slotwidth=-1;
+
+
+    Canvas canvas;
+
     private void Awake()
     {
+        canvas =gameObject.transform.parent.GetComponent<Canvas>();
         instance = this;
         inventorySlots = new InventorySlot[inventorydimensions.x, inventorydimensions.y];
         Image[] tempimage = slotsParent.GetComponentsInChildren<Image>();
+        emptybackground = tempimage[0].sprite;
+        slotpositions = new Vector3[tempimage.Length];
         inventoryImageSlots = new  Image[inventorydimensions.x, inventorydimensions.y];
         int count = 0;
         for (int y = 0; y < inventorydimensions.y; y++)
@@ -37,11 +50,17 @@ public class InventoryManager: MonoBehaviour
             for (int x = 0; x < inventorydimensions.x; x++)
             {
                 inventoryImageSlots[x, y] = tempimage[count];
-                count++;
                 inventorySlots[x, y] = new InventorySlot();
+                slotpositions[count] = inventoryImageSlots[x, y].GetComponent<RectTransform>().position;
+                if (slotheight < 0)
+                {
+                    RectTransform rectTransform = inventoryImageSlots[x, y].GetComponent<RectTransform>();
+                    slotheight = rectTransform.sizeDelta.y;
+                    slotwidth = rectTransform.sizeDelta.x;
+                }
+                count++;
             }
         }
-
     }
 
     private void Start()
@@ -51,19 +70,24 @@ public class InventoryManager: MonoBehaviour
             GameObject slotObject = slotImage.gameObject;
             EventTrigger trigger = slotObject.GetComponent<EventTrigger>();
 
-            EventTrigger.Entry entryDrag = new EventTrigger.Entry();
+            //EventTrigger.Entry entryDrag = new EventTrigger.Entry();
 
-            entryDrag.eventID = EventTriggerType.Drag;
+            //entryDrag.eventID = EventTriggerType.Move;
 
-            entryDrag.callback.AddListener((data) => OnDrag((PointerEventData)data));
+            //entryDrag.callback.AddListener((data) => OnHover((PointerEventData)data));
 
             EventTrigger.Entry entryPointerDown = new EventTrigger.Entry();
             entryPointerDown.eventID= EventTriggerType.PointerDown;
             entryPointerDown.callback.AddListener((data) => OnPointerDown((PointerEventData)data));
 
-            trigger.triggers.Add(entryDrag);
+            //trigger.triggers.Add(entryDrag);
             trigger.triggers.Add(entryPointerDown);
         }
+    }
+
+    private void Update()
+    {
+        DoDrag();
     }
 
     public void AddItem(ItemScriptableObject _item)
@@ -98,27 +122,64 @@ public class InventoryManager: MonoBehaviour
 
     bool isDragging = false;
     Vector2Int dragStartIndex;
+    RectTransform beingdragged = null;
+    Vector3 startposition;
+    private Sprite emptybackground;
 
     public void OnPointerDown(PointerEventData data)
     {
         if (data.button == PointerEventData.InputButton.Left)
         {
 
+            if (!isDragging)
+            {
+                beingdragged = data.pointerCurrentRaycast.gameObject.GetComponent<RectTransform>();
+                dragStartIndex = SlotObjectToSlotIndex(beingdragged.gameObject);
+                if (inventorySlots[dragStartIndex.x,dragStartIndex.y].isEmpty) return;
+                beingdragged.transform.SetAsLastSibling();
+                if (dragStartIndex != new Vector2Int(-1, -1))
+                {
+                    isDragging = true;
+                    startposition = beingdragged.GetComponent<RectTransform>().position;
+                }
+            }
+            else
+            {
+
+                Vector2Int swapindex = PosToSlotObject(data.position);
+                
+                if (swapindex != dragStartIndex)
+                {
+                    isDragging = false;
+                    beingdragged.position = startposition;
+                    swapitems(dragStartIndex,swapindex);
+                }
+                else if(swapindex==dragStartIndex)
+                {
+                    isDragging =false;
+                    beingdragged.position =startposition;
+                }
+            }
+            
         }
         if (data.button == PointerEventData.InputButton.Right)
         {
-            isDragging = true;
-
+            
         }
     }
 
-
-    public void OnDrag(PointerEventData data)
+    void DoDrag()
     {
-        if (!isDragging && data.button != PointerEventData.InputButton.Right&& !data.pointerCurrentRaycast.gameObject) return;
-        Vector2Int index = SlotObjectToSlotIndex(data.pointerCurrentRaycast.gameObject);
-        print(index);
+        if (!isDragging) return;
+        Vector3 draggingto= new Vector3(0,0,-10) + Input.mousePosition;
+        beingdragged.position = draggingto;
     }
+
+/*    public void OnHover(PointerEventData data)
+    {
+        if (!isDragging) return;
+        beingdragged.position = Input.mousePosition;
+    }*/
 
     public void ThrowItem(Vector2Int itemIndex,Vector3 position)
     {
@@ -126,6 +187,34 @@ public class InventoryManager: MonoBehaviour
         inventorySlots[itemIndex.x, itemIndex.y] = new InventorySlot();
         Item.SpawnItem(item.itemDataSlot, position);
         UpdateImages();
+    }
+
+    private Vector2Int PosToSlotObject(Vector3 position)
+    {
+        int slotsnumber = inventorydimensions.x * inventorydimensions.y;
+        Vector2 pointrange1 = new Vector2(-slotwidth/2,-slotheight/2);
+        Vector2 pointrange2 = new Vector2(slotwidth/2,slotheight/2);
+        int count = 0;
+        for (int y = 0; y < inventorydimensions.y; y++)
+        {
+            for (int x = 0; x < inventorydimensions.x; x++)
+            {
+                if (PointInRangeCheck(position, (Vector2)slotpositions[count] + pointrange1, (Vector2)slotpositions[count] + pointrange2))
+                {
+                    return new Vector2Int(x, y);
+                }
+                count++;
+            }
+        }
+        return new Vector2Int(-1, -1);
+    }
+    bool PointInRangeCheck(Vector2 point, Vector2 range1, Vector2 range2) //ѕровер€ет находитьс€ ли точка( Vector2 ) в пределах диапазона
+    {
+        //print(point);
+        //print(range1);
+        //print(range2);
+        return (point.x >= range1.x && point.y >= range1.y) &&
+               (point.x <= range2.x && point.y <= range2.y);
     }
 
     private Vector2Int SlotObjectToSlotIndex(GameObject gameObject)
@@ -154,7 +243,12 @@ public class InventoryManager: MonoBehaviour
                 InventorySlot slot = inventorySlots[x, y];
                 if (!slot.isEmpty)
                 {
-                    inventoryImageSlots[x, y].color = Color.green;
+                    inventoryImageSlots[x, y].sprite = inventorySlots[x, y].itemDataSlot.ItemImage;
+                }
+                else
+                {
+                    inventoryImageSlots[x, y].sprite = emptybackground;
+                    //inventoryImageSlots[x, y].color = new Color(0,0,0, 0.3921569f);
                 }
             }
         }
