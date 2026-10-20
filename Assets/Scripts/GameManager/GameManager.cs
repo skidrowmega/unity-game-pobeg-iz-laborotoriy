@@ -12,7 +12,7 @@ public class GameManager: MonoBehaviour
 
     public GameState CurrentState { get; private set; }
 
-    public enum GameState { MainMenu, Playing, Paused, GameOver, Victory, StartGame, Loading, Inventory, Craft }
+    public enum GameState { MainMenu, Playing, Paused, GameOver, Victory, Loading, Inventory, Craft }
 
     public static event Action<GameState> OnStateChanged;
 
@@ -68,27 +68,18 @@ public class GameManager: MonoBehaviour
             case GameState.Victory:
                 HandleVictory();
                 break;
-            case GameState.StartGame:
-                HandleStartGame();
-                break;
             case GameState.Loading:
                 HandleLoading();
                 break;
             case GameState.Inventory:
-                HandleStartGame();
+                //HandleStartGame();
                 break;
             case GameState.Craft:
-                HandleStartGame();
+                //HandleStartGame();
                 break;
         }
 
         OnStateChanged?.Invoke(CurrentState);
-    }
-
-    private void HandleStartGame()
-    {
-        SceneManager.LoadScene("MainGeneration");
-        ChangeState(GameState.Playing);
     }
 
     private void HandlePlaying()
@@ -103,7 +94,8 @@ public class GameManager: MonoBehaviour
 
     private void HandleGameOver()
     {
-        Debug.Log("Игра окончена! Вы проиграли.");
+        Time.timeScale = 0f;
+        LoadScene("MainMenuScene", GameState.MainMenu, 5f);
     }
 
     private void HandleVictory()
@@ -113,7 +105,6 @@ public class GameManager: MonoBehaviour
 
     private void HandleMainMenu()
     {
-        //SceneManager.LoadScene("MainMenuScene");
     }
 
     private void HandleLoading()
@@ -139,46 +130,23 @@ public class GameManager: MonoBehaviour
             ChangeState(GameState.Playing);
         }*/
 
-    public void LoadScene(string sceneName, GameState scenestate)
+    public void LoadScene(string sceneName, GameState scenestate, float delayInSeconds = 0f)
     {
-        StartCoroutine(LoadSceneAsync(sceneName, scenestate));
+        StartCoroutine(LoadSceneAsync(sceneName, scenestate, delayInSeconds));
     }
 
-    private IEnumerator LoadSceneAsync(string sceneName, GameState scenestate)
+    private IEnumerator LoadSceneAsync(string sceneName, GameState scenestate, float delayInSeconds)
     {
+        yield return new WaitForSecondsRealtime(delayInSeconds);
         Instance.ChangeState(GameState.Loading);
-        //CurrentState = GameState.Loading;
-        //loadingPanel.SetActive(true);
-        //loadingSlider.value = 0f;
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
-
-        //operation.allowSceneActivation = false;
 
         while (!operation.isDone)
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
-
-            /*loadingSlider.value = progress;
-
-            if (loadingText != null)
-                loadingText.text = $"Загрузка... {Mathf.RoundToInt(progress * 100)}%";
-
-            if (operation.progress >= 0.9f)
-            {
-                if (loadingText != null)
-                    loadingText.text = "Нажмите любую клавишу для продолжения...";
-
-                if (Input.anyKeyDown)
-                {
-                    operation.allowSceneActivation = true;
-                }
-            }*/
-
-            yield return null; // Ждем следующий кадр
+            yield return null;
         }
-
-        //loadingPanel.SetActive(false);
         Instance.ChangeState(scenestate);
     }
 }

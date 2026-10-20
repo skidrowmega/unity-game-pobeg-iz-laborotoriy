@@ -13,6 +13,8 @@ public class UIManager: MonoBehaviour
     private GameObject gameHUDPanel;
     private GameObject pausePanel;
     private GameObject loadingPanel;
+    private GameObject youlosePanel;
+    private GameObject victoryPanel;
 
     private void Awake()
     {
@@ -23,6 +25,8 @@ public class UIManager: MonoBehaviour
         gameHUDPanel = spawnedCanvas.transform.Find("Canvas/gameHUDPanel").gameObject;
         pausePanel = spawnedCanvas.transform.Find("Canvas/PausePanel").gameObject;
         loadingPanel = spawnedCanvas.transform.Find("Canvas/LoadingPanel").gameObject;
+        youlosePanel = spawnedCanvas.transform.Find("Canvas/YouLosePanel").gameObject;
+        victoryPanel = spawnedCanvas.transform.Find("Canvas/VictoryPanel").gameObject;
 
         Button playBtn = mainMenuPanel.transform.Find("PlayButton").GetComponent<Button>();
 
@@ -44,11 +48,12 @@ public class UIManager: MonoBehaviour
 
     private void HandleStateChanged(GameState state)
     {
-        Debug.Log("Оно живое");
         mainMenuPanel.SetActive(false);
         gameHUDPanel.SetActive(false);
         pausePanel.SetActive(false);
         loadingPanel.SetActive(false);
+        youlosePanel.SetActive(false);
+        victoryPanel.SetActive(false);
 
         switch (state)
         {
@@ -61,11 +66,17 @@ public class UIManager: MonoBehaviour
             case GameState.Paused:
                 pausePanel.SetActive(true);
                 break;
+            case GameState.GameOver:
+                youlosePanel.SetActive(true);
+                break;
             case GameState.Loading:
                 loadingPanel.SetActive(true);
                 break;
+            case GameState.Victory:
+                victoryPanel.SetActive(true);
+                break;
             case GameState.Inventory:
-                pausePanel.SetActive(true);
+                //pausePanel.SetActive(true);
                 break;
         }
     }
