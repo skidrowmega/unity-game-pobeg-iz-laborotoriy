@@ -167,7 +167,14 @@ public class InventoryManager: MonoBehaviour
         }
         if (data.button == PointerEventData.InputButton.Right)
         {
-            
+            Vector2Int index = SlotObjectToSlotIndex(beingdragged.gameObject);
+            if (index == new Vector2Int(-1, -1)) return;
+            InventorySlot pressedslot = inventorySlots[index.x,index.y];
+
+            pressedslot.itemDataSlot.OnUse();
+            RemoveItem(index);
+
+
         }
     }
 
@@ -202,6 +209,7 @@ public class InventoryManager: MonoBehaviour
     {
         inventorySlots[index.x,index.y].itemDataSlot=null;
         inventorySlots[index.x, index.y].isEmpty = true;
+        UpdateImages();
     }
 
     void ShowInventory()
