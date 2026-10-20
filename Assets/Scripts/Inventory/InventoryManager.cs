@@ -149,21 +149,18 @@ public class InventoryManager: MonoBehaviour
                 if(swapindex==new Vector2Int(-1, -1))
                 {
                     ThrowItem(dragStartIndex, Player.player.transform.position +Player.player.transform.right*pickupRadius*1.5f);
-                    isDragging = false;
-                    beingdragged.position = startposition;
+                    StopDrag();
                 }
                 else
                 if (swapindex != dragStartIndex)
                 {
-                    isDragging = false;
-                    beingdragged.position = startposition;
+                    StopDrag();
                     swapitems(dragStartIndex, swapindex);
                 }
                 else
                 if (swapindex == dragStartIndex)
                 {
-                    isDragging = false;
-                    beingdragged.position = startposition;
+                    StopDrag();
                 }
             }
             
@@ -179,6 +176,12 @@ public class InventoryManager: MonoBehaviour
         if (!isDragging) return;
         Vector3 draggingto= new Vector3(0,0,-10) + Input.mousePosition;
         beingdragged.position = draggingto;
+    }
+
+    void StopDrag()
+    {
+        isDragging = false;
+        beingdragged.position = startposition;
     }
 
 /*    public void OnHover(PointerEventData data)
@@ -210,6 +213,10 @@ public class InventoryManager: MonoBehaviour
         }else if (!Input.GetKey(KeyCode.Tab)&&slotsParent.transform.parent.gameObject.activeSelf)
         {
             slotsParent.transform.parent.gameObject.SetActive(false);
+            if (isDragging)
+            {
+                StopDrag();
+            }
 
         }
     }
