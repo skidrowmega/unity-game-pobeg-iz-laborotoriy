@@ -51,7 +51,7 @@ public class VoxelCut : MonoBehaviour
     {
         voxels = voxelGrid.voxels;
         dimensions = voxelGrid.dimensions;
-        boxCollider.size = new Vector3((dimensions[0]) * voxelGrid.gap, dimensions[1] * voxelGrid.gap, voxelGrid.gap);
+        boxCollider.size = new Vector3((dimensions[0]) * voxelGrid.gap*2, dimensions[1] * voxelGrid.gap*2, voxelGrid.gap);
         boxCollider.center = new Vector3((dimensions[0]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, (dimensions[1]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, voxelGrid.gap / 2);
         rootpoint[0] = dimensions[0] - 1;
         rootpoint[1] = dimensions[1] / 2 - 1;
@@ -156,16 +156,14 @@ public class VoxelCut : MonoBehaviour
                         int localy = Mathf.RoundToInt(localpos.y / voxelGrid.gap);
             */
             Vector2Int index = GetIndexOnWorldPosition(position);
-            DestroyVoxelByIndex(index.x, index.y);
-            DestroyCuttoffs();
-            ShakeCamera();
+            DestroyedSomething = DestroyVoxelByIndex(index.x, index.y);
         }
         else
         {
             DestroyedSomething = false;
-            for (int i = -BrushSize / 2; i < BrushSize / 2 + 1; i++)
+            for (float i = -BrushSize / 2; i < BrushSize / 2 + 1; i++)
             {
-                for (int j = -BrushSize / 2; j < BrushSize / 2 + 1; j++)
+                for (float j = -BrushSize / 2; j < BrushSize / 2 + 1; j++)
                 {
                     Vector2Int localpos = GetIndexOnWorldPosition(position + new Vector3(i * voxelGrid.gap, j * voxelGrid.gap, 0));
                     int localx = localpos.x;
@@ -176,8 +174,10 @@ public class VoxelCut : MonoBehaviour
                     }
                 }
             }
-            if (DestroyedSomething) ShakeCamera();
+        }
+        if (DestroyedSomething) {
             DestroyCuttoffs();
+            ShakeCamera();
         }
     }
 
