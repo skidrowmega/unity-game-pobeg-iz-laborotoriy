@@ -42,9 +42,12 @@ public class Player : Entity
     void Update()
     {
         Move();
-        LookAtCursor();
-        AttackMelee();
-        AttemptAttackRanged();
+        if (!Input.GetKey(KeyCode.Tab))
+        {
+            LookAtCursor();
+            AttackMelee();
+            AttemptAttackRanged();
+        }
         CheckDodge();
         /*if (Input.GetMouseButtonUp(1))
         {

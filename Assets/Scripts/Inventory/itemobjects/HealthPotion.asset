@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2afbcc1d47f994540849cb6cbfc436ac, type: 3}
   m_Name: HealthPotion
   m_EditorClassIdentifier: Assembly-CSharp::SOHealthPot
-  itemName: 
+  itemName: Health Potion
   type: 0
-  itemprefab: {fileID: 0}
-  ItemImage: {fileID: 0}
+  itemprefab: {fileID: 3794268634700138588, guid: 1f9125a9ed2fe3145a67c832d6379eec, type: 3}
+  ItemImage: {fileID: 558595932, guid: 94954811e0aa7a84985397b805d9a8e9, type: 3}
   Consumedonuse: 1
   HPRestoreOnUse: 50
