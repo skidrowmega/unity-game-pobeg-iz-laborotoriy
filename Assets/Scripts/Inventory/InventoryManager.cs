@@ -21,7 +21,7 @@ public class InventoryManager: MonoBehaviour
 
     
     //public LayerMask itemLayer;
-    public static float pickupRadius = 1f;
+    [SerializeField] public float pickupRadius = 1.5f;
     //public float checkInteval = 0.2f;
     //private float nextCheckTime = 0f;
 
@@ -89,7 +89,7 @@ public class InventoryManager: MonoBehaviour
         ShowInventory();
     }
 
-    public void AddItem(ItemScriptableObject _item)
+    public bool AddItem(ItemScriptableObject _item)
     {
         bool itemfound=false;
         for (int y = 0; y < inventorydimensions.y; y++)
@@ -101,12 +101,13 @@ public class InventoryManager: MonoBehaviour
                     inventorySlots[x,y].itemDataSlot= _item;
                     inventorySlots[x, y].isEmpty=false;
                     itemfound=true;
-                    break;
+                    UpdateImages();
+                    return true;
                 }
             }
             if (itemfound) break;
         }
-        UpdateImages();
+        return false;
     }
 
     private void swapitems(Vector2Int from, Vector2Int to)

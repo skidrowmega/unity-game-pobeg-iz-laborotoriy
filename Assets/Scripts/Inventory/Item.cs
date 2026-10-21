@@ -23,7 +23,9 @@ public class Item: MonoBehaviour
 
     protected virtual void CheckPickup()
     {
-        if (Vector3.Distance(Player.player.transform.position, transform.position) < InventoryManager.pickupRadius)
+        Vector3 newpos = transform.position;
+        newpos.y = Player.player.transform.position.y;
+        if (Vector3.Distance(Player.player.transform.position, transform.position) < InventoryManager.instance.pickupRadius)
         {
             OnPickup();
         }
@@ -31,10 +33,16 @@ public class Item: MonoBehaviour
 
     protected virtual void OnPickup()
     {
-        print("added item");
+
         //DoPickupAnimation();
-        inventoryManager.AddItem(itemData);
-        Destroy(gameObject);
+
+        if (inventoryManager.AddItem(itemData))
+        {
+            print("added item");
+            Destroy(gameObject);
+        }
+        else
+            print("Out of inventory space");
     }
 
     private void DoPickupAnimation()
