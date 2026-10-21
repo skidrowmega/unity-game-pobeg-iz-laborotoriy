@@ -85,6 +85,7 @@ public class Player : Entity
     void AttemptAttackRanged()
     {
         if (IsStunned) return;
+        //if (!currentgun.IsUsable) return;
         if (animator == null) return;
         if (animator.GetCurrentAnimatorStateInfo(1).IsName("Shoot"))
         {
