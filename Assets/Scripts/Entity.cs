@@ -22,6 +22,8 @@ public class Entity : MonoBehaviour
     public bool IsBeingPushed = false;
     public static readonly float GlobalPushTime = 0.2f;
 
+    private CapsuleCollider Collider=null;
+
     public NavMeshAgent agent;
 
     private void Awake()
@@ -89,8 +91,11 @@ public class Entity : MonoBehaviour
 
         Ray ray = new Ray(startposition, pushdirection);
         RaycastHit hit;
+        if (Collider == null)
+        {
+            Collider = GetComponent<CapsuleCollider>();
+        }
         bool ishit = Physics.Raycast(ray, out hit, pushstrength);
-        Debug.DrawRay(startposition, pushdirection*pushstrength);
         
         float newpushstrength = 0;
 
@@ -107,7 +112,12 @@ public class Entity : MonoBehaviour
 
         while (timewasted < Entity.GlobalPushTime)
         {
-            transform.position=Vector3.Lerp(startposition,destination, timewasted/(Entity.GlobalPushTime));
+            Vector3 newposition = Vector3.Lerp(startposition, destination, timewasted / (Entity.GlobalPushTime));
+            if (Physics.OverlapSphere(newposition + Collider.center, Collider.radius).Length > 1)
+            {
+                newposition = transform.position;
+            }
+            transform.position=newposition;
             timewasted += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
