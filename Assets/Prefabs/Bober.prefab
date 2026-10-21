@@ -268,6 +268,7 @@ MonoBehaviour:
   Speed: 6
   IsStunned: 0
   IsBeingPushed: 0
+  agent: {fileID: 0}
   Cursor: {fileID: 0}
   currentweapon: {fileID: 9169369046277672402}
   currentgun: {fileID: 89958014049442596}
@@ -277,8 +278,6 @@ MonoBehaviour:
   DodgeCooldown: 0.7
   DodgeDistance: 7
   DodgeTime: 0.4
-  MaxGrenades: 3
-  GrenadesAvailable: 3
   grenadeprefab: {fileID: 7677711044062466734, guid: 3d349b1472ee23a48844c44e3c64b747, type: 3}
   BasicFlightTime: 1
   GrenadeArcHeight: 3.5
@@ -325,7 +324,7 @@ MonoBehaviour:
   Damage: 10
   PushStrength: 5
   WeaponHolder: {fileID: 7545022252984657773}
-  weaponReference: {fileID: 0}
+  weaponReference: {fileID: 7466463555889042144}
   HandReference: {fileID: 1121327681848325804}
   AssociatedUI: {fileID: 0}
   MaxDurability: 100
@@ -376,7 +375,7 @@ MonoBehaviour:
   PushStrength: 0
   WeaponHolder: {fileID: 7545022252984657773}
   weaponReference: {fileID: 4710698896318439555}
-  HandReference: {fileID: 4710698896318439555}
+  HandReference: {fileID: 5278386876892459068}
   AssociatedUI: {fileID: 0}
   MaxDurability: 100
   Durability: 100
@@ -787,6 +786,11 @@ PrefabInstance:
 --- !u!4 &6071209420945467719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7696147644352370070, guid: f38cf0fa676853c4580190f1ab622fe2, type: 3}
+  m_PrefabInstance: {fileID: 4507946325616147665}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7466463555889042144 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6417986015810170417, guid: f38cf0fa676853c4580190f1ab622fe2, type: 3}
   m_PrefabInstance: {fileID: 4507946325616147665}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6026092133568294807
