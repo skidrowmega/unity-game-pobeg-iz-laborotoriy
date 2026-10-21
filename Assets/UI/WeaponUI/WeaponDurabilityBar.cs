@@ -36,7 +36,9 @@ public class WeaponDurabilityBar : MonoBehaviour
     void MatchSize()
     {
         //greenhealth.transform.localScale = new Vector3(player.HealthPoints / 1f / player.MaxHealthpoints / 1f, .25f, 1);
-        durability.transform.localScale = new Vector3(weapon.Durability / 1f / weapon.MaxDurability / 1f, .25f, 1);
+        if(weapon.Durability>0)
+            durability.transform.localScale = new Vector3(weapon.Durability / 1f / weapon.MaxDurability / 1f, .25f, 1);
+        else durability.transform.localScale = new Vector3(0.1f, .25f, 1);
         float xOffset = durability.rect.width / 2 * durability.transform.localScale.x - durability.rect.width / 2;
         Vector3 savedpos = startingposition;
         savedpos.x += xOffset;
