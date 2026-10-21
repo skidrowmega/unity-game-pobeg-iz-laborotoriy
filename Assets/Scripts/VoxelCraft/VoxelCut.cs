@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SocialPlatforms;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 
@@ -28,7 +30,7 @@ public class VoxelCut : MonoBehaviour
     BoxCollider boxCollider;
     int[] rootpoint = new int[2];
     GameObject rootvoxel;
-    [SerializeField] int BrushSize = 3;
+    [SerializeField] float BrushSize = 3;
 
     [SerializeField] bool ShakeCameraOnDestroy = true;
     [SerializeField] float ShakeIntensity = 0.01f;
@@ -36,7 +38,7 @@ public class VoxelCut : MonoBehaviour
     [SerializeField] float ShakeDuration = 0.4f;
     private Vector3 ShakeoriginalPosition;
 
-    
+    UnityEngine.UI.Slider BrushSizeSlider;
     
     //œŒ“ŒÃ ”¡–¿“‹ Õ¿’*…
     private Mesh fabricatedprefabmesh;
@@ -46,6 +48,8 @@ public class VoxelCut : MonoBehaviour
     {
         voxelGrid = GetComponent<GenerateVoxelGrid>();
         boxCollider = GetComponent<BoxCollider>();
+        BrushSizeSlider = Selectable.FindAnyObjectByType<UnityEngine.UI.Slider>();
+        SetBrushSize();
     }
     private void Start()
     {
@@ -141,6 +145,12 @@ public class VoxelCut : MonoBehaviour
         return VoxelsChecked;
     }
 
+
+    public void SetBrushSize()
+    {
+        BrushSize = BrushSizeSlider.value;
+    }
+
     void DestroyVoxelOnPosition(Vector3 position)
     {
         position.z = transform.position.z;
@@ -165,7 +175,10 @@ public class VoxelCut : MonoBehaviour
             {
                 for (float j = -BrushSize / 2; j < BrushSize / 2 + 1; j++)
                 {
-                    Vector2Int localpos = GetIndexOnWorldPosition(position + new Vector3(i * voxelGrid.gap, j * voxelGrid.gap, 0));
+                    Vector3 relativepos = position + new Vector3(i * voxelGrid.gap, j * voxelGrid.gap, 0);
+                    if (Vector3.Distance(position, relativepos)>BrushSize/2*voxelGrid.gap) continue;
+                    print(Vector3.Distance(position, relativepos));
+                    Vector2Int localpos = GetIndexOnWorldPosition(relativepos);
                     int localx = localpos.x;
                     int localy = localpos.y;
                     if (PointInRangeCheck(new Vector2(localx, localy), new Vector2(0, 0), new Vector2(dimensions[0] - 1, dimensions[1] - 1)))
