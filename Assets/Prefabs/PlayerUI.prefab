@@ -231,7 +231,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
   slotsParent: {fileID: 5367964138226828315}
-  DropButton: {fileID: 6119135373320966909}
   inventorydimensions: {x: 5, y: 2}
 --- !u!1 &5367964138226828315
 GameObject:
@@ -571,6 +570,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedUI
       objectReference: {fileID: 0}
+    - target: {fileID: 2740019930176821883, guid: b549ed897a13e1345adfad3d99d418a2, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -770027764, guid: 02d0897caa18541409d4ddbe165f55fc, type: 3}
     - target: {fileID: 4485860050992966871, guid: b549ed897a13e1345adfad3d99d418a2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
