@@ -206,10 +206,10 @@ public class Player : Entity
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (InventoryManager.instance.ContainsItem("Grenade"))
+            if (InventoryManager.instance.ContainsItem(ItemType.Grenade))
             {
+                InventoryManager.instance.RemoveItem("Grenade");
                 DoGrenadeThrow();
-                
             }
             
         }
@@ -217,7 +217,6 @@ public class Player : Entity
 
     public void DoGrenadeThrow()
     {
-        InventoryManager.instance.RemoveItem("Grenade");
         animator.Play("Granade");
         Invoke(nameof(SpawnGranade), 1f);
     }

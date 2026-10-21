@@ -1,9 +1,19 @@
 using System;
 using UnityEngine;
-
-public class ItemScriptableObject: ScriptableObject
+public enum ItemType
 {
+    Consumable,
+    Log,
+    Grenade,
+    Equipment
+
+
+}
+public abstract class ItemScriptableObject: ScriptableObject
+{
+    
     public string itemName;
+    public ItemType type;
     public GameObject itemprefab;
     public Sprite ItemImage;
     public bool Consumedonuse = true;
@@ -15,9 +25,9 @@ public class ItemScriptableObject: ScriptableObject
 
     public virtual void OnUse()
     {
-        if (itemName == "Grenade")
+/*        if (itemName == "Grenade")
         {
             Debug.Log("clicked RMB on grenade");
-        }
+        }*/
     }
 }

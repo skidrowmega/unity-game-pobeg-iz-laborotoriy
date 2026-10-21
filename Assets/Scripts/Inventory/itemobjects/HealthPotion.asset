@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8faf4f5566bafa8429769c3046c25e3d, type: 3}
-  m_Name: Log
-  m_EditorClassIdentifier: Assembly-CSharp::SOLogs
+  m_Script: {fileID: 11500000, guid: 2afbcc1d47f994540849cb6cbfc436ac, type: 3}
+  m_Name: HealthPotion
+  m_EditorClassIdentifier: Assembly-CSharp::SOHealthPot
   itemName: 
+  type: 0
   itemprefab: {fileID: 0}
-  typelog: 0
+  ItemImage: {fileID: 0}
+  Consumedonuse: 1
+  HPRestoreOnUse: 50

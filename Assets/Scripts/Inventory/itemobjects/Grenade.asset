@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Grenade
   m_EditorClassIdentifier: Assembly-CSharp::SOGrenade
   itemName: Grenade
+  type: 2
   itemprefab: {fileID: 3794268634700138588, guid: 1f9125a9ed2fe3145a67c832d6379eec, type: 3}
   ItemImage: {fileID: -100809279, guid: 5a1c2a4d9953bb04e9dd520b736cb488, type: 3}
   Consumedonuse: 0

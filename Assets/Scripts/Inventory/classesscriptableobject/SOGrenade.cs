@@ -5,5 +5,8 @@ using UnityEngine;
 
 public class SOGrenade: ItemScriptableObject
 {
-
+    private void Awake()
+    {
+        type = ItemType.Grenade;
+    }
 }

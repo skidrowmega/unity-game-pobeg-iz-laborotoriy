@@ -171,11 +171,8 @@ public class InventoryManager: MonoBehaviour
             Vector2Int index = PosToSlotObject(data.position);
             if (index == new Vector2Int(-1, -1)) return;
             InventorySlot pressedslot = inventorySlots[index.x,index.y];
-            if (pressedslot.itemDataSlot.Consumedonuse) RemoveItem(index);
             pressedslot.itemDataSlot.OnUse();
-            
-
-
+            if (pressedslot.itemDataSlot.Consumedonuse) RemoveItem(index);
         }
     }
 
@@ -252,6 +249,18 @@ public class InventoryManager: MonoBehaviour
             for (int x = 0; x < inventorydimensions.x; x++)
             {
                 if (!inventorySlots[x, y].isEmpty && inventorySlots[x, y].itemDataSlot.itemName == item_name) return true;
+            }
+        }
+        return false;
+    }
+
+    public bool ContainsItem(ItemType type)
+    {
+        for (int y = 0; y < inventorydimensions.y; y++)
+        {
+            for (int x = 0; x < inventorydimensions.x; x++)
+            {
+                if (!inventorySlots[x, y].isEmpty && inventorySlots[x, y].itemDataSlot.type == type) return true;
             }
         }
         return false;

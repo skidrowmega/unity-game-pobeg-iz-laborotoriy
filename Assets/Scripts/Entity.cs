@@ -129,4 +129,10 @@ public class Entity : MonoBehaviour
     {
         IsStunned = false;
     }
+
+    public void RestoreHealth(float AmountRestored)
+    {
+        HealthPoints = Mathf.Clamp(HealthPoints+AmountRestored, HealthPoints, MaxHealthpoints);
+    }
+
 }

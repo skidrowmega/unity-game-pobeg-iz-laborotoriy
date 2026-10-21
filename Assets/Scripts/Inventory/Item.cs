@@ -21,7 +21,7 @@ public class Item: MonoBehaviour
         inventoryManager=InventoryManager.instance;
     }
 
-    private void CheckPickup()
+    protected virtual void CheckPickup()
     {
         if (Vector3.Distance(Player.player.transform.position, transform.position) < InventoryManager.pickupRadius)
         {
@@ -29,7 +29,7 @@ public class Item: MonoBehaviour
         }
     }
 
-    private void OnPickup()
+    protected virtual void OnPickup()
     {
         print("added item");
         //DoPickupAnimation();
