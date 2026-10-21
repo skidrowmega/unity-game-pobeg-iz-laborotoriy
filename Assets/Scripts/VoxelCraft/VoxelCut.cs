@@ -39,7 +39,9 @@ public class VoxelCut : MonoBehaviour
     private Vector3 ShakeoriginalPosition;
 
     UnityEngine.UI.Slider BrushSizeSlider;
-    
+    UnityEngine.UI.Text SubmitResultText;
+
+
     //œŒ“ŒÃ ”¡–¿“‹ Õ¿’*…
     private Mesh fabricatedprefabmesh;
     
@@ -49,6 +51,9 @@ public class VoxelCut : MonoBehaviour
         voxelGrid = GetComponent<GenerateVoxelGrid>();
         boxCollider = GetComponent<BoxCollider>();
         BrushSizeSlider = Selectable.FindAnyObjectByType<UnityEngine.UI.Slider>();
+        SubmitResultText = GameObject.Find("TextScore").GetComponent<UnityEngine.UI.Text>();
+        SubmitResultText.transform.parent.gameObject.SetActive(false);
+
         SetBrushSize();
     }
     private void Start()
@@ -249,6 +254,12 @@ public class VoxelCut : MonoBehaviour
         }
     }
 
+    public void SubmitButtonPressed()
+    {
+        print(GetCutoutScore());
+        SubmitResultText.transform.parent.gameObject.SetActive(true);
+        SubmitResultText.text = (GetCutoutScore() * 100).ConvertTo(typeof(int)).ToString()+"%";
+    }
 
     public float GetCutoutScore()
     {
@@ -270,7 +281,8 @@ public class VoxelCut : MonoBehaviour
             }
         }
         print($"TotalScore: {gainedscore} MaxScore: {maxscore}");
-        return Mathf.Clamp01(gainedscore / maxscore);
+
+        return Mathf.Clamp01( (float)gainedscore / (float)maxscore);
     }
 
     GameObject FabricatePrefab()

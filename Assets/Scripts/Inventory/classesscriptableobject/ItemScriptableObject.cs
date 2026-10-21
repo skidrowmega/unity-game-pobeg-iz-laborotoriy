@@ -6,8 +6,6 @@ public enum ItemType
     Log,
     Grenade,
     Equipment
-
-
 }
 public abstract class ItemScriptableObject: ScriptableObject
 {
