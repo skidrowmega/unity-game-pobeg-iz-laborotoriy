@@ -33,7 +33,8 @@ public class Mathematician : EnemyAll
 
     public override void Initialize()
     {
-        base.Initialize();
+        //base.Initialize();
+        DifficultyScale = 1f;
         MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
         Damage = stats.baseDamage * MainScale * DifficultyScale;
         DamageDivisionByZero = stats.baseMathematicianDivisionDamage * DifficultyScale;
@@ -66,7 +67,7 @@ public class Mathematician : EnemyAll
         bullet.direction = transform.forward;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
-        bullet = Instantiate<Sin>(bullet, transform.position + transform.forward * 2, Quaternion.identity);
+        bullet = Instantiate<Sin>(bullet, transform.position + transform.forward * 0.01f + transform.right * 0.3f, Quaternion.identity);
     }
 
     private void ResetDivisionByZeroCooldown()

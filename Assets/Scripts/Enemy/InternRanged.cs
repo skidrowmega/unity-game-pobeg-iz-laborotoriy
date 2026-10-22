@@ -14,7 +14,8 @@ public class InternRanged: EnemyAll
 
     public override void Initialize()
     {
-        base.Initialize();
+        //base.Initialize();
+        DifficultyScale = 1f;
         MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
         Damage = stats.baseDamage * MainScale * DifficultyScale;
         Speed = stats.baseSpeed * SpeedScale;
@@ -38,6 +39,6 @@ public class InternRanged: EnemyAll
         bullet.direction = transform.forward;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
-        bullet = Instantiate<Microscope>(bullet, transform.position + transform.forward * 2, Quaternion.identity);
+        bullet = Instantiate<Microscope>(bullet, transform.position + transform.forward * 0.01f + transform.right * 0.3f, Quaternion.identity);
     }
 }

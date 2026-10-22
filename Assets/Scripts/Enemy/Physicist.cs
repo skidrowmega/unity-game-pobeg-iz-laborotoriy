@@ -36,7 +36,8 @@ public class Physicist: EnemyAll
 
     public override void Initialize()
     {
-        base.Initialize();
+        //base.Initialize();
+        DifficultyScale = 1f;
         MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
         Damage = stats.baseDamage * MainScale * DifficultyScale;
         DamageStan = stats.baseDamage * DifficultyScale;
@@ -67,7 +68,7 @@ public class Physicist: EnemyAll
         bullet.direction = transform.forward;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
-        bullet = Instantiate<Sin>(bullet, transform.position + transform.forward * 2, Quaternion.identity);
+        bullet = Instantiate<Sin>(bullet, transform.position + transform.forward * 0.01f, Quaternion.identity);
     }
 
     public void TryGravitationalPush()
