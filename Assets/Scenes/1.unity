@@ -563,32 +563,12 @@ PrefabInstance:
       value: Cuttingboard3 1
       objectReference: {fileID: 0}
     - target: {fileID: 1701724691345449789, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
-      propertyPath: BrushSize
-      value: 9
+      propertyPath: SpinSpeed
+      value: 300
       objectReference: {fileID: 0}
-    - target: {fileID: 1701724691345449789, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
-      propertyPath: patterntomake
-      value: 
-      objectReference: {fileID: 11400000, guid: d74041ee71553d04abf7ca658c455417, type: 2}
-    - target: {fileID: 1701724691345449789, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
-      propertyPath: voxelforprefab
-      value: 
-      objectReference: {fileID: 3182797992579168137, guid: 0068b075d586a42498448688f3b616cd, type: 3}
-    - target: {fileID: 1701724691345449789, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
-      propertyPath: materialforprefab
-      value: 
-      objectReference: {fileID: 2100000, guid: 5b80e9dc7a8e49f43aa99fbcb5651388, type: 2}
     - target: {fileID: 1701724691345449789, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
       propertyPath: pattern.points.Array.size
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591059138839860794, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
-      propertyPath: m_Size.x
-      value: 5.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5591059138839860794, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
-      propertyPath: m_Size.y
-      value: 3.05
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -686,6 +666,10 @@ MonoBehaviour:
   ShakeIntensity: 0.01
   ShakeMagnitude: 0.01
   ShakeDuration: 0.4
+  Timer: 0
+  Submitted: 0
+  FinalScore: 0
+  SpinSpeed: 40
 --- !u!1 &1632585430
 GameObject:
   m_ObjectHideFlags: 0
@@ -1139,6 +1123,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5681768835005019089, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 220
+      objectReference: {fileID: 0}
     - target: {fileID: 6090949344866897956, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -1175,6 +1163,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8747337478412681903, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
+      propertyPath: cuttingboard
+      value: 
+      objectReference: {fileID: 1216632067}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
