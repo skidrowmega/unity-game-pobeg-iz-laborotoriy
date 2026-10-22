@@ -22,7 +22,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
     private bool cantDeleteWeakEnemy = false;
     private bool cantCanCreateStrongEnemy = false;
     [SerializeField] float timeToDeleteWeakEnemy = 20f;
-    [SerializeField] float timeToCreateMoreDifficultEnemy = 20f;
+    [SerializeField] float timeToCreateStrongEnemy = 20f;
 
     float difficultyMulPointPool;
     [SerializeField] Vector2 MaxOffset = new Vector2(9, 9);
@@ -46,7 +46,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
             DeleteWeakEnemy();
             lastDeleteWeakEnemy += time;
         }
-        if (!cantCanCreateStrongEnemy && time - lastCreateStrongEnemy >= timeToCreateMoreDifficultEnemy)
+        if (!cantCanCreateStrongEnemy && time - lastCreateStrongEnemy >= timeToCreateStrongEnemy)
         {
             CreateStrongEnemy();
             lastCreateStrongEnemy += time;
