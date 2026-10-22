@@ -203572,11 +203572,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6502665142f7b46459e1a7ec96f0340b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VoxelCut
-  BrushSize: 3
+  patterntomake: {fileID: 11400000, guid: d74041ee71553d04abf7ca658c455417, type: 2}
+  voxelforprefab: {fileID: 3182797992579168137, guid: 0068b075d586a42498448688f3b616cd, type: 3}
+  materialforprefab: {fileID: 2100000, guid: 5b80e9dc7a8e49f43aa99fbcb5651388, type: 2}
+  BrushSize: 9
   ShakeCameraOnDestroy: 1
   ShakeIntensity: 0.01
   ShakeMagnitude: 0.01
   ShakeDuration: 0.4
+  Timer: 20
+  Submitted: 0
 --- !u!1 &1224754464309320292
 GameObject:
   m_ObjectHideFlags: 0

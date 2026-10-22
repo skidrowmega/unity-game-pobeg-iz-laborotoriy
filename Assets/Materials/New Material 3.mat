@@ -27,9 +27,9 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Exposure: 0
+    - _Exposure: 1.81
     - _SunDisk: 2
-    - _SunSize: 1
+    - _SunSize: 0.235
     - _SunSizeConvergence: 10
     m_Colors:
     - _GroundColor: {r: 0.36899996, g: 0.34899998, b: 0.34099993, a: 1}

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.ConstrainedExecution;
 using Unity.VisualScripting;
@@ -40,11 +41,15 @@ public class VoxelCut : MonoBehaviour
 
     UnityEngine.UI.Slider BrushSizeSlider;
     UnityEngine.UI.Text SubmitResultText;
+    UnityEngine.UI.Text SubmitButtonText;
 
+    public float Timer;
+    public bool Submitted = false;
 
     //ПОТОМ УБРАТЬ НАХ*Й
     private Mesh fabricatedprefabmesh;
     
+    public float FinalScore=0;
 
     private void Awake()
     {
@@ -53,7 +58,7 @@ public class VoxelCut : MonoBehaviour
         BrushSizeSlider = Selectable.FindAnyObjectByType<UnityEngine.UI.Slider>();
         SubmitResultText = GameObject.Find("TextScore").GetComponent<UnityEngine.UI.Text>();
         SubmitResultText.transform.parent.gameObject.SetActive(false);
-
+        SubmitButtonText = GameObject.Find("SubmitButton").GetComponentInChildren<Text>();
         SetBrushSize();
     }
     private void Start()
@@ -82,13 +87,16 @@ public class VoxelCut : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (!Submitted)
         {
-            RaycastHit hit;
-            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100);
-            //if (hit.collider.transform.parent==transform) Destroy(hit.collider.gameObject);
-            DestroyVoxelOnPosition(hit.point);
+            if (Input.GetMouseButton(0))
+            {
+                RaycastHit hit;
+                Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100);
+                //if (hit.collider.transform.parent==transform) Destroy(hit.collider.gameObject);
+                DestroyVoxelOnPosition(hit.point);
 
+            }
         }
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButton(1))
         {
@@ -256,9 +264,32 @@ public class VoxelCut : MonoBehaviour
 
     public void SubmitButtonPressed()
     {
-        print(GetCutoutScore());
-        SubmitResultText.transform.parent.gameObject.SetActive(true);
-        SubmitResultText.text = (GetCutoutScore() * 100).ConvertTo(typeof(int)).ToString()+"%";
+        if (!Submitted)
+        {
+            FinalScore = GetCutoutScore();
+            SubmitResultText.transform.parent.gameObject.SetActive(true);
+            SubmitResultText.text = (FinalScore * 100).ConvertTo(typeof(int)).ToString() + "%";
+            Submitted = true;
+            SubmitButtonText.text = "Продолжить";
+            // Тут типа создается объект из нарисованного кринжа и начинает крутится
+            GameObject obj = FabricatePrefab();
+            obj.transform.position = transform.position + new Vector3((dimensions[0]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, (dimensions[1]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, voxelGrid.gap / 2) - new Vector3(0, .5f, 0);
+            StartCoroutine(Speen(obj.transform));
+        }
+        else
+        {
+            //вот тут мы меняем сцену обратно и вместе с заработанными очками идем рабочий реальный предмет
+        }
+    }
+
+    [SerializeField] float SpinSpeed = 40;
+    IEnumerator Speen(Transform transform)
+    {
+        while (true)
+        {
+            transform.Rotate(new Vector3(0, SpinSpeed , 0) * Time.deltaTime, Space.Self);
+            yield return null;
+        }
     }
 
     public float GetCutoutScore()
@@ -357,7 +388,7 @@ public class VoxelCut : MonoBehaviour
         actualweapon.transform.localRotation= Quaternion.identity;
         fabricatedprefabmesh = combinedMesh;
         //offsetempty.transform.localPosition = new Vector3(0, -0.5f, 0);
-        return meshoffsetempty;
+        return MainEmpty;
     }
 
     Vector2Int GetIndexOnWorldPosition(Vector3 position)
