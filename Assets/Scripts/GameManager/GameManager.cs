@@ -79,7 +79,7 @@ public class GameManager: MonoBehaviour
                 HandleLoading();
                 break;
             case GameState.Inventory:
-                //HandleStartGame();
+                HandleInventory();
                 break;
             case GameState.Craft:
                 //HandleStartGame();
@@ -123,7 +123,7 @@ public class GameManager: MonoBehaviour
 
     private void HandleInventory()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 0.1f;
     }
 
     private void HandleCraft()
