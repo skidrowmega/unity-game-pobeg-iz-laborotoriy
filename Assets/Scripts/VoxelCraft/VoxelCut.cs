@@ -85,6 +85,7 @@ public class VoxelCut : MonoBehaviour
         UpdatePatternPoints();
 
     }
+
     void Update()
     {
         if (!Submitted)
@@ -92,7 +93,7 @@ public class VoxelCut : MonoBehaviour
             if (Input.GetMouseButton(0))
             {
                 RaycastHit hit;
-                Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100);
+                Physics.Raycast(CutoutManager.instance.cutcamera.ScreenPointToRay(Input.mousePosition), out hit, 100);
                 //if (hit.collider.transform.parent==transform) Destroy(hit.collider.gameObject);
                 DestroyVoxelOnPosition(hit.point);
 
@@ -101,14 +102,16 @@ public class VoxelCut : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButton(1))
         {
             RaycastHit hit;
-            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100);
+            Physics.Raycast(CutoutManager.instance.cutcamera.ScreenPointToRay(Input.mousePosition), out hit, 100);
 
             RemovePatternPoint(hit.point);
         }
+#if UNITY_EDITOR
+        #region DEBUG
         else if (Input.GetMouseButton(1))
         {
             RaycastHit hit;
-            Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100);
+            Physics.Raycast(CutoutManager.instance.cutcamera.ScreenPointToRay(Input.mousePosition), out hit, 100);
 
             AddPointToPattern(hit.point);
         }
@@ -120,6 +123,8 @@ public class VoxelCut : MonoBehaviour
         {
             FabricatePrefab();
         }
+        #endregion
+#endif
 
         /*        foreach (GameObject voxel in availablevoxels)
                 {
@@ -281,7 +286,10 @@ public class VoxelCut : MonoBehaviour
         else
         {
             StopCoroutine(routine);
-            finalcutout.transform.rotation= Quaternion.identity;
+            finalcutout.transform.rotation = Quaternion.identity;
+            CutoutManager.instance.finalCutout= finalcutout;
+            CutoutManager.instance.finalScore= FinalScore;
+            CutoutManager.instance.StopCut();
             //вот тут мы меняем сцену обратно и вместе с заработанными очками идем рабочий реальный предмет
         }
     }
@@ -374,6 +382,7 @@ public class VoxelCut : MonoBehaviour
         combinedMesh.RecalculateBounds();
         combinedMesh.OptimizeIndexBuffers();
         actualweapon.GetComponent<MeshFilter>().sharedMesh = combinedMesh;
+        materialforprefab.color = CutoutManager.instance.VoxelColor;
         actualweapon.GetComponent<MeshRenderer>().material = materialforprefab;
         actualweapon.SetActive(true);
         Vector3[] objectVerts = actualweapon.GetComponent<MeshFilter>().sharedMesh.vertices;

@@ -325,27 +325,12 @@ MonoBehaviour:
   PushStrength: 5
   WeaponHolder: {fileID: 7545022252984657773}
   weaponReference: {fileID: 7466463555889042144}
-  HandReference: {fileID: 1121327681848325804}
+  HandReference: {fileID: 3754730848851619950}
   AssociatedUI: {fileID: 0}
   MaxDurability: 100
   Durability: 100
   DurabilityDecrease: 5
   Type: 0
-  Maxstamina: 100
-  Stamina: 100
-  StaminaRecoveryRate: 20
-  StaminaDecreaseRate: 20
-  statsonbreak:
-    WeaponName: Fists
-    Damage: 0
-    PushStrength: 5
-    maxDurability: 100
-    durability: 100
-    durabilityDecrease: 0
-    Maxstamina: 100
-    stamina: 10
-    staminaRecoveryRate: 20
-    staminaDecreaseRate: 20
   tempNewWeapon: {fileID: 0}
   tempstats:
     WeaponName: 
@@ -358,6 +343,21 @@ MonoBehaviour:
     stamina: 0
     staminaRecoveryRate: 0
     staminaDecreaseRate: 0
+  statsonbreak:
+    WeaponName: Fists
+    Damage: 0
+    PushStrength: 5
+    maxDurability: 100
+    durability: 100
+    durabilityDecrease: 0
+    Maxstamina: 100
+    stamina: 10
+    staminaRecoveryRate: 20
+    staminaDecreaseRate: 20
+  Maxstamina: 100
+  Stamina: 100
+  StaminaRecoveryRate: 20
+  StaminaDecreaseRate: 20
 --- !u!114 &89958014049442596
 MonoBehaviour:
   m_ObjectHideFlags: 0
