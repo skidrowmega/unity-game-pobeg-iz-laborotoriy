@@ -49,10 +49,9 @@ public class CutoutManager : MonoBehaviour
     {
         print("CUTTING STARTED!!!");
         callback =OnCutEnd;
-        cuttingboard.CutStart();
-        
         SwitchEnableValue(true);
         IsCuttingOut = true;
+        cuttingboard.CutStart();
         timer.StartTimer();
         SwitchCamera(true);
 
@@ -66,12 +65,23 @@ public class CutoutManager : MonoBehaviour
         cuttingboard.PrepareForDestroy();
         Destroy(cuttingboard.gameObject);
         VoxelCut newcuttingboard = Instantiate(CuttingBoardPrefab, cuttingboard.transform.parent).GetComponent<VoxelCut>();
+        newcuttingboard.SubmitButtonText=cuttingboard.SubmitButtonText;
+        newcuttingboard.SubmitResultText=cuttingboard.SubmitResultText;
         newcuttingboard.Awake();
         newcuttingboard.Start();
         cuttingboard = newcuttingboard;
-        timer.cuttingboard = newcuttingboard;
-        timer.Reset();
+        timer.cuttingboard = cuttingboard;
         SwitchEnableValue(false);
+    }
+
+    public void SubmitButtonPress()
+    {
+        cuttingboard.SubmitButtonPressed();
+    }
+
+    public void SliderUpdate()
+    {
+        cuttingboard.SetBrushSize();
     }
 
     void SwitchCamera(bool state)

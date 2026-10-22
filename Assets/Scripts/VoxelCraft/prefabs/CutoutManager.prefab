@@ -391,6 +391,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4088943032108634062}
     m_Modifications:
+    - target: {fileID: 22787771873357772, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 163.09
+      objectReference: {fileID: 0}
     - target: {fileID: 1081824167019575927, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
       propertyPath: m_Name
       value: DrawingCanvas
@@ -490,7 +494,15 @@ PrefabInstance:
     - target: {fileID: 6090949344866897956, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1574475567075807691}
+      objectReference: {fileID: 8734314862101635713}
+    - target: {fileID: 6090949344866897956, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SliderUpdate
+      objectReference: {fileID: 0}
+    - target: {fileID: 6090949344866897956, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CutoutManager, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6880525069407818022, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -502,18 +514,18 @@ PrefabInstance:
     - target: {fileID: 6880525069407818022, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1574475567075807691}
+      objectReference: {fileID: 8734314862101635713}
     - target: {fileID: 6880525069407818022, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6880525069407818022, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SubmitButtonPressed
+      value: SubmitButtonPress
       objectReference: {fileID: 0}
     - target: {fileID: 6880525069407818022, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: VoxelCut, Assembly-CSharp
+      value: CutoutManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6880525069407818022, guid: 7624a11546beeb144b91e058b8b95069, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
