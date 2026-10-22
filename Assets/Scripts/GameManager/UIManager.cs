@@ -17,9 +17,12 @@ public class UIManager: MonoBehaviour
     private GameObject victoryPanel;
     private GameObject inventoryPanel;
 
+    [SerializeField] bool debug = false;
     private void Awake()
     {
-        GameObject spawnedCanvas = Instantiate(canvasPrefab);
+        GameObject spawnedCanvas;
+        if (debug) spawnedCanvas = canvasPrefab;
+        else spawnedCanvas = Instantiate(canvasPrefab);
         //spawnedCanvas.SetActive(true);
 
         mainMenuPanel = spawnedCanvas.transform.Find("MainMenuPanel").gameObject;

@@ -42,12 +42,13 @@ public class GameManager: MonoBehaviour
 
     private void Start()
     {
+        if (debug) bobr = Player.player.gameObject;
         if (!debug)
         {
             Instantiate(bobr);
             LoadScene("MainMenuScene", GameState.MainMenu);
         }
-        if (debug) bobr = Player.player.gameObject;
+        
     }
 
     void Update()
