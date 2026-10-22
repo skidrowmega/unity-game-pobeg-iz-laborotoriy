@@ -21,10 +21,15 @@ public class GameManager: MonoBehaviour
     public float GameTime { get; private set; }
     public float DifficultyFactor => GameTime * difficultyScale;
 
+
+    [SerializeField] private bool debug = false;
+
+
+
+
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if(debug) CurrentState=GameState.Playing;
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -37,8 +42,12 @@ public class GameManager: MonoBehaviour
 
     private void Start()
     {
-        Instantiate(bobr);
-        LoadScene("MainMenuScene", GameState.MainMenu);
+        if (!debug)
+        {
+            Instantiate(bobr);
+            LoadScene("MainMenuScene", GameState.MainMenu);
+        }
+        if (debug) bobr = Player.player.gameObject;
     }
 
     void Update()
