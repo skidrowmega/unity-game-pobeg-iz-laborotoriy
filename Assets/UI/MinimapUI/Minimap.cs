@@ -3,7 +3,7 @@ using UnityEngine;
 public class Minimap : MonoBehaviour
 {
     [SerializeField] RenderTexture minimapTexture;
-    [SerializeField] Canvas MinimapCanvas;
+    [SerializeField] GameObject MinimapParent;
     [SerializeField] float BaseSize=50;
     [SerializeField] float FullScreenSize = 100;
     bool IsFullInScreen = false;
@@ -26,7 +26,7 @@ public class Minimap : MonoBehaviour
         minimapcamera.orthographicSize = FullScreenSize;
         minimapcamera.targetDisplay = 0;
         IsFullInScreen = true;
-        MinimapCanvas.enabled = false;
+        MinimapParent.SetActive(false);
     }
     void ExitFulscreen()
     {
@@ -34,7 +34,7 @@ public class Minimap : MonoBehaviour
         minimapcamera.targetDisplay = -1;
         minimapcamera.orthographicSize = BaseSize;
         IsFullInScreen =false;
-        MinimapCanvas.enabled=true;
+        MinimapParent.SetActive(true);
     }
 
 }
