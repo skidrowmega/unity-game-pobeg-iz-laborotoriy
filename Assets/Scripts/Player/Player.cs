@@ -273,7 +273,7 @@ public class Player : Entity
 
         IEnumerator MeleeAttackLoop(float secondstowait)
     {
-        yield return new WaitForSeconds(0.13f);
+        yield return new WaitForSeconds(0.4f);
         float starttime = Time.time;
         List<Collider> checkedcolliders = new List<Collider>();
         while (Time.time - starttime < secondstowait)

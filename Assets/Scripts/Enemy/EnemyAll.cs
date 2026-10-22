@@ -20,6 +20,12 @@ public class EnemyAll: Entity
     {
         DifficultyScale = GameManager.Instance.DifficultyFactor;
     }
+    protected virtual void Awake()
+    {
+        player = Player.player;
+        animator = GetComponentInChildren<Animator>();
+        agent = GetComponent<NavMeshAgent>();
+    }
     protected virtual void Start()
     {
         Initialize();
@@ -52,13 +58,15 @@ public class EnemyAll: Entity
 
     protected virtual void TryAttack()
     {
+
+        Debug.Log(attackDistance);
         bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
         if (!isAttacking && !isMoving && Time.time >= nextAttackTime && distanceToPlayer <= attackDistance)
         {
             isAttacking = true;
             nextAttackTime = Time.time + attackCooldown;
             animator.Play("Udar");
-            Attack();
+            Invoke(nameof(Attack), 0.5f);
             Invoke(nameof(ResetAttack), AttackDuration);
         }
     }

@@ -14,7 +14,8 @@ public class InternMelee : EnemyAll
 
     public override void Initialize()
     {
-        base.Initialize();
+        //base.Initialize();
+        DifficultyScale = 1f;
         MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
         Damage = stats.baseDamage * MainScale * DifficultyScale;
         Speed = stats.baseSpeed * SpeedScale;
@@ -27,7 +28,7 @@ public class InternMelee : EnemyAll
     void Update()
     {
         distanceToPlayer = (player.transform.position - transform.position).magnitude;
-        TryAttack();
         Move();
+        TryAttack();
     }
 }

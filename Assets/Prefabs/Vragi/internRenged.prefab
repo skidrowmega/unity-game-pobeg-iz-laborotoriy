@@ -52,10 +52,10 @@ MonoBehaviour:
   Speed: 5
   IsStunned: 0
   IsBeingPushed: 0
+  agent: {fileID: 0}
   animator: {fileID: 0}
   rotationSpeed: 5
-  agent: {fileID: 0}
-  projectileprefab: {fileID: 5669884756835510007, guid: 2ae8e3b1b4a07bd438846006347c4c42, type: 3}
+  projectileprefab: {fileID: 7798909843889710101, guid: 9c6e95e96c4a8494caa5178aba508229, type: 3}
   MainScale: 0.2
   SpeedScale: 0.9
   DistanceScale: 10
