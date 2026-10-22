@@ -261,9 +261,11 @@ public class VoxelCut : MonoBehaviour
             renderer.material.color = Color.red;
         }
     }
-
+    Coroutine routine;
+    GameObject finalcutout;
     public void SubmitButtonPressed()
     {
+        
         if (!Submitted)
         {
             FinalScore = GetCutoutScore();
@@ -272,12 +274,14 @@ public class VoxelCut : MonoBehaviour
             Submitted = true;
             SubmitButtonText.text = "Продолжить";
             // Тут типа создается объект из нарисованного кринжа и начинает крутится
-            GameObject obj = FabricatePrefab();
-            obj.transform.position = transform.position + new Vector3((dimensions[0]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, (dimensions[1]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, voxelGrid.gap / 2) - new Vector3(0, .5f, 0);
-            StartCoroutine(Speen(obj.transform));
+            finalcutout = FabricatePrefab();
+            finalcutout.transform.position = transform.position + new Vector3((dimensions[0]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, (dimensions[1]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, voxelGrid.gap / 2) - new Vector3(0, .5f, 0);
+            routine = StartCoroutine(Speen(finalcutout.transform));
         }
         else
         {
+            StopCoroutine(routine);
+            finalcutout.transform.rotation= Quaternion.identity;
             //вот тут мы меняем сцену обратно и вместе с заработанными очками идем рабочий реальный предмет
         }
     }
