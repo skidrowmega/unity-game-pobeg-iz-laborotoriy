@@ -85,18 +85,14 @@ public class Player : Entity
     void AttemptAttackRanged()
     {
         if (IsStunned) return;
-        //if (!currentgun.IsUsable) return;
+        if (!currentgun.IsUsable) return;
         if (animator == null) return;
-        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Shoot"))
-        {
-            animator.SetBool("Shoot", false);
-        }
         if (!Input.GetMouseButtonUp(1)) return;
         if (Input.GetMouseButtonUp(1))
         {
             if (animator.GetCurrentAnimatorStateInfo(1).IsName("Default"))
             {
-                animator.SetBool("Shoot", true);
+                animator.Play("Shoot");
                 currentgun.Shot(transform.right);
             }
         }
