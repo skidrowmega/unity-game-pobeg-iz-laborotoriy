@@ -48,10 +48,10 @@ public class VoxelCut : MonoBehaviour
 
     //ПОТОМ УБРАТЬ НАХ*Й
     private Mesh fabricatedprefabmesh;
-    
-    public float FinalScore=0;
 
-    private void Awake()
+    public float FinalScore = 0;
+
+    public void Awake()
     {
         voxelGrid = GetComponent<GenerateVoxelGrid>();
         boxCollider = GetComponent<BoxCollider>();
@@ -61,11 +61,11 @@ public class VoxelCut : MonoBehaviour
         SubmitButtonText = GameObject.Find("SubmitButton").GetComponentInChildren<Text>();
         SetBrushSize();
     }
-    private void Start()
+    public void Start()
     {
         voxels = voxelGrid.voxels;
         dimensions = voxelGrid.dimensions;
-        boxCollider.size = new Vector3((dimensions[0]) * voxelGrid.gap*2, dimensions[1] * voxelGrid.gap*2, voxelGrid.gap);
+        boxCollider.size = new Vector3((dimensions[0]) * voxelGrid.gap * 2, dimensions[1] * voxelGrid.gap * 2, voxelGrid.gap);
         boxCollider.center = new Vector3((dimensions[0]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, (dimensions[1]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, voxelGrid.gap / 2);
         rootpoint[0] = dimensions[0] - 1;
         rootpoint[1] = dimensions[1] / 2 - 1;
@@ -82,6 +82,14 @@ public class VoxelCut : MonoBehaviour
                 availablevoxels[i, j] = true;
             }
         }
+        CutoutManager.instance.cuttingboard = this;
+        UpdatePatternPoints();
+
+    }
+
+    public void CutStart()
+    {
+        patterntomake = CutoutManager.instance.Pattern;
         UpdatePatternPoints();
 
     }
@@ -194,8 +202,8 @@ public class VoxelCut : MonoBehaviour
                 for (float j = -BrushSize / 2; j < BrushSize / 2 + 1; j++)
                 {
                     Vector3 relativepos = position + new Vector3(i * voxelGrid.gap, j * voxelGrid.gap, 0);
-                    if (Vector3.Distance(position, relativepos)>BrushSize/2*voxelGrid.gap) continue;
-                    print(Vector3.Distance(position, relativepos));
+                    if (Vector3.Distance(position, relativepos) > BrushSize / 2 * voxelGrid.gap) continue;
+                    //print(Vector3.Distance(position, relativepos));
                     Vector2Int localpos = GetIndexOnWorldPosition(relativepos);
                     int localx = localpos.x;
                     int localy = localpos.y;
@@ -237,7 +245,7 @@ public class VoxelCut : MonoBehaviour
                 patterntomake.points.Remove(new Vector2Int(index.x - rootpoint[0], index.y - rootpoint[1]));
                 UpdatePatternPoints();
             }
-            
+
         }
     }
 
@@ -254,9 +262,9 @@ public class VoxelCut : MonoBehaviour
                     GameObject voxel = GetVoxelOnIndex(index);
                     if (patterntomake.points.Contains(patternindex))
                     {
-                       if(voxel)voxel.GetComponent<MeshRenderer>().material.color = Color.black;
+                        if (voxel) voxel.GetComponent<MeshRenderer>().material.color = Color.black;
                     }
-                    else if(voxel)voxel.GetComponent<MeshRenderer>().material.color = Color.white;
+                    else if (voxel) voxel.GetComponent<MeshRenderer>().material.color = Color.white;
 
                 }
             }
@@ -270,7 +278,7 @@ public class VoxelCut : MonoBehaviour
     GameObject finalcutout;
     public void SubmitButtonPressed()
     {
-        
+
         if (!Submitted)
         {
             FinalScore = GetCutoutScore();
@@ -287,11 +295,18 @@ public class VoxelCut : MonoBehaviour
         {
             StopCoroutine(routine);
             finalcutout.transform.rotation = Quaternion.identity;
-            CutoutManager.instance.finalCutout= finalcutout;
-            CutoutManager.instance.finalScore= FinalScore;
+            CutoutManager.instance.finalCutout = finalcutout;
+            CutoutManager.instance.finalScore = FinalScore;
             CutoutManager.instance.StopCut();
             //вот тут мы меняем сцену обратно и вместе с заработанными очками идем рабочий реальный предмет
         }
+    }
+
+    public void PrepareForDestroy()
+    {
+        Destroy(finalcutout);
+        SubmitResultText.text = "";
+        SubmitButtonText.text = "Готово";
     }
 
     [SerializeField] float SpinSpeed = 40;

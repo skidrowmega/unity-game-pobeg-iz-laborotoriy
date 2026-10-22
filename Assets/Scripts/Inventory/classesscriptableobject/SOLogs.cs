@@ -10,6 +10,9 @@ public class SOLogs: ItemScriptableObject
     public LogType typelog;
     public WeaponMeleeStats weaponMeleeStats;
     public Color voxelcolor;
+    public Pattern pattern;
+
+
 
     public void Awake()
     {
@@ -19,6 +22,7 @@ public class SOLogs: ItemScriptableObject
     public override void OnUse()
     {
         CutoutManager.instance.VoxelColor = voxelcolor;
+        CutoutManager.instance.Pattern = pattern;
         CutoutManager.instance.StartCut(OnCutEnd);
         
         //Вот тут вызывается окошко с рисованием и т.д.
