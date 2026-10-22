@@ -2696,7 +2696,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: TimeUntilSpawn
-      value: 1e+10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: WeakEnemiesAmount
@@ -2707,12 +2707,16 @@ PrefabInstance:
       value: 30000000
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: timeToDeleteWeakEnemy
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: PrefabPoints.Array.size
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: objectprefabs.Array.size
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: 'PrefabPoints.Array.data[0]'
@@ -2723,13 +2727,41 @@ PrefabInstance:
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: 'PrefabPoints.Array.data[2]'
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: 'PrefabPoints.Array.data[3]'
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: 'PrefabPoints.Array.data[4]'
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: 'objectprefabs.Array.data[0]'
       value: 
       objectReference: {fileID: 5372250386973374881, guid: ec29a446197c0824e94fdfb6a716058e, type: 3}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: 'objectprefabs.Array.data[1]'
       value: 
-      objectReference: {fileID: 1568080186804927961, guid: 27de0b69c52ac9047941f19b2080c682, type: 3}
+      objectReference: {fileID: 7332622888010863939, guid: 46fd1e371fc83e64baa698756804d1e6, type: 3}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: 'objectprefabs.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1469092046194060987, guid: e2212f75d5f80df4282088fa7c921db0, type: 3}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: 'objectprefabs.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2864184068542060344, guid: 6648eeea52b0f114dbcc80fc2502f869, type: 3}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: 'objectprefabs.Array.data[4]'
+      value: 
+      objectReference: {fileID: 4889986094643418857, guid: 6dfe55c1e9992314bbfb8ce17dde7d0f, type: 3}
+    - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: timeToCreateMoreDifficultEnemy
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2085493303264609629, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: m_Name
       value: LevelPopulator

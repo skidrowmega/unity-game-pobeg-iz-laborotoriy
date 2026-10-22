@@ -10,11 +10,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8faf4f5566bafa8429769c3046c25e3d, type: 3}
-  m_Name: LogHeal
+  m_Name: LogMelee
   m_EditorClassIdentifier: Assembly-CSharp::SOLogs
-  itemName: Green Log
+  itemName: Red Log
   type: 1
-  itemprefab: {fileID: 0}
+  itemprefab: {fileID: 3794268634700138588, guid: 1f9125a9ed2fe3145a67c832d6379eec, type: 3}
   ItemImage: {fileID: 0}
   Consumedonuse: 1
-  typelog: 2
+  typelog: 0
+  weaponMeleeStats:
+    WeaponName: VESLO RED
+    Damage: 10
+    PushStrength: 5
+    maxDurability: 100
+    durability: 100
+    durabilityDecrease: 5
+    Maxstamina: 0
+    stamina: 0
+    staminaRecoveryRate: 0
+    staminaDecreaseRate: 0
+  voxelcolor: {r: 0, g: 0, b: 0, a: 0}

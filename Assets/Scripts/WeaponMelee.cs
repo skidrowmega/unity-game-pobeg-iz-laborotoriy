@@ -17,6 +17,17 @@ public class WeaponMeleeStats
         staminaRecoveryRate = stampweapon.StaminaRecoveryRate;
         staminaDecreaseRate = stampweapon.StaminaDecreaseRate;
     }
+
+    public WeaponMeleeStats(WeaponMeleeStats weaponmeleestats)
+    {
+        WeaponName = weaponmeleestats.WeaponName;
+        Damage = weaponmeleestats.Damage;
+        PushStrength = weaponmeleestats.PushStrength;
+        maxDurability = weaponmeleestats.maxDurability;
+        durability = weaponmeleestats.durability;
+        durabilityDecrease = weaponmeleestats.durabilityDecrease;
+    }
+
     public string WeaponName;
     public float Damage;
     public float PushStrength;
@@ -27,11 +38,25 @@ public class WeaponMeleeStats
     public int stamina;
     public int staminaRecoveryRate;
     public int staminaDecreaseRate;
+
+    public WeaponMeleeStats ApplyMultiplier(float multiplier)
+    {
+        WeaponMeleeStats newstats = new WeaponMeleeStats(this);
+        newstats.Damage *= multiplier;
+        newstats.PushStrength *= multiplier;
+        newstats.maxDurability = (int)(maxDurability * multiplier);
+        newstats.durability = newstats.maxDurability;
+        return newstats;
+    }
+
 }
 
 public class WeaponMelee: Weapon
 {
     public DamageType Type;
+    [SerializeField] protected GameObject tempNewWeapon;
+    [SerializeField] protected WeaponMeleeStats tempstats;
+    [SerializeField] protected WeaponMeleeStats statsonbreak;
     protected WeaponMelee()
     {
         WeaponName = "Oar";
@@ -50,6 +75,27 @@ public class WeaponMelee: Weapon
         Stamina = stamina;
         StaminaRecoveryRate = staminaRecoveryRate;
         StaminaDecreaseRate = staminaDecreaseRate;
+    }
+    public void BreakWeapon()
+    {
+        tempstats = new WeaponMeleeStats(this);
+        SwapStats(statsonbreak);
+        OnBreak();
+    }
+    protected override void OnBreak()
+    {
+        Destroy(weaponReference);
+        weaponReference = null;
+        base.OnBreak();
+    }
+    public GameObject PlaceWeapon(GameObject weapontoPlace, WeaponMeleeStats newstats)
+    {
+        if (weaponReference != null) return null;
+        weaponReference = Instantiate(weapontoPlace, HandReference.transform);
+        weaponReference.transform.localPosition = Vector3.zero;
+        weaponReference.transform.localRotation = Quaternion.Euler(0,0,180);
+        SwapStats(newstats);
+        return weaponReference;
     }
 
     public void SwapStats(WeaponMeleeStats stats)

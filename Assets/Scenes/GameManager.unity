@@ -148,6 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f080cf58a7885640b3c37a0ad1e6aae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  bobr: {fileID: 5527802281580728736, guid: 550ac10bac159224ca2b15b36495112b, type: 3}
+  difficultyScale: 0.1
 --- !u!4 &2013887586
 Transform:
   m_ObjectHideFlags: 0
@@ -192,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35119c999e900b14497eca8a50cb7eff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
-  canvasPrefab: {fileID: 1213602716019082875, guid: b8e4f94851dbe424b92f70d71c5e0873, type: 3}
+  canvasPrefab: {fileID: 2553390813781298900, guid: 4b19ccebff8127945bc6e8a3c6d8c6f1, type: 3}
 --- !u!4 &2114833947
 Transform:
   m_ObjectHideFlags: 0

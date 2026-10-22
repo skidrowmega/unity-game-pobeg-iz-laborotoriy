@@ -42,7 +42,7 @@ public class Player : Entity
     void Update()
     {
         Move();
-        if (!Input.GetKey(KeyCode.Tab))
+        if (GameManager.Instance.CurrentState == GameManager.GameState.Playing)
         {
             LookAtCursor();
             AttackMelee();

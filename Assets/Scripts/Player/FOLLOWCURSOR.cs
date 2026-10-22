@@ -12,6 +12,7 @@ public class FOLLOWCURSOR : MonoBehaviour
     {
         StartingY=transform.position.y;
         player = Player.player;
+        Player.player.Cursor = transform;
         //Pivot=Plane.transform.position.y+.02f;
     }
     void Update()

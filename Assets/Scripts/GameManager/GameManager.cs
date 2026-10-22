@@ -16,6 +16,7 @@ public class GameManager: MonoBehaviour
 
     public static event Action<GameState> OnStateChanged;
 
+    [SerializeField] private GameObject bobr;
     [SerializeField] private float difficultyScale = 0.1f;
     public float GameTime { get; private set; }
     public float DifficultyFactor => GameTime * difficultyScale;
@@ -36,6 +37,7 @@ public class GameManager: MonoBehaviour
 
     private void Start()
     {
+        Instantiate(bobr);
         LoadScene("MainMenuScene", GameState.MainMenu);
     }
 
@@ -79,7 +81,7 @@ public class GameManager: MonoBehaviour
                 HandleLoading();
                 break;
             case GameState.Inventory:
-                //HandleStartGame();
+                HandleInventory();
                 break;
             case GameState.Craft:
                 //HandleStartGame();
@@ -123,7 +125,7 @@ public class GameManager: MonoBehaviour
 
     private void HandleInventory()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 0.1f;
     }
 
     private void HandleCraft()

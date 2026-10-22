@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.LowLevel;
+using UnityEngine.InputSystem.XR.Haptics;
 using UnityEngine.UI;
+using static GameManager;
 
 public class InventoryManager: MonoBehaviour
 {
-
     [Header("Inventory Logic")]
     //public int numberOfSlots = 10;
     private InventorySlot[,] inventorySlots;
@@ -26,8 +27,6 @@ public class InventoryManager: MonoBehaviour
     //private float nextCheckTime = 0f;
 
     public static InventoryManager instance;
-
-
 
     Vector3[] slotpositions;
     float slotheight=-1;
@@ -213,13 +212,13 @@ public class InventoryManager: MonoBehaviour
 
     void ShowInventory()
     {
-        if (Input.GetKey(KeyCode.Tab)&&!slotsParent.transform.parent.gameObject.activeSelf)
+        if (Input.GetKey(KeyCode.Tab)&& Instance.CurrentState == GameState.Playing)
         {
-            slotsParent.transform.parent.gameObject.SetActive(true);
+            Instance.ChangeState(GameState.Inventory);
 
-        }else if (!Input.GetKey(KeyCode.Tab)&&slotsParent.transform.parent.gameObject.activeSelf)
+        }else if (!Input.GetKey(KeyCode.Tab)&& Instance.CurrentState == GameState.Inventory)
         {
-            slotsParent.transform.parent.gameObject.SetActive(false);
+            Instance.ChangeState(GameState.Playing);
             if (isDragging)
             {
                 StopDrag();

@@ -412,6 +412,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5362883033918717864}
   - component: {fileID: 6402058631189862566}
+  - component: {fileID: 6418996854273952650}
   m_Layer: 0
   m_Name: LiftExit
   m_TagString: Untagged
@@ -454,6 +455,19 @@ MonoBehaviour:
   WallL: {fileID: 6273686984164055095}
   position: {x: 0, y: 0}
   TransformToRotate: {fileID: 8950505903226280335}
+--- !u!114 &6418996854273952650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9087049211835755371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b7c27ef302f640429654cd7d290761c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Elevator
+  activationDistance: 1.5
 --- !u!1001 &1578936132224638096
 PrefabInstance:
   m_ObjectHideFlags: 0
