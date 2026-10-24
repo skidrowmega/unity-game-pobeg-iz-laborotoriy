@@ -149,7 +149,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   bobr: {fileID: 5527802281580728736, guid: 550ac10bac159224ca2b15b36495112b, type: 3}
+  minimapCamera: {fileID: 5604647404155423791, guid: 5f6d695d4260755499e382a7893e3dde, type: 3}
   difficultyScale: 0.1
+  debug: 0
 --- !u!4 &2013887586
 Transform:
   m_ObjectHideFlags: 0
@@ -195,6 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UIManager
   canvasPrefab: {fileID: 2553390813781298900, guid: 4b19ccebff8127945bc6e8a3c6d8c6f1, type: 3}
+  debug: 0
 --- !u!4 &2114833947
 Transform:
   m_ObjectHideFlags: 0

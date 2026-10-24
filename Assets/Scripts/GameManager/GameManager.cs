@@ -17,15 +17,15 @@ public class GameManager: MonoBehaviour
     public static event Action<GameState> OnStateChanged;
 
     [SerializeField] private GameObject bobr;
+    [SerializeField] private GameObject minimapCamera;
+
     [SerializeField] private float difficultyScale = 0.1f;
     public float GameTime { get; private set; }
     public float DifficultyFactor => GameTime * difficultyScale;
 
 
     [SerializeField] private bool debug = false;
-
-
-
+    
 
     private void Awake()
     {
@@ -46,6 +46,7 @@ public class GameManager: MonoBehaviour
         if (!debug)
         {
             Instantiate(bobr);
+            DontDestroyOnLoad(Instantiate(minimapCamera,new Vector3(0,17,0),Quaternion.LookRotation(Vector3.down)));
             LoadScene("MainMenuScene", GameState.MainMenu);
         }
         

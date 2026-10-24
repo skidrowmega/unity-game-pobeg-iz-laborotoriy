@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8faf4f5566bafa8429769c3046c25e3d, type: 3}
   m_Name: LogRanged
   m_EditorClassIdentifier: Assembly-CSharp::SOLogs
-  itemName: Blue Log
+  itemName: Red Log
   type: 1
   itemprefab: {fileID: 7287515339629486069, guid: 9b99f92e2b137ca46b1f5f5ad3b8b06d, type: 3}
   ItemImage: {fileID: 21300000, guid: 2f71b85088ff0024e919996dca83b767, type: 3}
   Consumedonuse: 1
   typelog: 1
   weaponMeleeStats:
-    WeaponName: 
-    Damage: 0
-    PushStrength: 0
+    WeaponName: Gun
+    Damage: 20
+    PushStrength: 2.5
     maxDurability: 0
     durability: 0
     durabilityDecrease: 0
@@ -29,4 +29,14 @@ MonoBehaviour:
     stamina: 0
     staminaRecoveryRate: 0
     staminaDecreaseRate: 0
-  voxelcolor: {r: 0, g: 0, b: 0, a: 0}
+  weaponRangedStats:
+    WeaponName: Gun
+    Damage: 20
+    PushStrength: 5
+    maxDurability: 270
+    durability: 270
+    durabilityDecrease: 27
+    RicochetCount: 0
+    IsUsable: 1
+  voxelcolor: {r: 1, g: 0.0312974, b: 0, a: 0}
+  pattern: {fileID: 11400000, guid: 3960a0c4b8fcc2e42b56af5c9e9dfaf0, type: 2}

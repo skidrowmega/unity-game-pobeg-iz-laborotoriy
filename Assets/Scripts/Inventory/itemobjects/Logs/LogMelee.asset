@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8faf4f5566bafa8429769c3046c25e3d, type: 3}
   m_Name: LogMelee
   m_EditorClassIdentifier: Assembly-CSharp::SOLogs
-  itemName: Red Log
+  itemName: Common Log
   type: 1
   itemprefab: {fileID: 7225600448573032509, guid: 725a1303d5bf7a546b0265ce067400a0, type: 3}
   ItemImage: {fileID: 21300000, guid: 703da32ce6fefae4996b94fa951be45f, type: 3}
@@ -22,12 +22,21 @@ MonoBehaviour:
     WeaponName: VESLO RED
     Damage: 20
     PushStrength: 5
-    maxDurability: 100
-    durability: 100
-    durabilityDecrease: 5
+    maxDurability: 0
+    durability: 0
+    durabilityDecrease: 0
     Maxstamina: 0
     stamina: 0
     staminaRecoveryRate: 0
     staminaDecreaseRate: 0
-  voxelcolor: {r: 1, g: 0, b: 0, a: 0}
+  weaponRangedStats:
+    WeaponName: 
+    Damage: 0
+    PushStrength: 0
+    maxDurability: 0
+    durability: 0
+    durabilityDecrease: 0
+    RicochetCount: 0
+    IsUsable: 0
+  voxelcolor: {r: 0.3773585, g: 0.29013884, b: 0.29013884, a: 0}
   pattern: {fileID: 11400000, guid: d74041ee71553d04abf7ca658c455417, type: 2}

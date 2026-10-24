@@ -13,6 +13,14 @@ public class Minimap : MonoBehaviour
     {
         minimapcamera = GetComponent<Camera>();
     }
+    private void Start()
+    {
+        if (MinimapParent == null)
+        {
+            MinimapParent = GameObject.Find("MinimapBorder");
+        }
+        ExitFulscreen();
+    }
 
     private void Update()
     {
