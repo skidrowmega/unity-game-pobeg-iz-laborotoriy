@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -44,6 +45,7 @@ public class CutoutManager : MonoBehaviour
         if (Debug)
         {
             cuttingboard.Timer = 100000;
+            EditorUtility.SetDirty(Pattern);
             StartCut();
         }
     }
