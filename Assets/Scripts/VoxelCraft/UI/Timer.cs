@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour
             {
                 StopTimer();
                 OutputText.text = "0";
-                cuttingboard.SubmitButtonPressed();
+                CutoutManager.instance.SubmitButtonPress();
                 Destroy(this);
             }
         }

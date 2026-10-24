@@ -39,9 +39,9 @@ public class VoxelCut : MonoBehaviour
     [SerializeField] float ShakeDuration = 0.4f;
     private Vector3 ShakeoriginalPosition;
 
-    UnityEngine.UI.Slider BrushSizeSlider;
-    UnityEngine.UI.Text SubmitResultText;
-    UnityEngine.UI.Text SubmitButtonText;
+    public UnityEngine.UI.Slider BrushSizeSlider = null;
+    public UnityEngine.UI.Text SubmitResultText = null;
+    public UnityEngine.UI.Text SubmitButtonText = null;
 
     public float Timer;
     public bool Submitted = false;
@@ -56,9 +56,9 @@ public class VoxelCut : MonoBehaviour
         voxelGrid = GetComponent<GenerateVoxelGrid>();
         boxCollider = GetComponent<BoxCollider>();
         BrushSizeSlider = Selectable.FindAnyObjectByType<UnityEngine.UI.Slider>();
-        SubmitResultText = GameObject.Find("TextScore").GetComponent<UnityEngine.UI.Text>();
+        if (SubmitResultText==null) SubmitResultText = GameObject.Find("TextScore").GetComponent<UnityEngine.UI.Text>();
         SubmitResultText.transform.parent.gameObject.SetActive(false);
-        SubmitButtonText = GameObject.Find("SubmitButton").GetComponentInChildren<Text>();
+        if (SubmitButtonText== null) SubmitButtonText = GameObject.Find("SubmitButton").GetComponentInChildren<Text>();
         SetBrushSize();
     }
     public void Start()
@@ -83,7 +83,6 @@ public class VoxelCut : MonoBehaviour
             }
         }
         CutoutManager.instance.cuttingboard = this;
-        UpdatePatternPoints();
 
     }
 
