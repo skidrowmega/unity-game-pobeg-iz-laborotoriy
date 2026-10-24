@@ -21,8 +21,7 @@ public class CameraFollow : MonoBehaviour
     void follow()
     {
         Vector3 newpos = new Vector3(player.transform.position.x + offset.x, transform.position.y, player.transform.position.z + offset.y);
-        transform.position = Vector3.MoveTowards(transform.position,newpos,Speed*Time.deltaTime);
-
+        transform.position = Vector3.MoveTowards(transform.position,newpos,Speed*Time.deltaTime*Mathf.Clamp(Vector3.Distance(transform.position, newpos), 0.5f, 5));
     }
 
 }

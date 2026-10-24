@@ -1,6 +1,4 @@
 using System.Collections;
-using Unity.ProjectAuditor.Editor;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 
 public class Physicist: EnemyAll

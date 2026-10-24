@@ -50,7 +50,7 @@ public class GameManager: MonoBehaviour
         {
             Instantiate(bobr);
             DontDestroyOnLoad(Instantiate(craftManager));
-            DontDestroyOnLoad(Instantiate(minimapCamera,new Vector3(0,17,0),Quaternion.LookRotation(Vector3.down)));
+            DontDestroyOnLoad(Instantiate(minimapCamera, new Vector3(0, 17, 0), Quaternion.LookRotation(Vector3.down)));
             LoadScene("MainMenuScene", GameState.MainMenu);
         }
         
@@ -131,6 +131,12 @@ public class GameManager: MonoBehaviour
     private void HandleMainMenu()
     {
         Time.timeScale = 0f;
+        GameTime = 0f;
+        if (!Player.player)
+        {
+            Instantiate(bobr);
+            DontDestroyOnLoad(Instantiate(minimapCamera, new Vector3(0, 17, 0), Quaternion.LookRotation(Vector3.down)));
+        }
     }
 
     private void HandleLoading()

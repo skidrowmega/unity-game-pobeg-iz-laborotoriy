@@ -19,12 +19,12 @@ MonoBehaviour:
   Consumedonuse: 1
   typelog: 0
   weaponMeleeStats:
-    WeaponName: VESLO RED
-    Damage: 20
+    WeaponName: VESLO
+    Damage: 10
     PushStrength: 5
-    maxDurability: 0
-    durability: 0
-    durabilityDecrease: 0
+    maxDurability: 100
+    durability: 100
+    durabilityDecrease: 5
     Maxstamina: 0
     stamina: 0
     staminaRecoveryRate: 0

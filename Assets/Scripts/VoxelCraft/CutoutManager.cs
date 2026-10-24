@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class CutoutManager : MonoBehaviour
 {
@@ -42,12 +41,14 @@ public class CutoutManager : MonoBehaviour
     private void Start()
     {
         if(!Debug)SwitchEnableValue(false);
+#if UNITY_EDITOR
         if (Debug)
         {
             cuttingboard.Timer = 100000;
             EditorUtility.SetDirty(Pattern);
             StartCut();
         }
+#endif
     }
 
 

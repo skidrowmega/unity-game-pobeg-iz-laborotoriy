@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
-using UnityEditor.AdaptivePerformance.Editor;
 using UnityEngine;
 using UnityEngine.AdaptivePerformance.Provider;
 using UnityEngine.Rendering;
