@@ -67,14 +67,14 @@ public class Player : Entity
         if (animator == null) return;
         if (animator.GetCurrentAnimatorStateInfo(1).IsName("Udar"))
         {
-            animator.SetBool("Attack", false);
+            return;
         }
         if (!Input.GetMouseButtonDown(0)) return;
         if (Input.GetMouseButtonDown(0)) 
         {
             if (animator.GetCurrentAnimatorStateInfo(1).IsName("Default")) 
             {
-                animator.SetBool("Attack", true);
+                animator.Play("Udar");
                 StartCoroutine(MeleeAttackLoop(animator.GetCurrentAnimatorStateInfo(1).length));// сделать чтобы время когда бить стало меньше
             }
         }
@@ -86,6 +86,10 @@ public class Player : Entity
     {
         if (IsStunned) return;
         if (!currentgun.IsUsable) return;
+        if (animator.GetCurrentAnimatorStateInfo(1).IsName("Shoot"))
+        {
+            return;
+        }
         if (animator == null) return;
         if (!Input.GetMouseButtonUp(1)) return;
         if (Input.GetMouseButtonUp(1))
@@ -142,7 +146,7 @@ public class Player : Entity
     {
         if (animator.GetCurrentAnimatorStateInfo(1).IsName("Parry"))
         {
-            animator.SetBool("isParry", false);
+            return;
         }
         if (Time.time - lastparry <= parrycooldown) return;
         if (animator == null) return;
@@ -151,7 +155,7 @@ public class Player : Entity
         {
             if (animator.GetCurrentAnimatorStateInfo(1).IsName("Default"))
             {
-                animator.SetBool("isParry", true);
+                animator.Play("Parry");
                 lastparry = Time.time;
             }
         }
@@ -349,15 +353,12 @@ public class Player : Entity
     {
         animator.SetBool("isWalking", false);
         animator.Play("Dodge");
-        animator.SetBool("isDodging", true);
-        
         StartCoroutine(DodgeLoop(DodgeTime, Direction));
     }
 
     void DodgeStop()
     {
         IsDodging = false;
-        animator.SetBool("isDodging", false);
         animator.Play("Bober_stand");
         StopCoroutine("DodgeLoop");
         EndDodge();
@@ -366,7 +367,6 @@ public class Player : Entity
     public void EndDodge()
     {
         IsDodging = false;
-        animator.SetBool("isDodging", false);
         animator.Play("Bober_stand");
         DodgeReady = false;
         Invoke(nameof(ReloadDodge), DodgeCooldown);
