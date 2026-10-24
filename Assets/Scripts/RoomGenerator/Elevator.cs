@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 public class Elevator: MonoBehaviour
 {
     [SerializeField] private float activationDistance = 1.5f;
+    private int count = 0;
 
     private void Update()
     {
@@ -13,12 +14,25 @@ public class Elevator: MonoBehaviour
 
         if (distance <= activationDistance)
         {
-            ActivateElevator();
+            if (count < 5)
+            {
+                ActivateElevator();
+                count++;
+            }
+            else
+            {
+                Victory();
+            }
         }
     }
 
     private void ActivateElevator()
     {
         GameManager.Instance.LoadScene("MainGeneration", GameManager.GameState.Playing);
+    }
+
+    private void Victory()
+    {
+        GameManager.Instance.ChangeState(GameManager.GameState.Victory);
     }
 }
