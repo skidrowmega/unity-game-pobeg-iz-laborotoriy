@@ -75,6 +75,9 @@ MonoBehaviour:
   IsStunned: 0
   IsBeingPushed: 0
   agent: {fileID: 0}
+  LogCommon: {fileID: 7225600448573032509, guid: 725a1303d5bf7a546b0265ce067400a0, type: 3}
+  LogGreen: {fileID: 1982805183097424717, guid: 42fd773bfdad5b74aae64f40cb09d414, type: 3}
+  LogRed: {fileID: 7287515339629486069, guid: 9b99f92e2b137ca46b1f5f5ad3b8b06d, type: 3}
   animator: {fileID: 0}
   rotationSpeed: 5
   projectileprefab: {fileID: 983280012385509640, guid: 904b3e165e59e32489758ff7ef75880f, type: 3}

@@ -3,6 +3,10 @@ using UnityEngine.AI;
 
 public class EnemyAll: Entity
 {
+    [SerializeField] private GameObject LogCommon;
+    [SerializeField] private GameObject LogGreen;
+    [SerializeField] private GameObject LogRed;
+
     public Animator animator;
     protected Player player;
     protected bool isAttacking = false;
@@ -79,5 +83,23 @@ public class EnemyAll: Entity
     protected virtual void ResetAttack()
     {
         isAttacking = false;
+    }
+
+    public override void Death()
+    {
+        float rand = Random.value;
+        if (rand < 0.3f)
+        {
+            Instantiate(LogCommon, transform.position, Quaternion.identity);
+        }
+        else if (rand < 0.6f)
+        {
+            Instantiate(LogRed, transform.position, Quaternion.identity);
+        }
+        else if (rand < 0.9f)
+        {
+            Instantiate(LogGreen, transform.position, Quaternion.identity);
+        }
+        base.Death();
     }
 }

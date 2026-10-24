@@ -321,7 +321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OarWeapon
   WeaponName: Oar
-  Damage: 10
+  Damage: 50
   PushStrength: 5
   WeaponHolder: {fileID: 7545022252984657773}
   weaponReference: {fileID: 7466463555889042144}

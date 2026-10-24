@@ -47,6 +47,7 @@ public class CutoutManager : MonoBehaviour
 
     public void StartCut(Action OnCutEnd)
     {
+        GameManager.Instance.ChangeState(GameManager.GameState.Craft);
         print("CUTTING STARTED!!!");
         callback =OnCutEnd;
         SwitchEnableValue(true);
@@ -72,6 +73,7 @@ public class CutoutManager : MonoBehaviour
         cuttingboard = newcuttingboard;
         timer.cuttingboard = cuttingboard;
         SwitchEnableValue(false);
+        GameManager.Instance.ChangeState(GameManager.GameState.Playing);
     }
 
     public void SubmitButtonPress()

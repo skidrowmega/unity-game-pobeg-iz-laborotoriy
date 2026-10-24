@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fd33fd1338023704fb32ac131ec0a186, type: 3}
       propertyPath: m_Name
-      value: Common
+      value: LogCommon
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -77,4 +77,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 569d2c9a0eb6a69449a20d6d03cb93c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemData: {fileID: 11400000, guid: f8c8c9f9e93c8d74e9c24b9b3059909e, type: 2}
+  itemData: {fileID: 11400000, guid: 5a19e2576ab87b340b08d9d795679a11, type: 2}

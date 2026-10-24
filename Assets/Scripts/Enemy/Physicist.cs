@@ -36,9 +36,9 @@ public class Physicist: EnemyAll
 
     public override void Initialize()
     {
-        //base.Initialize();
-        DifficultyScale = 1f;
+        base.Initialize();
         MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
+        HealthPoints = MaxHealthpoints;
         Damage = stats.baseDamage * MainScale * DifficultyScale;
         DamageStan = stats.baseDamage * DifficultyScale;
         DmgGravPush = stats.baseDamage * DifficultyScale;

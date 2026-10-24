@@ -33,9 +33,9 @@ public class Mathematician : EnemyAll
 
     public override void Initialize()
     {
-        //base.Initialize();
-        DifficultyScale = 1f;
+        base.Initialize();
         MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
+        HealthPoints = MaxHealthpoints;
         Damage = stats.baseDamage * MainScale * DifficultyScale;
         DamageDivisionByZero = stats.baseMathematicianDivisionDamage * DifficultyScale;
         ArithmeticDamage = stats.baseMathematicianArithmeticDamage * DifficultyScale;

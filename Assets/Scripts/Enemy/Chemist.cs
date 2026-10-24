@@ -33,9 +33,9 @@ public class Chemist: EnemyAll
 
     public override void Initialize()
     {
-        //base.Initialize();
-        DifficultyScale = 1f;
+        base.Initialize();
         MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
+        HealthPoints = MaxHealthpoints;
         Damage = stats.baseDamage * MainScale * DifficultyScale;
         MolotovDamage = stats.baseChemistMolotovDamage * DifficultyScale;
         Speed = stats.baseSpeed * SpeedScale;

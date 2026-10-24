@@ -377,4 +377,9 @@ public class Player : Entity
         base.Death();
         GameManager.Instance.ChangeState(GameManager.GameState.GameOver);
     }
+
+    public static void ChangeBobrPosition(Transform pos)
+    {
+        player.transform.position = pos.position;
+    }
 }
