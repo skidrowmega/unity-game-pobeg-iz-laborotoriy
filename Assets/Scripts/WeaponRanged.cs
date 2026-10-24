@@ -20,11 +20,36 @@ public class WeaponRangedStats
     public string WeaponName;
     public float Damage;
     public float PushStrength;
-    public int maxDurability;
-    public int durability;
-    public int durabilityDecrease;
+    public float maxDurability;
+    public float durability;
+    public float durabilityDecrease;
     public int RicochetCount;
     public bool IsUsable;
+
+    public WeaponRangedStats(WeaponRangedStats stats)
+    {
+        WeaponName = stats.WeaponName;
+        Damage = stats.Damage;
+        PushStrength = stats.PushStrength;
+        maxDurability = stats.maxDurability;
+        durability = stats.durability;
+        durabilityDecrease = stats.durabilityDecrease;
+        RicochetCount = stats.RicochetCount;
+        IsUsable = stats.IsUsable;
+
+    }
+
+    public WeaponRangedStats ApplyMultiplier(float multiplier)
+    {
+        WeaponRangedStats newstats = new WeaponRangedStats(this);
+        newstats.Damage *= multiplier;
+        newstats.PushStrength *= multiplier;
+        newstats.maxDurability = (int)(maxDurability * multiplier);
+        newstats.durability = newstats.maxDurability;
+        newstats.RicochetCount= (int)(newstats.RicochetCount * multiplier);
+        return newstats;
+    }
+
 }
 
 public class WeaponRanged: Weapon
@@ -40,6 +65,8 @@ public class WeaponRanged: Weapon
     public int RicochetCount=0;
     public GameObject projectileprefab;
     public bool IsUsable = true;
+
+
     public virtual void Shot(Vector3 Direction)
     {
 
@@ -55,5 +82,19 @@ public class WeaponRanged: Weapon
         DurabilityDecrease = stats.durabilityDecrease;
         IsUsable = stats.IsUsable;
     }
-
+    public void BreakWeapon()
+    {
+        Destroy(weaponReference);
+        weaponReference = null;
+        OnBreak();
+    }
+    public GameObject PlaceWeapon(GameObject weapontoPlace, WeaponRangedStats newstats)
+    {
+        if (weaponReference != null) return null;
+        weaponReference = Instantiate(weapontoPlace, HandReference.transform);
+        weaponReference.transform.localPosition = Vector3.zero;
+        weaponReference.transform.localRotation = Quaternion.Euler(0, 0, 180);
+        SwapStats(newstats);
+        return weaponReference;
+    }
 }

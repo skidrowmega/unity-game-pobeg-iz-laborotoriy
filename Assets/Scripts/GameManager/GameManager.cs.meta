@@ -1,2 +1,13 @@
 fileFormatVersion: 2
 guid: 4f080cf58a7885640b3c37a0ad1e6aae
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - bobr: {fileID: 5527802281580728736, guid: 550ac10bac159224ca2b15b36495112b, type: 3}
+  - minimapCamera: {fileID: 5604647404155423791, guid: 5f6d695d4260755499e382a7893e3dde, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

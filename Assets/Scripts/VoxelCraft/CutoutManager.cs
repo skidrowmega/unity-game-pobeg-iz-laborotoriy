@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
@@ -23,6 +24,9 @@ public class CutoutManager : MonoBehaviour
     public Color VoxelColor;
     public Pattern Pattern;
 
+
+    public bool Debug;
+
     private void Awake()
     {
         instance = this;
@@ -32,11 +36,18 @@ public class CutoutManager : MonoBehaviour
         {
             children.Add(transform.GetChild(i));
         }
+
     }
 
     private void Start()
     {
-        SwitchEnableValue(false);
+        if(!Debug)SwitchEnableValue(false);
+        if (Debug)
+        {
+            cuttingboard.Timer = 100000;
+            EditorUtility.SetDirty(Pattern);
+            StartCut();
+        }
     }
 
 
@@ -45,11 +56,12 @@ public class CutoutManager : MonoBehaviour
         children.ForEach(child => child.gameObject.SetActive(value));
     }
 
-    public void StartCut(Action OnCutEnd)
+    public void StartCut(Action OnCutEnd=null)
     {
         GameManager.Instance.ChangeState(GameManager.GameState.Craft);
         print("CUTTING STARTED!!!");
-        callback =OnCutEnd;
+        if (OnCutEnd!=null)
+            callback =OnCutEnd;
         SwitchEnableValue(true);
         IsCuttingOut = true;
         cuttingboard.CutStart();

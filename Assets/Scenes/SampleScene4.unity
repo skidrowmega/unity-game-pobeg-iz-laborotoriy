@@ -334,7 +334,7 @@ PrefabInstance:
     - target: {fileID: -8023286324073713792, guid: 1f9125a9ed2fe3145a67c832d6379eec, type: 3}
       propertyPath: itemData
       value: 
-      objectReference: {fileID: 11400000, guid: 5a19e2576ab87b340b08d9d795679a11, type: 2}
+      objectReference: {fileID: 11400000, guid: c13b1c8aca26a5043a50e63f6b8c11a2, type: 2}
     - target: {fileID: 3605488783114244756, guid: 1f9125a9ed2fe3145a67c832d6379eec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.24098
@@ -2697,8 +2697,8 @@ MonoBehaviour:
     WeaponName: Fists
     Damage: 0
     PushStrength: 5
-    maxDurability: 100
-    durability: 100
+    maxDurability: 0
+    durability: 0
     durabilityDecrease: 0
     Maxstamina: 100
     stamina: 10

@@ -31,9 +31,9 @@ public class WeaponMeleeStats
     public string WeaponName;
     public float Damage;
     public float PushStrength;
-    public int maxDurability;
-    public int durability;
-    public int durabilityDecrease;
+    public float maxDurability;
+    public float durability;
+    public float durabilityDecrease;
     public int Maxstamina;
     public int stamina;
     public int staminaRecoveryRate;
@@ -44,7 +44,7 @@ public class WeaponMeleeStats
         WeaponMeleeStats newstats = new WeaponMeleeStats(this);
         newstats.Damage *= multiplier;
         newstats.PushStrength *= multiplier;
-        newstats.maxDurability = (int)(maxDurability * multiplier);
+        newstats.maxDurability = (maxDurability * multiplier);
         newstats.durability = newstats.maxDurability;
         return newstats;
     }

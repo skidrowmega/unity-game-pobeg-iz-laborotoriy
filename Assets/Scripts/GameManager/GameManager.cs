@@ -17,7 +17,10 @@ public class GameManager: MonoBehaviour
     public static event Action<GameState> OnStateChanged;
 
     [SerializeField] private GameObject bobr;
+
     [SerializeField] private GameObject craftManager;
+
+    [SerializeField] private GameObject minimapCamera;
 
     [SerializeField] private float difficultyScale = 0.1f;
     public float GameTime { get; private set; }
@@ -25,9 +28,7 @@ public class GameManager: MonoBehaviour
 
 
     [SerializeField] private bool debug = false;
-
-
-
+    
 
     private void Awake()
     {
@@ -49,6 +50,7 @@ public class GameManager: MonoBehaviour
         {
             Instantiate(bobr);
             DontDestroyOnLoad(Instantiate(craftManager));
+            DontDestroyOnLoad(Instantiate(minimapCamera,new Vector3(0,17,0),Quaternion.LookRotation(Vector3.down)));
             LoadScene("MainMenuScene", GameState.MainMenu);
         }
         
