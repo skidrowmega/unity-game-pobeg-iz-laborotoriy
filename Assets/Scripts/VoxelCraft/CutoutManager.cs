@@ -23,6 +23,9 @@ public class CutoutManager : MonoBehaviour
     public Color VoxelColor;
     public Pattern Pattern;
 
+
+    public bool Debug;
+
     private void Awake()
     {
         instance = this;
@@ -32,11 +35,17 @@ public class CutoutManager : MonoBehaviour
         {
             children.Add(transform.GetChild(i));
         }
+
     }
 
     private void Start()
     {
-        SwitchEnableValue(false);
+        if(!Debug)SwitchEnableValue(false);
+        if (Debug)
+        {
+            cuttingboard.Timer = 100000;
+            StartCut();
+        }
     }
 
 
@@ -45,10 +54,11 @@ public class CutoutManager : MonoBehaviour
         children.ForEach(child => child.gameObject.SetActive(value));
     }
 
-    public void StartCut(Action OnCutEnd)
+    public void StartCut(Action OnCutEnd=null)
     {
         print("CUTTING STARTED!!!");
-        callback =OnCutEnd;
+        if (OnCutEnd!=null)
+            callback =OnCutEnd;
         SwitchEnableValue(true);
         IsCuttingOut = true;
         cuttingboard.CutStart();
