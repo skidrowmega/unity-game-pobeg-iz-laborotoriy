@@ -30,10 +30,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 292929262980141567}
   - {fileID: 7534079877882742140}
   - {fileID: 7029099330270788326}
   - {fileID: 6712177260657297463}
+  - {fileID: 5932327761311642333}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8734314862101635713
@@ -49,10 +49,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CutoutManager
   cuttingboard: {fileID: 1574475567075807691}
+  CuttingBoardPrefab: {fileID: 1224337591183428850, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
   timer: {fileID: 2521897073271101382}
   cutcamera: {fileID: 3160009511020624388}
   finalCutout: {fileID: 0}
   finalScore: 0
+  VoxelColor: {r: 0, g: 0, b: 0, a: 0}
+  Pattern: {fileID: 0}
 --- !u!1 &3825582412110552313
 GameObject:
   m_ObjectHideFlags: 0
@@ -143,6 +146,38 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5713976713996432159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5932327761311642333}
+  m_Layer: 0
+  m_Name: CuttingBoardParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5932327761311642333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5713976713996432159}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.35, y: 0.29, z: -9.175}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 292929262980141567}
+  m_Father: {fileID: 4088943032108634062}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8129769673669840856
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,19 +312,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4088943032108634062}
+    m_TransformParent: {fileID: 5932327761311642333}
     m_Modifications:
     - target: {fileID: 456171037885883145, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.35
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 456171037885883145, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.29
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 456171037885883145, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.175
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 456171037885883145, guid: b05b3f3b87947a34ba7741023f3b587c, type: 3}
       propertyPath: m_LocalRotation.w

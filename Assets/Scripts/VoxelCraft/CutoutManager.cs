@@ -5,7 +5,9 @@ using static UnityEngine.Rendering.DebugUI;
 
 public class CutoutManager : MonoBehaviour
 {
-    [SerializeField] VoxelCut cuttingboard;
+    [SerializeField] public VoxelCut cuttingboard;
+    [SerializeField] GameObject CuttingBoardPrefab;
+
     [SerializeField] Timer timer;
     [SerializeField] public Camera cutcamera;
 
@@ -19,6 +21,7 @@ public class CutoutManager : MonoBehaviour
 
     Action callback;
     public Color VoxelColor;
+    public Pattern Pattern;
 
     private void Awake()
     {
@@ -46,6 +49,7 @@ public class CutoutManager : MonoBehaviour
     {
         print("CUTTING STARTED!!!");
         callback =OnCutEnd;
+        cuttingboard.CutStart();
         
         SwitchEnableValue(true);
         IsCuttingOut = true;
@@ -55,11 +59,19 @@ public class CutoutManager : MonoBehaviour
     }
     public void StopCut()
     {
-        SwitchEnableValue(false);
         IsCuttingOut = false;
         SwitchCamera(false);
         callback();
         callback = null;
+        cuttingboard.PrepareForDestroy();
+        Destroy(cuttingboard.gameObject);
+        VoxelCut newcuttingboard = Instantiate(CuttingBoardPrefab, cuttingboard.transform.parent).GetComponent<VoxelCut>();
+        newcuttingboard.Awake();
+        newcuttingboard.Start();
+        cuttingboard = newcuttingboard;
+        timer.cuttingboard = newcuttingboard;
+        timer.Reset();
+        SwitchEnableValue(false);
     }
 
     void SwitchCamera(bool state)

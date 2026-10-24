@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
 
-    [SerializeField] VoxelCut cuttingboard;
+    [SerializeField] public VoxelCut cuttingboard;
 
     [SerializeField] Text OutputText;
 
@@ -44,5 +44,8 @@ public class Timer : MonoBehaviour
     {
         started = false;
     }
-
+    public void Reset()
+    {
+        OutputText.text = cuttingboard.Timer.ToString();
+    }
 }

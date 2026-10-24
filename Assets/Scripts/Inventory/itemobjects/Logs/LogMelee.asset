@@ -29,4 +29,5 @@ MonoBehaviour:
     stamina: 0
     staminaRecoveryRate: 0
     staminaDecreaseRate: 0
-  voxelcolor: {r: 0, g: 0, b: 0, a: 0}
+  voxelcolor: {r: 1, g: 0, b: 0, a: 0}
+  pattern: {fileID: 11400000, guid: d74041ee71553d04abf7ca658c455417, type: 2}
