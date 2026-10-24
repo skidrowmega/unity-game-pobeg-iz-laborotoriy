@@ -17,9 +17,11 @@ public class GameManager: MonoBehaviour
     public static event Action<GameState> OnStateChanged;
 
     [SerializeField] private GameObject bobr;
+    [SerializeField] private GameObject craftManager;
+
     [SerializeField] private float difficultyScale = 0.1f;
     public float GameTime { get; private set; }
-    public float DifficultyFactor => GameTime * difficultyScale;
+    public float DifficultyFactor => GameTime * difficultyScale + 10;
 
 
     [SerializeField] private bool debug = false;
@@ -46,6 +48,7 @@ public class GameManager: MonoBehaviour
         if (!debug)
         {
             Instantiate(bobr);
+            DontDestroyOnLoad(Instantiate(craftManager));
             LoadScene("MainMenuScene", GameState.MainMenu);
         }
         
@@ -94,7 +97,7 @@ public class GameManager: MonoBehaviour
                 HandleInventory();
                 break;
             case GameState.Craft:
-                //HandleStartGame();
+                HandleCraft();
                 break;
         }
 
@@ -135,12 +138,12 @@ public class GameManager: MonoBehaviour
 
     private void HandleInventory()
     {
-        Time.timeScale = 0.1f;
+        Time.timeScale = 0.3f;
     }
 
     private void HandleCraft()
     {
-        Time.timeScale = 1f;
+        Time.timeScale = 0.3f;
     }
 
 
@@ -167,6 +170,10 @@ public class GameManager: MonoBehaviour
         {
             float progress = Mathf.Clamp01(operation.progress / 0.9f);
             yield return null;
+        }
+        if (sceneName == "MainGeneration")
+        {
+            Player.ChangeBobrPosition(GameObject.FindGameObjectWithTag("LiftEnter").transform);
         }
         Instance.ChangeState(scenestate);
     }
