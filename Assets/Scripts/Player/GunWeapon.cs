@@ -18,18 +18,13 @@ public class GunWeapon : WeaponRanged
     
 
 
-    void BreakWeapon()
+
+    protected override void OnBreak()
     {
         tempstats = new WeaponRangedStats(this);
         SwapStats(statsonbreak);
-        OnBreak();
     }
-    protected override void OnBreak()
-    {
-        Destroy(weaponReference);
-        weaponReference = null;
-        base.OnBreak();
-    }
+
 
     private void Update()
     {
@@ -71,11 +66,5 @@ public class GunWeapon : WeaponRanged
         bullet.PushStrength = PushStrength;
         bullet = Instantiate<Projectile>(bullet, WeaponHolder.transform.position + WeaponHolder.transform.right * 2, Quaternion.identity);
     }
-    GameObject PlaceWeapon(GameObject weapontoPlace, WeaponRangedStats newstats)
-    {
-        if (weaponReference != null) return null;
-        weaponReference = Instantiate(weapontoPlace, HandReference.transform);
-        SwapStats(newstats);
-        return weaponReference;
-    }
+
 }

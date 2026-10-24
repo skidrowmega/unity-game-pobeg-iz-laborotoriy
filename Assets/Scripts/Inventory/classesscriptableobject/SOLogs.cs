@@ -9,6 +9,7 @@ public class SOLogs: ItemScriptableObject
 {
     public LogType typelog;
     public WeaponMeleeStats weaponMeleeStats;
+    public WeaponRangedStats weaponRangedStats;
     public Color voxelcolor;
     public Pattern pattern;
 
@@ -29,8 +30,25 @@ public class SOLogs: ItemScriptableObject
     }
     void OnCutEnd()
     {
-        Player.player.currentweapon.BreakWeapon();
-        Player.player.currentweapon.PlaceWeapon(CutoutManager.instance.finalCutout, weaponMeleeStats.ApplyMultiplier(CutoutManager.instance.finalScore));
+        switch (typelog)
+        {
+            case LogType.WeaponMeleeLog:
+                {
+                    Player.player.currentweapon.BreakWeapon();
+                    Player.player.currentweapon.PlaceWeapon(CutoutManager.instance.finalCutout, weaponMeleeStats.ApplyMultiplier(CutoutManager.instance.finalScore));
+                    break;
+                }
+            case LogType.WeaponRangedLog:
+                {
+                    Player.player.currentgun.BreakWeapon();
+                    Player.player.currentgun.PlaceWeapon(CutoutManager.instance.finalCutout, weaponRangedStats.ApplyMultiplier(CutoutManager.instance.finalScore));
+                    break;
+                }
+            case LogType.HealLog:
+                {
+                    break;
+                }
+        }
     }
 
     

@@ -10,9 +10,9 @@ public class Weapon : MonoBehaviour
     public GameObject weaponReference;
     public GameObject HandReference;
     public WeaponDurabilityBar AssociatedUI;
-    [SerializeField] public int MaxDurability = 100;
-    [SerializeField] public int Durability = 100;
-    [SerializeField] public int DurabilityDecrease = 5;
+    [SerializeField] public float MaxDurability = 100;
+    [SerializeField] public float Durability = 100;
+    [SerializeField] public float DurabilityDecrease = 5;
     private void Start()
     {
         WeaponHolder = Player.player;
