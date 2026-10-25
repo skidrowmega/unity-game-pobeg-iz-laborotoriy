@@ -152,6 +152,7 @@ MonoBehaviour:
   craftManager: {fileID: 2133718910067762059, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
   minimapCamera: {fileID: 5604647404155423791, guid: 5f6d695d4260755499e382a7893e3dde, type: 3}
   difficultyScale: 0.1
+  FloorChange: 0
   debug: 0
 --- !u!4 &2013887586
 Transform:

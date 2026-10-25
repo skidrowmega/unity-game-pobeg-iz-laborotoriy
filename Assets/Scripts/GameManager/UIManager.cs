@@ -34,7 +34,9 @@ public class UIManager: MonoBehaviour
         inventoryPanel = spawnedCanvas.transform.Find("InventoryUI/SlotsPanel").gameObject;
 
         Button playBtn = mainMenuPanel.transform.Find("Button").GetComponent<Button>();
+        Button winBtn = pausePanel.transform.Find("Win").GetComponent<Button>();
 
+        winBtn.onClick.AddListener(Win);
         playBtn.onClick.AddListener(OnPlayButtonClicked);
 
         DontDestroyOnLoad(gameObject);
@@ -92,5 +94,9 @@ public class UIManager: MonoBehaviour
         Instance.LoadScene("MainGeneration", GameState.Playing);
     }
 
+    private void Win()
+    {
+        Instance.LoadScene("Scene_with_bober", GameState.Victory);
+    }
     
 }

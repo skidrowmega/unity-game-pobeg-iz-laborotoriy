@@ -127,6 +127,7 @@ public class GameManager: MonoBehaviour
     {
         Time.timeScale = 1f;
         Debug.Log("Победа!");
+        LoadScene("MainMenuScene", GameState.MainMenu, 65f);
     }
 
     private void HandleMainMenu()

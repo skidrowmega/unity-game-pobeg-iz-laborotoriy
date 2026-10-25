@@ -494,8 +494,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ea56ce0228eafa4cbf598e6f01ddd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CorridorGenerator
-  minRooms: 20
-  maxRooms: 40
+  minRooms: 15
+  maxRooms: 25
   roomPrefabs:
   - {fileID: 6322770502826254590, guid: 70407daa9cc0f414c85c643f110fa22f, type: 3}
   - {fileID: 6402058631189862566, guid: d77522ba480baf349bafd8e5ca8a5e9d, type: 3}
