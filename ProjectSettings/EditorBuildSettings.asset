@@ -17,5 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scene_with_bober.unity
     guid: 841bfca3db73305468601d05788f6d88
+    path: Assets/Scenes/1.unity
+    guid: ee9147557dfb97d408bbca752c56b857
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

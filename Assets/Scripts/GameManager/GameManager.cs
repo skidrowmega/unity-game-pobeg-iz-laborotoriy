@@ -42,6 +42,7 @@ public class GameManager: MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         GameTime = 0f;
+        DontDestroyOnLoad(Instantiate(craftManager));
     }
 
     private void Start()
@@ -50,7 +51,7 @@ public class GameManager: MonoBehaviour
         if (!debug)
         {
             Instantiate(bobr);
-            DontDestroyOnLoad(Instantiate(craftManager));
+            
             DontDestroyOnLoad(Instantiate(minimapCamera, new Vector3(0, 17, 0), Quaternion.LookRotation(Vector3.down)));
             LoadScene("MainMenuScene", GameState.MainMenu);
         }
