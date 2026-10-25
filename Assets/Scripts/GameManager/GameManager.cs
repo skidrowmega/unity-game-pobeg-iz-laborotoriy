@@ -127,7 +127,6 @@ public class GameManager: MonoBehaviour
     private void HandleVictory()
     {
         Time.timeScale = 0f;
-        
         Debug.Log("Победа!");
     }
 
