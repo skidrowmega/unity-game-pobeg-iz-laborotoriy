@@ -10,9 +10,9 @@ public class aaa : MonoBehaviour
     public float speed = 10;
     void Start()
     {
-        startpos = transform.position;
-        transform.position += offset;
-        endpos=transform.position;
+        startpos = transform.localPosition;
+        transform.localPosition += offset;
+        endpos=transform.localPosition;
         StartCoroutine(dfgaaa());
     }
 
@@ -22,7 +22,7 @@ public class aaa : MonoBehaviour
         float time=0;
         while (time<1)
         {
-            transform.position=Vector3.Lerp(endpos, startpos, time);
+            transform.localPosition=Vector3.Lerp(endpos, startpos, time);
             time += Time.deltaTime;
             yield return null;
         }

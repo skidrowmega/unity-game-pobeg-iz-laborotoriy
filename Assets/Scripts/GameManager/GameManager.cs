@@ -41,7 +41,7 @@ public class GameManager: MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(Instantiate(craftManager));
+        DontDestroyOnLoad(Instantiate(craftManager,new Vector3(0,-100,0),Quaternion.identity));
     }
 
     private void Start()

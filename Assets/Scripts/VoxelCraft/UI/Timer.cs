@@ -21,7 +21,7 @@ public class Timer : MonoBehaviour
     {
         if (started&&!cuttingboard.Submitted)
         {
-            int timeleft = ((int)(cuttingboard.Timer + StartTime - Time.time));
+            int timeleft = ((int)(cuttingboard.Timer + StartTime - Time.realtimeSinceStartup));
             OutputText.text = timeleft.ToString();
             if (timeleft <= 0)
             {
@@ -36,7 +36,7 @@ public class Timer : MonoBehaviour
 
     public void StartTimer()
     {
-        StartTime= Time.time;
+        StartTime= Time.realtimeSinceStartup;
         started = true;
     }
 
