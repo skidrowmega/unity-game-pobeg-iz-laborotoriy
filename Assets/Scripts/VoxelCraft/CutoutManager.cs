@@ -84,7 +84,6 @@ public class CutoutManager : MonoBehaviour
         newcuttingboard.SubmitResultText=cuttingboard.SubmitResultText;
         newcuttingboard.Awake();
         newcuttingboard.Start();
-        cuttingboard = newcuttingboard;
         timer.cuttingboard = cuttingboard;
         SwitchEnableValue(false);
         GameManager.Instance.ChangeState(GameManager.GameState.Playing);
