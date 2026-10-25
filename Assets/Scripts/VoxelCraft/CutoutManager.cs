@@ -40,7 +40,6 @@ public class CutoutManager : MonoBehaviour
 
     private void Start()
     {
-        if(!Debug)SwitchEnableValue(false);
 #if UNITY_EDITOR
         if (Debug)
         {
@@ -50,9 +49,9 @@ public class CutoutManager : MonoBehaviour
         }
 #endif
     }
+    
 
-
-    void SwitchEnableValue(bool value)
+    public void SwitchEnableValue(bool value=false)
     {
         children.ForEach(child => child.gameObject.SetActive(value));
     }
@@ -65,6 +64,8 @@ public class CutoutManager : MonoBehaviour
             callback =OnCutEnd;
         SwitchEnableValue(true);
         IsCuttingOut = true;
+        //if (!cuttingboard.didAwake) cuttingboard.Awake();
+        //if (!cuttingboard.didStart) cuttingboard.Start();
         cuttingboard.CutStart();
         timer.StartTimer();
         SwitchCamera(true);

@@ -83,7 +83,7 @@ public class VoxelCut : MonoBehaviour
             }
         }
         CutoutManager.instance.cuttingboard = this;
-
+        if(!CutoutManager.instance.Debug)CutoutManager.instance.SwitchEnableValue(false);
     }
 
     public void CutStart()
