@@ -51,11 +51,10 @@ public class GameManager: MonoBehaviour
         if (!debug)
         {
             Instantiate(bobr);
-            
+
             DontDestroyOnLoad(Instantiate(minimapCamera, new Vector3(0, 17, 0), Quaternion.LookRotation(Vector3.down)));
             LoadScene("MainMenuScene", GameState.MainMenu);
-        }
-        
+        }  
     }
 
     void Update()
@@ -126,7 +125,7 @@ public class GameManager: MonoBehaviour
 
     private void HandleVictory()
     {
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
         Debug.Log("Победа!");
     }
 

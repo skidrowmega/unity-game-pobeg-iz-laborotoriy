@@ -16,7 +16,7 @@ public class Elevator: MonoBehaviour
 
         if (isReady && distance <= activationDistance)
         {
-            if (GameManager.Instance.FloorChange < 1)
+            if (GameManager.Instance.FloorChange < 4)
             {
                 ChangeElevatorState();
                 ActivateElevator();
