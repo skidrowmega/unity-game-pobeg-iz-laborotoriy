@@ -17,7 +17,7 @@ public class GenerateVoxelGrid : MonoBehaviour
     void Awake()
     {
         voxel.transform.localScale=new Vector3(gap, gap, gap);
-        sprites=Resources.LoadAll<Sprite>("");
+        sprites=Resources.LoadAll<Sprite>("derevo/");
         voxels= new GameObject[dimensions[0], dimensions[1]];
         VoxelBlank[] potentialchildren = gameObject.GetComponentsInChildren<VoxelBlank>();
         Sprite sprite;
@@ -31,8 +31,9 @@ public class GenerateVoxelGrid : MonoBehaviour
                 for (int i = 0; i < dimensions[0]; i++)
                 {
                     voxels[i, j] = potentialchildren[count].gameObject;
-                    
+
                     MeshRenderer[] meshRenderer = voxels[i, j].GetComponentsInChildren<MeshRenderer>();
+                    //MeshRenderer meshRenderer = voxels[i, j].GetComponent<MeshRenderer>();
                     sprite = sprites[count];
                     texture = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
 
