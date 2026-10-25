@@ -118,6 +118,20 @@ public class InventoryManager: MonoBehaviour
     }
 
 
+    public void ClearInventory()
+    {
+        for (int y = 0; y < inventorydimensions.y; y++)
+        {
+            for (int x = 0; x < inventorydimensions.x; x++)
+            {
+                if (!inventorySlots[x, y].isEmpty)
+                {
+                    RemoveItem(new Vector2Int(x, y));
+                }
+            }
+        }
+    }
+
 
     bool isDragging = false;
     Vector2Int dragStartIndex;
