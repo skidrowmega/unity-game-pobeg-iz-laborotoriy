@@ -16,8 +16,8 @@ MonoBehaviour:
   baseDamage: 10
   baseSpeed: 5
   baseAttackDuration: 1
-  baseAttackDistance: 1
-  baseStopDistance: 1
+  baseAttackDistance: 2
+  baseStopDistance: 2
   basePushForce: 0
   baseAttackCooldown: 1.5
   baseMathematicianArithmeticDamage: 2

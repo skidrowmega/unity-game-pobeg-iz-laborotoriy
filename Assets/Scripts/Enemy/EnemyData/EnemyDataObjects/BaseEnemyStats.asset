@@ -15,8 +15,8 @@ MonoBehaviour:
   baseHP: 10
   baseDamage: 10
   baseSpeed: 5
-  baseAttackDuration: 1
-  baseAttackDistance: 1
+  baseAttackDuration: 1.2
+  baseAttackDistance: 1.2
   baseStopDistance: 1
   basePushForce: 0
   baseAttackCooldown: 1.5

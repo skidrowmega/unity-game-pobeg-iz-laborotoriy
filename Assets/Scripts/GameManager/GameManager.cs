@@ -42,6 +42,7 @@ public class GameManager: MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         DontDestroyOnLoad(Instantiate(craftManager,new Vector3(0,-100,0),Quaternion.identity));
+        GameTime = 0f;
     }
 
     private void Start()
@@ -126,7 +127,6 @@ public class GameManager: MonoBehaviour
     private void HandleVictory()
     {
         Time.timeScale = 0f;
-        
         Debug.Log("Победа!");
     }
 

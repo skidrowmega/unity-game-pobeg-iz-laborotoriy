@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3752069784046363224}
   - component: {fileID: 1115256657444179993}
+  - component: {fileID: 4303919656372065592}
   m_Layer: 0
   m_Name: LevelPopulator
   m_TagString: Untagged
@@ -45,9 +46,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RoomPopulator
   TimeUntilSpawn: 5
-  Repeat: 1
-  Offset: {x: 0, y: 0, z: 0}
   objectprefabs: []
   PrefabPoints: 
-  spawnTriggerrange: 10
+  spawnTriggerrangeMax: 30
+  spawnTriggerrangeMin: 10
+  basePointPool: 30
+  timeToDeleteWeakEnemy: 20
+  timeToCreateStrongEnemy: 20
   MaxOffset: {x: 19, y: 19}
+  WeakEnemiesAmount: 1
+--- !u!114 &4303919656372065592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2085493303264609629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2280f78e8153df44837ccbb4c9d062d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnomalySpawner
+  TimeUntilSpawn: 15
+  anomalyprefab: {fileID: 1568080186804927961, guid: 27de0b69c52ac9047941f19b2080c682, type: 3}
+  spawnTriggerrangeMax: 50
+  spawnTriggerrangeMin: 20
+  MaxOffset: {x: 9, y: 9}

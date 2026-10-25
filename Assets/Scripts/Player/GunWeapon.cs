@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 public class GunWeapon : WeaponRanged
@@ -64,7 +65,7 @@ public class GunWeapon : WeaponRanged
         bullet.Shooter = WeaponHolder;
         bullet.damage = Damage;
         bullet.PushStrength = PushStrength;
-        bullet = Instantiate<Projectile>(bullet, WeaponHolder.transform.position + WeaponHolder.transform.right * 2 + new Vector3 (0, transform.localScale.y/2, 0), Quaternion.identity);
+        bullet = Instantiate<Projectile>(bullet, WeaponHolder.transform.position + WeaponHolder.transform.right * 2 + new Vector3 (-1f, 1.3f, 0), Quaternion.identity);
     }
 
 }

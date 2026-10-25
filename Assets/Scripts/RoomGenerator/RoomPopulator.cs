@@ -72,7 +72,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
                 {
                     GameObject Obstacle = objectprefabs[ObstacleIndex];
                     Vector3 newOffset = new Vector3(Random.Range(-MaxOffset.x, MaxOffset.x), 0, Random.Range(-MaxOffset.y, MaxOffset.y));
-                    GameObject spawnedEnemy = Instantiate(Obstacle, newOffset, Quaternion.identity);
+                    GameObject spawnedEnemy = Instantiate(Obstacle, newOffset + transform.position, Quaternion.identity);
                     currentPointPool -= PointsToSubstract;
                     lastspawntime = Time.time;
                 }

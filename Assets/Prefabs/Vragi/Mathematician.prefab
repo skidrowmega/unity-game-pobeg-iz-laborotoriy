@@ -86,8 +86,8 @@ MonoBehaviour:
   MainScale: 0.8
   SpeedScale: 1.2
   DistanceScale: 12
-  CriticalDistance: 5
-  RadiusDivisionByZero: 5
+  CriticalDistance: 2
+  RadiusDivisionByZero: 2
 --- !u!136 &542859226315024882
 CapsuleCollider:
   m_ObjectHideFlags: 0
