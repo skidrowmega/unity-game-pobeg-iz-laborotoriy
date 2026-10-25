@@ -18,8 +18,6 @@ public class Elevator: MonoBehaviour
         {
             if (GameManager.Instance.FloorChange < 5)
             {
-                Debug.Log("Зашёл в лифт");
-                print(Instance.FloorChange);
                 ChangeElevatorState();
                 ActivateElevator();
                 Invoke(nameof(ChangeElevatorState), 5f);
