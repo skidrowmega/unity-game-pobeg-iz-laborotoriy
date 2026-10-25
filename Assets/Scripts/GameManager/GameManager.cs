@@ -41,6 +41,7 @@ public class GameManager: MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        GameTime = 0f;
     }
 
     private void Start()
