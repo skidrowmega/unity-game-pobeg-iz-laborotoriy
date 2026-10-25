@@ -29,4 +29,15 @@ MonoBehaviour:
     stamina: 0
     staminaRecoveryRate: 0
     staminaDecreaseRate: 0
+  weaponRangedStats:
+    WeaponName: 
+    Damage: 0
+    PushStrength: 0
+    maxDurability: 0
+    durability: 0
+    durabilityDecrease: 0
+    RicochetCount: 0
+    IsUsable: 0
+  HealAmount: 100
   voxelcolor: {r: 0, g: 0, b: 0, a: 0}
+  pattern: {fileID: 11400000, guid: dc4ea6768c4bd094182000ca15ca6c9b, type: 2}

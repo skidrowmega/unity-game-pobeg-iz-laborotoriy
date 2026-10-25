@@ -5,11 +5,15 @@ public enum LogType { WeaponMeleeLog, WeaponRangedLog, HealLog}
 
 [CreateAssetMenu(fileName = "Log", menuName = "Roguelike/Items/Log")]
 
+
 public class SOLogs: ItemScriptableObject
 {
     public LogType typelog;
     public WeaponMeleeStats weaponMeleeStats;
     public WeaponRangedStats weaponRangedStats;
+    public float HealAmount;
+
+
     public Color voxelcolor;
     public Pattern pattern;
 
@@ -46,6 +50,7 @@ public class SOLogs: ItemScriptableObject
                 }
             case LogType.HealLog:
                 {
+                    Player.player.RestoreHealth(HealAmount * CutoutManager.instance.finalScore);
                     break;
                 }
         }

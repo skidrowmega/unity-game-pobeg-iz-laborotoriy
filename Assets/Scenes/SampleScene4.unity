@@ -334,7 +334,7 @@ PrefabInstance:
     - target: {fileID: -8023286324073713792, guid: 1f9125a9ed2fe3145a67c832d6379eec, type: 3}
       propertyPath: itemData
       value: 
-      objectReference: {fileID: 11400000, guid: c13b1c8aca26a5043a50e63f6b8c11a2, type: 2}
+      objectReference: {fileID: 11400000, guid: 8ae3b63df1e2c0948ada6cb07cd69b8d, type: 2}
     - target: {fileID: 3605488783114244756, guid: 1f9125a9ed2fe3145a67c832d6379eec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.24098
@@ -1790,7 +1790,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   bobr: {fileID: 0}
+  craftManager: {fileID: 0}
+  minimapCamera: {fileID: 0}
   difficultyScale: 0.1
+  FloorChange: 0
   debug: 1
 --- !u!4 &570152752
 Transform:
