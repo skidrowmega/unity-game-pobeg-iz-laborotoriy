@@ -76,10 +76,9 @@ public class Player : Entity
             if (animator.GetCurrentAnimatorStateInfo(1).IsName("Default")) 
             {
                 animator.Play("Udar");
-                StartCoroutine(MeleeAttackLoop(animator.GetCurrentAnimatorStateInfo(1).length));// сделать чтобы время когда бить стало меньше
+                StartCoroutine(MeleeAttackLoop(/*animator.GetCurrentAnimatorStateInfo(1).length*/0.2f));// сделать чтобы время когда бить стало меньше
             }
         }
-        
     }
 
 

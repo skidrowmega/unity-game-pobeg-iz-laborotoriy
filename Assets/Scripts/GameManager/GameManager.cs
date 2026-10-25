@@ -26,7 +26,7 @@ public class GameManager: MonoBehaviour
     public float GameTime { get; private set; }
     public float DifficultyFactor => GameTime * difficultyScale + 10;
 
-
+    public int FloorChange = 0;
     [SerializeField] private bool debug = false;
     
 
@@ -126,11 +126,12 @@ public class GameManager: MonoBehaviour
     private void HandleVictory()
     {
         Time.timeScale = 0f;
+        
         Debug.Log("Победа!");
     }
 
     private void HandleMainMenu()
-    {
+    { 
         Time.timeScale = 0f;
         GameTime = 0f;
         if (!Player.player)

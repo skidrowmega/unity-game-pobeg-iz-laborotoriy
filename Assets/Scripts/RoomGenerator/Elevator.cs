@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.UIElements;
+using static GameManager;
 
 public class Elevator: MonoBehaviour
 {
     [SerializeField] private float activationDistance = 1.5f;
     private int count = 0;
+    private bool isReady = true;
 
     private void Update()
     {
@@ -12,12 +14,13 @@ public class Elevator: MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, Player.player.transform.position);
 
-        if (distance <= activationDistance)
+        if (isReady && distance <= activationDistance)
         {
-            if (count < 5)
+            if (GameManager.Instance.FloorChange < 5)
             {
+                ChangeElevatorState();
                 ActivateElevator();
-                count++;
+                Invoke(nameof(ChangeElevatorState), 5f);
             }
             else
             {
@@ -28,11 +31,17 @@ public class Elevator: MonoBehaviour
 
     private void ActivateElevator()
     {
+        GameManager.Instance.FloorChange++;
         GameManager.Instance.LoadScene("MainGeneration", GameManager.GameState.Playing);
     }
 
     private void Victory()
     {
-        GameManager.Instance.ChangeState(GameManager.GameState.Victory);
+        GameManager.Instance.LoadScene("Scene_with_bober", GameState.Victory);
+    }
+
+    private void ChangeElevatorState()
+    {
+        isReady = !isReady;
     }
 }
