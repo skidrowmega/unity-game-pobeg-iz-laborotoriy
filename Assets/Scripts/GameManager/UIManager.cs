@@ -79,7 +79,7 @@ public class UIManager: MonoBehaviour
                 loadingPanel.SetActive(true);
                 break;
             case GameState.Victory:
-                victoryPanel.SetActive(true);
+                //victoryPanel.SetActive(true);
                 break;
             case GameState.Inventory:
                 inventoryPanel.SetActive(true);
