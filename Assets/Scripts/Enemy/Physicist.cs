@@ -50,10 +50,9 @@ public class Physicist: EnemyAll
         StanTime = stats.basePhysicistStanStanTime;
     }
 
-    private void Update()
+    public override void Update()
     {
-        distanceToPlayer = (player.transform.position - transform.position).magnitude;
-        Move();
+        base.Update();
         TryGravitationalPush();
         TryStan();
         TryAttack();

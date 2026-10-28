@@ -46,10 +46,9 @@ public class Chemist: EnemyAll
         PushForce = stats.basePushForce;
     }
 
-    private void Update()
+    public override void Update()
     {
-        distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
-        Move();
+        base.Update();
         TryAttack();
         TryMolotovСocktail();
     }

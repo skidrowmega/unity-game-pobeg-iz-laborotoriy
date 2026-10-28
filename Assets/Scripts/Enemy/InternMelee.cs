@@ -25,10 +25,9 @@ public class InternMelee : EnemyAll
         PushForce = stats.basePushForce;
     }
 
-    void Update()
+    public override void Update()
     {
-        distanceToPlayer = (player.transform.position - transform.position).magnitude;
-        Move();
+        base.Update();
         TryAttack();
     }
 }

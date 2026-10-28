@@ -48,11 +48,9 @@ public class Mathematician : EnemyAll
         PushForce = stats.basePushForce;
     }
 
-    private void Update()
+    public override void Update()
     {
-        distanceToPlayer = (player.transform.position - transform.position).magnitude;
-        //Rotation();
-        Move();
+        base.Update();
         TryDivisionByZero();
         TryArithmeticProgression();
         TryAttack();
