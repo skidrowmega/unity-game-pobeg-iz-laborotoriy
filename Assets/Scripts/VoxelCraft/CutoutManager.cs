@@ -58,7 +58,7 @@ public class CutoutManager : MonoBehaviour
 
     public void StartCut(Action OnCutEnd=null)
     {
-        GameManager.Instance.ChangeState(GameManager.GameState.Craft);
+        if(!Debug)GameManager.Instance.ChangeState(GameManager.GameState.Craft);
         print("CUTTING STARTED!!!");
         if (OnCutEnd!=null)
             callback =OnCutEnd;
@@ -78,14 +78,15 @@ public class CutoutManager : MonoBehaviour
         callback();
         callback = null;
         cuttingboard.PrepareForDestroy();
-        Destroy(cuttingboard.gameObject);
         VoxelCut newcuttingboard = Instantiate(CuttingBoardPrefab, cuttingboard.transform.parent).GetComponent<VoxelCut>();
         newcuttingboard.SubmitButtonText=cuttingboard.SubmitButtonText;
-        newcuttingboard.SubmitResultText=cuttingboard.SubmitResultText;
+        newcuttingboard.SubmitResultText = cuttingboard.SubmitResultText;
+        Destroy(cuttingboard.gameObject);
         newcuttingboard.Awake();
         newcuttingboard.Start();
+        
         timer.cuttingboard = cuttingboard;
-        SwitchEnableValue(false);
+        //SwitchEnableValue(false);
         GameManager.Instance.ChangeState(GameManager.GameState.Playing);
     }
 

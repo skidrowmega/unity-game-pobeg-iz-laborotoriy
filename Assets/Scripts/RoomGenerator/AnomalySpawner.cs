@@ -23,7 +23,6 @@ public class AnomalySpawner: MonoBehaviour
     {
         if (Time.time - lastspawntime > TimeUntilSpawn)
         {
-            print(Time.time);
             print(lastspawntime);
             SpawnAnomaly();
         }
@@ -33,7 +32,6 @@ public class AnomalySpawner: MonoBehaviour
     {
         if (Vector3.Distance(Player.player.transform.position, transform.position) <= spawnTriggerrangeMax && Vector3.Distance(Player.player.transform.position, transform.position) >= spawnTriggerrangeMin)
         {
-            print("Spawn1");
             Vector3 newOffset = new Vector3(Random.Range(-MaxOffset.x, MaxOffset.x), 0, Random.Range(-MaxOffset.y, MaxOffset.y));
             GameObject spawnedAnomaly = Instantiate(anomalyprefab, newOffset + transform.position, Quaternion.identity);
             lastspawntime = Time.time;
