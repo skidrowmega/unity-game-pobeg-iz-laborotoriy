@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CorridorGenerator : MonoBehaviour
@@ -9,6 +11,8 @@ public class CorridorGenerator : MonoBehaviour
     [SerializeField] int minRooms = 15;
     [SerializeField] int maxRooms = 20;
     [SerializeField] Room[] roomPrefabs;
+    [SerializeField] Room LiftEnter;
+    [SerializeField] Room LiftExit;
     int maxX;
     int maxY;
 
@@ -57,10 +61,12 @@ public class CorridorGenerator : MonoBehaviour
                 print($"Finished Generation, generated {roomcount} rooms");
                 isFinished = true;
                 GenerateRoomPrefabs();
+                GenerateLiftRooms();
                 if (roomcount >= minRooms && roomPrefabs.Length > 1)
                     for (int i = 1; i < roomPrefabs.Length; i++)
                     {
                         GenerateSpecialRoom(roomPrefabs[i]);
+                        
                     }
             }
         }
@@ -188,6 +194,47 @@ public class CorridorGenerator : MonoBehaviour
 
         Room newroom = Instantiate(specialroomprefab, GetPosFromIndex(index), Quaternion.identity);
         newroom.name = $"{specialroomprefab.name}";
+        newroom.GetComponent<Room>().position = index;
+        rooms.Add(newroom);
+        RemoveWalls(newroom);
+    }
+
+    private void GenerateLiftRooms()
+    {
+        List<Vector2Int> availablespots = new List<Vector2Int>();
+        Vector2Int newposition;
+        for (int x = 0; x < gridsizeX; x++)
+        {
+            for (int y = 0; y < gridsizeY; y++)
+            {
+                newposition = new Vector2Int(x, y);
+                if (!Grid[x, y] && CountAdjacentRooms(newposition) == 1)
+                {
+                    availablespots.Add(newposition);
+                }
+            }
+        }
+
+        Vector2Int index = availablespots[UnityEngine.Random.Range(0, availablespots.Count - 1)];
+        Vector2Int furthestspot = availablespots.OrderByDescending(x => Vector2Int.Distance(index, x)).First();
+        int Xpos = index.x;
+        int Ypos = index.y;
+
+        Grid[Xpos, Ypos] = true;
+
+        Room newroom = Instantiate(LiftEnter.gameObject, GetPosFromIndex(index), Quaternion.identity).GetComponent<Room>();
+        newroom.name = $"{LiftEnter.name}";
+        newroom.GetComponent<Room>().position = index;
+        rooms.Add(newroom);
+        RemoveWalls(newroom);
+        index = furthestspot;
+        Xpos = index.x;
+        Ypos = index.y;
+
+        Grid[Xpos, Ypos] = true;
+
+        newroom = Instantiate(LiftExit.gameObject, GetPosFromIndex(index), Quaternion.identity).GetComponent<Room>();
+        newroom.name = $"{LiftExit.name}";
         newroom.GetComponent<Room>().position = index;
         rooms.Add(newroom);
         RemoveWalls(newroom);

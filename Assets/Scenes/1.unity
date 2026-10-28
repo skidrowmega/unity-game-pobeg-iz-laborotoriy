@@ -674,6 +674,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3160009511020624388, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
+      propertyPath: orthographic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160009511020624388, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
+      propertyPath: far clip plane
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160009511020624388, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
+      propertyPath: orthographic size
+      value: 1.02
+      objectReference: {fileID: 0}
     - target: {fileID: 4088943032108634062, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
