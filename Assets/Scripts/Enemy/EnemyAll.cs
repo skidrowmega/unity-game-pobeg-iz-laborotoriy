@@ -10,7 +10,7 @@ public class EnemyAll: Entity
     public Animator animator;
     protected Player player;
     protected bool isAttacking = false;
-    public float rotationSpeed;
+    public float rotationSpeed = 20f;
     protected float Damage;
     protected float AttackDuration;
     protected float attackDistance;
@@ -20,6 +20,12 @@ public class EnemyAll: Entity
     protected float distanceToPlayer;
     protected float DifficultyScale;
 
+    public virtual void Update()
+    {
+        distanceToPlayer = (player.transform.position - transform.position).magnitude;
+        Move();
+        if (!(agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon)) Rotation();
+    }
     public virtual void Initialize()
     {
         DifficultyScale = GameManager.Instance.DifficultyFactor;
@@ -101,5 +107,15 @@ public class EnemyAll: Entity
             Instantiate(LogGreen, transform.position, Quaternion.identity);
         }
         base.Death();
+    }
+
+    protected void Rotation()
+    {
+        Vector3 direction = player.transform.position - transform.position;
+
+        direction.y = 0;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
     }
 }
