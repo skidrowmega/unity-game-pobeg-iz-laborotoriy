@@ -28,6 +28,7 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
     [SerializeField] Vector2 MaxOffset = new Vector2(9, 9);
     Player player;
     [SerializeField] int WeakEnemiesAmount = 1;
+    private int limit = 0;
 
     protected void Start()
     {
@@ -62,10 +63,12 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
 
     protected void SpawnForPoints()
     {
+        limit = 0;
         if (Vector3.Distance(Player.player.transform.position, transform.position) <= spawnTriggerrangeMax && Vector3.Distance(Player.player.transform.position, transform.position) >= spawnTriggerrangeMin)
         {
-            while (currentPointPool >= minPoint)
+            while (currentPointPool >= minPoint && limit < 5)
             {
+                limit++;
                 int ObstacleIndex = GetRandomObstacleIndex();
                 int PointsToSubstract = PrefabPoints[ObstacleIndex];
                 if (currentPointPool - PointsToSubstract >= 0)
