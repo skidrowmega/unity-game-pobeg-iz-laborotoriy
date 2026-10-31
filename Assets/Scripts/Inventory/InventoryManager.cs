@@ -247,7 +247,7 @@ public class InventoryManager: MonoBehaviour
         {
             for (int x = 0; x < inventorydimensions.x; x++)
             {
-                if (inventorySlots[x,y].itemDataSlot.name == item_name)
+                if (!inventorySlots[x,y].isEmpty &&inventorySlots[x,y].itemDataSlot.name == item_name)
                 {
                     RemoveItem(new Vector2Int(x,y));
                     return;
