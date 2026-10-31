@@ -36,5 +36,9 @@ public class AnomalySpawner: MonoBehaviour
             GameObject spawnedAnomaly = Instantiate(anomalyprefab, newOffset + transform.position, Quaternion.identity);
             lastspawntime = Time.time;
         }
+        else
+        {
+            lastspawntime = Time.time;
+        }
     }
 }

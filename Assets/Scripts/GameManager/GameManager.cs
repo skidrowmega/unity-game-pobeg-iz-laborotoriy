@@ -24,9 +24,9 @@ public class GameManager: MonoBehaviour
 
     [SerializeField] private float difficultyScale = 0.1f;
     public float GameTime { get; private set; }
-    public float DifficultyFactor => GameTime * difficultyScale + 10;
+    public float DifficultyFactor => GameTime * difficultyScale + 10 * FloorChange;
 
-    public int FloorChange = 0;
+    public int FloorChange = 1;
     [SerializeField] private bool debug = false;
     
 
@@ -153,7 +153,7 @@ public class GameManager: MonoBehaviour
 
     private void HandleCraft()
     {
-        Time.timeScale = 0.3f;
+        Time.timeScale = 0.1f;
     }
 
 
