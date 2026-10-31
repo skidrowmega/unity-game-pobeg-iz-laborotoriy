@@ -854,7 +854,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   bobr: {fileID: 1672515569}
+  craftManager: {fileID: 0}
+  minimapCamera: {fileID: 0}
   difficultyScale: 0.1
+  FloorChange: 0
   debug: 1
 --- !u!4 &2103337586
 Transform:
