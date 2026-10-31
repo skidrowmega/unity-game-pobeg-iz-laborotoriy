@@ -12,6 +12,8 @@ public abstract class ItemScriptableObject: ScriptableObject
     
     public string itemName;
     public ItemType type;
+    public int Value;
+    public string ItemDescription;
     public GameObject itemprefab;
     public Sprite ItemImage;
     public bool Consumedonuse = true;
