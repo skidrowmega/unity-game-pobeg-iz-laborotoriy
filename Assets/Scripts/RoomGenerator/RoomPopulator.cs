@@ -64,11 +64,11 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
     protected void SpawnForPoints()
     {
         limit = 0;
-        print(Vector3.Distance(Player.player.transform.position, transform.position));
-        print(Vector3.Distance(Player.player.transform.position, transform.position));
+        //print(Vector3.Distance(Player.player.transform.position, transform.position));
+        //print(Vector3.Distance(Player.player.transform.position, transform.position));
         if (Vector3.Distance(Player.player.transform.position, transform.position) <= spawnTriggerrangeMax && Vector3.Distance(Player.player.transform.position, transform.position) >= spawnTriggerrangeMin)
         {
-            print("Рядом");
+            //print("Рядом");
             while (currentPointPool >= minPoint && limit < 5)
             {
                 limit++;

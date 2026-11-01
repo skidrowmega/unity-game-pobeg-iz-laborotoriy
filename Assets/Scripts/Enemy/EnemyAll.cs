@@ -78,7 +78,7 @@ public class EnemyAll: Entity
     protected virtual void TryAttack()
     {
 
-        Debug.Log(attackDistance);
+        //Debug.Log(attackDistance);
         bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
         if (!isAttacking && !isMoving && Time.time >= nextAttackTime && distanceToPlayer <= attackDistance)
         {
