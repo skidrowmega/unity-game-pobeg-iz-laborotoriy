@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SOHealthPot
   itemName: Health Potion
   type: 0
+  Value: 5
+  ItemDescription: "\u0421\u0442\u0440\u0430\u043D\u043D\u0430\u044F \u043A\u0440\u0430\u0441\u043D\u0430\u044F
+    \u0436\u0438\u0436\u0430"
   itemprefab: {fileID: 3794268634700138588, guid: 1f9125a9ed2fe3145a67c832d6379eec, type: 3}
   ItemImage: {fileID: 558595932, guid: 94954811e0aa7a84985397b805d9a8e9, type: 3}
   Consumedonuse: 1
-  HPRestoreOnUse: 50
+  HPRestoreOnUse: 100

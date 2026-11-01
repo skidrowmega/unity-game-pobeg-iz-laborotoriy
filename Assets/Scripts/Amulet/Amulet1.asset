@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Amulet1
   amuletName: Amulet1
   amuletDescription: Amulet1
-  amuletImage: {fileID: 0}
+  amuletImage: {fileID: 1057017106, guid: 9676e972781270745b2b01cf6bc7814e, type: 3}
   resistBuff: 0.1
   damageMeleeBuff: 0.1
   damageRangedBuff: 0.1
