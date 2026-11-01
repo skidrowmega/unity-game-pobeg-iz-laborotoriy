@@ -60,7 +60,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   rotationSpeed: 5
   projectileprefab: {fileID: 7798909843889710101, guid: 9c6e95e96c4a8494caa5178aba508229, type: 3}
-  MainScale: 0.2
+  MainScale: 0.1
   SpeedScale: 0.9
   DistanceScale: 10
   stats: {fileID: 11400000, guid: be5615d9fcac65d45a5cdfd0aac21e10, type: 2}
