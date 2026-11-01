@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
 public class ShopSlot
 {
@@ -27,6 +28,10 @@ public class ShopScript : MonoBehaviour
     [SerializeField] ItemScriptableObject itemtoadd;
 #endif
 
+
+
+    GameObject[] DETI;
+
     //Тут нужен будет массив с соответствием между слотом и предметом
 
     private void Awake()
@@ -43,9 +48,6 @@ public class ShopScript : MonoBehaviour
                 itemDataSlot = null,
                 isEmpty = true
             };
-
-
-
 
 
 
@@ -68,24 +70,77 @@ public class ShopScript : MonoBehaviour
             trigger.triggers.Add(entryPointerEnter);
             trigger.triggers.Add(entryPointerExit);
         }
+        DETI= new GameObject[transform.childCount];
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            DETI[i]=transform.GetChild(i).gameObject;
+            print(DETI[i].name);
+        }
+        DisableWindows();
 
 
     }
-#if UNITY_EDITOR
+
     private void Start()
     {
+#if UNITY_EDITOR
         if (debug)
         {
             AddItem(itemtoadd);
         }
+#endif
         UpdateShopCurrency();
     }
 
-#endif
+
     public void OpenShop()
     {
+        EnableWindows();
         UpdateShopCurrency();
         UpdateItems();
+    }
+
+    public void CloseShop()
+    {
+        DisableWindows();
+    }
+
+/*#if UNITY_EDITOR
+    private void Update()
+    {
+        if (debug)
+        {
+            if (Input.GetKeyDown(KeyCode.K))
+            {
+                OpenShop();
+                for (int i = 0; i < 10; i++)
+                {
+                    AddItem(itemtoadd);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.L))
+            {
+                CloseShop();
+            }
+        }
+    }
+#endif*/
+
+
+    void EnableWindows()
+    {
+        for (int i = 0; i < DETI.Length; i++)
+        {
+            DETI[i].SetActive(true);
+        }
+    }
+
+    void DisableWindows()
+    {
+        for (int i = 0; i < DETI.Length; i++)
+        {
+            DETI[i].SetActive(false);
+        }
     }
 
     void AddItem(ItemScriptableObject itemdata)
