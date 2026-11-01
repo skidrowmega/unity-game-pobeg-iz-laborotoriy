@@ -15,5 +15,5 @@ MonoBehaviour:
   amuletName: Amulet3
   amuletDescription: Amulet3
   amuletImage: {fileID: 0}
-  healthBuff: 20
+  resistBuff: 0.2
   damageBuff: 0.2

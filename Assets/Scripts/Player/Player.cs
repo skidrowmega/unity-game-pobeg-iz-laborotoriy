@@ -6,6 +6,11 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 public class Player : Entity
 {
+    public AmuletManager amuletManager;
+    void Start()
+    {
+        amuletManager = gameObject.GetComponent<AmuletManager>();
+    }
     public Transform Cursor;
     Vector3 CursorVector;
     Animator animator;
@@ -189,12 +194,14 @@ public class Player : Entity
 
     public override void TakeDamage(float damage, Vector3 source, Entity attacker, float pushstrength, DamageType type, float StunTime=0)
     {
+        float currentincomingdamage = amuletManager.GetDamageDecrease(damage);
+        print(currentincomingdamage);
         if (IsDodging)
         {
             if (type==DamageType.Unparriable)
             {
                 DodgeStop();
-                base.TakeDamage(damage, source, attacker, pushstrength, type, StunTime);
+                base.TakeDamage(currentincomingdamage, source, attacker, pushstrength, type, StunTime);
 
             }
             else
@@ -204,13 +211,13 @@ public class Player : Entity
         if (attacker!=null&&isparrying() && type!=DamageType.Unparriable)
         {
             if (type == DamageType.Projectile) return;
-            OnParry(damage,attacker,pushstrength, StunTime);
+            OnParry(currentincomingdamage, attacker,pushstrength, StunTime);
             return;
         }
         else
-            base.TakeDamage(damage,source,attacker, pushstrength,type, StunTime);
+            base.TakeDamage(currentincomingdamage, source,attacker, pushstrength,type, StunTime);
     }
-    private void OnParry(float damage, Entity source, float pushstrength,float StunTime)
+    private void OnParry(float currentincomingdamage, Entity source, float pushstrength,float StunTime)
     {
         lastparry=-parrycooldown;
         source.TakeDamage(0,transform.position,this,5,DamageType.Normal,StunTime);

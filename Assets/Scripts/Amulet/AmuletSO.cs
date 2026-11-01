@@ -6,14 +6,19 @@ public class AmuletSO: ScriptableObject
     public string amuletName;
     public string amuletDescription;
     public Sprite amuletImage;
-    public float healthBuff;
+    public float resistBuff;
     public float damageBuff;
 
     public virtual void OnEquip(GameObject player) { }
     public virtual void OnUnequip(GameObject player) { }
 
-    public float ModifyDamage(float incomingDamage)
+    public float ModifyDamage(float Damage)
     {
-        return incomingDamage * (1 +damageBuff);
+        return Damage * (1 + damageBuff);
+    }
+
+    public float ResistDamage(float incomingDamage)
+    {
+        return incomingDamage * (1 - resistBuff);
     }
 }

@@ -28,4 +28,16 @@ public class AmuletManager : MonoBehaviour
 
         return finalDamage;
     }
+
+    public float GetDamageDecrease(float baseincomingDamage)
+    {
+        float finalincomingDamage = baseincomingDamage;
+
+        foreach (AmuletSO amulet in equippedAmulets)
+        {
+            finalincomingDamage = amulet.ModifyDamage(finalincomingDamage);
+        }
+
+        return finalincomingDamage;
+    }
 }
