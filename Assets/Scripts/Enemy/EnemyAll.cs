@@ -47,17 +47,26 @@ public class EnemyAll: Entity
 
     protected virtual void Move()
     {
-        agent.SetDestination(player.transform.position);
+        if (agent != null && agent.isActiveAndEnabled && agent.isOnNavMesh)
+        {
+            agent.SetDestination(player.transform.position);
+        }
+
+        
         agent.enabled = !IsStunned;
         bool walking = false;
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        if (agent != null && agent.isActiveAndEnabled && agent.isOnNavMesh)
         {
+            if (agent.remainingDistance <= agent.stoppingDistance)
+            {
 
-            if (!agent.hasPath || Mathf.Abs(agent.velocity.sqrMagnitude) < float.Epsilon)
+                if (!agent.hasPath || Mathf.Abs(agent.velocity.sqrMagnitude) < float.Epsilon)
 
-                walking = false;
+                    walking = false;
 
+            }
         }
+        
         else
         {
 

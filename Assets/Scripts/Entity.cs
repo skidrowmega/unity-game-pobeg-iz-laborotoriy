@@ -59,7 +59,7 @@ public class Entity : MonoBehaviour
         if (IsBeingPushed) return;
         IsBeingPushed= true;
         IsStunned = true;
-        if (agent)
+        if (agent != null && agent.isActiveAndEnabled && agent.isOnNavMesh)
         {
             agent.isStopped = true;
         }
@@ -67,7 +67,7 @@ public class Entity : MonoBehaviour
     }
     protected void PushStop()
     {
-        if (agent)
+        if (agent != null && agent.isActiveAndEnabled && agent.isOnNavMesh)
         {
             agent.isStopped = false;
         }
