@@ -18,6 +18,7 @@ public class OarWeapon : WeaponMelee
     }
 
 
+/*#if UNITY_EDITOR
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.J))
@@ -30,6 +31,7 @@ public class OarWeapon : WeaponMelee
             PlaceWeapon(tempNewWeapon,tempstats);
         }
     }
+#endif*/
 
 
 }
