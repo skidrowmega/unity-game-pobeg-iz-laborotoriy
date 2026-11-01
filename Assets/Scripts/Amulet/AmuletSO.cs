@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -13,6 +14,7 @@ public class AmuletSO: ScriptableObject
     public virtual void OnEquip(GameObject player) { }
     public virtual void OnUnequip(GameObject player) { }
 
+
     public float ModifyMeleeDamage(float Damage)
     {
         return Damage * (1 + damageMeleeBuff);
@@ -27,4 +29,5 @@ public class AmuletSO: ScriptableObject
     {
         return incomingDamage * (1 - resistBuff);
     }
+
 }
