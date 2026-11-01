@@ -42,6 +42,7 @@ public class GunWeapon : WeaponRanged
 #endif*/
     public override void Shot(Vector3 Direction)
     {
+        float currentDamage = WeaponHolder.amuletManager.GetModifiedRangedDamage(Damage);
         if (!IsUsable) return;
         Durability -= DurabilityDecrease;
         if (Durability <= 0)
@@ -64,7 +65,7 @@ public class GunWeapon : WeaponRanged
         Projectile bullet = projectileprefab.GetComponent<Projectile>();
         bullet.direction = Direction;
         bullet.Shooter = WeaponHolder;
-        bullet.damage = Damage;
+        bullet.damage = currentDamage;
         bullet.PushStrength = PushStrength;
         bullet = Instantiate<Projectile>(bullet, WeaponHolder.transform.position + WeaponHolder.transform.right/2 + new Vector3 (0f, 1.3f, 0f), Quaternion.identity);
         /*EditorApplication.isPaused = true;*/
