@@ -102,10 +102,10 @@ public class ShopScript : MonoBehaviour
         {
             GameManager.Instance.ChangeState(GameManager.GameState.Shop);
         }
-        /*IsOpen = true;
+        IsOpen = true;
         EnableWindows();
         UpdateShopCurrency();
-        UpdateItems();*/
+        UpdateItems();
     }
 
     public void CloseShop()
@@ -114,8 +114,8 @@ public class ShopScript : MonoBehaviour
         {
             GameManager.Instance.ChangeState(GameManager.GameState.Playing);
         }
-        /*DisableWindows();
-        IsOpen = false;*/
+        DisableWindows();
+        IsOpen = false;
     }
 
 #if UNITY_EDITOR

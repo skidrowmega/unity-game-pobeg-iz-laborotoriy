@@ -253,8 +253,8 @@ MonoBehaviour:
   ShopDescription: {fileID: 2422453902571104814}
   CurrencyText: {fileID: 5228706357113319666}
   emptybackground: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  debug: 0
-  itemtoadd: {fileID: 0}
+  debug: 1
+  itemtoadd: {fileID: 11400000, guid: c13358c8978085048803375719eac9f0, type: 2}
 --- !u!1 &2553390813781298900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1434,10 +1434,10 @@ RectTransform:
   - {fileID: 7070591931956157817}
   m_Father: {fileID: 2191148630236221920}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &615085045786332294
 PrefabInstance:
