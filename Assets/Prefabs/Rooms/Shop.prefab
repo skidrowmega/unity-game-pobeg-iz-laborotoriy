@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9044243963206313744}
   - component: {fileID: -5420422933583884634}
+  - component: {fileID: 586921282737618596}
   m_Layer: 0
   m_Name: Shop
   m_TagString: Untagged
@@ -62,6 +63,25 @@ MonoBehaviour:
   WallL: {fileID: 4825922669806372007}
   position: {x: 0, y: 0}
   TransformToRotate: {fileID: 0}
+--- !u!114 &586921282737618596
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284157706985457931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13a241881613fd4486c141df0185a08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopRoomScript
+  RoomSize: {x: 10, y: 10}
+  itempool:
+  - {fileID: 11400000, guid: c13358c8978085048803375719eac9f0, type: 2}
+  - {fileID: 11400000, guid: 8ae3b63df1e2c0948ada6cb07cd69b8d, type: 2}
+  - {fileID: 11400000, guid: 5a19e2576ab87b340b08d9d795679a11, type: 2}
+  - {fileID: 11400000, guid: c13b1c8aca26a5043a50e63f6b8c11a2, type: 2}
+  - {fileID: 11400000, guid: a5476d3ca5c534e4d989c2a89f071265, type: 2}
 --- !u!1 &1055928449434944456
 GameObject:
   m_ObjectHideFlags: 0
