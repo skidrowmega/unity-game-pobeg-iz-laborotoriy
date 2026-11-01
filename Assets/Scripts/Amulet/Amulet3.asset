@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf9c3a620c8845438c0da58e0dac463, type: 3}
   m_Name: Amulet3
   m_EditorClassIdentifier: Assembly-CSharp::Amulet3
-  amuletName: 
-  amuletDescription: 
+  amuletName: Amulet3
+  amuletDescription: Amulet3
   amuletImage: {fileID: 0}
-  healthBuff: 0
-  damageBuff: 0
+  healthBuff: 20
+  damageBuff: 0.2

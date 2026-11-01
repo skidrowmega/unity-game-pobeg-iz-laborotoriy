@@ -16,6 +16,7 @@ public class UIManager: MonoBehaviour
     private GameObject gameoverPanel;
     private GameObject victoryPanel;
     private GameObject inventoryPanel;
+    private GameObject shopPanel;
 
     [SerializeField] bool debug = false;
     private void Awake()
@@ -32,6 +33,7 @@ public class UIManager: MonoBehaviour
         gameoverPanel = spawnedCanvas.transform.Find("GameOverPanel").gameObject;
         victoryPanel = spawnedCanvas.transform.Find("VictoryPanel").gameObject;
         inventoryPanel = spawnedCanvas.transform.Find("InventoryUI/SlotsPanel").gameObject;
+        shopPanel = spawnedCanvas.transform.Find("ShopMenu/ShopPanel").gameObject;
 
         Button playBtn = mainMenuPanel.transform.Find("Button").GetComponent<Button>();
         Button winBtn = pausePanel.transform.Find("Win").GetComponent<Button>();
@@ -62,6 +64,7 @@ public class UIManager: MonoBehaviour
         gameoverPanel.SetActive(false);
         victoryPanel.SetActive(false);
         inventoryPanel.SetActive(false);
+        shopPanel.SetActive(false);
 
         switch (state)
         {
@@ -85,6 +88,9 @@ public class UIManager: MonoBehaviour
                 break;
             case GameState.Inventory:
                 inventoryPanel.SetActive(true);
+                break;
+            case GameState.Shop:
+                shopPanel.SetActive(true);
                 break;
         }
     }

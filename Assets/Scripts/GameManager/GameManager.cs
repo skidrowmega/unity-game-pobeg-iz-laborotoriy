@@ -12,7 +12,7 @@ public class GameManager: MonoBehaviour
 
     public GameState CurrentState { get; private set; }
 
-    public enum GameState { MainMenu, Playing, Paused, GameOver, Victory, Loading, Inventory, Craft }
+    public enum GameState { MainMenu, Playing, Paused, GameOver, Victory, Loading, Inventory, Craft, Shop }
 
     public static event Action<GameState> OnStateChanged;
 
@@ -102,6 +102,9 @@ public class GameManager: MonoBehaviour
             case GameState.Craft:
                 HandleCraft();
                 break;
+            case GameState.Shop:
+                HandleShop();
+                break;
         }
 
         OnStateChanged?.Invoke(CurrentState);
@@ -154,6 +157,11 @@ public class GameManager: MonoBehaviour
     private void HandleCraft()
     {
         Time.timeScale = 0.1f;
+    }
+
+    private void HandleShop()
+    {
+        Time.timeScale = 0f;
     }
 
 

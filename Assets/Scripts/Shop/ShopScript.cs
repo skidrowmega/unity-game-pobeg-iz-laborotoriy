@@ -98,19 +98,27 @@ public class ShopScript : MonoBehaviour
 
     public void OpenShop()
     {
-        IsOpen = true;
+        if (GameManager.Instance.CurrentState == GameManager.GameState.Playing)
+        {
+            GameManager.Instance.ChangeState(GameManager.GameState.Shop);
+        }
+        /*IsOpen = true;
         EnableWindows();
         UpdateShopCurrency();
-        UpdateItems();
+        UpdateItems();*/
     }
 
     public void CloseShop()
     {
-        DisableWindows();
-        IsOpen = false;
+        if (GameManager.Instance.CurrentState == GameManager.GameState.Shop)
+        {
+            GameManager.Instance.ChangeState(GameManager.GameState.Playing);
+        }
+        /*DisableWindows();
+        IsOpen = false;*/
     }
 
-/*#if UNITY_EDITOR
+#if UNITY_EDITOR
     private void Update()
     {
         if (debug)
@@ -129,7 +137,7 @@ public class ShopScript : MonoBehaviour
             }
         }
     }
-#endif*/
+#endif
 
 
     void EnableWindows()
