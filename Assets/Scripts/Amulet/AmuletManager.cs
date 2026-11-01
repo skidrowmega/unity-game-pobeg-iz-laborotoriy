@@ -4,8 +4,14 @@ using UnityEngine;
 public class AmuletManager : MonoBehaviour
 {
     public List<AmuletSO> equippedAmulets = new List<AmuletSO>();
-
     public int maxSlots = 4;
+
+    public static AmuletManager instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     public void EquipAmulet(AmuletSO newAmulet)
     {
