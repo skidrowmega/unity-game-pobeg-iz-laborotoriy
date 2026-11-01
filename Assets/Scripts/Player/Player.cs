@@ -331,7 +331,7 @@ public class Player : Entity
             else
                 newdodgedistance = ((hit.point - (ray.direction*.7f)) - ray.origin).magnitude;
         }
-        print(newdodgedistance);
+        //print(newdodgedistance);
         if (newdodgedistance == 0)
         {
             DodgeStop();
