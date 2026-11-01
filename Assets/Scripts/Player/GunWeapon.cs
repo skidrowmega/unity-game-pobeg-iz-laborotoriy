@@ -26,7 +26,7 @@ public class GunWeapon : WeaponRanged
         SwapStats(statsonbreak);
     }
 
-
+/*#if UNITY_EDITOR
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.N))
@@ -39,6 +39,7 @@ public class GunWeapon : WeaponRanged
             PlaceWeapon(tempNewWeapon, tempstats);
         }
     }
+#endif*/
     public override void Shot(Vector3 Direction)
     {
         if (!IsUsable) return;
