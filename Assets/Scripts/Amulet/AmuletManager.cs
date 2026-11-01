@@ -17,16 +17,28 @@ public class AmuletManager : MonoBehaviour
     }
 
 
-    public float GetModifiedDamage(float baseDamage)
+    public float GetModifiedMeleeDamage(float baseMeleeDamage)
     {
-        float finalDamage = baseDamage;
+        float finalMeleeDamage = baseMeleeDamage;
 
         foreach (AmuletSO amulet in equippedAmulets)
         {
-            finalDamage = amulet.ModifyDamage(finalDamage);
+            finalMeleeDamage = amulet.ModifyMeleeDamage(finalMeleeDamage);
         }
 
-        return finalDamage;
+        return finalMeleeDamage;
+    }
+
+    public float GetModifiedRangedDamage(float baseRangedDamage)
+    {
+        float finalRangedDamage = baseRangedDamage;
+
+        foreach (AmuletSO amulet in equippedAmulets)
+        {
+            finalRangedDamage = amulet.ModifyMeleeDamage(finalRangedDamage);
+        }
+
+        return finalRangedDamage;
     }
 
     public float GetDamageDecrease(float baseincomingDamage)
@@ -35,7 +47,7 @@ public class AmuletManager : MonoBehaviour
 
         foreach (AmuletSO amulet in equippedAmulets)
         {
-            finalincomingDamage = amulet.ModifyDamage(finalincomingDamage);
+            finalincomingDamage = amulet.ResistDamage(finalincomingDamage);
         }
 
         return finalincomingDamage;

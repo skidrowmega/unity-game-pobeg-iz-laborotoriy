@@ -195,7 +195,6 @@ public class Player : Entity
     public override void TakeDamage(float damage, Vector3 source, Entity attacker, float pushstrength, DamageType type, float StunTime=0)
     {
         float currentincomingdamage = amuletManager.GetDamageDecrease(damage);
-        print(currentincomingdamage);
         if (IsDodging)
         {
             if (type==DamageType.Unparriable)

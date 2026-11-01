@@ -16,4 +16,5 @@ MonoBehaviour:
   amuletDescription: Amulet3
   amuletImage: {fileID: 0}
   resistBuff: 0.2
-  damageBuff: 0.2
+  damageMeleeBuff: 0.2
+  damageRangedBuff: 0.2
