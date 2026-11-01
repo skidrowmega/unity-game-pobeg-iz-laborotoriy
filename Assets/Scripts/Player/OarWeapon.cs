@@ -3,14 +3,17 @@ using UnityEngine;
 
 public class OarWeapon : WeaponMelee
 {
-    
-
-
-
+    AmuletManager amuletManager;
+    void Start()
+    {
+        amuletManager = WeaponHolder.GetComponent<AmuletManager>();
+    }
     public override void OnHit(Entity entity, Vector3 source)
     {
+        float CurrentDamage = amuletManager.GetModifiedDamage(Damage);
         Durability -= DurabilityDecrease;
-        entity.TakeDamage(Damage,WeaponHolder.transform.position ,WeaponHolder, PushStrength, DamageType.Normal);
+        entity.TakeDamage(CurrentDamage,WeaponHolder.transform.position ,WeaponHolder, PushStrength, DamageType.Normal);
+        print(CurrentDamage);
         if (Durability <= 0)
         {
             BreakWeapon();
