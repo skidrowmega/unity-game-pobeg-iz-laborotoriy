@@ -28,6 +28,8 @@ public class ShopScript : MonoBehaviour
     [SerializeField] ItemScriptableObject itemtoadd;
 #endif
 
+    public bool IsOpen { get; private set; }
+
 
 
     GameObject[] DETI;
@@ -36,6 +38,7 @@ public class ShopScript : MonoBehaviour
 
     private void Awake()
     {
+        IsOpen = false;
         ItemSlots = new ShopSlot[WaresList.childCount];
         SlotImages = new List<Image>();
         SlotObjects = new List<GameObject>();
@@ -95,6 +98,7 @@ public class ShopScript : MonoBehaviour
 
     public void OpenShop()
     {
+        IsOpen = true;
         EnableWindows();
         UpdateShopCurrency();
         UpdateItems();
@@ -103,6 +107,7 @@ public class ShopScript : MonoBehaviour
     public void CloseShop()
     {
         DisableWindows();
+        IsOpen = false;
     }
 
 /*#if UNITY_EDITOR
