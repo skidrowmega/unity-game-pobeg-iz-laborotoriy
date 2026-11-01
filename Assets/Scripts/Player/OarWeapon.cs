@@ -13,7 +13,7 @@ public class OarWeapon : WeaponMelee
         float CurrentDamage = amuletManager.GetModifiedDamage(Damage);
         Durability -= DurabilityDecrease;
         entity.TakeDamage(CurrentDamage,WeaponHolder.transform.position ,WeaponHolder, PushStrength, DamageType.Normal);
-        print(Damage);
+        print(CurrentDamage);
         if (Durability <= 0)
         {
             BreakWeapon();
