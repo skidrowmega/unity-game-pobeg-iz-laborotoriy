@@ -28,6 +28,8 @@ public class ShopScript : MonoBehaviour
     [SerializeField] ItemScriptableObject itemtoadd;
 #endif
 
+    public static ShopScript instance { get; private set; }
+
     public bool IsOpen { get; private set; }
 
 
@@ -38,6 +40,7 @@ public class ShopScript : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         IsOpen = false;
         ItemSlots = new ShopSlot[WaresList.childCount];
         SlotImages = new List<Image>();
@@ -77,7 +80,6 @@ public class ShopScript : MonoBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             DETI[i]=transform.GetChild(i).gameObject;
-            print(DETI[i].name);
         }
         DisableWindows();
 
@@ -156,7 +158,7 @@ public class ShopScript : MonoBehaviour
         }
     }
 
-    void AddItem(ItemScriptableObject itemdata)
+    public void AddItem(ItemScriptableObject itemdata)
     {
         ShopSlot slot = GetFirstEmptySlot();
         if (slot != null)
