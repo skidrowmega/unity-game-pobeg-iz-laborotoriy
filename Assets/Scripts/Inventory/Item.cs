@@ -38,7 +38,7 @@ public class Item: MonoBehaviour
 
         if (inventoryManager.AddItem(itemData))
         {
-            print("added item");
+            //print("added item");
             Destroy(gameObject);
         }
         else
