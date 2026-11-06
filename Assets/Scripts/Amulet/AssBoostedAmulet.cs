@@ -4,12 +4,12 @@ using UnityEngine;
 public class AssBoostedAmulet: AmuletSO
 {
     private float speedBuff;
-    public override void OnEquip(GameObject player)
+    public override void OnEquip()
     {
         Player.player.Speed += speedBuff * Player.player.Speed;
     }
 
-    public override void OnUnequip(GameObject player)
+    public override void OnUnequip()
     {
         Player.player.Speed -= speedBuff * Player.player.Speed;
     }
