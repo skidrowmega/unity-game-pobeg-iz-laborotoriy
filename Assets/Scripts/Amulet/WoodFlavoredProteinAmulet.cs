@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WoodFlavoredProteinAmulet: AmuletSO
 {
-    private float regenModificator;
+    public float regenModificator;
     public void Regen()
     {
         Player.player.HealthPoints += Player.player.MaxHealthpoints * regenModificator;

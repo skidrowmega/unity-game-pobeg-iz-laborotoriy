@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SalivaShieldAmulet: AmuletSO
 {
-    private float durabilityModificator;
-    public float MoreDurability(float durability)
+    public float durabilityModificator;
+    public float MoreDurability(float durability)//исправить когда рисование доделается
     {
         return durability * (1 + durabilityModificator);
     }

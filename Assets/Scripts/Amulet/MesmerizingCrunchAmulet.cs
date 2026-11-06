@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MesmerizingCrunchAmulet: AmuletSO
 {
-    private float timeModificator;
-    public float MoreTime(float time)
+    public float timeModificator;
+    public float MoreTime(float time)//исправить когда рисование доделается
     {
         return time * (1 + timeModificator);
     }
