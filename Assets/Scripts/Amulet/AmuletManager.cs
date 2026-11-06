@@ -22,6 +22,15 @@ public class AmuletManager : MonoBehaviour
         }
     }
 
+    public void RemoveAmulet(AmuletSO Amulet)
+    {
+        if (equippedAmulets.Count < maxSlots)
+        {
+            equippedAmulets.Remove(Amulet);
+            Amulet.OnUnequip(gameObject);
+        }
+    }
+
 
     public float GetModifiedMeleeDamage(float baseMeleeDamage)
     {
