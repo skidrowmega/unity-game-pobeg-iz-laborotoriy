@@ -1,9 +1,9 @@
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "PartingBlowoutAmulet", menuName = "Roguelike/Amulets/PartingBlowoutAmulet")]
+[CreateAssetMenu(fileName = "NuclearCrunchAmulet", menuName = "Roguelike/Amulets/NuclearCrunchAmulet")]
 
-public class PartingBlowoutAmulet: AmuletSO
+public class NuclearCrunchAmulet: AmuletSO
 {
     private GameObject explosionPrefab;
     private float explosionRadius;

@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TurboAmulet", menuName = "Roguelike/Amulets/TurboAmulet")]
-public class TurboAmulet: AmuletSO
+[CreateAssetMenu(fileName = "AssBoostedAmulet", menuName = "Roguelike/Amulets/AssBoostedAmulet")]
+public class AssBoostedAmulet: AmuletSO
 {
     private float speedBuff;
     public override void OnEquip(GameObject player)
