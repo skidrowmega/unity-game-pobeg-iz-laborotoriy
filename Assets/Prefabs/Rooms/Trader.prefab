@@ -58,6 +58,7 @@ MonoBehaviour:
   WallR: {fileID: 8096558431090616823}
   WallD: {fileID: 0}
   WallL: {fileID: 0}
+  position: {x: 0, y: 0}
 --- !u!1 &3256562427757686009
 GameObject:
   m_ObjectHideFlags: 0
