@@ -56,6 +56,7 @@ MonoBehaviour:
   finalScore: 0
   VoxelColor: {r: 0, g: 0, b: 0, a: 0}
   Pattern: {fileID: 0}
+  Debug: 0
 --- !u!1 &3825582412110552313
 GameObject:
   m_ObjectHideFlags: 0

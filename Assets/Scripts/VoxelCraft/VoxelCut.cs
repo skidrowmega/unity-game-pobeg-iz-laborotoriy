@@ -8,9 +8,17 @@ using UnityEngine.Rendering;
 using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 
 
+
+
+public class Voxel
+{
+    public Vector2Int Position;
+    public bool isRoot = false;
+}
 
 
 public class VoxelCut : MonoBehaviour
@@ -24,12 +32,14 @@ public class VoxelCut : MonoBehaviour
     [SerializeField] GameObject voxelforprefab;
     [SerializeField] private Material materialforprefab;
 
-    GameObject[,] voxels;
+    Voxel[,] voxels;
+
+    GameObject MainTexture;
     bool[,] availablevoxels;
     int[] dimensions;
     GenerateVoxelGrid voxelGrid;
     BoxCollider boxCollider;
-    int[] rootpoint = new int[2];
+    Vector2Int rootpoint;
     GameObject rootvoxel;
     [SerializeField] float BrushSize = 3;
 
@@ -63,18 +73,39 @@ public class VoxelCut : MonoBehaviour
     }
     public void Start()
     {
-        voxels = voxelGrid.voxels;
         dimensions = voxelGrid.dimensions;
+        voxels = new Voxel[dimensions[0], dimensions[1]];
+        MainTexture = voxelGrid.MainTexture;
         boxCollider.size = new Vector3((dimensions[0]) * voxelGrid.gap * 2, dimensions[1] * voxelGrid.gap * 2, voxelGrid.gap);
         boxCollider.center = new Vector3((dimensions[0]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, (dimensions[1]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, voxelGrid.gap / 2);
         rootpoint[0] = dimensions[0] - 1;
         rootpoint[1] = dimensions[1] / 2 - 1;
-        rootvoxel = voxels[rootpoint[0], rootpoint[1]];
+        InitializeVoxels();
+        InitializeRootVoxel();
+/*        rootvoxel = MainTexture[rootpoint[0], rootpoint[1]];
         foreach (MeshRenderer renderer in rootvoxel.GetComponentsInChildren<MeshRenderer>())
         {
             renderer.material.color = Color.red;
-        }
+        }*/
+        
+        CutoutManager.instance.cuttingboard = this;
+        if(!CutoutManager.instance.Debug&& !CutoutManager.IsCuttingOut) CutoutManager.instance.SwitchEnableValue(false);
+    }
+
+    void InitializeVoxels()
+    {
         availablevoxels = new bool[dimensions[0], dimensions[1]];
+        for (int i = 0; i < dimensions[0]; i++)
+        {
+            for (int j = 0; j < dimensions[1]; j++)
+            {
+                voxels[i, j] = new Voxel
+                {
+                    Position = new Vector2Int(i, j),
+                    isRoot = false,
+                };
+            }
+        }
         for (int i = 0; i < dimensions[0]; i++)
         {
             for (int j = 0; j < dimensions[1]; j++)
@@ -82,13 +113,24 @@ public class VoxelCut : MonoBehaviour
                 availablevoxels[i, j] = true;
             }
         }
-        CutoutManager.instance.cuttingboard = this;
-        if(!CutoutManager.instance.Debug&& !CutoutManager.IsCuttingOut) CutoutManager.instance.SwitchEnableValue(false);
     }
+
+    void InitializeRootVoxel()
+    {
+        voxels[rootpoint.x, rootpoint.y].isRoot = true;
+    }
+
 
     public void CutStart()
     {
         patterntomake = CutoutManager.instance.Pattern;
+        for (int i = 0; i < 60; i++)
+        {
+            for (int j = 0; j < 60; j++)
+            {
+                availablevoxels[i, j] = false;
+            }
+        }
         UpdatePatternPoints();
 
     }
@@ -140,29 +182,29 @@ public class VoxelCut : MonoBehaviour
 
                 }*/
     }
-    bool[,] CheckCutoffRecursive(int[] position, bool[,] VoxelsChecked = null)
+    bool[,] CheckCutoffRecursive(Vector2Int position, bool[,] VoxelsChecked = null)
     {
         if (VoxelsChecked == null)
         {
             VoxelsChecked = new bool[dimensions[0], dimensions[1]];
         }
-        if (VoxelsChecked[position[0], position[1]] || !availablevoxels[position[0], position[1]]) return VoxelsChecked;
-        VoxelsChecked[position[0], position[1]] = true;
+        if (VoxelsChecked[position.x, position.y] || !availablevoxels[position.x, position.y]) return VoxelsChecked;
+        VoxelsChecked[position.x, position.y] = true;
         int newposx;
         int newposy;
-        int[] newposition = new int[2];
+        Vector2Int newposition = new Vector2Int();
         for (int i = -1; i < 2; i++)
         {
             for (int j = -1; j < 2; j++)
             {
                 if (!(i == 0 || j == 0)) continue;
-                newposx = position[0] + i;
-                newposy = position[1] + j;
+                newposx = position.x + i;
+                newposy = position.y + j;
                 if (newposx >= 0 && newposx < dimensions[0] &&
                     newposy >= 0 && newposy < dimensions[1])
                 {
-                    newposition[0] = newposx;
-                    newposition[1] = newposy;
+                    newposition.x = newposx;
+                    newposition.y = newposy;
                     CheckCutoffRecursive(newposition, VoxelsChecked);
                 }
             }
@@ -250,29 +292,62 @@ public class VoxelCut : MonoBehaviour
 
     void UpdatePatternPoints()
     {
-        for (int x = 0; x < dimensions[0]; x++)
+        //ÏÅÐÅÏÈÑÀÒÜ ÒÓÒ ÁÓÄÅÒ ÊÀÆÄÎÅ ÈÇÌÅÍÅÍÈÅ(ÈËÈ ÏÎÑËÅ ÑÎÂÎÊÓÏÍÎÑÒÈ ÈÇÌÅÍÅÍÈÉ ÂÛÐÅÇÀÒÜÑß ÈÇ ÎÑÍÎÂÍÎÉ ÒÅÊÑÒÓÐÊÈ ÊÀÐÒÈÍÊÀ
+        bool changedstuff = false;
+        MeshRenderer renderer = MainTexture.GetComponent<MeshRenderer>();
+        Texture2D changedtexture = (renderer.material.mainTexture as Texture2D);
+        Vector2 texturesize = changedtexture.Size();
+        Color color = new Color(1, 0, 0, 0);
+        for (int i = 0; i < availablevoxels.GetLength(0); i++)
         {
-            for (int y = 0; y < dimensions[1]; y++)
+            for (int j = 0; j < availablevoxels.GetLength(1); j++)
             {
-                if (availablevoxels[x, y])
+                if (!availablevoxels[i,j])
                 {
-                    Vector2Int index = new Vector2Int(x, y);
-                    Vector2Int patternindex = new Vector2Int(x - rootpoint[0], y - rootpoint[1]);
-                    GameObject voxel = GetVoxelOnIndex(index);
-                    if (patterntomake.points.Contains(patternindex))
-                    {
-                        if (voxel) voxel.GetComponent<MeshRenderer>().material.color = Color.black;
-                    }
-                    else if (voxel) voxel.GetComponent<MeshRenderer>().material.color = Color.white;
+                    changedstuff = true;
+                    float VoxelXPos1 = i * voxelGrid.gap * dimensions[0] - voxelGrid.gap;
+                    float VoxelYPos1 = j * voxelGrid.gap * dimensions[1] - voxelGrid.gap;
+                    float VoxelXPos2 = i * voxelGrid.gap * dimensions[0] + voxelGrid.gap;
+                    float VoxelYPos2 = j * voxelGrid.gap * dimensions[1] + voxelGrid.gap;
 
+                    int point1x = Mathf.FloorToInt(texturesize.x / dimensions[0] * VoxelXPos1);
+                    int point1y = Mathf.FloorToInt(texturesize.y / dimensions[1] * VoxelYPos1);
+
+                    int point2x = Mathf.CeilToInt(texturesize.x / dimensions[0] * VoxelXPos2);
+                    int point2y = Mathf.CeilToInt(texturesize.y / dimensions[1] * VoxelYPos2);
+                    for (int k = point1x; k < point2x; k++)
+                    {
+                        for (int l = point1y; l < point2y; l++)
+                        {
+                            changedtexture.SetPixel(k, l, color);
+                        }
+                    }
+
+
+
+                    //for (int x = 0; x < length; x++)
+                    //{
+                    //    for (int y = 0; y < length; y++)
+                    //    {
+                    //        changedtexture.SetPixel(x, y, new Color(0,0,0,0));
+                    //    }
+                    //}
+                    
                 }
             }
         }
-        foreach (MeshRenderer renderer in rootvoxel.GetComponentsInChildren<MeshRenderer>())
+        if (changedstuff)
         {
-            renderer.material.color = Color.red;
+            changedtexture.Apply();
+            renderer.material.mainTexture= changedtexture;
         }
+            
     }
+
+
+
+
+
     Coroutine routine;
     GameObject finalcutout;
     public void SubmitButtonPressed()
@@ -287,6 +362,7 @@ public class VoxelCut : MonoBehaviour
             SubmitButtonText.text = "Ïðîäîëæèòü";
             // Òóò òèïà ñîçäàåòñÿ îáúåêò èç íàðèñîâàííîãî êðèíæà è íà÷èíàåò êðóòèòñÿ
             finalcutout = FabricatePrefab();
+            DisableBoard();
             finalcutout.transform.position = transform.position + new Vector3((dimensions[0]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, (dimensions[1]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, voxelGrid.gap / 2) - new Vector3(0, .5f, 0);
             routine = StartCoroutine(Speen(finalcutout.transform));
         }
@@ -301,7 +377,7 @@ public class VoxelCut : MonoBehaviour
         }
     }
 
-    public void PrepareForDestroy()
+    public void Cleanup()
     {
         Destroy(finalcutout);
         SubmitResultText.text = "";
@@ -325,7 +401,7 @@ public class VoxelCut : MonoBehaviour
         for (int i = 0; i < patterntomake.points.Count; i++)
         {
             Vector2Int patternpoint=patterntomake.points[i];
-            if (availablevoxels[patternpoint.x + rootpoint[0], patternpoint.y + rootpoint[1]]) gainedscore++;
+            if (availablevoxels[patternpoint.x + rootpoint.x, patternpoint.y + rootpoint.y]) gainedscore++;
         }
         for (int x = 0; x < dimensions[0]; x++)
         {
@@ -348,47 +424,88 @@ public class VoxelCut : MonoBehaviour
         GameObject offsetempty = new GameObject("OffsetEmpty");
         GameObject meshoffsetempty = new GameObject("MeshOffsetEmpty");
         offsetempty.transform.parent = MainEmpty.transform;
-        meshoffsetempty.transform.parent= offsetempty.transform;
-        
-        Transform emptytransform=meshoffsetempty.transform;
-        GameObject actualweapon = Instantiate(voxelforprefab, emptytransform);
-        actualweapon.transform.localScale = new Vector3(.5f,.5f,.5f);
-        Mesh patternmesh = voxelforprefab.GetComponent<MeshFilter>().sharedMesh;
-        List<MeshFilter> filtercollection = new List<MeshFilter> ();
-        foreach (GameObject voxel in voxels)
+        meshoffsetempty.transform.parent = offsetempty.transform;
+
+        Transform emptytransform = meshoffsetempty.transform;
+
+/*        foreach (GameObject voxel in voxels)
         {
             if (!voxel) continue;
             //GameObject newvoxel = Instantiate(voxelforprefab, transform.position - new Vector3(dimensions[0] * voxelGrid.gap / 2, dimensions[0] * voxelGrid.gap / 2, 0), Quaternion.identity, emptytransform);
-            /*GameObject newvoxel = Instantiate(voxelforprefab, emptytransform);
+            *//*GameObject newvoxel = Instantiate(voxelforprefab, emptytransform);
             newvoxel.transform.localPosition = voxel.transform.localPosition;
-            newvoxel.GetComponent<MeshRenderer>().material=voxel.GetComponent<MeshRenderer>().material;*/
+            newvoxel.GetComponent<MeshRenderer>().material=voxel.GetComponent<MeshRenderer>().material;*//*
             if (voxel)
             {
                 MeshFilter filter = voxel.GetComponent<MeshFilter>();
                 filter.mesh = patternmesh;
                 filtercollection.Add(filter);
             }
-            
-        }
+
+        }*/
 
 
-        MeshFilter[] meshFilters = filtercollection.ToArray();
-        CombineInstance[] instances = new CombineInstance[meshFilters.Length];
+        //MeshFilter[] meshFilters = filtercollection.ToArray();
+        //CombineInstance[] instances = new CombineInstance[meshFilters.Length];
 
-        for (int i = 0; i < meshFilters.Length; i++)
+        //for (int i = 0; i < meshFilters.Length; i++)
+        //{
+        //    var meshFilter = meshFilters[i];
+
+        //    instances[i] = new CombineInstance
+        //    {
+        //        mesh = meshFilter.sharedMesh,
+        //        transform = meshFilter.transform.localToWorldMatrix,
+
+
+        //    };
+
+        //    meshFilter.gameObject.SetActive(false);
+        //}
+
+
+
+        int count = 0;
+        for (int i = 0; i < availablevoxels.GetLength(0); i++)
         {
-            var meshFilter = meshFilters[i];
-
-            instances[i] = new CombineInstance
+            for (int j = 0; j < availablevoxels.GetLength(1); j++)
             {
-                mesh = meshFilter.sharedMesh,
-                transform = meshFilter.transform.localToWorldMatrix,
-                
-                
-            };
-
-            meshFilter.gameObject.SetActive(false);
+                if (availablevoxels[i, j]) count++;
+            }
         }
+
+
+
+        GameObject actualweapon = Instantiate(voxelforprefab, emptytransform);
+        actualweapon.transform.localScale = new Vector3(.5f, .5f, .5f);
+
+
+        CombineInstance[] instances= new CombineInstance[count];
+        Mesh CombineMesh = voxelforprefab.GetComponent<MeshFilter>().sharedMesh;
+        count = 0;
+        Transform tempvoxel = Instantiate(voxelforprefab).GetComponent<Transform>();
+        for (int i = 0; i < availablevoxels.GetLength(0); i++)
+        {
+            for (int j = 0; j < availablevoxels.GetLength(1); j++)
+            {
+                if (availablevoxels[i, j])
+                {
+                    Vector3 voxelpos = new Vector3(transform.position.x + voxelGrid.gap * i, transform.position.y + voxelGrid.gap * j, transform.position.z);
+                    tempvoxel.transform.position = voxelpos;
+
+                    instances[count]= new CombineInstance
+                    {
+                        mesh=CombineMesh,
+                        transform = tempvoxel.localToWorldMatrix
+
+                    };
+                    count++;
+
+                }
+            }
+        }
+        Destroy(tempvoxel.gameObject);
+
 
         Mesh combinedMesh = new Mesh();
         combinedMesh.indexFormat = IndexFormat.UInt32;
@@ -427,14 +544,14 @@ public class VoxelCut : MonoBehaviour
         return new Vector2Int(localx, localy);
     }
 
-
-    GameObject GetVoxelOnIndex(Vector2Int index)
+    //ÏÅÐÅÏÈÑÀÒÜ
+    Voxel GetVoxelOnIndex(Vector2Int index)
     {
-        if(PointInRangeCheck(index, new Vector2(0, 0), new Vector2(dimensions[0] - 1, dimensions[1] - 1)))
-        return voxels[index.x, index.y];
+        if (PointInRangeCheck(index, new Vector2(0, 0), new Vector2(dimensions[0] - 1, dimensions[1] - 1)))
+            return voxels[index.x, index.y];
         return null;
     }
-    GameObject GetVoxelOnIndex(int indX,int indY)
+    Voxel GetVoxelOnIndex(int indX,int indY)
     {
         return GetVoxelOnIndex(new  Vector2Int(indX,indY));
     }
@@ -443,16 +560,42 @@ public class VoxelCut : MonoBehaviour
     {
         /*GameObject voxel;
         voxel = voxels[indX, indY];*/
-        GameObject voxel = GetVoxelOnIndex(indX, indY);
-        if (voxel == rootvoxel) return false;
+        Voxel voxel = GetVoxelOnIndex(indX, indY);
+        if (voxel.isRoot) return false;
         if (availablevoxels[indX, indY])
         {
             availablevoxels[indX, indY] = false;
-            Destroy(voxel);
+            DestroyVoxel(voxel);
             return true;
         }
         return false;
     }
+
+    void DestroyVoxel(Voxel voxel)
+    {
+        //voxel.SetActive(false);
+        //ÒÓÒ ÒÎÆÅ ÏÅÐÅÏÈÑÀÒÜ
+    }
+
+    public void ResetBoard()
+    {
+        InitializeVoxels();
+        foreach (Voxel voxel in voxels)
+        {
+            //voxel.SetActive(true);
+            //ÒÓÒ ÒÎÆÅ ÏÅÐÅÏÈÑÀÒÜ
+        }
+    }
+
+    void DisableBoard()
+    {
+        foreach (Voxel voxel in voxels)
+        {
+            //voxel.SetActive(false);
+            //ÒÓÒ ÒÎÆÅ ÏÅÐÅÏÈÑÀÒÜ
+        }
+    }
+
 
     void DestroyCuttoffs()
     {
