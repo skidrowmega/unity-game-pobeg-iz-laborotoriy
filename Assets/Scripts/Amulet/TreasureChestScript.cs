@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -21,6 +22,10 @@ public class TreasureChestScript : MonoBehaviour
     List<GameObject> SlotObjects = new List<GameObject>();
     AmuletSlot[] artifactSlots = new AmuletSlot[3];
     [SerializeField] Sprite emptybackground;
+    [SerializeField] Text MainText;
+    [SerializeField] Button exitButton;
+    AmuletSO oldAmuletData;
+    private bool isChanging = false;
 
 #if UNITY_EDITOR
     [SerializeField] bool debug = false;
@@ -67,7 +72,6 @@ public class TreasureChestScript : MonoBehaviour
             trigger.triggers.Add(entryPointerEnter);
             trigger.triggers.Add(entryPointerExit);
         }
-        Button exitButton = MenuHolder.transform.Find("ExitButton").GetComponent<Button>();
         exitButton.onClick.AddListener(Exit);
 
     }
@@ -80,9 +84,21 @@ public class TreasureChestScript : MonoBehaviour
             AmuletManager.instance.EquipAmulet(slot.amuletdata);
             Exit();
         }
+        else if (isChanging)
+        {
+            AmuletManager.instance.ChangeAmulet(slot.amuletdata, oldAmuletData);
+            isChanging = false;
+            Exit();
+        }
         else
         {
-            AmuletManager.instance.ChangeAmulet(slot.amuletdata);
+            oldAmuletData = slot.amuletdata;
+            for (int i = 0; i < AmuletManager.instance.maxSlots; i++)
+            {
+                artifactSlots[i].amuletdata = AmuletManager.instance.equippedAmulets[i];
+            }
+            MainText.text = "Какой амулет хотите заменить?";
+            isChanging = true;
         }
     }
     void OnPointerEnter(PointerEventData eventData)

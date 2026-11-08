@@ -31,19 +31,17 @@ public class AmuletManager : MonoBehaviour
         newAmulet.OnEquip();
     }
 
-    public void ChangeAmulet(AmuletSO newAmulet)
+    public void ChangeAmulet(AmuletSO oldAmulet, AmuletSO newAmulet)
     {
+        RemoveAmulet(oldAmulet);
         equippedAmulets.Add(newAmulet);
         newAmulet.OnEquip();
     }
 
     public void RemoveAmulet(AmuletSO Amulet)
     {
-        if (equippedAmulets.Count < maxSlots)
-        {
-            equippedAmulets.Remove(Amulet);
-            Amulet.OnUnequip();
-        }
+        equippedAmulets.Remove(Amulet);
+        Amulet.OnUnequip();
     }
 
 

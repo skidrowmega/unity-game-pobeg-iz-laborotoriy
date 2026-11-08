@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MesmerizingCrunchAmulet
   amuletName: "\u041F\u043E\u0434\u043E\u0440\u043E\u0436\u043D\u0438\u043A \u0438\u0437
     \u0421\u0442\u0440\u0443\u0436\u043A\u0438"
-  amuletDescription: 
+  amuletDescription: "\u041F\u043E\u0434\u043E\u0440\u043E\u0436\u043D\u0438\u043A
+    \u0438\u0437 \u0421\u0442\u0440\u0443\u0436\u043A\u0438"
   amuletImage: {fileID: 0}
   resistBuff: 0.1
   damageMeleeBuff: 0.1

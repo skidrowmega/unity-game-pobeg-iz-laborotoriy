@@ -1241,6 +1241,8 @@ MonoBehaviour:
   ArtifactList: {fileID: 6449481522786766969}
   ItemDescription: {fileID: 9026733003280419041}
   emptybackground: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  MainText: {fileID: 765868982537288560}
+  exitButton: {fileID: 51577791219492433}
   debug: 0
 --- !u!1 &3317697059366401722
 GameObject:
@@ -2544,7 +2546,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4681199750200668583
 RectTransform:
   m_ObjectHideFlags: 0
