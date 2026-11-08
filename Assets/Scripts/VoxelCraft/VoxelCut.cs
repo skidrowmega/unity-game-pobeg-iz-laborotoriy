@@ -164,6 +164,7 @@ public class VoxelCut : MonoBehaviour
                 RaycastHit hit;
                 Physics.Raycast(CutoutManager.instance.cutcamera.ScreenPointToRay(Input.mousePosition), out hit, 100);
                 //if (hit.collider.transform.parent==transform) Destroy(hit.collider.gameObject);
+                if(hit.collider != null)
                 DestroyVoxelOnPosition(hit.point);
 
             }
@@ -604,7 +605,12 @@ public class VoxelCut : MonoBehaviour
         int localx = Mathf.FloorToInt(localPos.x / voxelworldsize);
         int localy = Mathf.FloorToInt(localPos.y / voxelworldsize);
 
+        //print(position);
+        //print(localPos);
+        //print(localx);
+        //print(localy);
 
+        //Debug.Break();
 
         return new Vector2Int(localx, localy);
 
