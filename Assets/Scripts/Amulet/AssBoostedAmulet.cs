@@ -3,14 +3,19 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "AssBoostedAmulet", menuName = "Roguelike/Amulets/AssBoostedAmulet")]
 public class AssBoostedAmulet: AmuletSO
 {
-    private float speedBuff;
-    public override void OnEquip(GameObject player)
+    public float speedBuff;
+    private float basespeed;
+    private void Awake()
     {
-        Player.player.Speed += speedBuff * Player.player.Speed;
+        basespeed = Player.player.Speed;
+    }
+    public override void OnEquip()
+    {
+        Player.player.Speed += speedBuff * basespeed;
     }
 
-    public override void OnUnequip(GameObject player)
+    public override void OnUnequip()
     {
-        Player.player.Speed -= speedBuff * Player.player.Speed;
+        Player.player.Speed -= speedBuff * basespeed;
     }
 }

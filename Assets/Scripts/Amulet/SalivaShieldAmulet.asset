@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bc0e9c176bfd5146a7dd7b7dd8e9bee, type: 3}
+  m_Name: SalivaShieldAmulet
+  m_EditorClassIdentifier: Assembly-CSharp::SalivaShieldAmulet
+  amuletName: "\u041F\u043B\u0435\u0432\u043E\u043A \u041D\u0430\u0437\u043B\u043E
+    \u0424\u0438\u0437\u0438\u043A\u0435"
+  amuletDescription: 
+  amuletImage: {fileID: 0}
+  resistBuff: 0.1
+  damageMeleeBuff: 0.1
+  damageRangedBuff: 0.1
+  durabilityModificator: 0.2

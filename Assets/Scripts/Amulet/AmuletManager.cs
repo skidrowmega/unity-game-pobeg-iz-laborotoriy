@@ -18,7 +18,7 @@ public class AmuletManager : MonoBehaviour
         if (equippedAmulets.Count < maxSlots)
         {
             equippedAmulets.Add(newAmulet);
-            newAmulet.OnEquip(gameObject);
+            newAmulet.OnEquip();
         }
     }
 
@@ -27,7 +27,7 @@ public class AmuletManager : MonoBehaviour
         if (equippedAmulets.Count < maxSlots)
         {
             equippedAmulets.Remove(Amulet);
-            Amulet.OnUnequip(gameObject);
+            Amulet.OnUnequip();
         }
     }
 

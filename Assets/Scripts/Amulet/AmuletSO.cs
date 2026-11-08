@@ -11,8 +11,8 @@ public class AmuletSO: ScriptableObject
     public float damageMeleeBuff;
     public float damageRangedBuff;
 
-    public virtual void OnEquip(GameObject player) { }
-    public virtual void OnUnequip(GameObject player) { }
+    public virtual void OnEquip() { }
+    public virtual void OnUnequip() { }
 
 
     public float ModifyMeleeDamage(float Damage)

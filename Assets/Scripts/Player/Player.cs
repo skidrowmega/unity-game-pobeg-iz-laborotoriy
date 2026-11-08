@@ -29,7 +29,7 @@ public class Player : Entity
     public static Player player { get; private set; }
 
     [SerializeField] private GameObject grenadeprefab;
-    [SerializeField] private float BasicFlightTime= 1f;
+    [SerializeField] public float BasicFlightTime= 1f;
     [SerializeField] private float GrenadeArcHeight = 3.5f;
     [SerializeField] private float GrenadeExplosionRadius = 3f;
     [SerializeField] private float GrenadeDamage = 50f;
