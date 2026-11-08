@@ -17,7 +17,6 @@ public class GenerateVoxelGrid : MonoBehaviour
     //[SerializeField] Texture2D texture;
     void Awake()
     {
-        voxel.transform.localScale = new Vector3(gap, gap, gap);
         VoxelBlank[] potentialchildren = gameObject.GetComponentsInChildren<VoxelBlank>();
         //if(!MainSprite) MainSprite= Resources.Load("derevo/") as Sprite;
         Texture2D texture;
