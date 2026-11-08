@@ -658,19 +658,14 @@ public class VoxelCut : MonoBehaviour
 
     void DisableBoard()
     {
-        foreach (Voxel voxel in voxels)
+        for (int i = 0; i < availablevoxels.GetLength(0); i++)
         {
-            for (int i = 0; i < availablevoxels.GetLength(0); i++)
+            for (int j = 0; j < availablevoxels.GetLength(1); j++)
             {
-                for (int j = 0; j < availablevoxels.GetLength(1); j++)
-                {
-                    availablevoxels[i, j] = false;
-                }
+                availablevoxels[i, j] = false;
             }
-            UpdatePatternPoints();
-            //voxel.SetActive(false);
-            //ТУТ ТОЖЕ ПЕРЕПИСАТЬ
         }
+        UpdatePatternPoints();
     }
 
 
