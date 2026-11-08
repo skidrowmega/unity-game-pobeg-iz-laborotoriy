@@ -204,8 +204,11 @@ public class VoxelCut : MonoBehaviour
         {
             VoxelsChecked = new bool[dimensions[0], dimensions[1]];
         }
+
         if (VoxelsChecked[position.x, position.y] || !availablevoxels[position.x, position.y]) return VoxelsChecked;
+
         VoxelsChecked[position.x, position.y] = true;
+
         int newposx;
         int newposy;
         Vector2Int newposition = new Vector2Int();
@@ -225,6 +228,52 @@ public class VoxelCut : MonoBehaviour
                 }
             }
         }
+        return VoxelsChecked;
+    }
+
+
+
+
+    bool[,] CheckCutoffIterative(Vector2Int startPosition, bool[,] VoxelsChecked = null)
+    {
+        if (VoxelsChecked == null)
+        {
+            VoxelsChecked = new bool[dimensions[0], dimensions[1]];
+        }
+
+        if (VoxelsChecked[startPosition.x, startPosition.y] || !availablevoxels[startPosition.x, startPosition.y])
+            return VoxelsChecked;
+
+        Stack<Vector2Int> stack = new Stack<Vector2Int>();
+        stack.Push(startPosition);
+        VoxelsChecked[startPosition.x, startPosition.y] = true;
+
+        Vector2Int[] directions = new Vector2Int[]
+        {
+        new Vector2Int(1, 0), new Vector2Int(-1, 0),
+        new Vector2Int(0, 1), new Vector2Int(0, -1)
+        };
+
+        while (stack.Count > 0)
+        {
+            Vector2Int current = stack.Pop();
+
+            for (int i = 0; i < 4; i++)
+            {
+                int nx = current.x + directions[i].x;
+                int ny = current.y + directions[i].y;
+
+                if (nx >= 0 && nx < dimensions[0] && ny >= 0 && ny < dimensions[1])
+                {
+                    if (!VoxelsChecked[nx, ny] && availablevoxels[nx, ny])
+                    {
+                        VoxelsChecked[nx, ny] = true;
+                        stack.Push(new Vector2Int(nx, ny));
+                    }
+                }
+            }
+        }
+
         return VoxelsChecked;
     }
 
@@ -676,7 +725,8 @@ public class VoxelCut : MonoBehaviour
     List<Vector2Int> DestroyCuttoffs()
     {
         List<Vector2Int> destroyedvoxels= new List<Vector2Int>();
-        bool[,] connectedvoxels = CheckCutoffRecursive(rootpoint);
+        //bool[,] connectedvoxels = CheckCutoffRecursive(rootpoint);
+        bool[,] connectedvoxels = CheckCutoffIterative(rootpoint);
         for (int i = 0; i < dimensions[0]; i++)
         {
             for (int j = 0; j < dimensions[1]; j++)
