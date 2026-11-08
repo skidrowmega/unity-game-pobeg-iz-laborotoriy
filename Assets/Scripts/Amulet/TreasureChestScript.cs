@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,12 +15,11 @@ public class AmuletSlot
 
 public class TreasureChestScript : MonoBehaviour
 {
-
     [SerializeField] RectTransform ArtifactList;
     [SerializeField] Text ItemDescription;
-    List<Image> SlotImages;
-    List<GameObject> SlotObjects;
-    AmuletSlot[] artifactSlots;
+    List<Image> SlotImages = new List<Image>();
+    List<GameObject> SlotObjects = new List<GameObject>();
+    AmuletSlot[] artifactSlots = new AmuletSlot[3];
     [SerializeField] Sprite emptybackground;
 
 #if UNITY_EDITOR
@@ -38,7 +39,7 @@ public class TreasureChestScript : MonoBehaviour
         for (int i = 0; i < ArtifactList.childCount; i++)
         {
             Transform child = ArtifactList.GetChild(i);
-            SlotImages.Add(child.GetComponentInChildren<Image>());
+            //SlotImages.Add(child.GetComponentInChildren<Image>());
             artifactSlots[i] = new AmuletSlot
             {
                 amuletdata = null,
@@ -87,7 +88,7 @@ public class TreasureChestScript : MonoBehaviour
     void OnPointerEnter(PointerEventData eventData)
     {
         AmuletSlot item = ObjectToSlot(eventData.pointerCurrentRaycast.gameObject);
-        if (item!=null) ItemDescription.text = item.amuletdata.amuletDescription;
+        if (item != null && item.amuletdata != null && ItemDescription != null) ItemDescription.text = item.amuletdata.amuletDescription;
     }
 
 
@@ -102,26 +103,32 @@ public class TreasureChestScript : MonoBehaviour
         return artifactSlots[index];
     }
 
-
-    /*void OpenWindow()
+    public void OpenChest()
     {
-        MenuHolder.SetActive(true);
+        GameManager.Instance.ChangeState(GameManager.GameState.AmuletChest);
     }
-    
-    void CloseWindow()
-    {
-        MenuHolder.SetActive(false);
-    }*/
 
     private void Exit()
     {
         GameManager.Instance.ChangeState(GameManager.GameState.Playing);
     }
-    /*
-
-    // Update is called once per frame
-    void Update()
+    
+    public void AddAmulet(AmuletSO amuletSO)
     {
-        
-    }*/
+        AmuletSlot amuletslot = GetFirstEmptySlot();
+        amuletslot.isEmpty = false;
+        amuletslot.amuletdata = amuletSO;
+    }
+
+    private AmuletSlot GetFirstEmptySlot()
+    {
+        for (int i = 0; i < artifactSlots.Length; i++)
+        {
+            if (artifactSlots[i].isEmpty)
+            {
+                return artifactSlots[i];
+            }
+        }
+        return null;
+    }
 }
