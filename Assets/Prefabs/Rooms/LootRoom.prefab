@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9044243963206313744}
   - component: {fileID: 1576986964565895819}
+  - component: {fileID: 938279160018957106}
   m_Layer: 0
   m_Name: LootRoom
   m_TagString: Untagged
@@ -62,6 +63,29 @@ MonoBehaviour:
   WallL: {fileID: 4825922669806372007}
   position: {x: 0, y: 0}
   TransformToRotate: {fileID: 0}
+--- !u!114 &938279160018957106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284157706985457931}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d92c90456d9acd04c99f128e83eb631f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AmuletChestRoomScript
+  RoomSize: {x: 10, y: 10}
+  amuletpool:
+  - {fileID: 11400000, guid: 8dc2c97f1b381004a89917e1a6375ff5, type: 2}
+  - {fileID: 11400000, guid: bc3c904076ee780469c3eb6357e61e8e, type: 2}
+  - {fileID: 11400000, guid: 99ff752e9e2228e439985a419e9bd4d4, type: 2}
+  - {fileID: 11400000, guid: a85152a5e2938cd4b8413207f7331066, type: 2}
+  - {fileID: 11400000, guid: 5078a30c6154d7e43b553e035bd9ff3b, type: 2}
+  - {fileID: 11400000, guid: 7cf9155b1ed854548889cd89a2435f31, type: 2}
+  - {fileID: 11400000, guid: 487bf52125b815e4fa48f4584a56496e, type: 2}
+  - {fileID: 11400000, guid: 4a039cefff91dad4e97b5d223386acbb, type: 2}
+  - {fileID: 11400000, guid: 440485e6c2565714aba7d349ab8e28ea, type: 2}
 --- !u!1 &1055928449434944456
 GameObject:
   m_ObjectHideFlags: 0
