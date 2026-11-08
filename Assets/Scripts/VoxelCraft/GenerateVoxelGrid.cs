@@ -17,40 +17,7 @@ public class GenerateVoxelGrid : MonoBehaviour
     //[SerializeField] Texture2D texture;
     void Awake()
     {
-        VoxelBlank[] potentialchildren = gameObject.GetComponentsInChildren<VoxelBlank>();
-        //if(!MainSprite) MainSprite= Resources.Load("derevo/") as Sprite;
-        Texture2D texture;
-        Color[] pixels;
-        if (potentialchildren.Length > 0)
-        {
-            //int count = 0;
-            //for (int j = dimensions[1] - 1; j > -1; j--)
-            //{
-            //    for (int i = 0; i < dimensions[0]; i++)
-            //    {
-            //        voxels[i, j] = potentialchildren[count].gameObject;
-
-            //        MeshRenderer[] meshRenderer = voxels[i, j].GetComponentsInChildren<MeshRenderer>();
-            //        //MeshRenderer meshRenderer = voxels[i, j].GetComponent<MeshRenderer>();
-            //        sprite = sprites[count];
-            //        texture = new Texture2D((int)sprite.rect.width, (int)sprite.rect.height);
-
-            //        pixels = sprite.texture.GetPixels((int)sprite.textureRect.x,
-            //                                                (int)sprite.textureRect.y,
-            //                                                (int)sprite.textureRect.width,
-            //                                                (int)sprite.textureRect.height);
-            //        texture.SetPixels(pixels);
-            //        texture.Apply();
-            //        foreach (MeshRenderer renderer in meshRenderer)
-            //        {
-            //            renderer.material.mainTexture = texture;
-            //        }
-            //        count++;
-            //    }
-            //}
-        }
-        else
-            MainTexture = GenerateGrid(voxel, dimensions);
+        MainTexture = GenerateGrid(voxel, dimensions);
     }
 
     GameObject GenerateGrid(GameObject voxel,int[] dimensions)

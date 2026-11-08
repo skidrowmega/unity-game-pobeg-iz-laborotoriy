@@ -367,12 +367,12 @@ public class VoxelCut : MonoBehaviour
     void UpdatePatternPoints(List<Vector2Int> tocheck=null)
     {
         //ПЕРЕПИСАТЬ ТУТ БУДЕТ КАЖДОЕ ИЗМЕНЕНИЕ(ИЛИ ПОСЛЕ СОВОКУПНОСТИ ИЗМЕНЕНИЙ ВЫРЕЗАТЬСЯ ИЗ ОСНОВНОЙ ТЕКСТУРКИ КАРТИНКА
+
         bool changedstuff = false;
 
         Vector2 texturesize = workabletexture.Size();
 
 
-        int count = 0;
         if(tocheck == null)
         for (int i = 0; i < availablevoxels.GetLength(0); i++)
         {
@@ -442,7 +442,12 @@ public class VoxelCut : MonoBehaviour
         endX = Mathf.Clamp(endX, 0, texture.width);
         startY = Mathf.Clamp(startY, 0, texture.height - 1);
         endY = Mathf.Clamp(endY, 0, texture.height);
-
+        //UnityEngine.Color[] Colors = new UnityEngine.Color[(endX - startX) * (endY - startY)];
+        //for (int k = 0; k < Colors.Length; k++)
+        //{
+        //    Colors[k] = color;
+        //}
+        //texture.SetPixels(startX, startY, endX - startX, endY - startY, Colors);
         for (int k = startX; k < endX; k++)
             for (int l = startY; l < endY; l++)
                 texture.SetPixel(k, l, color);
