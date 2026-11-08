@@ -13,13 +13,13 @@ public class GenerateVoxelGrid : MonoBehaviour
     [SerializeField] public int[] dimensions;
     [SerializeField] public float gap;
     [SerializeField] public GameObject MainTexture;
-    [SerializeField] public Sprite MainSprite;
+    //[SerializeField] public Sprite MainSprite;
     //[SerializeField] Texture2D texture;
     void Awake()
     {
         voxel.transform.localScale = new Vector3(gap, gap, gap);
         VoxelBlank[] potentialchildren = gameObject.GetComponentsInChildren<VoxelBlank>();
-        if(!MainSprite) MainSprite= Resources.Load("derevo/") as Sprite;
+        //if(!MainSprite) MainSprite= Resources.Load("derevo/") as Sprite;
         Texture2D texture;
         Color[] pixels;
         if (potentialchildren.Length > 0)

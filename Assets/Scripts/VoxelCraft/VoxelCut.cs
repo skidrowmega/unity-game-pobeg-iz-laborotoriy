@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -243,6 +244,8 @@ public class VoxelCut : MonoBehaviour
         bool DestroyedSomething;
         //position += new Vector3(-voxelGrid.gap / 2, -voxelGrid.gap / 2);
 
+        List<Vector2Int> ChangedIndices = new List<Vector2Int>();
+
         Vector2Int index = GetIndexOnWorldPosition(position);
 
         if (index.x < 0 || index.y < 0 || index.x > dimensions[0] || index.y > dimensions[1]) return;
@@ -250,6 +253,7 @@ public class VoxelCut : MonoBehaviour
         if (BrushSize == 1)
         {
             DestroyedSomething = DestroyVoxelByIndex(index.x, index.y);
+            ChangedIndices.Add(index);
         }
         else
         {
@@ -266,16 +270,20 @@ public class VoxelCut : MonoBehaviour
                     int localy = localpos.y;
                     if (PointInRangeCheck(new Vector2(localx, localy), new Vector2(0, 0), new Vector2(dimensions[0] - 1, dimensions[1] - 1)))
                     {
-                        if (DestroyVoxelByIndex(localx, localy)) DestroyedSomething = true;
+                        if (DestroyVoxelByIndex(localx, localy)){
+                            DestroyedSomething = true;
+                            ChangedIndices.Add(new Vector2Int(localx, localy));
+                        }
                     }
                 }
             }
         }
         if (DestroyedSomething)
         {
-            DestroyCuttoffs();
+            List<Vector2Int> destroyedcutoffs=DestroyCuttoffs();
             ShakeCamera();
-            UpdatePatternPoints();
+            if (destroyedcutoffs.Count > 0) ChangedIndices = ChangedIndices.Concat(destroyedcutoffs).ToList();
+            UpdatePatternPoints(ChangedIndices);
         }
     }
 
@@ -308,41 +316,28 @@ public class VoxelCut : MonoBehaviour
         }
     }
 
-    void UpdatePatternPoints()
+    void UpdatePatternPoints(List<Vector2Int> tocheck=null)
     {
         //ПЕРЕПИСАТЬ ТУТ БУДЕТ КАЖДОЕ ИЗМЕНЕНИЕ(ИЛИ ПОСЛЕ СОВОКУПНОСТИ ИЗМЕНЕНИЙ ВЫРЕЗАТЬСЯ ИЗ ОСНОВНОЙ ТЕКСТУРКИ КАРТИНКА
         bool changedstuff = false;
 
-
-
         Vector2 texturesize = workabletexture.Size();
 
 
-        UnityEngine.Color emptypixelcolor = new UnityEngine.Color(0, 0, 0, 0);
-        UnityEngine.Color patternpixelcolor = new UnityEngine.Color(.5f, .5f, .5f, 1);
-        UnityEngine.Color rootpointcolor = new UnityEngine.Color(1, 0, 0, 1);
-
         int count = 0;
-
+        if(tocheck == null)
         for (int i = 0; i < availablevoxels.GetLength(0); i++)
         {
             for (int j = 0; j < availablevoxels.GetLength(1); j++)
             {
-                if(rootpoint==new Vector2Int(i, j))
-                {
-                    changedstuff = true;
-                    ChangeVoxel(i, j, workabletexture, texturesize, rootpointcolor);
-                }else
-                if (!availablevoxels[i, j])
-                {
-                    changedstuff = true;
-                    ChangeVoxel(i, j, workabletexture, texturesize, emptypixelcolor);
-                }else
-                if (patterntomake.points.Exists( (x => x == new Vector2Int(i,j)-rootpoint )) )
-                {
-                    changedstuff = true;
-                    ChangeVoxel(i, j, workabletexture, texturesize, patternpixelcolor);
-                }
+                if(CheckVoxel(i, j, texturesize)) changedstuff=true;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < tocheck.Count; i++)
+            {
+                if(CheckVoxel(tocheck[i], texturesize)) changedstuff=true;
             }
         }
         if (changedstuff)
@@ -350,6 +345,36 @@ public class VoxelCut : MonoBehaviour
             workabletexture.Apply();
         }
 
+    }
+    bool CheckVoxel(Vector2Int index,Vector2 texturesize)
+    {
+        return CheckVoxel(index.x, index.y, texturesize);
+    }
+
+    bool CheckVoxel(int i, int j, Vector2 texturesize)
+    {
+        UnityEngine.Color emptypixelcolor = new UnityEngine.Color(0, 0, 0, 0);
+        UnityEngine.Color patternpixelcolor = new UnityEngine.Color(.5f, .5f, .5f, 1);
+        UnityEngine.Color rootpointcolor = new UnityEngine.Color(1, 0, 0, 1);
+        bool changedstuff=false;
+        if (rootpoint.x==i && rootpoint.y==j)
+        {
+            changedstuff = true;
+            ChangeVoxel(i, j, workabletexture, texturesize, rootpointcolor);
+        }
+        else
+        if (!availablevoxels[i, j])
+        {
+            changedstuff = true;
+            ChangeVoxel(i, j, workabletexture, texturesize, emptypixelcolor);
+        }
+        else
+        if (patterntomake.points.Exists((x => x == new Vector2Int(i, j) - rootpoint)))
+        {
+            changedstuff = true;
+            ChangeVoxel(i, j, workabletexture, texturesize, patternpixelcolor);
+        }
+        return changedstuff;
     }
 
     void ChangeVoxel(int i, int j, Texture2D texture, Vector2 texturesize, UnityEngine.Color color)
@@ -625,6 +650,7 @@ public class VoxelCut : MonoBehaviour
         InitializeVoxels();
         foreach (Voxel voxel in voxels)
         {
+
             //voxel.SetActive(true);
             //ТУТ ТОЖЕ ПЕРЕПИСАТЬ
         }
@@ -634,14 +660,23 @@ public class VoxelCut : MonoBehaviour
     {
         foreach (Voxel voxel in voxels)
         {
+            for (int i = 0; i < availablevoxels.GetLength(0); i++)
+            {
+                for (int j = 0; j < availablevoxels.GetLength(1); j++)
+                {
+                    availablevoxels[i, j] = false;
+                }
+            }
+            UpdatePatternPoints();
             //voxel.SetActive(false);
             //ТУТ ТОЖЕ ПЕРЕПИСАТЬ
         }
     }
 
 
-    void DestroyCuttoffs()
+    List<Vector2Int> DestroyCuttoffs()
     {
+        List<Vector2Int> destroyedvoxels= new List<Vector2Int>();
         bool[,] connectedvoxels = CheckCutoffRecursive(rootpoint);
         for (int i = 0; i < dimensions[0]; i++)
         {
@@ -650,9 +685,11 @@ public class VoxelCut : MonoBehaviour
                 if (availablevoxels[i, j] == true && connectedvoxels[i, j] == false)
                 {
                     DestroyVoxelByIndex(i, j);
+                    destroyedvoxels.Add(new Vector2Int(i, j));
                 }
             }
         }
+        return destroyedvoxels;
     }
 
     bool PointInRangeCheck(Vector2 point, Vector2 range1, Vector2 range2) //Проверяет находиться ли точка( Vector2 ) в пределах диапазона
