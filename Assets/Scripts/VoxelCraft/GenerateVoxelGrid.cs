@@ -13,7 +13,7 @@ public class GenerateVoxelGrid : MonoBehaviour
     [SerializeField] public int[] dimensions;
     [SerializeField] public float gap;
     [SerializeField] public GameObject MainTexture;
-    [SerializeField] private Sprite MainSprite;
+    [SerializeField] public Sprite MainSprite;
     //[SerializeField] Texture2D texture;
     void Awake()
     {

@@ -45,7 +45,6 @@ public class CutoutManager : MonoBehaviour
         {
             cuttingboard.Timer = 100000;
             EditorUtility.SetDirty(Pattern);
-            StartCut();
         }
 #endif
     }
