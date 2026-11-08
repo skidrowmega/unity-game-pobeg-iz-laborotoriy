@@ -78,15 +78,9 @@ public class CutoutManager : MonoBehaviour
         callback = null;
         cuttingboard.Cleanup();
         cuttingboard.ResetBoard();
-        //cuttingboard.PrepareForDestroy();
-        //VoxelCut newcuttingboard = Instantiate(CuttingBoardPrefab, cuttingboard.transform.parent).GetComponent<VoxelCut>();
-        //newcuttingboard.SubmitButtonText=cuttingboard.SubmitButtonText;
-        //newcuttingboard.SubmitResultText = cuttingboard.SubmitResultText;
-        ////Destroy(cuttingboard.gameObject);
-        //newcuttingboard.Awake();
-        //newcuttingboard.Start();
-        
-        timer.cuttingboard = cuttingboard;
+        cuttingboard.Submitted = false;
+        timer.StopTimer();
+        timer.Reset();
         //SwitchEnableValue(false);
         GameManager.Instance.ChangeState(GameManager.GameState.Playing);
     }

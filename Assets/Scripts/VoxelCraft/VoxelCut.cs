@@ -63,7 +63,7 @@ public class VoxelCut : MonoBehaviour
 
     public float FinalScore = 0;
 
-
+    Texture2D mainsprite;
     Texture2D workabletexture;
     MeshRenderer mainrenderer;
 
@@ -73,6 +73,7 @@ public class VoxelCut : MonoBehaviour
     }
     public void Start()
     {
+        
         voxelGrid = GetComponent<GenerateVoxelGrid>();
         boxCollider = GetComponent<BoxCollider>();
         BrushSizeSlider = Selectable.FindAnyObjectByType<UnityEngine.UI.Slider>();
@@ -82,6 +83,7 @@ public class VoxelCut : MonoBehaviour
         dimensions = voxelGrid.dimensions;
         MainTexture = voxelGrid.MainTexture;
         mainrenderer = MainTexture.GetComponent<MeshRenderer>();
+        mainsprite = (mainrenderer.material.mainTexture as Texture2D);
         boxCollider.size = new Vector3((dimensions[0]) * voxelGrid.gap * 2, dimensions[1] * voxelGrid.gap * 2, voxelGrid.gap);
         boxCollider.center = new Vector3((dimensions[0]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, (dimensions[1]) / 2 * voxelGrid.gap, voxelGrid.gap / 2);
         rootpoint[0] = dimensions[0] - 1;
@@ -132,8 +134,6 @@ public class VoxelCut : MonoBehaviour
     {
         patterntomake = CutoutManager.instance.Pattern;
 
-        MeshRenderer renderer = MainTexture.GetComponent<MeshRenderer>();
-        Texture2D mainsprite = (renderer.sharedMaterial.mainTexture as Texture2D);
 
 
         Vector2 texturesize = mainsprite.Size();
@@ -141,14 +141,8 @@ public class VoxelCut : MonoBehaviour
 
         workabletexture = new Texture2D((int)texturesize.x, (int)texturesize.y, TextureFormat.RGBA32, true);
         workabletexture.SetPixels(mainsprite.GetPixels());
+
         mainrenderer.material.mainTexture = workabletexture;
-        /*for (int i = 20; i < 40; i++)
-        {
-            for (int j = 20; j < 40; j++)
-            {
-                availablevoxels[i, j] = false;
-            }
-        }*/
         //availablevoxels[0, 0] = false;
         //availablevoxels[1, 1] = false;
         UpdatePatternPoints();
@@ -169,21 +163,22 @@ public class VoxelCut : MonoBehaviour
 
             }
         }
+
+#if UNITY_EDITOR
+        #region DEBUG
+        if (Input.GetMouseButton(1))
+        {
+            RaycastHit hit;
+            Physics.Raycast(CutoutManager.instance.cutcamera.ScreenPointToRay(Input.mousePosition), out hit, 100);
+
+            AddPointToPattern(hit.point);
+        }
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButton(1))
         {
             RaycastHit hit;
             Physics.Raycast(CutoutManager.instance.cutcamera.ScreenPointToRay(Input.mousePosition), out hit, 100);
 
             RemovePatternPoint(hit.point);
-        }
-#if UNITY_EDITOR
-        #region DEBUG
-        else if (Input.GetMouseButton(1))
-        {
-            RaycastHit hit;
-            Physics.Raycast(CutoutManager.instance.cutcamera.ScreenPointToRay(Input.mousePosition), out hit, 100);
-
-            AddPointToPattern(hit.point);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -297,7 +292,7 @@ public class VoxelCut : MonoBehaviour
             if (!patterntomake.points.Contains(new Vector2Int(index.x - rootpoint[0], index.y - rootpoint[1])))
             {
                 patterntomake.points.Add(new Vector2Int(index.x - rootpoint[0], index.y - rootpoint[1]));
-                UpdatePatternPoints();
+                UpdatePatternPoints(index);
             }
         }
     }
@@ -311,10 +306,17 @@ public class VoxelCut : MonoBehaviour
             if (patterntomake.points.Contains(new Vector2Int(index.x - rootpoint[0], index.y - rootpoint[1])))
             {
                 patterntomake.points.Remove(new Vector2Int(index.x - rootpoint[0], index.y - rootpoint[1]));
-                UpdatePatternPoints();
+                UpdatePatternPoints(index);
             }
 
         }
+    }
+
+    void UpdatePatternPoints(Vector2Int point)
+    {
+        List<Vector2Int> pointlist= new List<Vector2Int>();
+        pointlist.Add(point);
+        UpdatePatternPoints(pointlist);
     }
 
     void UpdatePatternPoints(List<Vector2Int> tocheck=null)
@@ -358,23 +360,23 @@ public class VoxelCut : MonoBehaviour
         UnityEngine.Color patternpixelcolor = new UnityEngine.Color(.5f, .5f, .5f, 1);
         UnityEngine.Color rootpointcolor = new UnityEngine.Color(1, 0, 0, 1);
         bool changedstuff=false;
-        if (rootpoint.x==i && rootpoint.y==j)
-        {
-            changedstuff = true;
-            ChangeVoxel(i, j, workabletexture, texturesize, rootpointcolor);
-        }
-        else
         if (!availablevoxels[i, j])
         {
             changedstuff = true;
             ChangeVoxel(i, j, workabletexture, texturesize, emptypixelcolor);
-        }
-        else
+        }else
+        if (rootpoint.x == i && rootpoint.y == j)
+        {
+            changedstuff = true;
+            ChangeVoxel(i, j, workabletexture, texturesize, rootpointcolor);
+        }else
         if (patterntomake.points.Exists((x => x == new Vector2Int(i, j) - rootpoint)))
         {
             changedstuff = true;
             ChangeVoxel(i, j, workabletexture, texturesize, patternpixelcolor);
-        }
+        } 
+
+        
         return changedstuff;
     }
 
@@ -436,6 +438,7 @@ public class VoxelCut : MonoBehaviour
     public void Cleanup()
     {
         Destroy(finalcutout);
+        
         SubmitResultText.text = "";
         SubmitButtonText.text = "Готово";
     }
@@ -654,12 +657,7 @@ public class VoxelCut : MonoBehaviour
     public void ResetBoard()
     {
         InitializeVoxels();
-        foreach (Voxel voxel in voxels)
-        {
-
-            //voxel.SetActive(true);
-            //ТУТ ТОЖЕ ПЕРЕПИСАТЬ
-        }
+        UpdatePatternPoints();
     }
 
     void DisableBoard()

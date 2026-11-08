@@ -1154,6 +1154,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9136250406659291106, guid: 4b19ccebff8127945bc6e8a3c6d8c6f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2593,6 +2597,7 @@ MonoBehaviour:
   IsStunned: 0
   IsBeingPushed: 0
   agent: {fileID: 0}
+  amuletManager: {fileID: 0}
   Cursor: {fileID: 2101901202}
   currentweapon: {fileID: 989518382}
   currentgun: {fileID: 989518381}
