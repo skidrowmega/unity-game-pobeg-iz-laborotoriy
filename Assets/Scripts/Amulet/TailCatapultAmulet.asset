@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TailCatapultAmulet
   m_EditorClassIdentifier: Assembly-CSharp::TailCatapultAmulet
   amuletName: "\u0425\u0432\u043E\u0441\u0442\u043E\u0432\u0430\u044F \u041A\u0430\u0442\u0430\u043F\u0443\u043B\u044C\u0442\u0430"
-  amuletDescription: 
+  amuletDescription: "\u0425\u0432\u043E\u0441\u0442\u043E\u0432\u0430\u044F \u041A\u0430\u0442\u0430\u043F\u0443\u043B\u044C\u0442\u0430"
   amuletImage: {fileID: 0}
   resistBuff: 0.1
   damageMeleeBuff: 0.1

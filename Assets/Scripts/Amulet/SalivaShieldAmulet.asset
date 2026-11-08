@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SalivaShieldAmulet
   amuletName: "\u041F\u043B\u0435\u0432\u043E\u043A \u041D\u0430\u0437\u043B\u043E
     \u0424\u0438\u0437\u0438\u043A\u0435"
-  amuletDescription: 
+  amuletDescription: "\u041F\u043B\u0435\u0432\u043E\u043A \u041D\u0430\u0437\u043B\u043E
+    \u0424\u0438\u0437\u0438\u043A\u0435"
   amuletImage: {fileID: 0}
   resistBuff: 0.1
   damageMeleeBuff: 0.1

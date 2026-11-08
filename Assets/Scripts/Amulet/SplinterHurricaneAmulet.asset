@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b434ba613d8604c81c4c5a49c04e45, type: 3}
   m_Name: SplinterHurricaneAmulet
   m_EditorClassIdentifier: Assembly-CSharp::SplinterHurricaneAmulet
-  amuletName: 
-  amuletDescription: 
+  amuletName: "\u0427\u0442\u043E-\u0442\u043E \u0441 \u0447\u0435\u043C-\u0442\u043E"
+  amuletDescription: "\u0427\u0442\u043E-\u0442\u043E \u0441 \u0447\u0435\u043C-\u0442\u043E"
   amuletImage: {fileID: 0}
   resistBuff: 0
   damageMeleeBuff: 0

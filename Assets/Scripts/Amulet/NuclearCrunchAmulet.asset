@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NuclearCrunchAmulet
   m_EditorClassIdentifier: Assembly-CSharp::NuclearCrunchAmulet
   amuletName: "\u042F\u0434\u0435\u0440\u043D\u044B\u0439 \u0425\u0440\u0443\u0441\u0442"
-  amuletDescription: 
+  amuletDescription: "\u042F\u0434\u0435\u0440\u043D\u044B\u0439 \u0425\u0440\u0443\u0441\u0442"
   amuletImage: {fileID: 0}
   resistBuff: 0.1
   damageMeleeBuff: 0.1

@@ -1,4 +1,7 @@
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -13,13 +16,16 @@ public class AmuletSlot
 
 public class TreasureChestScript : MonoBehaviour
 {
-
     [SerializeField] RectTransform ArtifactList;
     [SerializeField] Text ItemDescription;
-    List<Image> SlotImages;
-    List<GameObject> SlotObjects;
-    AmuletSlot[] artifactSlots;
+    List<Image> SlotImages = new List<Image>();
+    List<GameObject> SlotObjects = new List<GameObject>();
+    AmuletSlot[] artifactSlots = new AmuletSlot[3];
     [SerializeField] Sprite emptybackground;
+    [SerializeField] Text MainText;
+    [SerializeField] Button exitButton;
+    AmuletSO oldAmuletData;
+    private bool isChanging = false;
 
 #if UNITY_EDITOR
     [SerializeField] bool debug = false;
@@ -38,7 +44,7 @@ public class TreasureChestScript : MonoBehaviour
         for (int i = 0; i < ArtifactList.childCount; i++)
         {
             Transform child = ArtifactList.GetChild(i);
-            SlotImages.Add(child.GetComponentInChildren<Image>());
+            //SlotImages.Add(child.GetComponentInChildren<Image>());
             artifactSlots[i] = new AmuletSlot
             {
                 amuletdata = null,
@@ -66,20 +72,39 @@ public class TreasureChestScript : MonoBehaviour
             trigger.triggers.Add(entryPointerEnter);
             trigger.triggers.Add(entryPointerExit);
         }
-
+        exitButton.onClick.AddListener(Exit);
 
     }
 
     void OnPointerDown(PointerEventData eventData)
     {
         AmuletSlot slot = ObjectToSlot(eventData.pointerCurrentRaycast.gameObject);
-        AmuletManager.instance.EquipAmulet(slot.amuletdata);
-        CloseWindow();
+        if (AmuletManager.instance.TryEquip())
+        {
+            AmuletManager.instance.EquipAmulet(slot.amuletdata);
+            Exit();
+        }
+        else if (isChanging)
+        {
+            AmuletManager.instance.ChangeAmulet(slot.amuletdata, oldAmuletData);
+            isChanging = false;
+            Exit();
+        }
+        else
+        {
+            oldAmuletData = slot.amuletdata;
+            for (int i = 0; i < AmuletManager.instance.maxSlots; i++)
+            {
+                artifactSlots[i].amuletdata = AmuletManager.instance.equippedAmulets[i];
+            }
+            MainText.text = "Какой амулет хотите заменить?";
+            isChanging = true;
+        }
     }
     void OnPointerEnter(PointerEventData eventData)
     {
         AmuletSlot item = ObjectToSlot(eventData.pointerCurrentRaycast.gameObject);
-        if (item!=null) ItemDescription.text = item.amuletdata.amuletDescription;
+        if (item != null && item.amuletdata != null && ItemDescription != null) ItemDescription.text = item.amuletdata.amuletDescription;
     }
 
 
@@ -94,26 +119,32 @@ public class TreasureChestScript : MonoBehaviour
         return artifactSlots[index];
     }
 
-
-    void OpenWindow()
+    public void OpenChest()
     {
-        MenuHolder.SetActive(true);
+        GameManager.Instance.ChangeState(GameManager.GameState.AmuletChest);
+    }
+
+    private void Exit()
+    {
+        GameManager.Instance.ChangeState(GameManager.GameState.Playing);
     }
     
-    void CloseWindow()
+    public void AddAmulet(AmuletSO amuletSO)
     {
-        MenuHolder.SetActive(false);
+        AmuletSlot amuletslot = GetFirstEmptySlot();
+        amuletslot.isEmpty = false;
+        amuletslot.amuletdata = amuletSO;
     }
 
-
-    void Start()
+    private AmuletSlot GetFirstEmptySlot()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        for (int i = 0; i < artifactSlots.Length; i++)
+        {
+            if (artifactSlots[i].isEmpty)
+            {
+                return artifactSlots[i];
+            }
+        }
+        return null;
     }
 }

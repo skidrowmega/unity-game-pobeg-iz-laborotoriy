@@ -271,6 +271,7 @@ MonoBehaviour:
   IsStunned: 0
   IsBeingPushed: 0
   agent: {fileID: 0}
+  amuletManager: {fileID: 0}
   Cursor: {fileID: 0}
   currentweapon: {fileID: 9169369046277672402}
   currentgun: {fileID: 89958014049442596}
@@ -433,7 +434,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AmuletManager
   equippedAmulets: []
-  maxSlots: 4
+  maxSlots: 3
 --- !u!1 &7356891944429354848
 GameObject:
   m_ObjectHideFlags: 0
