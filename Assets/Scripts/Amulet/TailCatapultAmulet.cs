@@ -6,12 +6,11 @@ public class TailCatapultAmulet:AmuletSO
 {
     public float grenadeFlightTimeModificator;
     private float baseTime;
-    public void Awake()
-    {
-        baseTime = Player.player.BasicFlightTime;
-    }
+
     public override void OnEquip()
     {
+        baseTime = Player.player.BasicFlightTime;
+
         Player.player.BasicFlightTime -= baseTime * (1 + grenadeFlightTimeModificator);
     }
     public override void OnUnequip()

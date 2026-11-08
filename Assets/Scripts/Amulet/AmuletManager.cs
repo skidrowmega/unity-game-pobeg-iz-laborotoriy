@@ -4,7 +4,7 @@ using UnityEngine;
 public class AmuletManager : MonoBehaviour
 {
     public List<AmuletSO> equippedAmulets = new List<AmuletSO>();
-    public int maxSlots = 4;
+    public int maxSlots = 3;
 
     public static AmuletManager instance;
 
@@ -13,13 +13,28 @@ public class AmuletManager : MonoBehaviour
         instance = this;
     }
 
-    public void EquipAmulet(AmuletSO newAmulet)
+    public bool TryEquip()
     {
         if (equippedAmulets.Count < maxSlots)
         {
-            equippedAmulets.Add(newAmulet);
-            newAmulet.OnEquip();
+            return true;
         }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void EquipAmulet(AmuletSO newAmulet)
+    {
+        equippedAmulets.Add(newAmulet);
+        newAmulet.OnEquip();
+    }
+
+    public void ChangeAmulet(AmuletSO newAmulet)
+    {
+        equippedAmulets.Add(newAmulet);
+        newAmulet.OnEquip();
     }
 
     public void RemoveAmulet(AmuletSO Amulet)

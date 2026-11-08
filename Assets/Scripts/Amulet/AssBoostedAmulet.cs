@@ -5,12 +5,11 @@ public class AssBoostedAmulet: AmuletSO
 {
     public float speedBuff;
     private float basespeed;
-    private void Awake()
-    {
-        basespeed = Player.player.Speed;
-    }
+
     public override void OnEquip()
     {
+        basespeed = Player.player.Speed;
+
         Player.player.Speed += speedBuff * basespeed;
     }
 

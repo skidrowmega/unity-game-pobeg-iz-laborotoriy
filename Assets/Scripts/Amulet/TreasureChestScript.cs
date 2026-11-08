@@ -66,15 +66,23 @@ public class TreasureChestScript : MonoBehaviour
             trigger.triggers.Add(entryPointerEnter);
             trigger.triggers.Add(entryPointerExit);
         }
-
+        Button exitButton = MenuHolder.transform.Find("ExitButton").GetComponent<Button>();
+        exitButton.onClick.AddListener(Exit);
 
     }
 
     void OnPointerDown(PointerEventData eventData)
     {
         AmuletSlot slot = ObjectToSlot(eventData.pointerCurrentRaycast.gameObject);
-        AmuletManager.instance.EquipAmulet(slot.amuletdata);
-        CloseWindow();
+        if (AmuletManager.instance.TryEquip())
+        {
+            AmuletManager.instance.EquipAmulet(slot.amuletdata);
+            Exit();
+        }
+        else
+        {
+            AmuletManager.instance.ChangeAmulet(slot.amuletdata);
+        }
     }
     void OnPointerEnter(PointerEventData eventData)
     {
@@ -95,7 +103,7 @@ public class TreasureChestScript : MonoBehaviour
     }
 
 
-    void OpenWindow()
+    /*void OpenWindow()
     {
         MenuHolder.SetActive(true);
     }
@@ -103,17 +111,17 @@ public class TreasureChestScript : MonoBehaviour
     void CloseWindow()
     {
         MenuHolder.SetActive(false);
-    }
+    }*/
 
-
-    void Start()
+    private void Exit()
     {
-        
+        GameManager.Instance.ChangeState(GameManager.GameState.Playing);
     }
+    /*
 
     // Update is called once per frame
     void Update()
     {
         
-    }
+    }*/
 }
