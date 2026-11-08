@@ -34,8 +34,6 @@ public class VoxelCut : MonoBehaviour
     [SerializeField] GameObject voxelforprefab;
     [SerializeField] private Material materialforprefab;
 
-    Voxel[,] voxels;
-
     GameObject MainTexture;
     bool[,] availablevoxels;
     int[] dimensions;
@@ -108,25 +106,18 @@ public class VoxelCut : MonoBehaviour
 
     void InitializeVoxels()
     {
-        voxels = new Voxel[dimensions[0], dimensions[1]];
         availablevoxels = new bool[dimensions[0], dimensions[1]];
         for (int i = 0; i < dimensions[0]; i++)
         {
             for (int j = 0; j < dimensions[1]; j++)
             {
                 availablevoxels[i, j] = true;
-                voxels[i, j] = new Voxel
-                {
-                    Position = new Vector2Int(i, j),
-                    isRoot = false,
-                };
             }
         }
     }
 
     void InitializeRootVoxel()
     {
-        voxels[rootpoint.x, rootpoint.y].isRoot = true;
     }
 
 
@@ -145,7 +136,12 @@ public class VoxelCut : MonoBehaviour
         mainrenderer.material.mainTexture = workabletexture;
         //availablevoxels[0, 0] = false;
         //availablevoxels[1, 1] = false;
-        UpdatePatternPoints();
+        List<Vector2Int> points = new List<Vector2Int>();
+        foreach (Vector2Int point in patterntomake.points)
+        {
+            points.Add(point+rootpoint);
+        }
+        UpdatePatternPoints(points);
 
     }
 
@@ -671,7 +667,7 @@ public class VoxelCut : MonoBehaviour
 
 
     //ПЕРЕПИСАТЬ
-    Voxel GetVoxelOnIndex(Vector2Int index)
+/*    Voxel GetVoxelOnIndex(Vector2Int index)
     {
         if (PointInRangeCheck(index, new Vector2(0, 0), new Vector2(dimensions[0] - 1, dimensions[1] - 1)))
             return voxels[index.x, index.y];
@@ -680,18 +676,16 @@ public class VoxelCut : MonoBehaviour
     Voxel GetVoxelOnIndex(int indX, int indY)
     {
         return GetVoxelOnIndex(new Vector2Int(indX, indY));
-    }
+    }*/
 
     bool DestroyVoxelByIndex(int indX, int indY)
     {
         /*GameObject voxel;
         voxel = voxels[indX, indY];*/
-        Voxel voxel = GetVoxelOnIndex(indX, indY);
-        if (voxel.isRoot) return false;
+        if (rootpoint.x==indX&&rootpoint.y==indY) return false;
         if (availablevoxels[indX, indY])
         {
             availablevoxels[indX, indY] = false;
-            DestroyVoxel(voxel);
             return true;
         }
         return false;
@@ -706,19 +700,21 @@ public class VoxelCut : MonoBehaviour
     public void ResetBoard()
     {
         InitializeVoxels();
-        UpdatePatternPoints();
+        //UpdatePatternPoints();
     }
 
     void DisableBoard()
     {
-        for (int i = 0; i < availablevoxels.GetLength(0); i++)
+/*        for (int i = 0; i < availablevoxels.GetLength(0); i++)
         {
             for (int j = 0; j < availablevoxels.GetLength(1); j++)
             {
                 availablevoxels[i, j] = false;
             }
-        }
-        UpdatePatternPoints();
+        }*/
+        Texture2D replacement= new Texture2D(1, 1);
+        mainrenderer.material.mainTexture = replacement;
+        
     }
 
 
