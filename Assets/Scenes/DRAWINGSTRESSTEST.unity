@@ -4619,15 +4619,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2414656368187570484, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
       propertyPath: gap
-      value: 0.0015625
+      value: 0.003125
       objectReference: {fileID: 0}
     - target: {fileID: 2414656368187570484, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
       propertyPath: 'dimensions.Array.data[0]'
-      value: 1728
+      value: 864
       objectReference: {fileID: 0}
     - target: {fileID: 2414656368187570484, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
       propertyPath: 'dimensions.Array.data[1]'
-      value: 976
+      value: 488
       objectReference: {fileID: 0}
     - target: {fileID: 4088943032108634062, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
       propertyPath: m_LocalPosition.x
