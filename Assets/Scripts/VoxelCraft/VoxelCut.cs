@@ -71,7 +71,7 @@ public class VoxelCut : MonoBehaviour
     }
     public void Start()
     {
-        
+        if (CutoutManager.instance.Debug) ShakeCameraOnDestroy = false;
         voxelGrid = GetComponent<GenerateVoxelGrid>();
         boxCollider = GetComponent<BoxCollider>();
         BrushSizeSlider = Selectable.FindAnyObjectByType<UnityEngine.UI.Slider>();
@@ -341,7 +341,7 @@ public class VoxelCut : MonoBehaviour
         if (DestroyedSomething)
         {
             List<Vector2Int> destroyedcutoffs=DestroyCuttoffs();
-            ShakeCamera();
+            if(ShakeCameraOnDestroy) ShakeCamera();
             if (destroyedcutoffs.Count > 0) ChangedIndices = ChangedIndices.Concat(destroyedcutoffs).ToList();
             UpdatePatternPoints(ChangedIndices);
         }
