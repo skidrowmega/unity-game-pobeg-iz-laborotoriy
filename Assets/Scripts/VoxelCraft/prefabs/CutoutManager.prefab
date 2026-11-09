@@ -55,7 +55,7 @@ MonoBehaviour:
   finalCutout: {fileID: 0}
   finalScore: 0
   VoxelColor: {r: 0, g: 0, b: 0, a: 0}
-  Pattern: {fileID: 0}
+  Pattern: {fileID: 11400000, guid: d74041ee71553d04abf7ca658c455417, type: 2}
   Debug: 0
 --- !u!1 &3825582412110552313
 GameObject:

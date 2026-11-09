@@ -162,19 +162,25 @@ public class VoxelCut : MonoBehaviour
 
 #if UNITY_EDITOR
         #region DEBUG
-        if (Input.GetMouseButton(1))
+        if (!CutoutManager.instance.Debug) return;
+        if (Input.GetKey(KeyCode.Z))
         {
             RaycastHit hit;
             Physics.Raycast(CutoutManager.instance.cutcamera.ScreenPointToRay(Input.mousePosition), out hit, 100);
 
-            AddPointToPattern(hit.point);
+            //AddPointToPattern(hit.point);
+            if(hit.collider!= null)
+            DestroyVoxelOnPosition(hit.point, true);
         }
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButton(1))
+        if (Input.GetKey(KeyCode.X))
         {
             RaycastHit hit;
             Physics.Raycast(CutoutManager.instance.cutcamera.ScreenPointToRay(Input.mousePosition), out hit, 100);
 
-            RemovePatternPoint(hit.point);
+            //RemovePatternPoint(hit.point);
+
+            if (hit.collider != null)
+                DestroyVoxelOnPosition(hit.point, true,true);
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -279,7 +285,7 @@ public class VoxelCut : MonoBehaviour
         BrushSize = BrushSizeSlider.value;
     }
 
-    void DestroyVoxelOnPosition(Vector3 position)
+    void DestroyVoxelOnPosition(Vector3 position,bool addtopattern=false,bool removepoint=false)
     {
         position.z = transform.position.z;
         bool DestroyedSomething;
@@ -293,7 +299,11 @@ public class VoxelCut : MonoBehaviour
 
         if (BrushSize == 1)
         {
-            DestroyedSomething = DestroyVoxelByIndex(index.x, index.y);
+            if (addtopattern)
+                if (!removepoint) DestroyedSomething = AddPointToPattern(index);
+                else DestroyedSomething = RemovePatternPoint(index);
+            else
+                DestroyedSomething = DestroyVoxelByIndex(index.x, index.y);
             ChangedIndices.Add(index);
         }
         else
@@ -311,6 +321,15 @@ public class VoxelCut : MonoBehaviour
                     int localy = localpos.y;
                     if (PointInRangeCheck(new Vector2(localx, localy), new Vector2(0, 0), new Vector2(dimensions[0] - 1, dimensions[1] - 1)))
                     {
+                        if (addtopattern)
+                        {
+                            if(!removepoint)
+                            DestroyedSomething = AddPointToPattern(new Vector2Int(localx,localy));
+                            else
+                            DestroyedSomething = RemovePatternPoint(new Vector2Int(localx, localy));
+                            if (DestroyedSomething)ChangedIndices.Add(new Vector2Int(localx, localy));
+                        }
+                        else
                         if (DestroyVoxelByIndex(localx, localy)){
                             DestroyedSomething = true;
                             ChangedIndices.Add(new Vector2Int(localx, localy));
@@ -327,34 +346,29 @@ public class VoxelCut : MonoBehaviour
             UpdatePatternPoints(ChangedIndices);
         }
     }
-
-    void AddPointToPattern(Vector3 position)
+    bool AddPointToPattern(Vector2Int index)
     {
-        position.z = transform.position.z;
-        if (PointInRangeCheck(position, transform.position - new Vector3(voxelGrid.gap / 2, voxelGrid.gap / 2), transform.position + new Vector3(dimensions[0] * voxelGrid.gap, dimensions[1] * voxelGrid.gap, 0)))
+        if (!patterntomake.points.Exists(x=>x== index - rootpoint))
         {
-            Vector2Int index = GetIndexOnWorldPosition(position);
-            if (!patterntomake.points.Contains(new Vector2Int(index.x - rootpoint[0], index.y - rootpoint[1])))
-            {
-                patterntomake.points.Add(new Vector2Int(index.x - rootpoint[0], index.y - rootpoint[1]));
-                UpdatePatternPoints(index);
-            }
+            //print(index);
+            //Debug.Break();
+
+            patterntomake.points.Add(index-rootpoint);
+            UpdatePatternPoints(index);
+            return true;
         }
+        return false;
     }
 
-    void RemovePatternPoint(Vector3 position)
+    bool RemovePatternPoint(Vector2Int index)
     {
-        position.z = transform.position.z;
-        if (PointInRangeCheck(position, transform.position - new Vector3(voxelGrid.gap / 2, voxelGrid.gap / 2), transform.position + new Vector3(dimensions[0] * voxelGrid.gap, dimensions[1] * voxelGrid.gap, 0)))
+        if (patterntomake.points.Exists(x => x == index - rootpoint))
         {
-            Vector2Int index = GetIndexOnWorldPosition(position);
-            if (patterntomake.points.Contains(new Vector2Int(index.x - rootpoint[0], index.y - rootpoint[1])))
-            {
-                patterntomake.points.Remove(new Vector2Int(index.x - rootpoint[0], index.y - rootpoint[1]));
+            if(patterntomake.points.Remove(index-rootpoint))
                 UpdatePatternPoints(index);
-            }
-
+            return true;
         }
+        return false;
     }
 
     void UpdatePatternPoints(Vector2Int point)
@@ -419,13 +433,16 @@ public class VoxelCut : MonoBehaviour
         {
             changedstuff = true;
             ChangeVoxel(i, j, workabletexture, texturesize, patternpixelcolor);
-        } 
-
-        
+        }
+        else
+        {
+            changedstuff=true;
+            ChangeVoxel(i,j,workabletexture, texturesize, new UnityEngine.Color(),true);
+        }
         return changedstuff;
     }
 
-    void ChangeVoxel(int i, int j, Texture2D texture, Vector2 texturesize, UnityEngine.Color color)
+    void ChangeVoxel(int i, int j, Texture2D texture, Vector2 texturesize, UnityEngine.Color color, bool fill=false)
     {
         float voxelSize = texturesize.x / dimensions[0];
 
@@ -448,9 +465,23 @@ public class VoxelCut : MonoBehaviour
         //    Colors[k] = color;
         //}
         //texture.SetPixels(startX, startY, endX - startX, endY - startY, Colors);
-        for (int k = startX; k < endX; k++)
-            for (int l = startY; l < endY; l++)
-                texture.SetPixel(k, l, color);
+        
+        if (!fill)
+            for (int k = startX; k < endX; k++)
+                for (int l = startY; l < endY; l++)
+                    texture.SetPixel(k, l, color);
+        else
+        {
+            UnityEngine.Color[] colors = mainsprite.GetPixels(startX, startY, endX - startX, endY - startY);
+            int count = 0;
+            for (int k = startX; k < endX; k++)
+                for (int l = startY; l < endY; l++)
+                {
+                    texture.SetPixel(k, l, colors[count]);
+                    count++;
+                }
+        }
+
     }
 
 
@@ -509,17 +540,28 @@ public class VoxelCut : MonoBehaviour
         int gainedscore = 0;
         for (int i = 0; i < patterntomake.points.Count; i++)
         {
-            Vector2Int patternpoint = patterntomake.points[i];
-            if (availablevoxels[patternpoint.x + rootpoint.x, patternpoint.y + rootpoint.y]) gainedscore++;
+            Vector2Int patternpointlocation = patterntomake.points[i]+rootpoint;
+            try
+            {
+                if (availablevoxels[patternpointlocation.x, patternpointlocation.y]) gainedscore++;
+                print("added score");
+            }
+            catch (Exception)
+            {
+
+            }
+            
         }
         for (int x = 0; x < dimensions[0]; x++)
         {
             for (int y = 0; y < dimensions[1]; y++)
             {
+
                 if (availablevoxels[x, y] && !patterntomake.points.Contains(new Vector2Int(x - rootpoint[0], y - rootpoint[1])))
                 {
                     gainedscore--;
                 }
+
             }
         }
         print($"TotalScore: {gainedscore} MaxScore: {maxscore}");

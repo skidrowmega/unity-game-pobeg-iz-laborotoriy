@@ -386,7 +386,6 @@ MonoBehaviour:
   dimensions: 6c0000003d000000
   gap: 0.025
   MainTexture: {fileID: 0}
-  MainSprite: {fileID: 0}
 --- !u!4 &1498099669
 Transform:
   m_ObjectHideFlags: 0
@@ -816,10 +815,6 @@ PrefabInstance:
       propertyPath: Debug
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8734314862101635713, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
-      propertyPath: Pattern
-      value: 
-      objectReference: {fileID: 11400000, guid: d74041ee71553d04abf7ca658c455417, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5764691494020594642, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
