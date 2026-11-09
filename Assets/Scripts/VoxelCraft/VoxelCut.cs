@@ -544,7 +544,7 @@ public class VoxelCut : MonoBehaviour
             try
             {
                 if (availablevoxels[patternpointlocation.x, patternpointlocation.y]) gainedscore++;
-                print("added score");
+                //print("added score");
             }
             catch (Exception)
             {
