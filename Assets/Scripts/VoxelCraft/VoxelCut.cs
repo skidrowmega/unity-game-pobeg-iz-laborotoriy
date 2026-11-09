@@ -362,7 +362,7 @@ public class VoxelCut : MonoBehaviour
 
     bool RemovePatternPoint(Vector2Int index)
     {
-        if (patterntomake.points.Exists(x => x == index - rootpoint))
+        if (index!=rootpoint&&patterntomake.points.Exists(x => x == index - rootpoint))
         {
             if(patterntomake.points.Remove(index-rootpoint))
                 UpdatePatternPoints(index);
@@ -437,7 +437,7 @@ public class VoxelCut : MonoBehaviour
         else
         {
             changedstuff=true;
-            ChangeVoxel(i,j,workabletexture, texturesize, new UnityEngine.Color(),true);
+            ChangeVoxel(i,j,workabletexture, texturesize, emptypixelcolor);
         }
         return changedstuff;
     }
