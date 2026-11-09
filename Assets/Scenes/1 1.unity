@@ -815,6 +815,10 @@ PrefabInstance:
       propertyPath: Debug
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8734314862101635713, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
+      propertyPath: Pattern
+      value: 
+      objectReference: {fileID: 11400000, guid: dc4ea6768c4bd094182000ca15ca6c9b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5764691494020594642, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
