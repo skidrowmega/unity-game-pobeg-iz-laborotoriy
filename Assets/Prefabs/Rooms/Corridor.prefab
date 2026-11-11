@@ -2779,11 +2779,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: spawnTriggerrangeMax
-      value: 21
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: spawnTriggerrangeMin
-      value: 9
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1115256657444179993, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: TimeDeleteWeakEnemies
@@ -2891,6 +2891,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4303919656372065592, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
       propertyPath: TimeUntilSpawn
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4303919656372065592, guid: 9a45ef759028f4a44a391ddabc8f48d0, type: 3}
+      propertyPath: spawnTriggerrangeMin
       value: 30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
