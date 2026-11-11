@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::TurretStats
   baseHP: 10
   baseDamage: 10
-  baseSpeed: 5
+  baseSpeed: 0
   baseAttackDuration: 1
-  baseAttackDistance: 1
-  baseStopDistance: 1
+  baseAttackDistance: 100
+  baseStopDistance: 10000
   basePushForce: 0
-  baseAttackCooldown: 1.5
+  baseAttackCooldown: 2
   burstshotamount: 3
