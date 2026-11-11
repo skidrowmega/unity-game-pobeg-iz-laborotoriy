@@ -17,6 +17,7 @@ public class GameManager: MonoBehaviour
     public static event Action<GameState> OnStateChanged;
 
     [SerializeField] private GameObject bobr;
+    private GameObject activeBobr;
 
     [SerializeField] private GameObject craftManager;
 
@@ -50,8 +51,11 @@ public class GameManager: MonoBehaviour
         if (debug) bobr = Player.player.gameObject;
         if (!debug)
         {
-            Instantiate(bobr);
+            activeBobr = Instantiate(bobr);
+            Animator animator = activeBobr.GetComponentInChildren<Animator>();
+            if (animator != null) animator.SetBool("isMainMenu", true);
 
+            DontDestroyOnLoad(activeBobr);
             DontDestroyOnLoad(Instantiate(minimapCamera, new Vector3(0, 17, 0), Quaternion.LookRotation(Vector3.down)));
             LoadScene("MainMenuScene", GameState.MainMenu);
         }  
@@ -116,6 +120,8 @@ public class GameManager: MonoBehaviour
     private void HandlePlaying()
     {
         Time.timeScale = 1f;
+        Animator animator = activeBobr.GetComponentInChildren<Animator>();
+        if (animator != null) animator.SetBool("isMainMenu", false);
     }
 
     private void HandlePaused()
