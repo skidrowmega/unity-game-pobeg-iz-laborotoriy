@@ -84,7 +84,7 @@ public class EnemyAll : Entity
             isAttacking = true;
             nextAttackTime = Time.time + attackCooldown;
             animator.Play("Udar");
-            Invoke(nameof(Attack), 0.5f);
+            Invoke(nameof(Attack), 1f);
             Invoke(nameof(ResetAttack), AttackDuration);
         }
     }
