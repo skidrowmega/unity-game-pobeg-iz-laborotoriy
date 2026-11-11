@@ -48,7 +48,7 @@ public class Player : Entity
     void Update()
     {
         Move();
-        if (GameManager.Instance.CurrentState == GameManager.GameState.Playing)
+        if (GameManager.Instance.isGameState(GameManager.GameState.Playing))
         {
             LookAtCursor();
             AttackMelee();

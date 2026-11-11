@@ -24,7 +24,7 @@ public class GameManager: MonoBehaviour
 
     [SerializeField] private float difficultyScale = 0.1f;
     public float GameTime { get; private set; }
-    public float DifficultyFactor => GameTime * difficultyScale + 10 * FloorChange;
+    public float DifficultyFactor => GameTime * difficultyScale + 5 * FloorChange;
 
     public int FloorChange = 1;
     [SerializeField] private bool debug = false;
@@ -201,6 +201,18 @@ public class GameManager: MonoBehaviour
             Player.ChangeBobrPosition(GameObject.FindGameObjectWithTag("LiftEnter").transform);
         }
         Instance.ChangeState(scenestate);
+    }
+
+    public bool isGameState(GameState gameState)
+    {
+        if (CurrentState == gameState)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
 

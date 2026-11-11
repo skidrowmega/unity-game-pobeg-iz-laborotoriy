@@ -28,7 +28,7 @@ public class ShopRoomScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && PointInRangeCheck(new Vector2(Player.player.transform.position.x, Player.player.transform.position.z),range1,range2))
         {
-            if (GameManager.Instance.CurrentState != GameManager.GameState.Shop && HasExited)
+            if (GameManager.Instance.isGameState(GameManager.GameState.Playing) && HasExited)
             {
                 ShopScript.instance.OpenShop();
                 HasExited = false;
