@@ -670,7 +670,7 @@ PrefabInstance:
     - target: {fileID: 1574475567075807691, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
       propertyPath: patterntomake
       value: 
-      objectReference: {fileID: 11400000, guid: dc4ea6768c4bd094182000ca15ca6c9b, type: 2}
+      objectReference: {fileID: 11400000, guid: 3960a0c4b8fcc2e42b56af5c9e9dfaf0, type: 2}
     - target: {fileID: 2133718910067762059, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
       propertyPath: m_Name
       value: CutoutManager
@@ -815,6 +815,10 @@ PrefabInstance:
       propertyPath: Debug
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8734314862101635713, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
+      propertyPath: Pattern
+      value: 
+      objectReference: {fileID: 11400000, guid: 3960a0c4b8fcc2e42b56af5c9e9dfaf0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 5764691494020594642, guid: b986e341349ff2f428e3bbc449bfdda8, type: 3}
