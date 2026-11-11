@@ -26,13 +26,7 @@ public class ShopRoomScript : MonoBehaviour
 
     private void Update()
     {
-
-
-        
-
-
-
-        if (PointInRangeCheck(new Vector2(Player.player.transform.position.x, Player.player.transform.position.z),range1,range2))
+        if (Input.GetKeyDown(KeyCode.E) && PointInRangeCheck(new Vector2(Player.player.transform.position.x, Player.player.transform.position.z),range1,range2))
         {
             if (GameManager.Instance.CurrentState != GameManager.GameState.Shop && HasExited)
             {
