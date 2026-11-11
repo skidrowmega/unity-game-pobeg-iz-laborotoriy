@@ -310,8 +310,8 @@ public class Player : Entity
                     && Vector3.Dot((potentialenemy.transform.position - transform.position).normalized, transform.right) >= 0.5
                     )
                 {
-                    print("HIT ANGLE DEVIATION: " + Mathf.Acos(Vector3.Dot((potentialenemy.transform.position - transform.position).normalized, transform.right)) * Mathf.Rad2Deg);
-                    print("HITTING " + potentialenemy.name + " NOW!!!");
+                    //print("HIT ANGLE DEVIATION: " + Mathf.Acos(Vector3.Dot((potentialenemy.transform.position - transform.position).normalized, transform.right)) * Mathf.Rad2Deg);
+                    //print("HITTING " + potentialenemy.name + " NOW!!!");
                     currentweapon.OnHit(potentialenemy, transform.position);
                 }
             }
