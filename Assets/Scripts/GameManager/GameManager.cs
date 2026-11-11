@@ -27,7 +27,7 @@ public class GameManager: MonoBehaviour
     public float DifficultyFactor => GameTime * difficultyScale + 5 * FloorChange;
 
     public int FloorChange = 1;
-    [SerializeField] private bool debug = false;
+    [SerializeField] public bool debug = false;
     
 
     private void Awake()
