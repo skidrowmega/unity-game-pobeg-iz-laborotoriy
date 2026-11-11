@@ -14,7 +14,7 @@ public class Elevator: MonoBehaviour
 
         float distance = Vector3.Distance(transform.position, Player.player.transform.position);
 
-        if (isReady && distance <= activationDistance && Input.GetKeyDown(KeyCode.E))
+        if (isReady && distance <= activationDistance && Input.GetKeyDown(KeyCode.E) && GameManager.Instance.isGameState(GameManager.GameState.Playing))
         {
             if (GameManager.Instance.FloorChange < 4)
             {

@@ -31,7 +31,7 @@ public class AmuletChestRoomScript:MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E) && PointInRangeCheck(new Vector2(Player.player.transform.position.x, Player.player.transform.position.z), range1, range2))
         {
-            if (GameManager.Instance.CurrentState != GameManager.GameState.AmuletChest && HasExited)
+            if (GameManager.Instance.isGameState(GameManager.GameState.Playing) && HasExited)
             {
                 TreasureChestScript.instance.OpenChest();
                 HasExited = false;
