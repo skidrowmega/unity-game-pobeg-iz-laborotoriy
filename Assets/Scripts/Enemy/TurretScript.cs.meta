@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 8d6b75f906bfb194bb9a1dfd79f1dd48
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - agent: {instanceID: 0}
+  - LogCommon: {instanceID: 0}
+  - LogGreen: {instanceID: 0}
+  - LogRed: {instanceID: 0}
+  - animator: {instanceID: 0}
+  - stats: {fileID: 11400000, guid: 24ca129c21c60dc4389f9b59355966ba, type: 2}
+  - bulletprefab: {fileID: 4269288093046085232, guid: 6a25993a9bc099a468f9939afcc1607d, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
