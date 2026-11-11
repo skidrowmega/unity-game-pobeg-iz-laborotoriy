@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAll: Entity
+public class EnemyAll : Entity
 {
     [SerializeField] private GameObject LogCommon;
     [SerializeField] private GameObject LogGreen;
@@ -17,14 +17,13 @@ public class EnemyAll: Entity
     protected float attackCooldown;
     protected float nextAttackTime = 0f;
     protected float PushForce;
-    protected float distanceToPlayer;
+    protected float distanceToPlayer  { get { return Vector3.Distance(Player.player.transform.position, transform.position); } }
     protected float DifficultyScale;
 
     public virtual void Update()
     {
-        distanceToPlayer = (player.transform.position - transform.position).magnitude;
         Move();
-        if (!(agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon)) Rotation();
+        if (agent&&!(agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon)) Rotation();
     }
     public virtual void Initialize()
     {
@@ -53,7 +52,7 @@ public class EnemyAll: Entity
         }
 
         
-        agent.enabled = !IsStunned;
+        if(agent)agent.enabled = !IsStunned;
         bool walking = false;
         if (agent != null && agent.isActiveAndEnabled && agent.isOnNavMesh)
         {
