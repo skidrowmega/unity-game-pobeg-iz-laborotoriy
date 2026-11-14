@@ -9,6 +9,7 @@ public class RagdollOnDeath : MonoBehaviour
 
     List<Collider> colliders;
     List<Rigidbody> RBodies;
+    public bool Debug = false;
 
     private void Start()
     {
@@ -16,7 +17,7 @@ public class RagdollOnDeath : MonoBehaviour
         RBodies = new List<Rigidbody>();
         InitializeColliders();
 #if UNITY_EDITOR
-        if (SceneManager.GetActiveScene().name == "RAGDOLLTEST") StartRagdoll(new Vector3(Random.Range(-1,2), Random.Range(-1, 2), Random.Range(-1, 2)).normalized*100, "spine.005");
+        if (Debug&&SceneManager.GetActiveScene().name == "RAGDOLLTEST") StartRagdoll(new Vector3(Random.Range(-1,2), Random.Range(-1, 2), Random.Range(-1, 2)).normalized*100, "spine.005");
 #endif
     }
 

@@ -35,11 +35,15 @@ public class Entity : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    public virtual void Death(Vector3 source)
+    {
+        Death();
+    }
 
     public virtual void TakeDamage(float damage, Vector3 source ,Entity attacker, float pushstrength,DamageType damageType,float StunTime=0)
     {
         HealthPoints -= damage;
-        if (HealthPoints <= 0) Death();
+        if (HealthPoints <= 0) Death(source);
         if (pushstrength>0)
         {
             PushEntity(source, pushstrength);
