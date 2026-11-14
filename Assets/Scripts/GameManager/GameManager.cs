@@ -23,7 +23,7 @@ public class GameManager: MonoBehaviour
 
     [SerializeField] private GameObject minimapCamera;
 
-    [SerializeField] private float difficultyScale = 0.1f;
+    [SerializeField] private float difficultyScale = 0.05f;
     public float GameTime { get; private set; }
     public float DifficultyFactor => GameTime * difficultyScale + 5 * FloorChange;
 
