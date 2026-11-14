@@ -37,7 +37,6 @@ public class AmuletChestRoomScript:MonoBehaviour
                 HasExited = false;
             }
         }
-        else if (!HasExited) HasExited = true;
     }
     bool PointInRangeCheck(Vector2 point, Vector2 range1, Vector2 range2) //Проверяет находиться ли точка( Vector2 ) в пределах диапазона
     {

@@ -35,7 +35,7 @@ public class TreasureChestScript : MonoBehaviour
 
     GameObject MenuHolder;
 
-
+    private bool isUsed = false;
 
     private void Awake()
     {
@@ -44,7 +44,7 @@ public class TreasureChestScript : MonoBehaviour
         for (int i = 0; i < ArtifactList.childCount; i++)
         {
             Transform child = ArtifactList.GetChild(i);
-            //SlotImages.Add(child.GetComponentInChildren<Image>());
+            SlotImages.Add(child.GetComponentInChildren<Image>());
             artifactSlots[i] = new AmuletSlot
             {
                 amuletdata = null,
@@ -127,6 +127,7 @@ public class TreasureChestScript : MonoBehaviour
     private void Exit()
     {
         GameManager.Instance.ChangeState(GameManager.GameState.Playing);
+        isUsed = true;
     }
     
     public void AddAmulet(AmuletSO amuletSO)
@@ -134,6 +135,7 @@ public class TreasureChestScript : MonoBehaviour
         AmuletSlot amuletslot = GetFirstEmptySlot();
         amuletslot.isEmpty = false;
         amuletslot.amuletdata = amuletSO;
+        UpdateItems();
     }
 
     private AmuletSlot GetFirstEmptySlot()
@@ -146,5 +148,20 @@ public class TreasureChestScript : MonoBehaviour
             }
         }
         return null;
+    }
+
+    void UpdateItems()
+    {
+        for (int i = 0; i < artifactSlots.Length; i++)
+        {
+            if (!artifactSlots[i].isEmpty)
+            {
+                SlotImages[i].sprite = artifactSlots[i].amuletdata.amuletImage;
+            }
+            else
+            {
+                SlotImages[i].sprite = emptybackground;
+            }
+        }
     }
 }
