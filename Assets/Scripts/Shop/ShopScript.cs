@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 public class ShopSlot
 {
     [SerializeField] public ItemScriptableObject itemDataSlot;
@@ -32,11 +33,9 @@ public class ShopScript : MonoBehaviour
 
     public bool IsOpen { get; private set; }
 
-
-
     GameObject[] DETI;
 
-    //Тут нужен будет массив с соответствием между слотом и предметом
+    //Тут нужен будет массив с соответствием между слотом и предметом(вроде сделано)
 
     private void Awake()
     {
@@ -198,12 +197,13 @@ public class ShopScript : MonoBehaviour
 
     void BuyItem(ShopSlot slot)
     {
-        if (PlayerCurrency.instance.GetCurrency() >= slot.itemDataSlot.Value)
+        if (PlayerCurrency.instance.GetCurrency() >= slot.itemDataSlot.Value && InventoryManager.instance.AddItem(slot.itemDataSlot))
         {
             PlayerCurrency.instance.SubstractCurrency(slot.itemDataSlot.Value);
-            InventoryManager.instance.AddItem(slot.itemDataSlot);
-            RemoveItem(slot);
+            //InventoryManager.instance.AddItem(slot.itemDataSlot);
+            //RemoveItem(slot);
             UpdateShopCurrency();
+            UpdateShopSlotValue(slot);
         }
         
     }
@@ -214,6 +214,12 @@ public class ShopScript : MonoBehaviour
         UpdateItems();
     }
 
+    private void UpdateShopSlotValue(ShopSlot slot)
+    {
+        slot.itemDataSlot.Value = (int)(slot.itemDataSlot.Value * 1.5);
+        ItemScriptableObject item = slot.itemDataSlot;
+        ShopDescription.text = item.ItemDescription + "\n" + $"Стоимость: {item.Value}";
+    }
 
     void UpdateShopCurrency()
     {
