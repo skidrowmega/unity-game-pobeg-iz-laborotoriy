@@ -34,6 +34,12 @@ public class CorridorGenerator : MonoBehaviour
 
     private void Start()
     {
+        StartRoomGeneration();
+
+    }
+
+    void StartRoomGeneration()
+    {
         Grid = new bool[gridsizeX, gridsizeY];
         roomQueue = new Queue<Vector2Int>();
 
@@ -71,10 +77,7 @@ public class CorridorGenerator : MonoBehaviour
                     }
             }
         }
-
     }
-
-
 
     void RegenerateRooms()
     {
