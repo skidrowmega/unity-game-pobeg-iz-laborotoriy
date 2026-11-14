@@ -139,8 +139,16 @@ public class TreasureChestScript : MonoBehaviour
     public void AddAmulet(AmuletSO amuletSO)
     {
         AmuletSlot amuletslot = GetFirstEmptySlot();
-        amuletslot.isEmpty = false;
-        amuletslot.amuletdata = amuletSO;
+        if (amuletslot == null)
+        {
+            print("так не должно быть");
+        }
+        else
+        {
+            amuletslot.isEmpty = false;
+            amuletslot.amuletdata = amuletSO;
+        }
+        
         UpdateItems();
     }
 
