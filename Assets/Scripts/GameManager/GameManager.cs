@@ -53,7 +53,7 @@ public class GameManager: MonoBehaviour
         {
             activeBobr = Instantiate(bobr);
             Animator animator = activeBobr.GetComponentInChildren<Animator>();
-            if (animator != null) animator.SetBool("isMainMenu", true);
+            if (animator != null) animator.SetBool("isMainmenu", true);
 
             DontDestroyOnLoad(activeBobr);
             DontDestroyOnLoad(Instantiate(minimapCamera, new Vector3(0, 17, 0), Quaternion.LookRotation(Vector3.down)));
@@ -121,7 +121,7 @@ public class GameManager: MonoBehaviour
     {
         Time.timeScale = 1f;
         Animator animator = activeBobr.GetComponentInChildren<Animator>();
-        if (animator != null) animator.SetBool("isMainMenu", false);
+        if (animator != null) animator.SetBool("isMainmenu", false);
     }
 
     private void HandlePaused()
@@ -146,10 +146,10 @@ public class GameManager: MonoBehaviour
     { 
         Time.timeScale = 0f;
         GameTime = 0f;
-        if (!Player.player)
+        if (activeBobr != null)
         {
-            Instantiate(bobr);
-            DontDestroyOnLoad(Instantiate(minimapCamera, new Vector3(0, 17, 0), Quaternion.LookRotation(Vector3.down)));
+            Animator animator = activeBobr.GetComponentInChildren<Animator>();
+            if (animator != null) animator.SetBool("isMainmenu", true);
         }
     }
 

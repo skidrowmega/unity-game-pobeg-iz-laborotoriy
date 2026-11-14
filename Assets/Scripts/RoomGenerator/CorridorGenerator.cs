@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class CorridorGenerator : MonoBehaviour
@@ -36,7 +37,7 @@ public class CorridorGenerator : MonoBehaviour
         Grid = new bool[gridsizeX, gridsizeY];
         roomQueue = new Queue<Vector2Int>();
 
-        Vector2Int initialroom = new Vector2Int(gridsizeX/2,gridsizeY/2);
+        Vector2Int initialroom = new Vector2Int(gridsizeX / 2, gridsizeY / 2);
         StartRoomGenerationFromRoom(initialroom);
         while (!isFinished)
         {
@@ -66,7 +67,7 @@ public class CorridorGenerator : MonoBehaviour
                     for (int i = 1; i < roomPrefabs.Length; i++)
                     {
                         GenerateSpecialRoom(roomPrefabs[i]);
-                        
+
                     }
             }
         }
@@ -77,7 +78,7 @@ public class CorridorGenerator : MonoBehaviour
 
     void RegenerateRooms()
     {
-        foreach(Room room in rooms)
+        foreach (Room room in rooms)
         {
             Destroy(room.gameObject);
         }
@@ -101,11 +102,11 @@ public class CorridorGenerator : MonoBehaviour
         {
             for (int y = 0; y < gridsizeY; y++)
             {
-                if (Grid[x, y]) 
+                if (Grid[x, y])
                 {
-                    index=new Vector2Int(x, y);
+                    index = new Vector2Int(x, y);
                     newroom = Instantiate(roomPrefabs[0], GetPosFromIndex(index), Quaternion.identity);
-                    newroom.name = $"Room-{count+1}";
+                    newroom.name = $"Room-{count + 1}";
                     newroom.position = index;
                     rooms.Add(newroom);
                     count++;
@@ -153,13 +154,21 @@ public class CorridorGenerator : MonoBehaviour
 
         if (Grid[x, y]) return false;
         int adjacentrooms = CountAdjacentRooms(index);
-        if (adjacentrooms>1)
+        if (adjacentrooms > 1)
         {
-            if (UnityEngine.Random.value < .25f)
+            float random = UnityEngine.Random.value*100;
+/*            if (adjacentrooms > 2)
             {
-                if (adjacentrooms > 2) return false;
+                if (random > .5f) return false;
             }
-            else return false;
+            if (adjacentrooms > 3)
+            {
+                if (random < .8f) return false;
+            }
+            else return false;*/
+            if (adjacentrooms == 2 && random > 50) return false;
+            if (adjacentrooms == 3 && random > 30) return false;
+            if (adjacentrooms == 4 && random>10) return false;
         }
 
         roomQueue.Enqueue(index);
@@ -177,8 +186,8 @@ public class CorridorGenerator : MonoBehaviour
         {
             for (int y = 0; y < gridsizeY; y++)
             {
-                newposition=new Vector2Int(x,y);
-                if (!Grid[x,y] && CountAdjacentRooms(newposition) == 1)
+                newposition = new Vector2Int(x, y);
+                if (!Grid[x, y] && CountAdjacentRooms(newposition) == 1)
                 {
                     availablespots.Add(newposition);
                 }
@@ -249,53 +258,61 @@ public class CorridorGenerator : MonoBehaviour
         //if (x < gridsizeX-1 && Grid[x + 1, y]) count++;
         //if (y > 0 && Grid[x, y - 1]) count++;
         //if (y < gridsizeY-1 && Grid[x, y + 1]) count++;
-        Room leftroom = GetRoomAt(new Vector2Int(x - 1, y));
-        Room rightroom = GetRoomAt(new Vector2Int(x + 1, y));
-        Room uproom = GetRoomAt(new Vector2Int(x, y + 1));
-        Room downroom = GetRoomAt(new Vector2Int(x, y - 1));
+
+        for (int i = -1; i <= 1; i++)
+        {
+            for (int j = -1; j <= 1; j++)
+            {
+                if (i == j) continue;
+                if (CheckRoomAt(new Vector2Int(x+i, y+j))) count++;
+            }
+        }
+
+        //bool leftroom = CheckRoomAt(new Vector2Int(x - 1, y));
+        //bool rightroom = CheckRoomAt(new Vector2Int(x + 1, y));
+        //bool uproom = CheckRoomAt(new Vector2Int(x, y + 1));
+        //bool downroom = CheckRoomAt(new Vector2Int(x, y - 1));
+        //if (leftroom) count++;
+        //if (rightroom) count++;
+        //if (uproom) count++;
+        //if (downroom) count++;
 
 
-
-
-        if (leftroom&&!IsSpecial(leftroom)) count++;
-        if (rightroom && !IsSpecial(rightroom)) count++;
-        if (uproom && !IsSpecial(uproom)) count++;
-        if (downroom && !IsSpecial(downroom)) count++;
         return count;
     }
 
     private bool IsSpecial(Vector2Int index)
     {
-        Room room=GetRoomAt(index);
-        return room&&room.GetComponent<SpecialRoom>()!=null;
+        Room room = GetRoomAt(index);
+        return room && room.GetComponent<SpecialRoom>() != null;
     }
 
     private bool IsSpecial(Room room)
     {
-        return room&&room.GetComponent<SpecialRoom>() != null;
+        return room && room.GetComponent<SpecialRoom>() != null;
     }
 
     void RemoveWalls(Room room)
     {
         int x = room.position.x;
         int y = room.position.y;
-        Room leftroom = GetRoomAt(new Vector2Int(x-1,y));
+        Room leftroom = GetRoomAt(new Vector2Int(x - 1, y));
         Room rightroom = GetRoomAt(new Vector2Int(x + 1, y));
         Room uproom = GetRoomAt(new Vector2Int(x, y + 1));
-        Room downroom = GetRoomAt(new Vector2Int(x, y -1 ));
+        Room downroom = GetRoomAt(new Vector2Int(x, y - 1));
 
-        if (leftroom&&!IsSpecial(leftroom))
+        if (leftroom && !IsSpecial(leftroom))
         {
 
             room.RemoveWall(Vector2Int.left);
             leftroom.RemoveWall(Vector2Int.right);
         }
-        if (rightroom&&!IsSpecial(rightroom))
+        if (rightroom && !IsSpecial(rightroom))
         {
             room.RemoveWall(Vector2Int.right);
             rightroom.RemoveWall(Vector2Int.left);
         }
-        if (uproom&&!IsSpecial(uproom))
+        if (uproom && !IsSpecial(uproom))
         {
             room.RemoveWall(Vector2Int.up);
             uproom.RemoveWall(Vector2Int.down);
@@ -305,15 +322,23 @@ public class CorridorGenerator : MonoBehaviour
             room.RemoveWall(Vector2Int.down);
             downroom.RemoveWall(Vector2Int.up);
         }
-        
+
     }
-    
+
     Room GetRoomAt(Vector2Int index)
     {
         //print($"x: {index.x};;; y: {index.y}");
         Room room = rooms.Find(x => x.GetComponent<Room>().position == index); // Special Rooms should not count for the adjacent rooms
         if (room == null) return null;
         return room;
+    }
+
+    bool CheckRoomAt(Vector2Int index)
+    {
+        int x = index.x;
+        int y = index.y;
+        if (x > gridsizeX - 1 || x < 0 || y < 0 || y > gridsizeY - 1) return false;
+        return Grid[index.x, index.y];
     }
 
     private Vector3 GetPosFromIndex(Vector2Int index)
