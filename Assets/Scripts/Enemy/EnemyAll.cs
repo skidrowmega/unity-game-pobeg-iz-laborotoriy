@@ -91,7 +91,10 @@ public class EnemyAll : Entity
 
     protected virtual void Attack()
     {
-        player.TakeDamage(Damage, Vector3.zero, this, 0, DamageType.Normal);
+        if (distanceToPlayer <= attackDistance)
+        {
+            player.TakeDamage(Damage, Vector3.zero, this, 0, DamageType.Normal);
+        }
     }
 
     protected virtual void ResetAttack()
