@@ -81,7 +81,7 @@ public class CutoutManager : MonoBehaviour
         cuttingboard.Submitted = false;
         timer.StopTimer();
         timer.Reset();
-        //SwitchEnableValue(false);
+        SwitchEnableValue(false);
         GameManager.Instance.ChangeState(GameManager.GameState.Playing);
     }
 
