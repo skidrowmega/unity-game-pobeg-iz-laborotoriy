@@ -341,6 +341,8 @@ public class CorridorGenerator : MonoBehaviour
         int x = index.x;
         int y = index.y;
         if (x > gridsizeX - 1 || x < 0 || y < 0 || y > gridsizeY - 1) return false;
+        Room room = GetRoomAt(index);
+        if (IsSpecial(room)) return false;
         return Grid[index.x, index.y];
     }
 
