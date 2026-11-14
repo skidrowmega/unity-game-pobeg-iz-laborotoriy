@@ -26,14 +26,12 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
 
     float difficultyMulPointPool;
     [SerializeField] Vector2 MaxOffset = new Vector2(9, 9);
-    Player player;
     [SerializeField] int WeakEnemiesAmount = 1;
     private int limit = 0;
 
     protected void Start()
     {
         minPoint = PrefabPoints.Min();
-        player = Player.player;
         currentPointPool = (int)(basePointPool);
         SpawnForPoints();
     }

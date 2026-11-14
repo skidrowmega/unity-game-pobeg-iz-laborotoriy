@@ -5,7 +5,6 @@ using static GameManager;
 public class Elevator: MonoBehaviour
 {
     [SerializeField] private float activationDistance = 1.5f;
-    private int count = 0;
     private bool isReady = true;
 
     private void Update()
