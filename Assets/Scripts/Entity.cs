@@ -39,11 +39,15 @@ public class Entity : MonoBehaviour
     {
         Death();
     }
+    public virtual void Death(Vector3 source,float Damage)
+    {
+        Death();
+    }
 
     public virtual void TakeDamage(float damage, Vector3 source ,Entity attacker, float pushstrength,DamageType damageType,float StunTime=0)
     {
         HealthPoints -= damage;
-        if (HealthPoints <= 0) Death(source);
+        if (HealthPoints <= 0) Death(source,damage);
         if (pushstrength>0)
         {
             PushEntity(source, pushstrength);

@@ -196,6 +196,7 @@ public class Player : Entity
     {
         float currentincomingdamage = amuletManager.GetDamageDecrease(damage);
         print(currentincomingdamage);
+        print(GameManager.Instance.GameTime);
         if (IsDodging)
         {
             /*if (type==DamageType.Unparriable)

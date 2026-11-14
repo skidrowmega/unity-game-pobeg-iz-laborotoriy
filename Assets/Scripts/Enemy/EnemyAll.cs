@@ -126,6 +126,7 @@ public class EnemyAll : Entity
         if (ragdoller){
             ragdoller.StartRagdoll();
             Invoke(nameof(DeathInvoke), EnemyAll.DecayTime);
+            this.enabled = false;
         }
         else
         {
@@ -155,13 +156,40 @@ public class EnemyAll : Entity
 
         if (ragdoller)
         {
-            ragdoller.StartRagdoll((transform.position - Source).normalized * 100);
+            ragdoller.StartRagdoll((transform.position - Source).normalized * 10,"all");
             this.enabled = false;
             Invoke(nameof(DeathInvoke), EnemyAll.DecayTime);
         }
         else base.Death();
-        
     }
+
+    public override void Death(Vector3 Source, float Damage)
+    {
+        float rand = Random.value;
+        if (rand < 0.3f)
+        {
+            Instantiate(LogCommon, transform.position, Quaternion.identity);
+        }
+        else if (rand < 0.6f)
+        {
+            Instantiate(LogRed, transform.position, Quaternion.identity);
+        }
+        else if (rand < 0.9f)
+        {
+            Instantiate(LogGreen, transform.position, Quaternion.identity);
+        }
+        RagdollOnDeath ragdoller = GetComponent<RagdollOnDeath>();
+
+        if (ragdoller)
+        {
+            ragdoller.StartRagdoll((transform.position - Source).normalized * Damage, "all");
+            this.enabled = false;
+            Invoke(nameof(DeathInvoke), EnemyAll.DecayTime);
+        }
+        else base.Death();
+    }
+
+
     private void DeathInvoke()
     {
         base.Death();
