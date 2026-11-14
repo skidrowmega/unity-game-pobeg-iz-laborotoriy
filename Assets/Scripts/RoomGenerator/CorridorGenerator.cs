@@ -262,23 +262,23 @@ public class CorridorGenerator : MonoBehaviour
         //if (y > 0 && Grid[x, y - 1]) count++;
         //if (y < gridsizeY-1 && Grid[x, y + 1]) count++;
 
-        for (int i = -1; i <= 1; i++)
-        {
-            for (int j = -1; j <= 1; j++)
-            {
-                if (i == j) continue;
-                if (CheckRoomAt(new Vector2Int(x+i, y+j))) count++;
-            }
-        }
+        //for (int i = -1; i <= 1; i++)
+        //{
+        //    for (int j = -1; j <= 1; j++)
+        //    {
+        //        if (i == j) continue;
+        //        if (CheckRoomAt(new Vector2Int(x+i, y+j))) count++;
+        //    }
+        //}
 
-        //bool leftroom = CheckRoomAt(new Vector2Int(x - 1, y));
-        //bool rightroom = CheckRoomAt(new Vector2Int(x + 1, y));
-        //bool uproom = CheckRoomAt(new Vector2Int(x, y + 1));
-        //bool downroom = CheckRoomAt(new Vector2Int(x, y - 1));
-        //if (leftroom) count++;
-        //if (rightroom) count++;
-        //if (uproom) count++;
-        //if (downroom) count++;
+        bool leftroom = CheckRoomAt(new Vector2Int(x - 1, y));
+        bool rightroom = CheckRoomAt(new Vector2Int(x + 1, y));
+        bool uproom = CheckRoomAt(new Vector2Int(x, y + 1));
+        bool downroom = CheckRoomAt(new Vector2Int(x, y - 1));
+        if (leftroom) count++;
+        if (rightroom) count++;
+        if (uproom) count++;
+        if (downroom) count++;
 
 
         return count;
@@ -364,5 +364,20 @@ public class CorridorGenerator : MonoBehaviour
                 Gizmos.DrawWireCube(position, new Vector3(roomWidth, 1, roomHeight));
             }
         }
+/*        if (Grid!=null)
+        {
+            for (int x = 0; x < gridsizeX; x++)
+            {
+                for (int y = 0; y < gridsizeY; y++)
+                {
+                    if(CountAdjacentRooms(new Vector2Int(x, y)) == 1)
+                    {
+                        Gizmos.color = Color.red;
+                        Vector3 pos = GetPosFromIndex(new Vector2Int(x, y));
+                        Gizmos.DrawLine(pos,pos+Vector3.up*20);
+                    }
+                }
+            }
+        }*/
     }
 }
