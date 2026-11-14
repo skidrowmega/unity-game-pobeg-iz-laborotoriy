@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -13,7 +14,6 @@ public class AmuletSO: ScriptableObject
 
     public virtual void OnEquip() { }
     public virtual void OnUnequip() { }
-
 
     public float ModifyMeleeDamage(float Damage)
     {
@@ -30,4 +30,8 @@ public class AmuletSO: ScriptableObject
         return incomingDamage * (1 - resistBuff);
     }
 
+    public string DescriptionCreate()
+    {
+        return $"Урон оружия ближнего боя: x{1 + damageMeleeBuff}\nУрон оружия дальнего боя: x{1 + damageRangedBuff}\nЗащита от урона: x{1 + resistBuff}\n{amuletDescription}";
+    }
 }

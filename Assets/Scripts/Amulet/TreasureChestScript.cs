@@ -104,7 +104,7 @@ public class TreasureChestScript : MonoBehaviour
     void OnPointerEnter(PointerEventData eventData)
     {
         AmuletSlot item = ObjectToSlot(eventData.pointerCurrentRaycast.gameObject);
-        if (item != null && item.amuletdata != null && ItemDescription != null) ItemDescription.text = item.amuletdata.amuletDescription;
+        if (item != null && item.amuletdata != null && ItemDescription != null) ItemDescription.text = item.amuletdata.DescriptionCreate();
     }
 
 
