@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class ShopRoomScript : MonoBehaviour
 {
-
-
     [SerializeField] Vector2Int RoomSize;
     bool HasExited = true;
 
@@ -15,9 +13,9 @@ public class ShopRoomScript : MonoBehaviour
     {
         if (itempool.Length > 0)
         {
-            for (int i = 0; i < Random.Range(5, 10); i++)
+            for (int i = 0; i < itempool.Length; i++)
             {
-                ShopScript.instance.AddItem(itempool[Random.Range(0,itempool.Length)]);
+                ShopScript.instance.AddItem(itempool[i]);
             }
         }
         range1 = new Vector2(transform.position.x - RoomSize.x / 2, transform.position.z - RoomSize.y / 2);

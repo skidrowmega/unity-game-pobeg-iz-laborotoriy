@@ -35,8 +35,6 @@ public class TreasureChestScript : MonoBehaviour
 
     GameObject MenuHolder;
 
-    private bool isUsed = false;
-
     private void Awake()
     {
         MenuHolder = transform.GetChild(0).gameObject;
@@ -127,7 +125,6 @@ public class TreasureChestScript : MonoBehaviour
     private void Exit()
     {
         GameManager.Instance.ChangeState(GameManager.GameState.Playing);
-        isUsed = true;
     }
     
     public void AddAmulet(AmuletSO amuletSO)
