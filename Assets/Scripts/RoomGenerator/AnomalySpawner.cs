@@ -23,7 +23,6 @@ public class AnomalySpawner: MonoBehaviour
     {
         if (Time.time - lastspawntime > TimeUntilSpawn)
         {
-            print(lastspawntime);
             SpawnAnomaly();
         }
     }

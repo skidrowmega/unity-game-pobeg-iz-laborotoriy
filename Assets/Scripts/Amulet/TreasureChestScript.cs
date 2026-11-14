@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -124,6 +125,14 @@ public class TreasureChestScript : MonoBehaviour
 
     private void Exit()
     {
+        for (int i = 0; i < artifactSlots.Length; i++)
+        {
+            artifactSlots[i] = new AmuletSlot
+            {
+                amuletdata = null,
+                isEmpty = true
+            };
+        }
         GameManager.Instance.ChangeState(GameManager.GameState.Playing);
     }
     
