@@ -38,10 +38,20 @@ public class RagdollOnDeath : MonoBehaviour
         }
         colliders.ForEach(x => x.enabled = true);
         RBodies.ForEach(x => x.isKinematic = false);
+
+        if (BodyPartName == "all")
+        {
+            RBodies.ForEach(rbody => rbody.AddForce(force, ForceMode.Impulse));
+        }
+        else
         if (BodyPartName=="") RBodies[Random.Range(0, RBodies.Count - 1)].AddForce(force, ForceMode.Impulse);
+
+        
+
         else
         {
-            RBodies.Find(x => x.gameObject.name == BodyPartName).AddForce(force, ForceMode.Impulse);
+            Rigidbody rbody = RBodies.Find(x => x.gameObject.name == BodyPartName);
+            if (rbody)rbody.AddForce(force, ForceMode.Impulse);
         }
     }
 
