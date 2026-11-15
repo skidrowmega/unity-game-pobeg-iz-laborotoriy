@@ -37,8 +37,8 @@ public class InventoryManager: MonoBehaviour
     {
         instance = this;
         inventorySlots = new InventorySlot[inventorydimensions.x, inventorydimensions.y];
-        Image[] tempimage = slotsParent.GetComponentsInChildren<Image>();
-        emptybackground = tempimage[0].sprite;
+        EventTrigger[] tempimage = slotsParent.GetComponentsInChildren<EventTrigger>();
+        emptybackground = tempimage[0].GetComponent<Image>().sprite;
         slotpositions = new Vector3[tempimage.Length];
         inventoryImageSlots = new  Image[inventorydimensions.x, inventorydimensions.y];
         int count = 0;
@@ -46,7 +46,7 @@ public class InventoryManager: MonoBehaviour
         {
             for (int x = 0; x < inventorydimensions.x; x++)
             {
-                inventoryImageSlots[x, y] = tempimage[count];
+                inventoryImageSlots[x, y] = tempimage[count].GetComponent<Image>();
                 inventorySlots[x, y] = new InventorySlot();
                 slotpositions[count] = inventoryImageSlots[x, y].GetComponent<RectTransform>().position;
                 if (slotheight < 0)
