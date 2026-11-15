@@ -254,14 +254,17 @@ public class Player : Entity
 
     public void DoGrenadeThrow()
     {
+        if (IsStunned) return;
+        Vector3 targetPos = Cursor.transform.position;
         animator.Play("Granade");
-        Invoke(nameof(SpawnGranade), 1f);
+        StartCoroutine(GrenadeBehavior(targetPos));
+        //Invoke(nameof(SpawnGranade), 1f);
     }
 
-    private void SpawnGranade() 
+    private void SpawnGranade(Vector3 targetPos) 
     {
         if (IsStunned) return;
-        StartCoroutine(GrenadeBehavior());
+        StartCoroutine(GrenadeBehavior(targetPos));
     }
 
     private void GrenadeExplosion(Vector3 Position)
@@ -275,7 +278,7 @@ public class Player : Entity
             }
         }
     }
-    IEnumerator GrenadeBehavior()
+    IEnumerator GrenadeBehavior(Vector3 targetPos)
     {
         /*
          * всяки переменные
@@ -283,8 +286,8 @@ public class Player : Entity
          * обозначение назначения, чем ближе - тем ярче
          * оставленная зона отчуждения после удара (там звук разбивающегося стекла)
          */
-
-        Vector3 targetPos = Cursor.transform.position;
+        yield return new WaitForSeconds(1.5f);
+        //Vector3 targetPos = Cursor.transform.position;
         Vector3 startPos = transform.position;
         startPos.y -= player.transform.localScale.y / 2;
         float starty = startPos.y;
