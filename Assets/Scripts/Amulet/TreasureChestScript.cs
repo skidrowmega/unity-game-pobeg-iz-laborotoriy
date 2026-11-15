@@ -78,6 +78,7 @@ public class TreasureChestScript : MonoBehaviour
     void OnPointerDown(PointerEventData eventData)
     {
         AmuletSlot slot = ObjectToSlot(eventData.pointerCurrentRaycast.gameObject);
+        if (slot == null || slot.isEmpty) return;
         if (AmuletManager.instance.TryEquip())
         {
             AmuletManager.instance.EquipAmulet(slot.amuletdata);
@@ -114,8 +115,18 @@ public class TreasureChestScript : MonoBehaviour
 
     AmuletSlot ObjectToSlot(GameObject gobject)
     {
-        int index = SlotObjects.IndexOf(gobject.transform.parent.gameObject);
-        return artifactSlots[index];
+        if (gobject == null) return null;
+        Transform current = gobject.transform;
+        while (current != null)
+        {
+            int index = SlotObjects.IndexOf(current.gameObject);
+            if (index != -1)
+            {
+                return artifactSlots[index];
+            }
+            current = current.parent;
+        }
+        return null;
     }
 
     public void OpenChest()

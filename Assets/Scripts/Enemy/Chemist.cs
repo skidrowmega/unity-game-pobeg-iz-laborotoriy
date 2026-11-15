@@ -126,6 +126,12 @@ public class Chemist: EnemyAll
         Destroy(molotov);
         MolotovBurst(targetPos);
     }
+
+    protected override void CreateDrops()
+    {
+        Coin.GetComponent<CurrencyItem>().Value = UnityEngine.Random.Range(3, 7);
+        base.CreateDrops();
+    }
 }
 public class MathParabola
 {

@@ -3,7 +3,7 @@ using UnityEngine;
 public class CurrencyItem : MonoBehaviour
 {
 
-    [SerializeField] int Value = 1;
+    [SerializeField] public int Value = 1;
     [SerializeField] float pickupRadius=2;
 
     void Update()

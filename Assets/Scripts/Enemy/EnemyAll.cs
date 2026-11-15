@@ -4,10 +4,10 @@ using static Unity.VisualScripting.Member;
 
 public class EnemyAll : Entity
 {
-    [SerializeField] private GameObject LogCommon;
-    [SerializeField] private GameObject LogGreen;
-    [SerializeField] private GameObject LogRed;
-    [SerializeField] private GameObject Coin;
+    [SerializeField] protected GameObject LogCommon;
+    [SerializeField] protected GameObject LogGreen;
+    [SerializeField] protected GameObject LogRed;
+    [SerializeField] protected GameObject Coin;
 
     public Animator animator;
     protected Player player;
@@ -161,7 +161,7 @@ public class EnemyAll : Entity
         else base.Death();
     }
 
-    private void CreateDrops()
+    protected virtual void CreateDrops()
     {
         float rand = Random.value;
         Instantiate(Coin, transform.position, Quaternion.identity);

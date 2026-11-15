@@ -40,4 +40,10 @@ public class InternRanged: EnemyAll
         bullet.PushStrength = 0;
         bullet = Instantiate<Microscope>(bullet, transform.position + transform.forward * 0.01f + transform.right * 0.3f, Quaternion.identity);
     }
+
+    protected override void CreateDrops()
+    {
+        Coin.GetComponent<CurrencyItem>().Value = Random.Range(1, 3);
+        base.CreateDrops();
+    }
 }

@@ -201,4 +201,10 @@ public class Physicist: EnemyAll
         Invoke(nameof(ResetAttack),AttackDuration);
         Destroy(Area);
     }
+
+    protected override void CreateDrops()
+    {
+        Coin.GetComponent<CurrencyItem>().Value = Random.Range(3, 7);
+        base.CreateDrops();
+    }
 }
