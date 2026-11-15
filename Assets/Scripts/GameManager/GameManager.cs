@@ -151,6 +151,11 @@ public class GameManager: MonoBehaviour
     { 
         Time.timeScale = 0f;
         GameTime = 0f;
+        if (activeBobr == null)
+        {
+            activeBobr = Instantiate(bobr);
+            DontDestroyOnLoad(activeBobr);
+        }
         if (activeBobr != null)
         {
             Animator animator = activeBobr.GetComponentInChildren<Animator>();
