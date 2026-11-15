@@ -1,5 +1,7 @@
+using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Audio;
 using static Unity.VisualScripting.Member;
 
 public class EnemyAll : Entity
@@ -107,6 +109,17 @@ public class EnemyAll : Entity
 
     private static int DecayTime=10;
 
+
+    [SerializeField] AudioClip[] DeathSounds;
+    void PlayDeathSound()
+    {
+        if (DeathSounds!=null&&DeathSounds.Length > 0)
+        {
+            print("PLAYED DEATH SOUND");
+            GetComponent<AudioSource>().PlayOneShot(DeathSounds[Random.Range(0,DeathSounds.Length)],1);
+        }
+    }
+
     public override void Death()
     {
         CreateDrops();
@@ -123,6 +136,7 @@ public class EnemyAll : Entity
         {
             base.Death();
         }
+        PlayDeathSound();
     }
 
 
@@ -142,6 +156,7 @@ public class EnemyAll : Entity
             Invoke(nameof(DeathInvoke), EnemyAll.DecayTime);
         }
         else base.Death();
+        PlayDeathSound();
     }
 
     public override void Death(Vector3 Source, float Damage)
@@ -159,6 +174,7 @@ public class EnemyAll : Entity
             Invoke(nameof(DeathInvoke), EnemyAll.DecayTime);
         }
         else base.Death();
+        PlayDeathSound();
     }
 
     protected virtual void CreateDrops()

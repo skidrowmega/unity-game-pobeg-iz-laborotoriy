@@ -66,6 +66,8 @@ public class WeaponRanged: Weapon
     public GameObject projectileprefab;
     public bool IsUsable = true;
 
+    [SerializeField] protected AudioClip DefaultGunSound;
+
 
     public virtual void Shot(Vector3 Direction)
     {
@@ -94,6 +96,7 @@ public class WeaponRanged: Weapon
         weaponReference = Instantiate(weapontoPlace, HandReference.transform);
         weaponReference.transform.localPosition = Vector3.zero;
         weaponReference.transform.localRotation = Quaternion.Euler(0, 0, 180);
+        
         SwapStats(newstats);
         return weaponReference;
     }

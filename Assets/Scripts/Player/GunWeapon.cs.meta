@@ -1,2 +1,19 @@
 fileFormatVersion: 2
 guid: b336a01c2dd8bdd4d937740ad7b6bd6c
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - WeaponHolder: {instanceID: 0}
+  - weaponReference: {instanceID: 0}
+  - HandReference: {instanceID: 0}
+  - AssociatedUI: {instanceID: 0}
+  - projectileprefab: {instanceID: 0}
+  - DefaultGunSound: {fileID: 8300000, guid: 1838d03428c6443408d0a810d2f6ab28, type: 3}
+  - tempNewWeapon: {instanceID: 0}
+  - gunsound: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

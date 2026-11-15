@@ -288,6 +288,7 @@ MonoBehaviour:
   GrenadeDamage: 50
   GrenadePushStrength: 5
   GrenadeStunTime: 0
+  baseSpeed: 0
 --- !u!136 &3854599668483568526
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -387,6 +388,7 @@ MonoBehaviour:
   RicochetCount: 0
   projectileprefab: {fileID: 7912194456775248160, guid: 6a25993a9bc099a468f9939afcc1607d, type: 3}
   IsUsable: 1
+  DefaultGunSound: {fileID: 8300000, guid: 1838d03428c6443408d0a810d2f6ab28, type: 3}
   statsonbreak:
     WeaponName: 
     Damage: 0

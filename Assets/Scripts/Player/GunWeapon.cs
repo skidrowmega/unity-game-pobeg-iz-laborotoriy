@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -16,9 +17,12 @@ public class GunWeapon : WeaponRanged
         RicochetCount = 0;
     }
 
-    
 
-
+    AudioSource audioSource;
+    private void Awake()
+    {
+        audioSource=GetComponent<AudioSource>();
+    }
 
     protected override void OnBreak()
     {
@@ -60,6 +64,10 @@ public class GunWeapon : WeaponRanged
             if (gunsound)
             {
                 gunsound.PlaySound();
+            }
+            else
+            {
+                audioSource.PlayOneShot(DefaultGunSound, 1);
             }
         }
         Projectile bullet = projectileprefab.GetComponent<Projectile>();
