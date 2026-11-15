@@ -8,13 +8,13 @@ public class AssBoostedAmulet: AmuletSO
 
     public override void OnEquip()
     {
-        basespeed = Player.player.Speed;
+        basespeed = Player.player.baseSpeed;
 
-        Player.player.Speed += speedBuff * basespeed;
+        Player.player.baseSpeed += speedBuff * basespeed;
     }
 
     public override void OnUnequip()
     {
-        Player.player.Speed -= speedBuff * basespeed;
+        Player.player.baseSpeed -= speedBuff * basespeed;
     }
 }

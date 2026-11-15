@@ -36,33 +36,45 @@ public class Player : Entity
     [SerializeField] private float GrenadePushStrength = 5f;
     [SerializeField] private float GrenadeStunTime = 0;
 
+
+    [HideInInspector] public float baseSpeed;
+    private bool isRun = false;
+
     private void Awake()
     {
         player = this;
         animator= GetComponentInChildren<Animator>();
         lastparry = -parrycooldown;
         DontDestroyOnLoad(gameObject);
+        baseSpeed = Speed;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            Speed = 1.5f * baseSpeed;
+            isRun = true;
+        }
+        else
+        {
+            Speed = baseSpeed;
+            isRun = false;
+        }
         Move();
         if (GameManager.Instance.isGameState(GameManager.GameState.Playing))
         {
             LookAtCursor();
-            AttackMelee();
-            AttemptAttackRanged();
+            if (!isRun)
+            {
+                AttackMelee();
+                AttemptAttackRanged();
+                CheckDodge();
+                TryParry();
+                TryGrenadeAttack();
+            }
         }
-        CheckDodge();
-        /*if (Input.GetMouseButtonUp(1))
-        {
-            PushEntity(new Vector3(5, 1, 7), 0.3f);
-        }*/
-        TryParry();
-
-        TryGrenadeAttack();
-
     }
 
 
@@ -115,7 +127,7 @@ public class Player : Entity
         float MoveX = Input.GetAxis("Horizontal");
         float MoveZ = Input.GetAxis("Vertical");
         if (MoveX == 0 && MoveZ == 0) return;
-        if (!Input.GetKeyDown(KeyCode.LeftShift)) return;
+        if (!Input.GetKeyDown(KeyCode.Space)) return;
         if (animator == null) return;
         if (!animator.GetCurrentAnimatorStateInfo(1).IsName("Default")) return;
         //animator.Play("BOBRDODGE");
