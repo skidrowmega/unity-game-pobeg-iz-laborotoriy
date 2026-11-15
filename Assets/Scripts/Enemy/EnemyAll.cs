@@ -7,6 +7,7 @@ public class EnemyAll : Entity
     [SerializeField] private GameObject LogCommon;
     [SerializeField] private GameObject LogGreen;
     [SerializeField] private GameObject LogRed;
+    [SerializeField] private GameObject Coin;
 
     public Animator animator;
     protected Player player;
@@ -156,18 +157,20 @@ public class EnemyAll : Entity
     private void CreateDrops()
     {
         float rand = Random.value;
-        if (rand < 0.3f)
+        Instantiate(Coin, transform.position, Quaternion.identity);
+        if (rand < 0.1f)
         {
             Instantiate(LogCommon, transform.position, Quaternion.identity);
         }
-        else if (rand < 0.6f)
+        else if (rand < 0.2f)
         {
             Instantiate(LogRed, transform.position, Quaternion.identity);
         }
-        else if (rand < 0.9f)
+        else if (rand < 0.3f)
         {
             Instantiate(LogGreen, transform.position, Quaternion.identity);
         }
+
     }
 
     private void DeathInvoke()
