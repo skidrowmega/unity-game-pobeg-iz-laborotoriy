@@ -127,7 +127,7 @@ public class VoxelCut : MonoBehaviour
 
 
 
-        Vector2 texturesize = LudiqGUIUtility.Size(mainsprite);
+        Vector2 texturesize  = new Vector2(mainsprite.width , mainsprite.height);
 
 
         workabletexture = new Texture2D((int)texturesize.x, (int)texturesize.y, TextureFormat.RGBA32, true);
@@ -384,7 +384,7 @@ public class VoxelCut : MonoBehaviour
 
         bool changedstuff = false;
 
-        Vector2 texturesize = LudiqGUIUtility.Size(workabletexture);
+        Vector2 texturesize = new Vector2(workabletexture.width, workabletexture.height);
 
 
         if(tocheck == null)
