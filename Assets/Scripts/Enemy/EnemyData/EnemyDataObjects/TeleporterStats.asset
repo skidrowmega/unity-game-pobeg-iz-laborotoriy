@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4add70c4d630b50458afd9bc0149c6d5, type: 3}
+  m_Name: TeleporterStats
+  m_EditorClassIdentifier: Assembly-CSharp::TeleporterStats
+  baseHP: 10
+  baseDamage: 10
+  baseSpeed: 5
+  baseAttackDuration: 1
+  baseAttackDistance: 1
+  baseStopDistance: 1
+  basePushForce: 0
+  baseAttackCooldown: 1.5
+  baseTeleportRadius: 100
+  baseTeleportDistance: 5
+  baseTeleportCooldown: 15
