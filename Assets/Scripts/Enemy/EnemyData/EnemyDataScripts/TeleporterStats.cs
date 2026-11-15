@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BaseEnemyStats", menuName = "Roguelike/Teleporter Stats/Teleporter Stats")]
+[CreateAssetMenu(fileName = "BaseEnemyStats", menuName = "Roguelike/Enemy Stats/Teleporter Stats")]
 public class TeleporterStats: ScriptableObject
 {
     [Header("Базовые статы")]

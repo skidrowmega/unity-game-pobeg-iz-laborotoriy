@@ -73,7 +73,7 @@ public class EnemyAll : Entity
 
             walking = true;
         }
-        animator.SetBool("isWalking", walking);
+        if(animator)animator.SetBool("isWalking", walking);
     }
 
     protected virtual void TryAttack()
