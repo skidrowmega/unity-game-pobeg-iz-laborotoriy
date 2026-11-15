@@ -115,6 +115,8 @@ public class EnemyAll : Entity
         if (ragdoller){
             ragdoller.StartRagdoll();
             Invoke(nameof(DeathInvoke), EnemyAll.DecayTime);
+            agent.isStopped = true;
+            agent.enabled = false;
             this.enabled = false;
         }
         else
@@ -134,6 +136,8 @@ public class EnemyAll : Entity
         if (ragdoller)
         {
             ragdoller.StartRagdoll((transform.position - Source).normalized * 10,"all");
+            agent.isStopped = true;
+            agent.enabled = false;
             this.enabled = false;
             Invoke(nameof(DeathInvoke), EnemyAll.DecayTime);
         }
@@ -148,7 +152,10 @@ public class EnemyAll : Entity
         if (ragdoller)
         {
             ragdoller.StartRagdoll((transform.position - Source).normalized * Damage, "all");
+            agent.isStopped = true;
+            agent.enabled = false;
             this.enabled = false;
+           
             Invoke(nameof(DeathInvoke), EnemyAll.DecayTime);
         }
         else base.Death();
