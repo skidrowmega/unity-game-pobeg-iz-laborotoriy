@@ -30,4 +30,10 @@ public class InternMelee : EnemyAll
         base.Update();
         TryAttack();
     }
+
+    protected override void CreateDrops()
+    {
+        Coin.GetComponent<CurrencyItem>().Value = Random.Range(1, 3);
+        base.CreateDrops();
+    }
 }

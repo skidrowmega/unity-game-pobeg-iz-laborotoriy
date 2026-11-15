@@ -164,4 +164,9 @@ public class Mathematician : EnemyAll
         Destroy(Area);
     }
 
+    protected override void CreateDrops()
+    {
+        Coin.GetComponent<CurrencyItem>().Value = UnityEngine.Random.Range(3, 7);
+        base.CreateDrops();
+    }
 }
