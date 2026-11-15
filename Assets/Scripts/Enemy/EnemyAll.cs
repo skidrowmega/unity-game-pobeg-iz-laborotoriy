@@ -108,19 +108,7 @@ public class EnemyAll : Entity
 
     public override void Death()
     {
-        float rand = Random.value;
-        if (rand < 0.3f)
-        {
-            Instantiate(LogCommon, transform.position, Quaternion.identity);
-        }
-        else if (rand < 0.6f)
-        {
-            Instantiate(LogRed, transform.position, Quaternion.identity);
-        }
-        else if (rand < 0.9f)
-        {
-            Instantiate(LogGreen, transform.position, Quaternion.identity);
-        }
+        CreateDrops();
 
         RagdollOnDeath ragdoller = GetComponent<RagdollOnDeath>();
         if (ragdoller){
@@ -139,19 +127,7 @@ public class EnemyAll : Entity
     public override void Death(Vector3 Source)
     {
 
-        float rand = Random.value;
-        if (rand < 0.3f)
-        {
-            Instantiate(LogCommon, transform.position, Quaternion.identity);
-        }
-        else if (rand < 0.6f)
-        {
-            Instantiate(LogRed, transform.position, Quaternion.identity);
-        }
-        else if (rand < 0.9f)
-        {
-            Instantiate(LogGreen, transform.position, Quaternion.identity);
-        }
+        CreateDrops();
         RagdollOnDeath ragdoller = GetComponent<RagdollOnDeath>();
 
         if (ragdoller)
@@ -164,6 +140,20 @@ public class EnemyAll : Entity
     }
 
     public override void Death(Vector3 Source, float Damage)
+    {
+        CreateDrops();
+        RagdollOnDeath ragdoller = GetComponent<RagdollOnDeath>();
+
+        if (ragdoller)
+        {
+            ragdoller.StartRagdoll((transform.position - Source).normalized * Damage, "all");
+            this.enabled = false;
+            Invoke(nameof(DeathInvoke), EnemyAll.DecayTime);
+        }
+        else base.Death();
+    }
+
+    private void CreateDrops()
     {
         float rand = Random.value;
         if (rand < 0.3f)
@@ -178,17 +168,7 @@ public class EnemyAll : Entity
         {
             Instantiate(LogGreen, transform.position, Quaternion.identity);
         }
-        RagdollOnDeath ragdoller = GetComponent<RagdollOnDeath>();
-
-        if (ragdoller)
-        {
-            ragdoller.StartRagdoll((transform.position - Source).normalized * Damage, "all");
-            this.enabled = false;
-            Invoke(nameof(DeathInvoke), EnemyAll.DecayTime);
-        }
-        else base.Death();
     }
-
 
     private void DeathInvoke()
     {
