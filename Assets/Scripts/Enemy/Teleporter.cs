@@ -29,8 +29,8 @@ public class Teleporter : EnemyAll
         attackDistance = stats.baseAttackDistance * DistanceScale;
         PushForce = stats.basePushForce;
         baseTeleportRadius = stats.baseTeleportRadius;
-        baseTeleportDistance = stats.baseTeleportRadius;
-        baseTeleportCooldown = stats.baseTeleportRadius;
+        baseTeleportDistance = stats.baseTeleportDistance;
+        baseTeleportCooldown = stats.baseTeleportCooldown;
     }
 
     public override void Update()
@@ -42,23 +42,22 @@ public class Teleporter : EnemyAll
 
     protected override void TryAttack()
     {
-
-        //Debug.Log(attackDistance);
         bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > float.Epsilon;
         if (!isAttacking && !isMoving && Time.time >= nextAttackTime && distanceToPlayer <= attackDistance)
         {
             isAttacking = true;
             nextAttackTime = Time.time + attackCooldown;
-            animator.Play("Udar");
+            if(animator)animator.Play("Udar");
             Invoke(nameof(Attack), 1f);
             Invoke(nameof(ResetAttack), AttackDuration);
         }
     }
 
-
+    [SerializeField] bool CanTeleport = true;
     void TryTeleport()
     {
-        if (!isAttacking && CanTeleport&& Vector3.Distance(player.transform.position,transform.position)<baseTeleportDistance)
+        float distance = Vector3.Distance(player.transform.position, transform.position);
+        if (!isAttacking && CanTeleport&& distance<baseTeleportDistance&&distance > baseTeleportRadius)
         {
             TeleportToPlayer();
         }
@@ -70,22 +69,37 @@ public class Teleporter : EnemyAll
         Vector3 newposition=Vector3.zero;
         int maxiterations = 1000;
         int count = 0;
+        RaycastHit hit;
         NavMeshPath path = new NavMeshPath();
         while (!CanTeleport&&count<maxiterations)
         {
-            newposition=player.transform.position + (new Vector3(Random.value, 0, Random.value).normalized*baseTeleportRadius);
+            newposition=player.transform.position + (new Vector3(Random.Range(-baseTeleportRadius,baseTeleportRadius), 0, Random.Range(-baseTeleportRadius,baseTeleportRadius)));
             newposition.y = transform.position.y;
-            CanTeleport = NavMesh.CalculatePath(transform.position, newposition, NavMesh.AllAreas , path);
+            if (Vector3.Distance(player.transform.position, newposition) < baseTeleportRadius / 2) continue;
+            bool ishit = Physics.Raycast(newposition, player.transform.position, out hit);
+            path = agent.path;
+            CanTeleport = (agent.SetDestination(newposition)); //&& ishit && hit.collider && hit.collider.gameObject.GetEntityId() == player.GetEntityId());
+            agent.path = path;
+            //if (!CanTeleport)
+            //{
+            //    print($" {ishit} {hit.collider.gameObject.name} {hit.collider.gameObject.GetEntityId() == player.GetEntityId()}");
+            //}
+            //CanTeleport = NavMesh.CalculatePath(transform.position, newposition, NavMesh.AllAreas , path);
             count++;
         }
 
         if (CanTeleport) Teleport(newposition);
+        //else
+        //{
+        //    print("COULDNT TELEPORT BECAUSE REASONS");
+        //}
         
     }
 
-    bool CanTeleport = true;
+    
     public void Teleport(Vector3 whereto)
     {
+        //print($"SUCCESSFULLY TELEPORTED FROM {transform.position} to {whereto}, TRAVERSING {Vector3.Distance(transform.position, whereto)} UNITS");
         transform.position = whereto;
         CanTeleport = false;
         Invoke(nameof(ResetTeleport), baseTeleportCooldown);
