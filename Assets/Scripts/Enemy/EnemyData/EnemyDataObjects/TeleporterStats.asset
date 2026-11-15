@@ -20,6 +20,6 @@ MonoBehaviour:
   baseStopDistance: 1
   basePushForce: 0
   baseAttackCooldown: 1.5
-  baseTeleportRadius: 100
-  baseTeleportDistance: 5
-  baseTeleportCooldown: 15
+  baseTeleportRadius: 8
+  baseTeleportDistance: 100
+  baseTeleportCooldown: 2
