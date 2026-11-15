@@ -55,7 +55,7 @@ public class EnemyAll : Entity
 
         
         if(agent)agent.enabled = !IsStunned;
-        bool walking = false;
+        bool walking = agent != null && agent.isActiveAndEnabled && agent.velocity.sqrMagnitude > 0.05f;
         if (agent != null && agent.isActiveAndEnabled && agent.isOnNavMesh)
         {
             if (agent.remainingDistance <= agent.stoppingDistance)

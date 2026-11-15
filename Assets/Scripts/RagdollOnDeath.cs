@@ -10,12 +10,15 @@ public class RagdollOnDeath : MonoBehaviour
     List<Collider> colliders;
     List<Rigidbody> RBodies;
     public bool Debug = false;
-
-    private void Start()
+    private void Awake()
     {
         colliders = new List<Collider>();
         RBodies = new List<Rigidbody>();
         InitializeColliders();
+    }
+
+    private void Start()
+    {
 #if UNITY_EDITOR
         if (Debug&&SceneManager.GetActiveScene().name == "RAGDOLLTEST") StartRagdoll(new Vector3(Random.Range(-1,2), Random.Range(-1, 2), Random.Range(-1, 2)).normalized*100, "spine.005");
 #endif
@@ -65,7 +68,8 @@ public class RagdollOnDeath : MonoBehaviour
         }
         foreach (Rigidbody RBody in GetComponentsInChildren<Rigidbody>())
         {
-            RBodies.Add(RBody);
+            if (RBody.gameObject != gameObject)
+                RBodies.Add(RBody);
         }
         colliders.ForEach(x => x.enabled = false);
         RBodies.ForEach(x => x.isKinematic = true);
