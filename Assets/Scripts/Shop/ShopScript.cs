@@ -208,10 +208,23 @@ public class ShopScript : MonoBehaviour
         
     }
 
-    void RemoveItem(ShopSlot slot)
+    public void RemoveItem(ShopSlot slot)
     {
         slot.isEmpty = true;
         UpdateItems();
+    }
+
+    public void RemoveAllItems()
+    {
+        for (int i = 0; i < ItemSlots.Length; i++)
+        {
+            if (ItemSlots[i].isEmpty == true)
+            {
+                break;
+            }
+            ItemSlots[i].isEmpty = true;
+            ItemSlots[i].itemDataSlot = null;
+        }
     }
 
     private void UpdateShopSlotValue(ShopSlot slot)
