@@ -147,14 +147,12 @@ public class InventoryManager: MonoBehaviour
             if (!isDragging)
             {
                 beingdragged = data.pointerCurrentRaycast.gameObject.GetComponent<RectTransform>();
-                dragStartIndex = SlotObjectToSlotIndex(beingdragged.gameObject);
-                if (inventorySlots[dragStartIndex.x,dragStartIndex.y].isEmpty) return;
-                beingdragged.transform.SetAsLastSibling();
-                if (dragStartIndex != new Vector2Int(-1, -1))
-                {
-                    isDragging = true;
-                    startposition = beingdragged.GetComponent<RectTransform>().position;
-                }
+                dragStartIndex = SlotObjectToSlotIndex(beingdragged.gameObject);                
+                beingdragged.transform.parent.SetAsLastSibling();
+                if (dragStartIndex == new Vector2Int(-1, -1)) return;
+                if (inventorySlots[dragStartIndex.x, dragStartIndex.y].isEmpty) return;
+                isDragging = true;
+                startposition = beingdragged.GetComponent<RectTransform>().position;
             }
             else
             {
@@ -201,6 +199,7 @@ public class InventoryManager: MonoBehaviour
     {
         isDragging = false;
         beingdragged.position = startposition;
+        beingdragged.SetAsFirstSibling();
     }
 
 /*    public void OnHover(PointerEventData data)

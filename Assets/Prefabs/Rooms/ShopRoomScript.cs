@@ -13,6 +13,7 @@ public class ShopRoomScript : MonoBehaviour
     {
         if (itempool.Length > 0)
         {
+            ShopScript.instance.RemoveAllItems();
             for (int i = 0; i < itempool.Length; i++)
             {
                 ShopScript.instance.AddItem(itempool[i]);
