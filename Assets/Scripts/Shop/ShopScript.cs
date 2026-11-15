@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
-using static UnityEditor.Progress;
 public class ShopSlot
 {
     [SerializeField] public ItemScriptableObject itemDataSlot;
