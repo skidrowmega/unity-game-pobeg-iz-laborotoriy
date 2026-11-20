@@ -80,4 +80,17 @@ public class AmuletManager : MonoBehaviour
 
         return finalincomingDamage;
     }
+
+    public int GetPriceWithDiscount(int basePrice)
+    {
+        int finalPrice = basePrice;
+        if (equippedAmulets.Contains(new AggressiveTradingAmulet()))
+        {
+            foreach (AggressiveTradingAmulet amulet in equippedAmulets)
+            {
+                finalPrice = amulet.CalcPriceWithDiscount(finalPrice);
+            }
+        }
+        return finalPrice;
+    }
 }

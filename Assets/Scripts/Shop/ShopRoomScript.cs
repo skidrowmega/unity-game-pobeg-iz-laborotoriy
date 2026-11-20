@@ -5,19 +5,21 @@ public class ShopRoomScript : MonoBehaviour
     [SerializeField] Vector2Int RoomSize;
     bool HasExited = true;
 
-    [SerializeField] ItemScriptableObject[] itempool;
+    [SerializeField] public ItemScriptableObject[] itempool;
     Vector2 range1;
     Vector2 range2;
+    public static ShopRoomScript instance { get; private set; }
 
     private void Start()
     {
-        if (itempool.Length > 0)
+        instance = this;
+        if (itempool.Length > 0  && !GameManager.Instance.isShopGeneratedOnce)
         {
-            ShopScript.instance.RemoveAllItems();
             for (int i = 0; i < itempool.Length; i++)
             {
                 ShopScript.instance.AddItem(itempool[i]);
             }
+            GameManager.Instance.isShopGeneratedOnce = true;
         }
         range1 = new Vector2(transform.position.x - RoomSize.x / 2, transform.position.z - RoomSize.y / 2);
         range2 = new Vector2(transform.position.x + RoomSize.x / 2, transform.position.z + RoomSize.y / 2);
