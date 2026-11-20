@@ -45,7 +45,7 @@ public class EnemyAll : Entity
         player = Player.player;
         animator = GetComponentInChildren<Animator>();
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = Speed;
+        if(agent)agent.speed = Speed;
     }
 
     protected virtual void Move()

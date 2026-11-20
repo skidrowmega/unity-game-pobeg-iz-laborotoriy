@@ -16,9 +16,13 @@ public class TurretScript : EnemyAll
 
     [SerializeField] Projectile bulletprefab;
 
+    AudioSource audioSource;
+    [SerializeField] AudioClip shotsound;
+
     protected override void Start()
     {
         base.Start();
+        audioSource = GetComponent<AudioSource>();
         Projectile bullet = bulletprefab.GetComponent<Projectile>();
         bullet.Shooter = this;
         bullet.PushStrength = 0;
@@ -33,7 +37,6 @@ public class TurretScript : EnemyAll
         base.Initialize();
         burstshotamount = stats.burstshotamount;
         //burstshotamount = Mathf.FloorToInt(stats.burstshotamount * MainScale * DifficultyScale);
-
 
         MaxHealthpoints = stats.baseHP * MainScale * DifficultyScale;
         HealthPoints = MaxHealthpoints;
@@ -70,7 +73,7 @@ public class TurretScript : EnemyAll
 
             StartCoroutine(BurstShot(Damage, AttackDuration/burstshotamount, burstshotamount));
             //Play Shot sound
-            Debug.Log("Turret burst shot has been fired Fired");
+            //Debug.Log("Turret burst shot has been fired Fired");
             
         }
     }
@@ -83,6 +86,7 @@ public class TurretScript : EnemyAll
             
             Projectile bullet = Instantiate<Projectile>(bulletprefab, transform.position + transform.forward * .5f, Quaternion.identity);
             bullet.direction = transform.forward;
+            audioSource.PlayOneShot(shotsound);
             yield return new WaitForSeconds(delay);
         }
         Invoke(nameof(ResetAttack), attackCooldown);
