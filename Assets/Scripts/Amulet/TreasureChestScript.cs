@@ -145,7 +145,7 @@ public class TreasureChestScript : MonoBehaviour
         }
         GameManager.Instance.ChangeState(GameManager.GameState.Playing);
     }
-    
+
     public void AddAmulet(AmuletSO amuletSO)
     {
         AmuletSlot amuletslot = GetFirstEmptySlot();
@@ -158,7 +158,7 @@ public class TreasureChestScript : MonoBehaviour
             amuletslot.isEmpty = false;
             amuletslot.amuletdata = amuletSO;
         }
-        
+
         UpdateItems();
     }
 
@@ -186,6 +186,18 @@ public class TreasureChestScript : MonoBehaviour
             {
                 SlotImages[i].sprite = emptybackground;
             }
+        }
+    }
+
+    public void ClearAllAmulets()
+    {
+        for (int i = 0; i < artifactSlots.Length; i++)
+        {
+            artifactSlots[i] = new AmuletSlot
+            {
+                amuletdata = null,
+                isEmpty = true
+            };
         }
     }
 }

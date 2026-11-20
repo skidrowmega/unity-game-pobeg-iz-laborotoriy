@@ -15,6 +15,7 @@ public class AmuletChestRoomScript:MonoBehaviour
     {
         if (amuletpool.Count > 0)
         {
+            TreasureChestScript.instance.ClearAllAmulets();
             AmuletSO amuletSO;
             for (int i = 0; i < AmuletManager.instance.maxSlots; i++)
             {

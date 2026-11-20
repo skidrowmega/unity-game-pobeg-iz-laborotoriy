@@ -79,8 +79,8 @@ MonoBehaviour:
   amuletpool:
   - {fileID: 11400000, guid: 8dc2c97f1b381004a89917e1a6375ff5, type: 2}
   - {fileID: 11400000, guid: bc3c904076ee780469c3eb6357e61e8e, type: 2}
-  - {fileID: 11400000, guid: 99ff752e9e2228e439985a419e9bd4d4, type: 2}
   - {fileID: 11400000, guid: a85152a5e2938cd4b8413207f7331066, type: 2}
+  - {fileID: 11400000, guid: de3adb75fd9eba143ab3ef1096a74d38, type: 2}
 --- !u!1 &1055928449434944456
 GameObject:
   m_ObjectHideFlags: 0

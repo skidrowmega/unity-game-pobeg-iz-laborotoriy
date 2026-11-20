@@ -25,6 +25,7 @@ public class GameManager: MonoBehaviour
 
     [SerializeField] private float difficultyScale = 0.05f;
     public float GameTime { get; private set; }
+    public bool isShopGeneratedOnce = false;
     public float DifficultyFactor
     {
         get

@@ -6,10 +6,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 public class ShopSlot
 {
     [SerializeField] public ItemScriptableObject itemDataSlot;
     [SerializeField] public bool isEmpty = true;
+    public int BuyCount = 0;
 }
 
 public class ShopScript : MonoBehaviour
@@ -74,10 +76,10 @@ public class ShopScript : MonoBehaviour
             trigger.triggers.Add(entryPointerEnter);
             trigger.triggers.Add(entryPointerExit);
         }
-        DETI= new GameObject[transform.childCount];
+        DETI = new GameObject[transform.childCount];
         for (int i = 0; i < transform.childCount; i++)
         {
-            DETI[i]=transform.GetChild(i).gameObject;
+            DETI[i] = transform.GetChild(i).gameObject;
         }
         DisableWindows();
 
@@ -196,18 +198,19 @@ public class ShopScript : MonoBehaviour
 
     void BuyItem(ShopSlot slot)
     {
-        if (PlayerCurrency.instance.GetCurrency() >= slot.itemDataSlot.Value && InventoryManager.instance.AddItem(slot.itemDataSlot))
+        if (PlayerCurrency.instance.GetCurrency() >= GetModifiedPrice(slot) && InventoryManager.instance.AddItem(slot.itemDataSlot))
         {
-            PlayerCurrency.instance.SubstractCurrency(slot.itemDataSlot.Value);
+            PlayerCurrency.instance.SubstractCurrency(GetModifiedPrice(slot));
             //InventoryManager.instance.AddItem(slot.itemDataSlot);
             //RemoveItem(slot);
+            slot.BuyCount += 1;
             UpdateShopCurrency();
             UpdateShopSlotValue(slot);
         }
-        
+
     }
 
-    public void RemoveItem(ShopSlot slot)
+    /*public void RemoveItem(ShopSlot slot)
     {
         slot.isEmpty = true;
         UpdateItems();
@@ -224,18 +227,17 @@ public class ShopScript : MonoBehaviour
             ItemSlots[i].isEmpty = true;
             ItemSlots[i].itemDataSlot = null;
         }
-    }
+    }*/
 
     private void UpdateShopSlotValue(ShopSlot slot)
     {
-        slot.itemDataSlot.Value = (int)(slot.itemDataSlot.Value * 1.5);
         ItemScriptableObject item = slot.itemDataSlot;
-        ShopDescription.text = item.ItemDescription + "\n" + $"Стоимость: {item.Value}";
+        ShopDescription.text = item.ItemDescription + "\n" + $"Стоимость: {GetModifiedPrice(slot)}";
     }
 
     void UpdateShopCurrency()
     {
-        CurrencyText.text=PlayerCurrency.instance.GetCurrency().ToString();
+        CurrencyText.text = PlayerCurrency.instance.GetCurrency().ToString();
     }
 
 
@@ -243,12 +245,12 @@ public class ShopScript : MonoBehaviour
     {
         ShopSlot slot = ObjectToSlot(eventData.pointerCurrentRaycast.gameObject);
 
-        if(!slot.isEmpty)BuyItem(slot);
+        if (!slot.isEmpty) BuyItem(slot);
     }
     void OnPointerEnter(PointerEventData eventData)
     {
-        ItemScriptableObject item = ObjectToSlot(eventData.pointerCurrentRaycast.gameObject).itemDataSlot;
-        if(item)ShopDescription.text=item.ItemDescription+"\n"+$"Стоимость: {item.Value}";
+        ShopSlot slot = ObjectToSlot(eventData.pointerCurrentRaycast.gameObject);
+        if (!slot.isEmpty) ShopDescription.text = slot.itemDataSlot.ItemDescription + "\n" + $"Стоимость: {GetModifiedPrice(slot)}";
     }
     void OnPointerExit(PointerEventData eventData)
     {
@@ -258,8 +260,12 @@ public class ShopScript : MonoBehaviour
     ShopSlot ObjectToSlot(GameObject gobject)
     {
         int index = SlotObjects.IndexOf(gobject.transform.parent.gameObject);
-        return ItemSlots[index] ;
+        return ItemSlots[index];
     }
 
+    private int GetModifiedPrice(ShopSlot slot)
+    {
+        return (int)(AmuletManager.instance.GetPriceWithDiscount(slot.itemDataSlot.Value) * Mathf.Pow(1.5f, slot.BuyCount));
+    }
 }
 
