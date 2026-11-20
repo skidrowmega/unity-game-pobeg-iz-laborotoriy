@@ -168,6 +168,7 @@ public class Player : Entity
         }
         else
         {
+            if (isRun) isRun = false;
             animator.SetBool("isWalking", false);
             animator.SetBool("isWalkingBack", false);
             StopPlayingWalkingSound();
