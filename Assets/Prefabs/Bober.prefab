@@ -231,6 +231,7 @@ GameObject:
   - component: {fileID: 742532701994864460}
   - component: {fileID: 2659100446262670630}
   - component: {fileID: 8399074600849455542}
+  - component: {fileID: 3341674426555291603}
   m_Layer: 0
   m_Name: Bober
   m_TagString: Player
@@ -636,6 +637,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &3341674426555291603
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5527802281580728736}
+  m_Enabled: 1
 --- !u!1 &7356891944429354848
 GameObject:
   m_ObjectHideFlags: 0
