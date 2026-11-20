@@ -78,6 +78,8 @@ public abstract class Projectile : MonoBehaviour
     protected virtual void ReflectBullet(Vector3 normal)
     {
         direction = Vector3.Reflect(direction, normal);
+        direction.y = 0;
+        direction.Normalize();
     }
 
     private void Update()
