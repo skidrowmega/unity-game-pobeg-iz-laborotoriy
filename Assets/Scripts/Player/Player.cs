@@ -158,10 +158,16 @@ public class Player : Entity
             {
                 animator.SetBool("isWalkingBack", false);
             }
-            bool ishitX = Physics.Raycast(transform.position, new Vector3(MoveX, 0, 0).normalized, .5f);
-            bool ishitZ = Physics.Raycast(transform.position, new Vector3(0, 0, MoveZ).normalized, .5f);
-            if (ishitX) MoveX = 0;
-            if (ishitZ) MoveZ = 0;
+            RaycastHit HitinfoX;
+            RaycastHit HitinfoZ;
+            bool ishitX = Physics.Raycast(transform.position, new Vector3(MoveX, 0, 0).normalized, out HitinfoX, .5f);
+            bool ishitZ = Physics.Raycast(transform.position, new Vector3(0, 0, MoveZ).normalized, out HitinfoZ, .5f);
+            if (ishitX &&
+                HitinfoX.collider.attachedRigidbody==null
+                ) MoveX = 0;
+            if (ishitZ &&
+                HitinfoZ.collider.attachedRigidbody==null
+                ) MoveZ = 0;
             Vector3 moveDirection = new Vector3(MoveX, 0, MoveZ).normalized;
             Vector3 newpos = new Vector3(MoveX, 0, MoveZ).normalized * Speed * Time.deltaTime;
             transform.position += newpos;
