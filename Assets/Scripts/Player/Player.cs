@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.EventSystems;
 public class Player : Entity
 {
@@ -52,16 +53,6 @@ public class Player : Entity
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
-        {
-            Speed = 1.5f * baseSpeed;
-            isRun = true;
-        }
-        else
-        {
-            Speed = baseSpeed;
-            isRun = false;
-        }
         Move();
         if (GameManager.Instance.isGameState(GameManager.GameState.Playing))
         {
@@ -139,13 +130,23 @@ public class Player : Entity
     {
         float MoveX = Input.GetAxis("Horizontal");
         float MoveZ = Input.GetAxis("Vertical");
-        if (IsStunned) {
-            animator.SetBool("isWalking", false);
-            animator.SetBool("isWalkingBack", false);
-            return;
-        }
         
-        if (MoveX != 0 || MoveZ != 0) {
+        if ( (MoveX != 0 || MoveZ != 0) && !IsStunned) {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                if(!isRun)StartSprintingSound();
+                Speed = 1.5f * baseSpeed;
+                isRun = true;
+            }
+            else
+            {
+                if(isRun)StopSprintingSound();
+                
+                Speed = baseSpeed;
+                isRun = false;
+            }
+            StartPlayingWalkingSound();
+            
             animator.SetBool("isWalking", true);
             Vector3 Direction = new Vector3(MoveX, 0, MoveZ).normalized;
             float Dot = Vector3.Dot(Direction, transform.right);
@@ -169,8 +170,57 @@ public class Player : Entity
         {
             animator.SetBool("isWalking", false);
             animator.SetBool("isWalkingBack", false);
+            StopPlayingWalkingSound();
         }
     }
+    [SerializeField] AudioSource walkingsoundsource;
+    [SerializeField] AudioSource otheraudiosource;
+    [SerializeField] AudioClip sprintingclip;
+    [SerializeField] AudioClip walkingclip;
+
+    int WalkingSoundTime=0;
+
+    void StartPlayingWalkingSound()
+    {
+        walkingsoundsource.loop=true;
+        if (!walkingsoundsource.isPlaying)
+        {
+            walkingsoundsource.Play();
+            walkingsoundsource.timeSamples = WalkingSoundTime;
+        }
+    }
+    void StopPlayingWalkingSound()
+    {
+        walkingsoundsource.loop = false;
+
+        if (walkingsoundsource.isPlaying)
+        {
+            WalkingSoundTime = walkingsoundsource.timeSamples;
+            walkingsoundsource.Stop();
+        }
+        
+    }
+    void StartSprintingSound()
+    {
+        walkingsoundsource.loop = true;
+        if (walkingsoundsource.clip != sprintingclip)
+        {
+            walkingsoundsource.clip = sprintingclip;
+            walkingsoundsource.timeSamples = Mathf.RoundToInt(walkingsoundsource.timeSamples / 1.5f);
+        }
+        if (!walkingsoundsource.isPlaying)
+            walkingsoundsource.Play();
+    }
+    void StopSprintingSound()
+    {
+        walkingsoundsource.loop = true;
+        if (walkingsoundsource.clip != walkingclip)
+        {
+            walkingsoundsource.clip = walkingclip;
+            walkingsoundsource.timeSamples = Mathf.RoundToInt(walkingsoundsource.timeSamples * 1.5f);
+        }
+    }
+
 
     void TryParry()
     {
@@ -259,12 +309,6 @@ public class Player : Entity
         animator.Play("Granade");
         StartCoroutine(GrenadeBehavior(targetPos));
         //Invoke(nameof(SpawnGranade), 1f);
-    }
-
-    private void SpawnGranade(Vector3 targetPos) 
-    {
-        if (IsStunned) return;
-        StartCoroutine(GrenadeBehavior(targetPos));
     }
 
     private void GrenadeExplosion(Vector3 Position)

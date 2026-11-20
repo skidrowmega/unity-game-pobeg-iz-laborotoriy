@@ -328,7 +328,7 @@ PrefabInstance:
     - target: {fileID: -8023286324073713792, guid: 1f9125a9ed2fe3145a67c832d6379eec, type: 3}
       propertyPath: itemData
       value: 
-      objectReference: {fileID: 11400000, guid: 8ae3b63df1e2c0948ada6cb07cd69b8d, type: 2}
+      objectReference: {fileID: 11400000, guid: c13b1c8aca26a5043a50e63f6b8c11a2, type: 2}
     - target: {fileID: 3605488783114244756, guid: 1f9125a9ed2fe3145a67c832d6379eec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.24098
@@ -992,7 +992,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   player: {fileID: 820070745}
   offset: {x: 0, y: 0}
-  RotationalOffset: {x: 0, y: 0, z: 0}
   Speed: 10
 --- !u!1 &365015680
 GameObject:
@@ -1070,7 +1069,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUI
       objectReference: {fileID: 0}
+    - target: {fileID: 3137759410308998842, guid: 4b19ccebff8127945bc6e8a3c6d8c6f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4860555035558213738, guid: 4b19ccebff8127945bc6e8a3c6d8c6f1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5632595953220374788, guid: 4b19ccebff8127945bc6e8a3c6d8c6f1, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -2614,6 +2621,7 @@ MonoBehaviour:
   GrenadeDamage: 50
   GrenadePushStrength: 5
   GrenadeStunTime: 0
+  baseSpeed: 0
 --- !u!114 &989518381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2640,6 +2648,7 @@ MonoBehaviour:
   RicochetCount: 0
   projectileprefab: {fileID: 7912194456775248160, guid: 6a25993a9bc099a468f9939afcc1607d, type: 3}
   IsUsable: 1
+  DefaultGunSound: {fileID: 0}
   statsonbreak:
     WeaponName: 
     Damage: 0
