@@ -11,8 +11,8 @@ public class Teleporter : EnemyAll
     [SerializeField] float SpeedScale = 1.1f;
     [SerializeField] float DistanceScale = 1f;
     [SerializeField] TeleporterStats stats;
-
-
+    private Vector3 teleportPosition;
+    private bool isTeleporting = false;
     [SerializeField] float baseTeleportRadius;
     [SerializeField] float baseTeleportDistance;
     [SerializeField] float baseTeleportCooldown;
@@ -36,6 +36,7 @@ public class Teleporter : EnemyAll
     public override void Update()
     {
         base.Update();
+        if (isTeleporting) return;
         TryAttack();
         TryTeleport();
     }
@@ -65,20 +66,20 @@ public class Teleporter : EnemyAll
 
     void TeleportToPlayer()
     {
-        bool CanTeleport = false;
+        bool foundPosition = false;
         Vector3 newposition=Vector3.zero;
         int maxiterations = 1000;
         int count = 0;
         RaycastHit hit;
         NavMeshPath path = new NavMeshPath();
-        while (!CanTeleport&&count<maxiterations)
+        while (!foundPosition && count<maxiterations)
         {
             newposition=player.transform.position + (new Vector3(Random.Range(-baseTeleportRadius,baseTeleportRadius), 0, Random.Range(-baseTeleportRadius,baseTeleportRadius)));
             newposition.y = transform.position.y;
             if (Vector3.Distance(player.transform.position, newposition) < baseTeleportRadius / 2) continue;
             bool ishit = Physics.Raycast(newposition, player.transform.position, out hit);
             path = agent.path;
-            CanTeleport = (agent.SetDestination(newposition)); //&& ishit && hit.collider && hit.collider.gameObject.GetEntityId() == player.GetEntityId());
+            foundPosition = (agent.SetDestination(newposition)); //&& ishit && hit.collider && hit.collider.gameObject.GetEntityId() == player.GetEntityId());
             agent.path = path;
             //if (!CanTeleport)
             //{
@@ -88,7 +89,15 @@ public class Teleporter : EnemyAll
             count++;
         }
 
-        if (CanTeleport) Teleport(newposition);
+        if (foundPosition)
+        {
+            CanTeleport = false;
+            isTeleporting = true;
+            if (agent) agent.isStopped = true;
+            teleportPosition = newposition;
+            if (animator) animator.Play("Teleport");
+            Invoke(nameof(Teleport), 2f);
+        }
         //else
         //{
         //    print("COULDNT TELEPORT BECAUSE REASONS");
@@ -97,11 +106,20 @@ public class Teleporter : EnemyAll
     }
 
     
-    public void Teleport(Vector3 whereto)
+    public void Teleport()
     {
         //print($"SUCCESSFULLY TELEPORTED FROM {transform.position} to {whereto}, TRAVERSING {Vector3.Distance(transform.position, whereto)} UNITS");
-        transform.position = whereto;
-        CanTeleport = false;
+        if (agent)
+        {
+            agent.Warp(teleportPosition);
+            agent.isStopped = false;
+        }
+        else
+        {
+            transform.position = teleportPosition;
+        }
+
+        isTeleporting = false;
         Invoke(nameof(ResetTeleport), baseTeleportCooldown);
     }
 
