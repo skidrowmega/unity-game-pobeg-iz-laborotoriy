@@ -86,6 +86,7 @@ public class VoxelCut : MonoBehaviour
         boxCollider.center = new Vector3((dimensions[0]) / 2 * voxelGrid.gap - voxelGrid.gap / 2, (dimensions[1]) / 2 * voxelGrid.gap, voxelGrid.gap / 2);
         rootpoint[0] = dimensions[0] - 1;
         rootpoint[1] = dimensions[1] / 2 - 1;
+        cuttingaudiosource = CutoutManager.instance.cutcamera.GetComponent<AudioSource>();
         SetBrushSize();
         InitializeVoxels();
         InitializeRootVoxel();
@@ -124,10 +125,10 @@ public class VoxelCut : MonoBehaviour
     public void CutStart()
     {
         patterntomake = CutoutManager.instance.Pattern;
+        cuttingstoptime = 0;
 
 
-
-        Vector2 texturesize  = new Vector2(mainsprite.width , mainsprite.height);
+        Vector2 texturesize = new Vector2(mainsprite.width, mainsprite.height);
 
 
         workabletexture = new Texture2D((int)texturesize.x, (int)texturesize.y, TextureFormat.RGBA32, true);
@@ -139,11 +140,31 @@ public class VoxelCut : MonoBehaviour
         List<Vector2Int> points = new List<Vector2Int>();
         foreach (Vector2Int point in patterntomake.points)
         {
-            points.Add(point+rootpoint);
+            points.Add(point + rootpoint);
         }
         UpdatePatternPoints(points);
 
     }
+
+    AudioSource cuttingaudiosource;
+    int cuttingstoptime = 0;
+    void StartCuttingSound()
+    {
+        if (!cuttingaudiosource.isPlaying)
+        {
+            cuttingaudiosource.Play();
+            cuttingaudiosource.timeSamples = cuttingstoptime;
+        }
+    }
+    void StopCuttingSound()
+    {
+        if (cuttingaudiosource.isPlaying)
+        {
+            cuttingstoptime = cuttingaudiosource.timeSamples;
+            cuttingaudiosource.Stop();
+        }
+    }
+
 
     void Update()
     {
@@ -157,6 +178,10 @@ public class VoxelCut : MonoBehaviour
                 if(hit.collider != null)
                 DestroyVoxelOnPosition(hit.point);
 
+            }
+            else
+            {
+                StopCuttingSound();
             }
         }
 
@@ -340,6 +365,7 @@ public class VoxelCut : MonoBehaviour
         }
         if (DestroyedSomething)
         {
+            StartCuttingSound();
             List<Vector2Int> destroyedcutoffs=DestroyCuttoffs();
             if(ShakeCameraOnDestroy) ShakeCamera();
             if (destroyedcutoffs.Count > 0) ChangedIndices = ChangedIndices.Concat(destroyedcutoffs).ToList();
