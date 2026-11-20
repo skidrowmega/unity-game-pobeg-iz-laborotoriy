@@ -72,15 +72,21 @@ public class Teleporter : EnemyAll
         int count = 0;
         RaycastHit hit;
         NavMeshPath path = new NavMeshPath();
+        Collider[] blank = new Collider[0];
         while (!foundPosition && count<maxiterations)
         {
             newposition=player.transform.position + (new Vector3(Random.Range(-baseTeleportRadius,baseTeleportRadius), 0, Random.Range(-baseTeleportRadius,baseTeleportRadius)));
             newposition.y = transform.position.y;
+
             if (Vector3.Distance(player.transform.position, newposition) < baseTeleportRadius / 2) continue;
+            if (Physics.OverlapSphereNonAlloc(newposition, .5f, blank) > 0) continue;
             bool ishit = Physics.Raycast(newposition, player.transform.position, out hit);
+            if (!(ishit && hit.collider.gameObject == player.gameObject)) continue;
+
             path = agent.path;
             foundPosition = (agent.SetDestination(newposition)); //&& ishit && hit.collider && hit.collider.gameObject.GetEntityId() == player.GetEntityId());
             agent.path = path;
+
             //if (!CanTeleport)
             //{
             //    print($" {ishit} {hit.collider.gameObject.name} {hit.collider.gameObject.GetEntityId() == player.GetEntityId()}");
@@ -111,13 +117,14 @@ public class Teleporter : EnemyAll
         //print($"SUCCESSFULLY TELEPORTED FROM {transform.position} to {whereto}, TRAVERSING {Vector3.Distance(transform.position, whereto)} UNITS");
         if (agent)
         {
-            agent.Warp(teleportPosition);
+            transform.position = teleportPosition;
+            //agent.Warp(teleportPosition);
             agent.isStopped = false;
         }
-        else
-        {
-            transform.position = teleportPosition;
-        }
+        //else
+        //{
+        //    transform.position = teleportPosition;
+        //}
 
         isTeleporting = false;
         Invoke(nameof(ResetTeleport), baseTeleportCooldown);
