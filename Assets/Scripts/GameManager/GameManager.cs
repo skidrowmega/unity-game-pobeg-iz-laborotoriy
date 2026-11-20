@@ -25,8 +25,15 @@ public class GameManager: MonoBehaviour
 
     [SerializeField] private float difficultyScale = 0.05f;
     public float GameTime { get; private set; }
-    public float DifficultyFactor => GameTime * difficultyScale + 5 * FloorChange;
     public bool isShopGeneratedOnce = false;
+    public float DifficultyFactor
+    {
+        get
+        {
+            if (debug) return 1;
+            return GameTime * difficultyScale + 5 * FloorChange;
+        }
+    }
 
     public int FloorChange = 1;
     [SerializeField] public bool debug = false;
