@@ -5,7 +5,7 @@ public class AudioPlayer : MonoBehaviour
 
     //Это класс чтобы оставлялись звуки чего-то в каком-то определенном месте вызываемый из любого скрипта (очень описательно)
 
-    [SerializeField] GameObject EmptyPrefab;
+    [SerializeField] public GameObject EmptyPrefab;
 
     public static AudioPlayer instance { get; set; }
 
@@ -14,12 +14,18 @@ public class AudioPlayer : MonoBehaviour
         instance = this;
     }
 
-    public void PlaySound(Vector3 position,AudioClip sound, float Volume=1)
+    public static void PlaySound(Vector3 position,AudioClip sound, float Volume=1)
     {
-        AudioSource source=Instantiate(EmptyPrefab, position, Quaternion.identity).GetComponent<AudioSource>();
+
+        AudioSource source=Instantiate(instance.EmptyPrefab, position, Quaternion.identity).GetComponent<AudioSource>();
         source.PlayOneShot(sound,Volume);
         Destroy(source.gameObject, sound.length);
 
+    }
+
+    public static void PlayRandomSound(Vector3 position, AudioClip[] sounds, float Volume = 1)
+    {
+        PlaySound(position, sounds[Random.Range(0, sounds.Length)], Volume);
     }
 
 

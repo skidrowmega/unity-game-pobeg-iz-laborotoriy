@@ -116,8 +116,9 @@ public class EnemyAll : Entity
         if (DeathSounds!=null&&DeathSounds.Length > 0)
         {
             print("PLAYED DEATH SOUND");
-            AudioPlayer.instance.PlaySound(transform.position, DeathSounds[Random.Range(0, DeathSounds.Length)]);
+            //AudioPlayer.instance.PlaySound(transform.position, DeathSounds[Random.Range(0, DeathSounds.Length)]);
             //GetComponent<AudioSource>().PlayOneShot(DeathSounds[Random.Range(0,DeathSounds.Length)],1);
+            AudioPlayer.PlayRandomSound(transform.position, DeathSounds);
         }
     }
 
