@@ -2,22 +2,13 @@ using UnityEngine;
 
 
 
-public class enableOnTrigger : Trigger
+public class enableOnTrigger : TriggerAction
 {
 
     [SerializeField] GameObject objectToEnable;
 
-    private void Update()
-    {
-        CheckCollision();
-    }
-
-
-    protected override void OnSuccess()
+    protected override void OnTriggerAction()
     {
         objectToEnable.SetActive(true);
-        SendCallback();
-        Destroy(gameObject);
     }
-    
 }

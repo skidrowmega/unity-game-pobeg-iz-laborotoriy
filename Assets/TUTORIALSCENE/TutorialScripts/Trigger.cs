@@ -6,31 +6,19 @@ using UnityEngine;
 public class Trigger : MonoBehaviour
 {
 
-    Collider coll;
+    
 
     [SerializeField] public Stack<Action> callback;
 
     protected virtual void Awake()
     {
         callback= new Stack<Action>();
-        coll = GetComponent<Collider>();
+        
     }
-
-    protected virtual void CheckCollision()
-    {
-
-        List<Collider> colliders = Physics.OverlapBox(transform.position, coll.bounds.extents, transform.rotation).ToList();
-
-        if (colliders.Exists(x => x.gameObject == Player.player.gameObject))
-        {
-            OnSuccess();
-        }
-    }
-
 
     protected virtual void OnSuccess()
     {
-
+        SendCallback();
     }
 
     protected virtual void SendCallback()
@@ -39,6 +27,7 @@ public class Trigger : MonoBehaviour
         {
             callback.Pop()();
         }
+        Destroy(gameObject);
     }
 
     public virtual void AddCallback(Action action)

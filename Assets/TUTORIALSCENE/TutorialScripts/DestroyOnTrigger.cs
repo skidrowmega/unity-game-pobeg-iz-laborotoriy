@@ -1,19 +1,11 @@
 using UnityEngine;
 
-public class DestroyOnTrigger : Trigger
+public class DestroyOnTrigger : TriggerAction
 {
-    [SerializeField] GameObject objectToDestroy;
+    [SerializeField] GameObject ObjectToDestroy;
 
-    private void Update()
+    protected override void OnTriggerAction()
     {
-        CheckCollision();
-    }
-
-
-    protected override void OnSuccess()
-    {
-        Destroy(objectToDestroy);
-        SendCallback();
-        Destroy(gameObject);
+        Destroy(ObjectToDestroy);
     }
 }

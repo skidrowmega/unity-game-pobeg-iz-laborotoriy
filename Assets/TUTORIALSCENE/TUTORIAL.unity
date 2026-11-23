@@ -730,7 +730,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::openbloknot
   toggleenabled: {fileID: 833438767}
   toggleDistance: 1
-  callbackfunctiontocall: {fileID: 1044635879}
+  callbackfunctiontocall: {fileID: 1670718929}
 --- !u!1001 &227214246
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1479,53 +1479,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 374672606}
   m_CullTransparentMesh: 1
---- !u!1 &389020195
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 389020196}
-  - component: {fileID: 389020197}
-  m_Layer: 0
-  m_Name: BLOKNOTOPENER
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &389020196
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389020195}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 668871300}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &389020197
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389020195}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7859e99260f4c2489b5ce68112bd7c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::openbloknot
-  toggleenabled: {fileID: 1172668195}
-  toggleDistance: 3
-  callbackfunctiontocall: {fileID: 1746340585}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1881,7 +1834,6 @@ Transform:
   - {fileID: 1670718928}
   - {fileID: 1044635878}
   - {fileID: 1268674736}
-  - {fileID: 1858999083}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &570152750
@@ -2102,9 +2054,6 @@ PrefabInstance:
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2af2679d9f5fee64e9a6476086232225, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 389020196}
-    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2af2679d9f5fee64e9a6476086232225, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1746340583}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2af2679d9f5fee64e9a6476086232225, type: 3}
@@ -2182,6 +2131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5890eac92da44fc4fb530d4696c6256b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PECHKAANIMATION
+  trigger: {fileID: 1746340585}
   trigger: {fileID: 1746340585}
 --- !u!1001 &673793674
 PrefabInstance:
@@ -2922,6 +2872,7 @@ GameObject:
   - component: {fileID: 1044635878}
   - component: {fileID: 1044635880}
   - component: {fileID: 1044635879}
+  - component: {fileID: 1044635881}
   m_Layer: 0
   m_Name: Room2-Bullet-Trigger
   m_TagString: Untagged
@@ -2956,6 +2907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c44a7e53ee282f488afad3d34fec1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enableOnTrigger
+  trigger: {fileID: 1044635881}
   objectToEnable: {fileID: 148745516}
 --- !u!65 &1044635880
 BoxCollider:
@@ -2978,6 +2930,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 3.52, z: 6.16}
   m_Center: {x: 0, y: 0.57, z: 0.09}
+--- !u!114 &1044635881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044635877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e5b670884bf6d4d85c4946c0a3d85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionTrigger
 --- !u!4 &1069991917 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1398256945200066881, guid: 9531c6eca79052c468a304ae023f6fac, type: 3}
@@ -3266,6 +3230,8 @@ GameObject:
   - component: {fileID: 1268674736}
   - component: {fileID: 1268674738}
   - component: {fileID: 1268674737}
+  - component: {fileID: 1268674740}
+  - component: {fileID: 1268674739}
   m_Layer: 0
   m_Name: Room2-Destroy-Bullet-Trigger
   m_TagString: Untagged
@@ -3300,7 +3266,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b98b18361fa7441a9d846455031043, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DestroyOnTrigger
-  objectToDestroy: {fileID: 741392897}
+  trigger: {fileID: 1268674739}
+  ObjectToDestroy: {fileID: 741392897}
 --- !u!65 &1268674738
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3322,6 +3289,32 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 3.52, z: 6.16}
   m_Center: {x: 0, y: 0.57, z: 0.09}
+--- !u!114 &1268674739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268674735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e5b670884bf6d4d85c4946c0a3d85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionTrigger
+--- !u!114 &1268674740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1268674735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c44a7e53ee282f488afad3d34fec1b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::enableOnTrigger
+  trigger: {fileID: 1268674739}
+  objectToEnable: {fileID: 1918939438}
 --- !u!4 &1269037287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4469493626191221795, guid: d45d19cca7d9aa24fb50940c968c58d8, type: 3}
@@ -4073,6 +4066,7 @@ GameObject:
   - component: {fileID: 1670718928}
   - component: {fileID: 1670718927}
   - component: {fileID: 1670718926}
+  - component: {fileID: 1670718929}
   m_Layer: 0
   m_Name: Room1-Room2-Trigger
   m_TagString: Untagged
@@ -4092,6 +4086,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c44a7e53ee282f488afad3d34fec1b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::enableOnTrigger
+  trigger: {fileID: 1670718929}
   objectToEnable: {fileID: 434830107}
 --- !u!65 &1670718927
 BoxCollider:
@@ -4129,6 +4124,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 546126644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1670718929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670718925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66e5b670884bf6d4d85c4946c0a3d85b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CollisionTrigger
 --- !u!1001 &1714728674
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4258,7 +4265,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1746340583}
   - component: {fileID: 1746340585}
+  - component: {fileID: 1746340586}
   - component: {fileID: 1746340584}
+  - component: {fileID: 1746340587}
   m_Layer: 0
   m_Name: TRIGGERONPRESS
   m_TagString: Untagged
@@ -4315,6 +4324,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TriggerOnPress
   key: 101
+--- !u!114 &1746340586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746340582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7859e99260f4c2489b5ce68112bd7c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::openbloknot
+  toggleenabled: {fileID: 1172668195}
+  toggleDistance: 3
+  callbackfunctiontocall: {fileID: 1746340585}
+--- !u!114 &1746340587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746340582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c44a7e53ee282f488afad3d34fec1b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::enableOnTrigger
+  trigger: {fileID: 1746340585}
+  objectToEnable: {fileID: 525547217}
 --- !u!1001 &1762191229
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4404,7 +4442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::openbloknot
   toggleenabled: {fileID: 1158251950}
   toggleDistance: 1
-  callbackfunctiontocall: {fileID: 1044635879}
+  callbackfunctiontocall: {fileID: 1044635881}
 --- !u!1 &1789990028
 GameObject:
   m_ObjectHideFlags: 0
@@ -4500,73 +4538,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1858999082
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1858999083}
-  - component: {fileID: 1858999085}
-  - component: {fileID: 1858999084}
-  m_Layer: 0
-  m_Name: Room2-Destroy-Bullet-Trigger (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1858999083
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858999082}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 24.34, y: -0.39849997, z: -3.2239075}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 546126644}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1858999084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858999082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c44a7e53ee282f488afad3d34fec1b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::enableOnTrigger
-  objectToEnable: {fileID: 1918939438}
---- !u!65 &1858999085
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1858999082}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 3.52, z: 6.16}
-  m_Center: {x: 0, y: 0.57, z: 0.09}
 --- !u!1 &1894753627
 GameObject:
   m_ObjectHideFlags: 0

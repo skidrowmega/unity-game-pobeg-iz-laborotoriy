@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PECHKAANIMATION : MonoBehaviour
+public class PECHKAANIMATION : TriggerAction
 {
 
     Animator animator;
@@ -13,13 +13,8 @@ public class PECHKAANIMATION : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    private void Start()
-    {
-        trigger.AddCallback(startanimation);
-    }
 
-
-    void startanimation()
+    protected override void OnTriggerAction()
     {
         animator.Play("Opening");
     }

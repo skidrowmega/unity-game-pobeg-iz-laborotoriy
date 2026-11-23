@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TriggerOnPress : Trigger
+public class TriggerOnPress : CollisionTrigger
 {
     [SerializeField] KeyCode key;
 
