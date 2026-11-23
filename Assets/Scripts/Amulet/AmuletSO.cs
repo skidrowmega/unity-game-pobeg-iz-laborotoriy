@@ -33,6 +33,6 @@ public class AmuletSO: ScriptableObject
 
     public string DescriptionCreate()
     {
-        return $"Урон оружия ближнего боя: x{1 + damageMeleeBuff}\nУрон оружия дальнего боя: x{1 + damageRangedBuff}\nЗащита от урона: x{1 + resistBuff}\n{amuletDescription}";
+        return $"Урон оружия ближнего боя: x{1 + damageMeleeBuff}\nУрон оружия дальнего боя: x{1 + damageRangedBuff}\nПолучаемый урон: x{1 - resistBuff}\n{amuletDescription}";
     }
 }
