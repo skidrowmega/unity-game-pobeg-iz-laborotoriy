@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AmuletSO: ScriptableObject
 {
+    public int ID;
     public string amuletName;
     public string amuletDescription;
     public Sprite amuletImage;
