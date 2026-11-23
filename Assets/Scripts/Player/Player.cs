@@ -30,6 +30,7 @@ public class Player : Entity
     public static Player player { get; private set; }
 
     [SerializeField] private GameObject grenadeprefab;
+    [SerializeField] private GameObject explosionEffectPrefab;
     [SerializeField] public float BasicFlightTime= 1f;
     [SerializeField] private float GrenadeArcHeight = 3.5f;
     [SerializeField] private float GrenadeExplosionRadius = 3f;
@@ -324,6 +325,10 @@ public class Player : Entity
     {
         foreach (Collider item in Physics.OverlapSphere(Position, GrenadeExplosionRadius))
         {
+            if (explosionEffectPrefab != null)
+            {
+                Instantiate(explosionEffectPrefab, Position, Quaternion.identity);
+            }
             Entity entity = item.GetComponent<Entity>();
             if (entity != null)
             {
