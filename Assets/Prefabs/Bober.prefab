@@ -285,6 +285,7 @@ MonoBehaviour:
   DodgeDistance: 7
   DodgeTime: 0.4
   grenadeprefab: {fileID: 7677711044062466734, guid: 3d349b1472ee23a48844c44e3c64b747, type: 3}
+  explosionEffectPrefab: {fileID: 838983094585297150, guid: 597a50da81d56c04aa43ec8d272430fb, type: 3}
   BasicFlightTime: 1
   GrenadeArcHeight: 3.5
   GrenadeExplosionRadius: 3
