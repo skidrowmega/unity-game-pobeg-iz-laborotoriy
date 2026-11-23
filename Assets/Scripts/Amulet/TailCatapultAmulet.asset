@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a5122233512ea42ad9f308eb57762b, type: 3}
   m_Name: TailCatapultAmulet
   m_EditorClassIdentifier: Assembly-CSharp::TailCatapultAmulet
+  ID: 8
   amuletName: "\u0425\u0432\u043E\u0441\u0442\u043E\u0432\u0430\u044F \u041A\u0430\u0442\u0430\u043F\u0443\u043B\u044C\u0442\u0430"
   amuletDescription: "\u0425\u0432\u043E\u0441\u0442\u043E\u0432\u0430\u044F \u041A\u0430\u0442\u0430\u043F\u0443\u043B\u044C\u0442\u0430"
   amuletImage: {fileID: 0}
