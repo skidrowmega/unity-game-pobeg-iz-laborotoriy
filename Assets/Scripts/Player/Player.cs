@@ -369,6 +369,7 @@ public class Player : Entity
         yield return new WaitForSeconds(0.4f);
         float starttime = Time.time;
         List<Collider> checkedcolliders = new List<Collider>();
+        AmuletManager.instance.AttackSplinter();
         while (Time.time - starttime < secondstowait)
         {
             foreach (Collider collider in Physics.OverlapCapsule(transform.position, transform.position + Vector3.up, 1.5f * 1.6f))

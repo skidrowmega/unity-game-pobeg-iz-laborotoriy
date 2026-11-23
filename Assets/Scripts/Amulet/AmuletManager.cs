@@ -129,4 +129,15 @@ public class AmuletManager : MonoBehaviour
         }
         return finalDurebility;
     }
+
+    public void AttackSplinter()
+    {
+        if (GetAmuletById(6))
+        {
+            foreach (SplinterHurricaneAmulet amulet in equippedAmulets)
+            {
+                amulet.ShootSplinter();
+            }
+        }
+    }
 }
