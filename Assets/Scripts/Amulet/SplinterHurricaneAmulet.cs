@@ -14,6 +14,6 @@ public class SplinterHurricaneAmulet: AmuletSO
         bullet.direction = Player.player.transform.forward;
         bullet.damage = Damage;//возможно стоит брать урон весла
         bullet.PushStrength = 0;
-        bullet = Instantiate<Projectile>(bullet, Player.player.transform.position + Player.player.transform.forward * 1f + Player.player.transform.right * 0.3f, Quaternion.identity);
+        bullet = Instantiate<Projectile>(bullet, Player.player.transform.position + Player.player.transform.forward * 0.01f + Player.player.transform.right * 0.3f, Quaternion.identity);
     }
 }
