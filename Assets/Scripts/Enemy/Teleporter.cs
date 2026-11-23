@@ -60,7 +60,11 @@ public class Teleporter : EnemyAll
         float distance = Vector3.Distance(player.transform.position, transform.position);
         if (!isAttacking && CanTeleport&& distance<baseTeleportDistance&&distance > baseTeleportRadius)
         {
-            TeleportToPlayer();
+            CanTeleport = false;
+            isTeleporting = true;
+            if (agent) agent.isStopped = true;
+            if (animator) animator.Play("Teleport");
+            Invoke(nameof(TeleportToPlayer), 2f);
         }
     }
 
@@ -97,12 +101,9 @@ public class Teleporter : EnemyAll
 
         if (foundPosition)
         {
-            CanTeleport = false;
-            isTeleporting = true;
-            if (agent) agent.isStopped = true;
+
             teleportPosition = newposition;
-            if (animator) animator.Play("Teleport");
-            Invoke(nameof(Teleport), 2f);
+            Teleport();
         }
         //else
         //{

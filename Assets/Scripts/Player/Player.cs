@@ -145,6 +145,7 @@ public class Player : Entity
                 Speed = baseSpeed;
                 isRun = false;
             }
+            animator.SetBool("isRun", isRun);
             StartPlayingWalkingSound();
             
             animator.SetBool("isWalking", true);
@@ -175,6 +176,7 @@ public class Player : Entity
         else
         {
             if (isRun) isRun = false;
+            animator.SetBool("isRun", false);
             animator.SetBool("isWalking", false);
             animator.SetBool("isWalkingBack", false);
             StopPlayingWalkingSound();
