@@ -22,7 +22,7 @@ public class FOLLOWCURSOR : MonoBehaviour
         Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 100,layermask);
         if (hit.collider)
             transform.position = new Vector3(hit.point.x, StartingY, hit.point.z);
-        if (Input.GetMouseButton(1))
+        if ( Player.player.currentgun.IsUsable && Input.GetMouseButton(1))
         {
             if (!linerenderer.enabled)
                 linerenderer.enabled = true;
