@@ -9,7 +9,7 @@ public enum BulletType
 public abstract class Projectile : MonoBehaviour
 {
     [SerializeField] int Speed = 1;
-    [SerializeField] const int LifeTime = 10;
+    [SerializeField] int LifeTime = 10;
     public float damage = 1;
     public float PushStrength = 0;
     public Vector3 direction;
@@ -22,7 +22,7 @@ public abstract class Projectile : MonoBehaviour
 
     protected virtual void Awake()
     {
-        Destroy(gameObject, LifeTime);
+        if(LifeTime!=-1)Destroy(gameObject, LifeTime);
     }
     public virtual void HitEntity(Entity target)
     {
@@ -65,7 +65,8 @@ public abstract class Projectile : MonoBehaviour
         }
         if (type == BulletType.Ricochet)
         {
-            if (RicochetCount>MaxRicochetCount) Destroy(gameObject);
+            if(MaxRicochetCount!=-1)
+                if (RicochetCount>MaxRicochetCount) Destroy(gameObject);
             RicochetCount++;
             ReflectBullet(hit.normal);
         }
