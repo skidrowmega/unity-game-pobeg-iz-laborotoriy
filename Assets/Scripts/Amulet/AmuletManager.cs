@@ -1,10 +1,15 @@
+using NUnit.Framework.Interfaces;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
+using static UnityEngine.GraphicsBuffer;
 
 public class AmuletManager : MonoBehaviour
 {
     public List<AmuletSO> equippedAmulets = new List<AmuletSO>();
     public int maxSlots = 3;
+    [SerializeField] public AmuletSO[] AllAmulets;
 
     public static AmuletManager instance;
 
@@ -44,6 +49,23 @@ public class AmuletManager : MonoBehaviour
         Amulet.OnUnequip();
     }
 
+    public bool IsAmuletOnBobr(AmuletSO amuletdata)
+    { 
+        foreach (AmuletSO amulet in equippedAmulets)
+        {
+            if (amuletdata.amuletName == amulet.amuletName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public AmuletSO GetAmuletById(int targetId)
+    {
+        AmuletSO foundamulet = Array.Find(AllAmulets, item => item != null && item.ID == targetId);
+        return foundamulet;
+    }
 
     public float GetModifiedMeleeDamage(float baseMeleeDamage)
     {
@@ -84,13 +106,49 @@ public class AmuletManager : MonoBehaviour
     public int GetPriceWithDiscount(int basePrice)
     {
         int finalPrice = basePrice;
-        if (equippedAmulets.Contains(new AggressiveTradingAmulet()))
+        if (IsAmuletOnBobr(GetAmuletById(0)))
         {
             foreach (AggressiveTradingAmulet amulet in equippedAmulets)
             {
                 finalPrice = amulet.CalcPriceWithDiscount(finalPrice);
+                print(finalPrice);
             }
         }
         return finalPrice;
+    }
+
+    public float GetDurabilityWithAmulet(float baseDurebility)
+    {
+        float finalDurebility = baseDurebility;
+        if (IsAmuletOnBobr(GetAmuletById(6)))
+        {
+            foreach (SalivaShieldAmulet amulet in equippedAmulets)
+            {
+                finalDurebility = amulet.MoreDurability(finalDurebility);
+            }
+        }
+        return finalDurebility;
+    }
+
+    public void AttackSplinter()
+    {
+        if (IsAmuletOnBobr(GetAmuletById(7)))
+        {
+            foreach (SplinterHurricaneAmulet amulet in equippedAmulets)
+            {
+                amulet.ShootSplinter();
+            }
+        }
+    }
+    public float GetMoreTime(float time)
+    {
+        if (IsAmuletOnBobr(GetAmuletById(10)))
+        {
+            foreach (MesmerizingCrunchAmulet amulet in equippedAmulets)
+            {
+                time = amulet.MoreTime(time);
+            }
+        }
+        return time;
     }
 }

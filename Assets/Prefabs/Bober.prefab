@@ -285,6 +285,7 @@ MonoBehaviour:
   DodgeDistance: 7
   DodgeTime: 0.4
   grenadeprefab: {fileID: 7677711044062466734, guid: 3d349b1472ee23a48844c44e3c64b747, type: 3}
+  explosionEffectPrefab: {fileID: 838983094585297150, guid: 597a50da81d56c04aa43ec8d272430fb, type: 3}
   BasicFlightTime: 1
   GrenadeArcHeight: 3.5
   GrenadeExplosionRadius: 3
@@ -443,6 +444,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AmuletManager
   equippedAmulets: []
   maxSlots: 3
+  AllAmulets:
+  - {fileID: 11400000, guid: de3adb75fd9eba143ab3ef1096a74d38, type: 2}
+  - {fileID: 11400000, guid: 8dc2c97f1b381004a89917e1a6375ff5, type: 2}
+  - {fileID: 11400000, guid: bc3c904076ee780469c3eb6357e61e8e, type: 2}
+  - {fileID: 11400000, guid: 99ff752e9e2228e439985a419e9bd4d4, type: 2}
+  - {fileID: 11400000, guid: a85152a5e2938cd4b8413207f7331066, type: 2}
+  - {fileID: 11400000, guid: 5078a30c6154d7e43b553e035bd9ff3b, type: 2}
+  - {fileID: 11400000, guid: 7cf9155b1ed854548889cd89a2435f31, type: 2}
+  - {fileID: 11400000, guid: 487bf52125b815e4fa48f4584a56496e, type: 2}
+  - {fileID: 11400000, guid: 4a039cefff91dad4e97b5d223386acbb, type: 2}
+  - {fileID: 11400000, guid: 440485e6c2565714aba7d349ab8e28ea, type: 2}
+  - {fileID: 11400000, guid: 6e52608fd631d69418ffc53443e5a841, type: 2}
 --- !u!82 &2659100446262670630
 AudioSource:
   m_ObjectHideFlags: 0

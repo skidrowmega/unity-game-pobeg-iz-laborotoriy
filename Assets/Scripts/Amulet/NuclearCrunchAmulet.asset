@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ba9d85dea181f64d812bdc0af486ebc, type: 3}
   m_Name: NuclearCrunchAmulet
   m_EditorClassIdentifier: Assembly-CSharp::NuclearCrunchAmulet
+  ID: 5
   amuletName: "\u042F\u0434\u0435\u0440\u043D\u044B\u0439 \u0425\u0440\u0443\u0441\u0442"
   amuletDescription: "\u042F\u0434\u0435\u0440\u043D\u044B\u0439 \u0425\u0440\u0443\u0441\u0442"
   amuletImage: {fileID: 0}

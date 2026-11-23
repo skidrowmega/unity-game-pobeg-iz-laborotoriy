@@ -44,7 +44,7 @@ public class WeaponMeleeStats
         WeaponMeleeStats newstats = new WeaponMeleeStats(this);
         newstats.Damage *= multiplier;
         newstats.PushStrength *= multiplier;
-        newstats.maxDurability = (maxDurability * multiplier);
+        newstats.maxDurability = AmuletManager.instance.GetDurabilityWithAmulet((maxDurability * multiplier));
         newstats.durability = newstats.maxDurability;
         return newstats;
     }

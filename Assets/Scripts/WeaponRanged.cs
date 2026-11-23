@@ -44,7 +44,7 @@ public class WeaponRangedStats
         WeaponRangedStats newstats = new WeaponRangedStats(this);
         newstats.Damage *= multiplier;
         newstats.PushStrength *= multiplier;
-        newstats.maxDurability = (int)(maxDurability * multiplier);
+        newstats.maxDurability = AmuletManager.instance.GetDurabilityWithAmulet((maxDurability * multiplier));
         newstats.durability = newstats.maxDurability;
         newstats.RicochetCount= (int)(newstats.RicochetCount * multiplier);
         return newstats;

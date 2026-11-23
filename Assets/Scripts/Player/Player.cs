@@ -30,6 +30,7 @@ public class Player : Entity
     public static Player player { get; private set; }
 
     [SerializeField] private GameObject grenadeprefab;
+    [SerializeField] private GameObject explosionEffectPrefab;
     [SerializeField] public float BasicFlightTime= 1f;
     [SerializeField] private float GrenadeArcHeight = 3.5f;
     [SerializeField] private float GrenadeExplosionRadius = 3f;
@@ -145,6 +146,7 @@ public class Player : Entity
                 Speed = baseSpeed;
                 isRun = false;
             }
+            animator.SetBool("isRun", isRun);
             StartPlayingWalkingSound();
             
             animator.SetBool("isWalking", true);
@@ -175,6 +177,7 @@ public class Player : Entity
         else
         {
             if (isRun) isRun = false;
+            animator.SetBool("isRun", false);
             animator.SetBool("isWalking", false);
             animator.SetBool("isWalkingBack", false);
             StopPlayingWalkingSound();
@@ -322,6 +325,10 @@ public class Player : Entity
     {
         foreach (Collider item in Physics.OverlapSphere(Position, GrenadeExplosionRadius))
         {
+            if (explosionEffectPrefab != null)
+            {
+                Instantiate(explosionEffectPrefab, Position, Quaternion.identity);
+            }
             Entity entity = item.GetComponent<Entity>();
             if (entity != null)
             {
@@ -367,6 +374,7 @@ public class Player : Entity
         yield return new WaitForSeconds(0.4f);
         float starttime = Time.time;
         List<Collider> checkedcolliders = new List<Collider>();
+        AmuletManager.instance.AttackSplinter();
         while (Time.time - starttime < secondstowait)
         {
             foreach (Collider collider in Physics.OverlapCapsule(transform.position, transform.position + Vector3.up, 1.5f * 1.6f))

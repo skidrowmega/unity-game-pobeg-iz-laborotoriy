@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bc0e9c176bfd5146a7dd7b7dd8e9bee, type: 3}
   m_Name: SalivaShieldAmulet
   m_EditorClassIdentifier: Assembly-CSharp::SalivaShieldAmulet
+  ID: 6
   amuletName: "\u041F\u043B\u0435\u0432\u043E\u043A \u041D\u0430\u0437\u043B\u043E
     \u0424\u0438\u0437\u0438\u043A\u0435"
   amuletDescription: "\u041F\u043B\u0435\u0432\u043E\u043A \u041D\u0430\u0437\u043B\u043E
