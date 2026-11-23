@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "WoodFlavoredProteinAmulet", menuName = "Roguelike/Amulets/WoodFlavoredProteinAmulet")]
+[CreateAssetMenu(fileName = "MesmerizingCrunchAmulet", menuName = "Roguelike/Amulets/MesmerizingCrunchAmulet")]
 
 public class MesmerizingCrunchAmulet: AmuletSO
 {

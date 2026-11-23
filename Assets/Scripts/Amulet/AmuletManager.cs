@@ -106,7 +106,7 @@ public class AmuletManager : MonoBehaviour
     public int GetPriceWithDiscount(int basePrice)
     {
         int finalPrice = basePrice;
-        if (GetAmuletById(0))
+        if (IsAmuletOnBobr(GetAmuletById(0)))
         {
             foreach (AggressiveTradingAmulet amulet in equippedAmulets)
             {
@@ -120,7 +120,7 @@ public class AmuletManager : MonoBehaviour
     public float GetDurabilityWithAmulet(float baseDurebility)
     {
         float finalDurebility = baseDurebility;
-        if (GetAmuletById(6))
+        if (IsAmuletOnBobr(GetAmuletById(6)))
         {
             foreach (SalivaShieldAmulet amulet in equippedAmulets)
             {
@@ -132,12 +132,23 @@ public class AmuletManager : MonoBehaviour
 
     public void AttackSplinter()
     {
-        if (GetAmuletById(6))
+        if (IsAmuletOnBobr(GetAmuletById(7)))
         {
             foreach (SplinterHurricaneAmulet amulet in equippedAmulets)
             {
                 amulet.ShootSplinter();
             }
         }
+    }
+    public float GetMoreTime(float time)
+    {
+        if (IsAmuletOnBobr(GetAmuletById(10)))
+        {
+            foreach (MesmerizingCrunchAmulet amulet in equippedAmulets)
+            {
+                time = amulet.MoreTime(time);
+            }
+        }
+        return time;
     }
 }

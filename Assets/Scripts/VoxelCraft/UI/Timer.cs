@@ -21,7 +21,7 @@ public class Timer : MonoBehaviour
     {
         if (started&&!cuttingboard.Submitted)
         {
-            int timeleft = ((int)(cuttingboard.Timer + StartTime - Time.realtimeSinceStartup));
+            int timeleft = ((int)(AmuletManager.instance.GetMoreTime(cuttingboard.Timer) + StartTime - Time.realtimeSinceStartup));
             OutputText.text = timeleft.ToString();
             if (timeleft <= 0)
             {
