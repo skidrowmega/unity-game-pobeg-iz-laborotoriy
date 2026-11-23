@@ -5,7 +5,7 @@ using UnityEngine;
 public class Mathematician : EnemyAll
 {
     [Header("Все Префабы")]
-    [SerializeField] GameObject areaVisual;
+    [SerializeField] ParticleSystem divisionParticles;
     [SerializeField] GameObject projectileprefab;
     [SerializeField] MathematicianStats stats;
 
@@ -143,25 +143,16 @@ public class Mathematician : EnemyAll
 
     IEnumerator DivisionByZeroDelay()
     {
-        Vector3 AreaPosition = transform.position;
-        AreaPosition.y = 2.25f;
-        GameObject Area = Instantiate(areaVisual, AreaPosition, Quaternion.identity);
-        Area.transform.localScale = new Vector3(RadiusDivisionByZero * 2, 1f, RadiusDivisionByZero * 2);
-        SpriteRenderer AreaColor = Area.GetComponentInChildren<SpriteRenderer>();
+        if (divisionParticles != null) divisionParticles.Play();
         float elapsed = 0f;
-        Color startColor = AreaColor.color;
-        Color targetColor = startColor;
-        startColor.a = 0.2f;
-        targetColor.a = 0.8f;
         while (elapsed < DelayBeforeDivisionByZero)
         {
             elapsed += Time.deltaTime;
-            AreaColor.color = Color.Lerp(startColor, targetColor, elapsed / DelayBeforeDivisionByZero);
             yield return null;
         }
+        if (divisionParticles != null) divisionParticles.Stop();
         DivisionByZero();
         ResetAttack();
-        Destroy(Area);
     }
 
     protected override void CreateDrops()
