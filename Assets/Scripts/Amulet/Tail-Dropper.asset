@@ -13,13 +13,20 @@ MonoBehaviour:
   m_Name: Tail-Dropper
   m_EditorClassIdentifier: Assembly-CSharp::TailDropper
   ID: 11
-  amuletName: TailDropper
-  amuletDescription: TailDropper
+  amuletName: "\u0425\u0432\u043E\u0441\u0442\u043E\u0441\u0431\u0440\u043E\u0441"
+  amuletDescription: "\u041F\u0440\u0438 \u043F\u0440\u044B\u0436\u043A\u0435 \u0431\u043E\u0431\u0440
+    \u0441 \u0442\u0430\u043A\u043E\u0439 \u0441\u0438\u043B\u043E\u0439 \u043A\u0438\u0434\u0430\u0435\u0442
+    \u0433\u0440\u0430\u043D\u0430\u0442\u0443 \u0432 \u0437\u0435\u043C\u043B\u044E
+    \u0447\u0442\u043E \u043E\u043D\u0430 \u0441\u0440\u0430\u0437\u0443 \u0436\u0435
+    \u0432\u0437\u0440\u044B\u0432\u0430\u0435\u0442\u0441\u044F, \u0432\u043F\u0440\u043E\u0447\u0435\u043C
+    \u0441\u0430\u043C\u043E\u043C\u0443 \u0413\u0435\u043D\u0435 \u044D\u0442\u043E
+    \u043D\u0435 \u0433\u0440\u043E\u0437\u0438\u0442, \u0432\u0435\u0434\u044C \u043E\u043D
+    \u0443\u0436\u0435 \u0443\u043B\u0435\u0442\u0435\u043B."
   amuletImage: {fileID: 0}
-  resistBuff: 0.5
+  resistBuff: 0.3
   damageMeleeBuff: 0.5
   damageRangedBuff: 0.5
   explosionPrefab: {fileID: 0}
   explosionRadius: 1
-  Damage: 20
+  Damage: 40
   pushStrenght: 5

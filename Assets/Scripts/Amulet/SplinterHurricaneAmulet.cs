@@ -16,4 +16,9 @@ public class SplinterHurricaneAmulet: AmuletSO
         bullet.PushStrength = 0;
         bullet = Instantiate<Projectile>(bullet, Player.player.transform.position + Player.player.transform.forward * 0.01f + Player.player.transform.right * 0.3f, Quaternion.identity);
     }
+
+    public override string DescriptionCreate()
+    {
+        return $"{amuletName}\nУрон оружия ближнего боя: x{1 + damageMeleeBuff}\nУрон оружия дальнего боя: x{1 + damageRangedBuff}\nПолучаемый урон: x{1 - resistBuff}\n{amuletDescription}\nУрон осколков: {Damage}";
+    }
 }

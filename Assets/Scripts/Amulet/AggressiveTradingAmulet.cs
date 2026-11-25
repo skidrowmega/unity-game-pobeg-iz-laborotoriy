@@ -25,5 +25,10 @@ public class AggressiveTradingAmulet: AmuletSO
             ShopRoomScript.instance.itempool[i].Value = (int)(ShopRoomScript.instance.itempool[i].Value * (1 + Discount));
         }
     }*/
+
+    public override string DescriptionCreate()
+    {
+        return $"{amuletName}\nУрон оружия ближнего боя: x{1 + damageMeleeBuff}\nУрон оружия дальнего боя: x{1 + damageRangedBuff}\nПолучаемый урон: x{1 - resistBuff}\n{amuletDescription}\nСкидка у жабы: {Discount*100}%";
+    }
 }
 
