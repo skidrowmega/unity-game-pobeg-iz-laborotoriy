@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DestroyOnTrigger : TriggerAction
 {
-    [SerializeField] GameObject ObjectToDestroy;
+    [SerializeField] Object ObjectToDestroy;
 
     protected override void OnTriggerAction()
     {

@@ -25,6 +25,7 @@ public class DialogueBox : MonoBehaviour
     public Text text;
 
     public Stack<Action> callbackactions;
+    public FrogBehavior FrogBehavior;
 
     private void Awake()
     {
@@ -45,7 +46,23 @@ public class DialogueBox : MonoBehaviour
                 "ПРивет я лягешкуа",
                 "Я шас покажу тебе как выживаться"
             };
-            DialogueBox.StartDialogue(newlines);
+            StartDialogue(newlines);
+        }
+    }
+
+    void FrogStartTalking()
+    {
+        if(FrogBehavior)
+        {
+            FrogBehavior.StartTalking();
+        }
+    }
+
+    void FrogStopTalking()
+    {
+        if (FrogBehavior)
+        {
+            FrogBehavior.StopTalking();
         }
     }
 
@@ -58,9 +75,11 @@ public class DialogueBox : MonoBehaviour
             if (text.text == lines[Index])
             {
                 NextLine();
+                
             }
             else
             {
+                FrogStopTalking();
                 if(routine!=null)StopCoroutine(routine);
                 text.text= lines[Index];
             }
@@ -71,6 +90,7 @@ public class DialogueBox : MonoBehaviour
 
     public void StartDialogue()
     {
+        FrogStartTalking();
         InDialogue = true;
         Index = 0;
         text.text = string.Empty;
@@ -111,12 +131,14 @@ public class DialogueBox : MonoBehaviour
             yield return new WaitForSeconds(textspeed);
             audioSource.Stop();
         }
+        FrogStopTalking();
     }
 
     void NextLine()
     {
         if(Index < lines.Length - 1)
         {
+            FrogStartTalking();
             Index++;
             text.text = string.Empty;
             routine=StartCoroutine(TypeLine());
@@ -130,6 +152,7 @@ public class DialogueBox : MonoBehaviour
 
     private void OnDialogEnd()
     {
+        FrogStopTalking();
         SendCallback();
         InDialogue = false;
     }

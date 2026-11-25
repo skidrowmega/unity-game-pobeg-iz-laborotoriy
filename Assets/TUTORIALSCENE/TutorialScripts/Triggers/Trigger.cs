@@ -6,7 +6,7 @@ using UnityEngine;
 public class Trigger : MonoBehaviour
 {
 
-    
+    [SerializeField] bool DestroyObjectOnTrigger=true;
 
     [SerializeField] public Stack<Action> callback;
 
@@ -27,7 +27,7 @@ public class Trigger : MonoBehaviour
         {
             callback.Pop()();
         }
-        Destroy(gameObject);
+        if(DestroyObjectOnTrigger)Destroy(gameObject);
     }
 
     public virtual void AddCallback(Action action)

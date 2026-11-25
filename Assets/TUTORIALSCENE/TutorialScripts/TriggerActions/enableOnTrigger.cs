@@ -2,13 +2,13 @@ using UnityEngine;
 
 
 
-public class enableOnTrigger : TriggerAction
+public class SetEnableOnTrigger : TriggerAction
 {
 
     [SerializeField] GameObject objectToEnable;
-
+    [SerializeField] bool ChangeTo;
     protected override void OnTriggerAction()
     {
-        objectToEnable.SetActive(true);
+        objectToEnable.SetActive(ChangeTo);
     }
 }
