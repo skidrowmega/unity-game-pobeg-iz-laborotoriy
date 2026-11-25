@@ -139,6 +139,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6794241095811984604}
     m_Modifications:
+    - target: {fileID: 126081383983217283, guid: e5712383c621bd647abfdab82f65c89c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1668738246643481338, guid: e5712383c621bd647abfdab82f65c89c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2631455362374379237, guid: e5712383c621bd647abfdab82f65c89c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -182,6 +190,14 @@ PrefabInstance:
     - target: {fileID: 2694665656550310407, guid: e5712383c621bd647abfdab82f65c89c, type: 3}
       propertyPath: m_Name
       value: Matimatician Particle system
+      objectReference: {fileID: 0}
+    - target: {fileID: 6492745920285778385, guid: e5712383c621bd647abfdab82f65c89c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7970461221831940302, guid: e5712383c621bd647abfdab82f65c89c, type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
