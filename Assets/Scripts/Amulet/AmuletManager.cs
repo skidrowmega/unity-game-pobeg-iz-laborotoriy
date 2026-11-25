@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class AmuletManager : MonoBehaviour
@@ -47,7 +48,7 @@ public class AmuletManager : MonoBehaviour
     }
 
     public bool IsAmuletOnBobr(AmuletSO amuletdata)
-    { 
+    {
         foreach (AmuletSO amulet in equippedAmulets)
         {
             if (amuletdata.amuletName == amulet.amuletName)
@@ -98,7 +99,7 @@ public class AmuletManager : MonoBehaviour
     {
         if (IsAmuletOnBobr(GetAmuletById(0)))
         {
-            foreach (AggressiveTradingAmulet amulet in equippedAmulets)
+            foreach (AggressiveTradingAmulet amulet in equippedAmulets.OfType<AggressiveTradingAmulet>())
             {
                 basePrice = amulet.CalcPriceWithDiscount(basePrice);
             }
@@ -110,7 +111,7 @@ public class AmuletManager : MonoBehaviour
     {
         if (IsAmuletOnBobr(GetAmuletById(6)))
         {
-            foreach (SalivaShieldAmulet amulet in equippedAmulets)
+            foreach (SalivaShieldAmulet amulet in equippedAmulets.OfType<SalivaShieldAmulet>())
             {
                 baseDurebility = amulet.MoreDurability(baseDurebility);
             }
@@ -122,7 +123,7 @@ public class AmuletManager : MonoBehaviour
     {
         if (IsAmuletOnBobr(GetAmuletById(7)))
         {
-            foreach (SplinterHurricaneAmulet amulet in equippedAmulets)
+            foreach (SplinterHurricaneAmulet amulet in equippedAmulets.OfType<SplinterHurricaneAmulet>())
             {
                 amulet.ShootSplinter();
             }
@@ -132,7 +133,7 @@ public class AmuletManager : MonoBehaviour
     {
         if (IsAmuletOnBobr(GetAmuletById(10)))
         {
-            foreach (MesmerizingCrunchAmulet amulet in equippedAmulets)
+            foreach (MesmerizingCrunchAmulet amulet in equippedAmulets.OfType<MesmerizingCrunchAmulet>())
             {
                 time = amulet.MoreTime(time);
             }
@@ -144,11 +145,35 @@ public class AmuletManager : MonoBehaviour
     {
         if (IsAmuletOnBobr(GetAmuletById(3)))
         {
-            foreach (BeavRage amulet in equippedAmulets)
+            foreach (BeavRage amulet in equippedAmulets.OfType<BeavRage>())
             {
                 baseDamage = amulet.CalcDamageForHP(baseDamage);
             }
         }
         return baseDamage;
+    }
+
+    public void CreateNuclearCrunch(float Damage)
+    {
+        if (IsAmuletOnBobr(GetAmuletById(5)))
+        {
+            foreach (NuclearCrunchAmulet amulet in equippedAmulets.OfType<NuclearCrunchAmulet>())
+            {
+                amulet.Explosion(Damage);
+
+            }
+        }
+    }
+
+    public void CreateExplosionWithDodge()
+    {
+        if (IsAmuletOnBobr(GetAmuletById(11)))
+        {
+            foreach (TailDropper amulet in equippedAmulets.OfType<TailDropper>())
+            {
+                amulet.ExplosionWithDodge();
+
+            }
+        }
     }
 }
