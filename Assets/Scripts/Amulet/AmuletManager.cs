@@ -1,9 +1,6 @@
-using NUnit.Framework.Interfaces;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
-using static UnityEngine.GraphicsBuffer;
 
 public class AmuletManager : MonoBehaviour
 {
@@ -69,65 +66,56 @@ public class AmuletManager : MonoBehaviour
 
     public float GetModifiedMeleeDamage(float baseMeleeDamage)
     {
-        float finalMeleeDamage = baseMeleeDamage;
-
         foreach (AmuletSO amulet in equippedAmulets)
         {
-            finalMeleeDamage = amulet.ModifyMeleeDamage(finalMeleeDamage);
+            baseMeleeDamage = amulet.ModifyMeleeDamage(baseMeleeDamage);
         }
 
-        return finalMeleeDamage;
+        return baseMeleeDamage;
     }
 
     public float GetModifiedRangedDamage(float baseRangedDamage)
     {
-        float finalRangedDamage = baseRangedDamage;
-
         foreach (AmuletSO amulet in equippedAmulets)
         {
-            finalRangedDamage = amulet.ModifyMeleeDamage(finalRangedDamage);
+            baseRangedDamage = amulet.ModifyMeleeDamage(baseRangedDamage);
         }
 
-        return finalRangedDamage;
+        return baseRangedDamage;
     }
 
     public float GetDamageDecrease(float baseincomingDamage)
     {
-        float finalincomingDamage = baseincomingDamage;
-
         foreach (AmuletSO amulet in equippedAmulets)
         {
-            finalincomingDamage = amulet.ResistDamage(finalincomingDamage);
+            baseincomingDamage = amulet.ResistDamage(baseincomingDamage);
         }
 
-        return finalincomingDamage;
+        return baseincomingDamage;
     }
 
     public int GetPriceWithDiscount(int basePrice)
     {
-        int finalPrice = basePrice;
         if (IsAmuletOnBobr(GetAmuletById(0)))
         {
             foreach (AggressiveTradingAmulet amulet in equippedAmulets)
             {
-                finalPrice = amulet.CalcPriceWithDiscount(finalPrice);
-                print(finalPrice);
+                basePrice = amulet.CalcPriceWithDiscount(basePrice);
             }
         }
-        return finalPrice;
+        return basePrice;
     }
 
     public float GetDurabilityWithAmulet(float baseDurebility)
     {
-        float finalDurebility = baseDurebility;
         if (IsAmuletOnBobr(GetAmuletById(6)))
         {
             foreach (SalivaShieldAmulet amulet in equippedAmulets)
             {
-                finalDurebility = amulet.MoreDurability(finalDurebility);
+                baseDurebility = amulet.MoreDurability(baseDurebility);
             }
         }
-        return finalDurebility;
+        return baseDurebility;
     }
 
     public void AttackSplinter()
@@ -150,5 +138,17 @@ public class AmuletManager : MonoBehaviour
             }
         }
         return time;
+    }
+
+    public float GetDamageForHitpointBuff(float baseDamage)
+    {
+        if (IsAmuletOnBobr(GetAmuletById(3)))
+        {
+            foreach (BeavRage amulet in equippedAmulets)
+            {
+                baseDamage = amulet.CalcDamageForHP(baseDamage);
+            }
+        }
+        return baseDamage;
     }
 }

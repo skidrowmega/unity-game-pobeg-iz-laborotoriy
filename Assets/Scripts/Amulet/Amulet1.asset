@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Amulet1
   ID: 1
   amuletName: Amulet1
-  amuletDescription: Amulet1
+  amuletDescription: "\u041E\u043D \u043D\u0435 \u0434\u0435\u043B\u0430\u0435\u0442
+    \u043D\u0438\u0447\u0435\u0433\u043E \u0438\u043D\u0442\u0435\u0440\u0435\u0441\u043D\u043E\u0433\u043E..."
   amuletImage: {fileID: 1057017106, guid: 9676e972781270745b2b01cf6bc7814e, type: 3}
-  resistBuff: 0.5
-  damageMeleeBuff: 0.5
-  damageRangedBuff: 0.5
+  resistBuff: 0.7
+  damageMeleeBuff: 0.7
+  damageRangedBuff: 0.7

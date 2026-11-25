@@ -45,7 +45,7 @@ public class GunWeapon : WeaponRanged
 #endif*/
     public override void Shot(Vector3 Direction)
     {
-        float currentDamage = WeaponHolder.amuletManager.GetModifiedRangedDamage(Damage);
+        float currentDamage = WeaponHolder.amuletManager.GetDamageForHitpointBuff(WeaponHolder.amuletManager.GetModifiedRangedDamage(Damage));
         if (!IsUsable) return;
         Durability -= DurabilityDecrease;
         if (Durability <= 0)
