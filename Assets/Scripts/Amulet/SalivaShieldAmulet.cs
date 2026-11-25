@@ -9,4 +9,9 @@ public class SalivaShieldAmulet: AmuletSO
     {
         return durability * (1 + durabilityModificator);
     }
+
+    public override string DescriptionCreate()
+    {
+        return $"{amuletName}\nУрон оружия ближнего боя: x{1 + damageMeleeBuff}\nУрон оружия дальнего боя: x{1 + damageRangedBuff}\nПолучаемый урон: x{1 - resistBuff}\n{amuletDescription}\nПрочность оружия: х{1 + durabilityModificator}";
+    }
 }
