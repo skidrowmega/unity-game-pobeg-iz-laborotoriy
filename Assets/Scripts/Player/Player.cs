@@ -448,6 +448,7 @@ public class Player : Entity
     {
         animator.SetBool("isWalking", false);
         animator.Play("Dodge");
+        AmuletManager.instance.CreateExplosionWithDodge();
         StartCoroutine(DodgeLoop(DodgeTime, Direction));
     }
 

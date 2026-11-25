@@ -7,9 +7,9 @@ public class NuclearCrunchAmulet: AmuletSO
 {
     public GameObject explosionPrefab;
     public float explosionRadius;
-    public float Damage;//брать урон того оружия которое сломалось
+    //public float Damage;//брать урон того оружия которое сломалось
     public float pushStrenght;
-    public void Explosion()
+    public void Explosion(float Damage)
     {
         Vector3 breakPos = AmuletManager.instance.transform.position;
 

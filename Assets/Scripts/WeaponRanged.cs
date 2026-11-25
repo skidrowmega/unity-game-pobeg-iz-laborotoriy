@@ -86,6 +86,7 @@ public class WeaponRanged: Weapon
     }
     public void BreakWeapon()
     {
+        AmuletManager.instance.CreateNuclearCrunch(Damage);
         Destroy(weaponReference);
         weaponReference = null;
         OnBreak();

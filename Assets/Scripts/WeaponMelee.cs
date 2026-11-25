@@ -78,6 +78,7 @@ public class WeaponMelee: Weapon
     }
     public void BreakWeapon()
     {
+        AmuletManager.instance.CreateNuclearCrunch(Damage);
         tempstats = new WeaponMeleeStats(this);
         SwapStats(statsonbreak);
         OnBreak();
