@@ -87,7 +87,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 51b09881a60a0b84d8d3ae7e801484be, type: 3}
   - {fileID: 8300000, guid: 06fdf70c6c0d38144b670836983c7a81, type: 3}
   projectileprefab: {fileID: 983280012385509640, guid: 904b3e165e59e32489758ff7ef75880f, type: 3}
-  lingerPrefab: {fileID: 8631068409102593951, guid: e2de406876a5b1b419056a0dd229828f, type: 3}
+  lingerPrefab: {fileID: 6438699758210820308, guid: 1c4a20cf54a101847971a0fb6850a718, type: 3}
   molotovprefab: {fileID: 5508267828064350972, guid: d7017405917546c45a519c4b94eeae1e, type: 3}
   stats: {fileID: 11400000, guid: d8d2ade4543d8dc4e81fa1b1de01fff3, type: 2}
   MainScale: 0.2
