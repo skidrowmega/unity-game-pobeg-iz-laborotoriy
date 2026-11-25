@@ -1,4 +1,8 @@
+using NUnit.Framework;
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,12 +24,16 @@ public class DialogueBox : MonoBehaviour
 
     public Text text;
 
+    public Stack<Action> callbackactions;
+
     private void Awake()
     {
+        
         audioSource = GetComponent<AudioSource>();
         if (instance)
             Debug.LogError("Упс");
         instance = this;
+        callbackactions = new Stack<Action>();
     }
 
     private void Start()
@@ -41,9 +49,11 @@ public class DialogueBox : MonoBehaviour
         }
     }
 
+
+    static bool InDialogue=false;
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)&&InDialogue)
         {
             if (text.text == lines[Index])
             {
@@ -61,6 +71,7 @@ public class DialogueBox : MonoBehaviour
 
     public void StartDialogue()
     {
+        InDialogue = true;
         Index = 0;
         text.text = string.Empty;
         text.transform.parent.gameObject.SetActive(true);
@@ -71,6 +82,24 @@ public class DialogueBox : MonoBehaviour
     {
         instance.lines = Lines;
         instance.StartDialogue();
+    }
+    public static void StartDialogue(string[] Lines, Action attachedaction)
+    {
+        AddCallback(attachedaction);
+        StartDialogue(Lines);
+    }
+
+    public static void AddCallback(Action action)
+    {
+        instance.callbackactions.Push(action);
+    }
+    protected virtual void SendCallback()
+    {
+        while (callbackactions.Count > 0)
+        {
+            callbackactions.Pop()();
+        }
+        //Destroy(gameObject);
     }
 
     IEnumerator TypeLine()
@@ -95,7 +124,13 @@ public class DialogueBox : MonoBehaviour
         else
         {
             text.transform.parent.gameObject.SetActive(false);
+            OnDialogEnd();
         }
     }
 
+    private void OnDialogEnd()
+    {
+        SendCallback();
+        InDialogue = false;
+    }
 }
