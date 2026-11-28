@@ -58,12 +58,12 @@ public class Mathematician : EnemyAll
 
     protected override void Attack()
     {
-        Sin bullet = projectileprefab.GetComponent<Sin>();
+        Vector3 spawnPos = transform.position + transform.forward * 0.01f + transform.right * 0.3f;
+        Sin bullet = Instantiate(projectileprefab, spawnPos, transform.rotation).GetComponent<Sin>();
         bullet.Shooter = this;
         bullet.direction = transform.forward;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
-        bullet = Instantiate<Sin>(bullet, transform.position + transform.forward * 0.01f + transform.right * 0.3f, Quaternion.identity);
     }
 
     private void ResetDivisionByZeroCooldown()
@@ -130,12 +130,12 @@ public class Mathematician : EnemyAll
     {
         for (int i = 1; i <= numberofshots; i++)
         {
-            Sin bullet = projectileprefab.GetComponent<Sin>();
+            Vector3 spawnPos = transform.position + transform.forward * 2;
+            Sin bullet = Instantiate(projectileprefab, spawnPos, transform.rotation).GetComponent<Sin>();
             bullet.Shooter = this;
             bullet.PushStrength = 0;
             bullet.direction = transform.forward;
             bullet.damage = Damage + i * ArithmeticDamageIncrease;
-            Instantiate<Sin>(bullet, transform.position + transform.forward * 2, Quaternion.identity);
             yield return new WaitForSeconds(delay);
         }
         ResetAttack();
