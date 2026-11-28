@@ -28,7 +28,7 @@ public class TreasureChestScript : MonoBehaviour
     private bool isChanging = false;
 
 #if UNITY_EDITOR
-    [SerializeField] bool debug = false;
+    //[SerializeField] bool debug = false;
 #endif
 
     public static TreasureChestScript instance { get; private set; }
