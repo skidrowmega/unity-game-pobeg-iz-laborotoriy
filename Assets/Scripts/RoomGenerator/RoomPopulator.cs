@@ -26,7 +26,6 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
 
     float difficultyMulPointPool;
     [SerializeField] Vector2 MaxOffset = new Vector2(9, 9);
-    [SerializeField] int WeakEnemiesAmount = 1;
     private int limit = 0;
 
     protected void Start()
@@ -42,33 +41,38 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
 
         if (!cantDeleteWeakEnemy && time - lastDeleteWeakEnemy >= timeToDeleteWeakEnemy)
         {
+            //Debug.Log("Time to Delete Enemy");
+            //Debug.Log(Time.time);
             DeleteWeakEnemy();
             lastDeleteWeakEnemy += time;
         }
         if (!cantCanCreateStrongEnemy && time - lastCreateStrongEnemy >= timeToCreateStrongEnemy)
         {
+            //Debug.Log("Time to Create Enemy");
+            //Debug.Log(Time.time);
             CreateStrongEnemy();
             lastCreateStrongEnemy += time;
         }
 
         if (Time.time - lastspawntime > TimeUntilSpawn)
         {
-            difficultyMulPointPool = GameManager.Instance.DifficultyFactor;
-            SpawnForPoints();
+            //Debug.Log("Time to Spawn Enemy");
+            //Debug.Log(Time.time);
+            difficultyMulPointPool = GameManager.Instance.DifficultyFactor * 5;
             currentPointPool = (int)(basePointPool + difficultyMulPointPool);
+            SpawnForPoints();
         }
     }
 
     protected void SpawnForPoints()
     {
         limit = 0;
-        //print(Vector3.Distance(Player.player.transform.position, transform.position));
-        //print(Vector3.Distance(Player.player.transform.position, transform.position));
         if (Vector3.Distance(Player.player.transform.position, transform.position) <= spawnTriggerrangeMax && Vector3.Distance(Player.player.transform.position, transform.position) >= spawnTriggerrangeMin)
         {
-            //print("Рядом");
+            //Debug.Log(currentPointPool);
             while (currentPointPool >= minPoint && limit < 5)
             {
+                //Debug.Log("SPAWN!!!!!!");
                 limit++;
                 int ObstacleIndex = GetRandomObstacleIndex();
                 int PointsToSubstract = PrefabPoints[ObstacleIndex];
@@ -78,15 +82,10 @@ public class RoomPopulator : MonoBehaviour //чтобы потом не толь
                     Vector3 newOffset = new Vector3(Random.Range(-MaxOffset.x, MaxOffset.x), 0, Random.Range(-MaxOffset.y, MaxOffset.y));
                     GameObject spawnedEnemy = Instantiate(Obstacle, newOffset + transform.position, Quaternion.identity);
                     currentPointPool -= PointsToSubstract;
-                    lastspawntime = Time.time;
                 }
             }
-
         }
-        else
-        {
-            lastspawntime = Time.time;
-        }
+        lastspawntime = Time.time;
     }
 
     protected int GetRandomObstacleIndex()
