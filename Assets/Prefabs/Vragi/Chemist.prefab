@@ -90,7 +90,7 @@ MonoBehaviour:
   lingerPrefab: {fileID: 6438699758210820308, guid: 1c4a20cf54a101847971a0fb6850a718, type: 3}
   molotovprefab: {fileID: 5508267828064350972, guid: d7017405917546c45a519c4b94eeae1e, type: 3}
   stats: {fileID: 11400000, guid: d8d2ade4543d8dc4e81fa1b1de01fff3, type: 2}
-  MainScale: 0.2
+  MainScale: 0.3
   SpeedScale: 1
   DistanceScale: 15
   BasicFlightTime: 1

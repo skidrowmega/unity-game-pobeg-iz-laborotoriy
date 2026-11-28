@@ -90,7 +90,7 @@ MonoBehaviour:
   divisionParticles: {fileID: 5119717634234746317}
   projectileprefab: {fileID: 983280012385509640, guid: 904b3e165e59e32489758ff7ef75880f, type: 3}
   stats: {fileID: 11400000, guid: 5407539ae16f87b458bcd245040e0eec, type: 2}
-  MainScale: 0.2
+  MainScale: 0.3
   SpeedScale: 1.2
   DistanceScale: 20
   CriticalDistance: 4
