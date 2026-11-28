@@ -112,7 +112,7 @@ public class Mathematician : EnemyAll
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, RadiusDivisionByZero);
         foreach (Collider hit in hitColliders)
         {
-            if (hit.gameObject == gameObject) continue;
+            if (hit.tag == gameObject.tag) continue;
 
             Entity target = hit.GetComponent<Entity>();
 
