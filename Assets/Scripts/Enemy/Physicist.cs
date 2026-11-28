@@ -60,12 +60,12 @@ public class Physicist: EnemyAll
     
     protected override void Attack()
     {
-        Sin bullet = projectileprefab.GetComponent<Sin>();
+        Vector3 spawnPos = transform.position + Vector3.up * 1f + transform.forward * 0.01f;
+        Sin bullet = Instantiate(projectileprefab, spawnPos, transform.rotation).GetComponent<Sin>();
         bullet.Shooter = this;
         bullet.direction = transform.forward;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
-        bullet = Instantiate<Sin>(bullet, transform.position + transform.forward * 0.01f, Quaternion.identity);
     }
 
     public void TryGravitationalPush()

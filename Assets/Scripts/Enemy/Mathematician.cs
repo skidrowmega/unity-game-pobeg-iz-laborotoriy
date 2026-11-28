@@ -58,7 +58,7 @@ public class Mathematician : EnemyAll
 
     protected override void Attack()
     {
-        Vector3 spawnPos = transform.position + transform.forward * 0.01f + transform.right * 0.3f;
+        Vector3 spawnPos = transform.position + Vector3.up * 1f + transform.forward * 0.5f + transform.right * 0.3f;
         Sin bullet = Instantiate(projectileprefab, spawnPos, transform.rotation).GetComponent<Sin>();
         bullet.Shooter = this;
         bullet.direction = transform.forward;
@@ -130,7 +130,7 @@ public class Mathematician : EnemyAll
     {
         for (int i = 1; i <= numberofshots; i++)
         {
-            Vector3 spawnPos = transform.position + transform.forward * 2;
+            Vector3 spawnPos = transform.position + Vector3.up * 1f + transform.forward * 2f;
             Sin bullet = Instantiate(projectileprefab, spawnPos, transform.rotation).GetComponent<Sin>();
             bullet.Shooter = this;
             bullet.PushStrength = 0;
