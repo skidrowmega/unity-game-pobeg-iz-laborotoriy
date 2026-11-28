@@ -54,12 +54,12 @@ public class Chemist: EnemyAll
     }
     protected override void Attack()
     {
-        Projectile bullet = projectileprefab.GetComponent<Projectile>();
+        Vector3 spawnPos = transform.position + Vector3.up * 1f + transform.forward * 0.01f + transform.right * 0.3f;
+        Projectile bullet = Instantiate(projectileprefab, spawnPos, transform.rotation).GetComponent<Projectile>();
         bullet.Shooter = this;
         bullet.direction = transform.forward;
         bullet.damage = Damage;
         bullet.PushStrength = 0;
-        bullet = Instantiate<Projectile>(bullet, transform.position + transform.forward * 0.01f + transform.right * 0.3f, Quaternion.identity);
     }
 
     public void DoMolotovCocktail() 
