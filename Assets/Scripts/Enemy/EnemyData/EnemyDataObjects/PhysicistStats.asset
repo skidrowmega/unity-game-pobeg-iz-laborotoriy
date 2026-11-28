@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8abdf6ef512b29c4bb197a2d6fcc6704, type: 3}
   m_Name: PhysicistStats
   m_EditorClassIdentifier: Assembly-CSharp::PhysicistStats
-  baseHP: 10
-  baseDamage: 10
+  baseHP: 20
+  baseDamage: 15
   baseSpeed: 5
   baseAttackDuration: 1
   baseAttackDistance: 1

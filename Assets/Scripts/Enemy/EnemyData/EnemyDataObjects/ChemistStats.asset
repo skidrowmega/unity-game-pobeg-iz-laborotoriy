@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8b0df60eca262f42bd1217f00bb3a40, type: 3}
   m_Name: ChemistStats
   m_EditorClassIdentifier: Assembly-CSharp::ChemistStats
-  baseHP: 10
-  baseDamage: 10
+  baseHP: 15
+  baseDamage: 15
   baseSpeed: 5
   baseAttackDuration: 1.5
   baseAttackDistance: 1.5

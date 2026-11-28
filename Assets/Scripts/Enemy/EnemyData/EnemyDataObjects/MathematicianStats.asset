@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bde84367d261d54aa0c940ca38191b1, type: 3}
   m_Name: MathematicianStats
   m_EditorClassIdentifier: Assembly-CSharp::MathematicianStats
-  baseHP: 10
+  baseHP: 15
   baseDamage: 10
   baseSpeed: 5
   baseAttackDuration: 1
@@ -20,7 +20,7 @@ MonoBehaviour:
   baseStopDistance: 2
   basePushForce: 0
   baseAttackCooldown: 1.5
-  baseMathematicianArithmeticDamage: 2
+  baseMathematicianArithmeticDamage: 5
   baseMathematicianDivisionDamage: 20
   baseMathematicianArithmeticReload: 3
   baseMathematicianDivisionReload: 10
