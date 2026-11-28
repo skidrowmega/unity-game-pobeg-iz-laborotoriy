@@ -115,7 +115,7 @@ public class EnemyAll : Entity
     {
         if (DeathSounds!=null&&DeathSounds.Length > 0)
         {
-            print("PLAYED DEATH SOUND");
+            //print("PLAYED DEATH SOUND");
             //AudioPlayer.instance.PlaySound(transform.position, DeathSounds[Random.Range(0, DeathSounds.Length)]);
             //GetComponent<AudioSource>().PlayOneShot(DeathSounds[Random.Range(0,DeathSounds.Length)],1);
             AudioPlayer.PlayRandomSound(transform.position, DeathSounds);
@@ -209,7 +209,10 @@ public class EnemyAll : Entity
 
         direction.y = 0;
 
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        if (direction.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+        }
     }
 }
