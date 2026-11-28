@@ -26,7 +26,7 @@ public abstract class Projectile : MonoBehaviour
     }
     public virtual void HitEntity(Entity target)
     {
-        if (target != Shooter)
+        if (target.tag != Shooter.tag)
         {
             target.TakeDamage(damage, target.transform.position - direction, Shooter, PushStrength, damageType);
             Destroy(gameObject);
@@ -35,7 +35,7 @@ public abstract class Projectile : MonoBehaviour
 
     public virtual void HitObject(Collider target)
     {
-        //Destroy(target);
+        Destroy(gameObject);
     }
 
 
@@ -61,15 +61,19 @@ public abstract class Projectile : MonoBehaviour
         }
         else
         {
-            HitObject(hit.collider);
+            if (type == BulletType.Ricochet)
+            {
+                if (MaxRicochetCount != -1)
+                    if (RicochetCount > MaxRicochetCount) Destroy(gameObject);
+                RicochetCount++;
+                ReflectBullet(hit.normal);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-        if (type == BulletType.Ricochet)
-        {
-            if(MaxRicochetCount!=-1)
-                if (RicochetCount>MaxRicochetCount) Destroy(gameObject);
-            RicochetCount++;
-            ReflectBullet(hit.normal);
-        }
+
     }
     protected virtual void MoveBullet()
     {
